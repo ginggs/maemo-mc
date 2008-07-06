@@ -1,0 +1,15 @@
+#! /bin/sh
+
+set -e
+
+case "$1" in
+    purge)
+	rm -f /etc/mc/mc.lib /etc/mc/mc.ext /etc/mc/mc.menu
+	rmdir /etc/mc 2>/dev/null || true
+	;;
+    remove)
+	gtk-update-icon-cache -f /usr/share/icons/hicolor
+	;;
+esac
+
+#DEBHELPER#

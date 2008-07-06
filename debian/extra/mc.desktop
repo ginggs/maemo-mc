@@ -1,0 +1,14 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Type=Application
+Name=Midnight Commander
+Comment=Console-based file manager and visual shell
+Exec=osso-xterm -e mc
+Icon=mc
+# Terminal=true does not work in Maemo
+X-Window-Icon=mc
+X-Window-Icon-Dimmed=mc
+X-HildonDesk-ShowInToolbar=true
+X-Osso-Type=application/x-executable
+MimeType=application/x-executable

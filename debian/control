@@ -1,0 +1,26 @@
+Source: mc
+Section: user/tools
+Priority: optional
+Maintainer: Andrew Zabolotny <zap@homelink.ru>
+Build-Depends: debhelper (>> 4.0.0), libglib2.0-dev, gettext, sharutils, python
+Standards-Version: 3.7.3
+
+Package: mc
+Architecture: any
+Depends: file, libglib2.0-0 (>= 2.0), libc6 (>= 2.3.0)
+Suggests: perl, mime-support, zip, unzip, bzip2, links | w3m | lynx, arj
+Conflicts: mc-common, suidmanager (<< 0.52)
+Replaces: mc-common, manpages-pl (<= 20030210)
+Description: midnight commander - a powerful file manager
+ GNU Midnight Commander is a text-mode full-screen file manager. It
+ uses a two panel interface and a subshell for command execution. It
+ includes an internal editor with syntax highlighting and an internal
+ viewer with support for binary files. Also included is Virtual
+ Filesystem (VFS), that allows files on remote systems (e.g. FTP, SSH, 
+ SMB servers) and files inside archives to be manipulated like real files.
+XB-Maemo-Icon-26:
+ iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAIAAAAmKNuZAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A
+ /wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9gHBg8MFvbPCk4AAACQSURBVEjH
+ 7ZTBDYAwCEU/phvB/hPgTHhAa7ViNCHqQU7wQuC1BwhmyAsCgnEGUFwGvMzQVka0LnDekkNYSbLd
+ gNQo84b+S+vyvozbyoYinntYdvy3++1es7sel+xu3bNTTk+dz7SLQssVs+CPdiZNkm6XOS09mFlV
+ PypHqsos47gXFBEzOPeGtq3mIuKPczIBuf5TtA06zUsAAAAASUVORK5CYII=

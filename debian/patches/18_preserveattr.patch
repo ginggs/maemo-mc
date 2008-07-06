@@ -1,0 +1,12 @@
+diff -up mc-2007-06-04-22/src/file.c.preserveattr mc-2007-06-04-22/src/file.c
+--- mc-2007-06-04-22/src/file.c.preserveattr	2007-11-14 14:45:23.000000000 +0100
++++ mc-2007-06-04-22/src/file.c	2007-11-14 14:45:23.000000000 +0100
+@@ -800,7 +800,7 @@ copy_file_file (FileOpContext *ctx, cons
+ 	    }
+ 	}
+ 
+-	if (!appending) {
++	if (!appending && ctx->preserve) {
+ 	    while (mc_chmod (dst_path, (src_mode & ctx->umask_kill))) {
+ 		temp_status = file_error (
+ 			_(" Cannot chmod target file \"%s\" \n %s "), dst_path);

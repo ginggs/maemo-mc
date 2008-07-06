@@ -1,0 +1,16 @@
+#! /bin/sh
+
+set -e
+
+case "$1" in
+    configure|abort-upgrade)
+	update-alternatives --install /usr/bin/view view /usr/bin/mcview-debian 25 \
+	   --slave /usr/share/man/man1/view.1.gz view.1.gz /usr/share/man/man1/mcview.1.gz
+	update-alternatives --install /usr/bin/editor editor /usr/bin/mcedit-debian 25 \
+	   --slave /usr/share/man/man1/editor.1.gz editor.1.gz /usr/share/man/man1/mcedit.1.gz
+	gtk-update-icon-cache -f /usr/share/icons/hicolor
+	maemo-select-menu-location mc.desktop tana_fi_utilities
+	;;
+esac
+
+#DEBHELPER#

@@ -1,0 +1,73 @@
+# custom tweaks to cbs' debian/rules
+
+DEB_CONFIGURE_EXTRA_FLAGS := --with-screen=mcslang --enable-charset \
+	--with-samba --with-x --without-gpm-mouse --without-ext2undel
+DEB_CONFIGURE_LIBEXECDIR := "\$${prefix}/libexec"
+
+deb-extra-clean::
+	rm -f config.sub config.guess
+
+deb-binary-hook-mc:
+	uudecode debian/extra/icon.b64 -o debian/mc/usr/share/icons/hicolor/64x64/apps/mc.png
+	cp debian/extra/mc.desktop debian/mc/usr/share/applications/hildon
+
+	cp debian/extra/mcview-debian debian/mc/usr/bin/
+	cp debian/extra/mcedit-debian debian/mc/usr/bin/
+
+	chmod a+x debian/mc/usr/share/mc/edit.spell.rc
+	chmod a+x debian/mc/usr/share/mc/edit.indent.rc
+
+	cp lib/mc.sh debian/mc/etc/profile.d
+	cp lib/mc.csh debian/mc/etc/profile.d
+
+	mv -f debian/mc/usr/share/mc/cedit.menu debian/mc/etc/mc
+	mv -f debian/mc/usr/share/mc/edit.indent.rc debian/mc/etc/mc
+	mv -f debian/mc/usr/share/mc/edit.spell.rc debian/mc/etc/mc
+	mv -f debian/mc/usr/share/mc/mc.ext debian/mc/etc/mc
+	mv -f debian/mc/usr/share/mc/mc.lib debian/mc/etc/mc
+	mv -f debian/mc/usr/share/mc/mc.menu debian/mc/etc/mc
+	mv -f debian/mc/usr/share/mc/mc.charsets debian/mc/etc/mc
+	mv -f debian/mc/usr/share/mc/extfs/*.ini debian/mc/etc/mc/extfs
+	mv -f debian/mc/usr/share/mc/syntax/Syntax debian/mc/etc/mc/syntax
+
+	# convert docs to UTF8. Use a hand-made Python script instead of
+	# iconv because Maemo build environment does not support ISO8859-5.
+	# On the other hand, Python does not support BIG5. Oh well...
+	python debian/conv.py ISO-8859-1 UTF-8 \
+		debian/mc/usr/share/mc/mc.hint \
+		debian/mc/usr/share/mc/mc.hlp \
+		debian/mc/usr/share/mc/mc.hint.es \
+		debian/mc/usr/share/mc/mc.hlp.es \
+		debian/mc/usr/share/mc/mc.hint.it \
+		debian/mc/usr/share/mc/mc.hlp.it \
+		debian/mc/usr/share/mc/mc.hint.nl
+	python debian/conv.py ISO-8859-2 UTF-8 \
+		debian/mc/usr/share/mc/mc.hint.cs \
+		debian/mc/usr/share/mc/mc.hint.hu \
+		debian/mc/usr/share/mc/mc.hlp.hu \
+		debian/mc/usr/share/mc/mc.hint.pl \
+		debian/mc/usr/share/mc/mc.hlp.pl
+	python debian/conv.py ISO-8859-5 UTF-8 \
+		debian/mc/usr/share/mc/mc.hint.sr \
+		debian/mc/usr/share/mc/mc.hlp.sr \
+		debian/mc/usr/share/mc/mc.menu.sr
+	python debian/conv.py KOI8-R UTF-8 \
+		debian/mc/usr/share/mc/mc.hint.ru \
+		debian/mc/usr/share/mc/mc.hlp.ru
+	python debian/conv.py KOI8-U UTF-8 \
+		debian/mc/usr/share/mc/mc.hint.uk
+	iconv -f BIG5 -t UTF-8 \
+		debian/mc/usr/share/mc/mc.hint.zh >__tmp__ && \
+		mv -f __tmp__ debian/mc/usr/share/mc/mc.hint.zh
+
+	# convert man pages in /doc to UTF-8
+	python debian/conv.py KOI8-R UTF-8 \
+		debian/mc/usr/share/man/ru/man1/mc.1
+	python debian/conv.py ISO-8859-5 UTF-8 \
+		debian/mc/usr/share/man/sr/man1/mc.1
+	python debian/conv.py ISO-8859-3 UTF-8 \
+		debian/mc/usr/share/man/es/man1/mc.1 \
+		debian/mc/usr/share/man/it/man1/mc.1
+	python debian/conv.py ISO-8859-2 UTF-8 \
+		debian/mc/usr/share/man/hu/man1/mc.1 \
+		debian/mc/usr/share/man/pl/man1/mc.1

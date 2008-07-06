@@ -1,0 +1,24 @@
+This package was debianized by Paul Seelig <pseelig@mail.uni-mainz.de>
+on Tue Apr 1 14:32:15 1997. It has been maintained by Michael Bramer
+and Martin Bialasinski <mc@internet-treff.uni-koeln.de>.
+The source code and patches from Fedora 9 were imported by
+Andrew Zabolotny <zap@homelink.ru>.
+
+From Jan 2004 this package is maintained by:
+   Stefano Melchior <stefano.melchior@openlabs.it> and Ludovic Drolez <ldrolez@free.fr>
+
+From Dec 2002 to Dec 2004 this package was maintained by:
+   Adam Byrtek <alpha@debian.org>
+
+It was downloaded from:
+   http://www.ibiblio.org/pub/Linux/utils/file/managers/mc/
+   
+Homepage:
+   http://www.ibiblio.org/mc/
+   
+Authors:
+   See /usr/share/doc/mc/AUTHORS
+
+Copyright:
+   This software is released under a GPL license - see the
+   /usr/share/common-licenses/GPL file.
