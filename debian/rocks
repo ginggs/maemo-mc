@@ -1,5 +1,10 @@
 # custom tweaks to cbs' debian/rules
 
+ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
+    NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
+    MAKEFLAGS += -j$(NUMJOBS)
+endif
+
 DEB_CONFIGURE_EXTRA_FLAGS := --with-screen=mcslang --enable-charset \
 	--with-samba --with-x --without-gpm-mouse --without-ext2undel
 DEB_CONFIGURE_LIBEXECDIR := "\$${prefix}/libexec"

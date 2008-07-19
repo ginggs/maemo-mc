@@ -7,8 +7,8 @@ Standards-Version: 3.7.3
 
 Package: mc
 Architecture: any
-Depends: file, libglib2.0-0 (>= 2.0), libc6 (>= 2.3.0)
-Suggests: perl, mime-support, zip, unzip, bzip2, links | w3m | lynx, arj
+Depends: file, libglib2.0-0 (>= 2.0), libc6 (>= 2.3.0), ncurses-base
+Suggests: perl, mime-support, zip, unzip, bzip2, links | w3m | lynx, arj, bash
 Conflicts: mc-common, suidmanager (<< 0.52)
 Replaces: mc-common, manpages-pl (<= 20030210)
 Description: midnight commander - a powerful file manager
