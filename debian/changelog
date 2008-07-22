@@ -1,3 +1,12 @@
+mc (1:4.6.2-pre1-1maemo3) diablo; urgency=low
+
+  * Adapted from mc 4.6.1 and applied the color-file-by-type patches from
+    X-Stranger <xstranger@jabber.org.by>, with heavy modifications by me
+  * Applied another my patch which makes VFS a bit faster by removing
+    a search in a chained list on every VFS operation.
+
+ -- Andrew Zabolotny <zap@homelink.ru>  Tue, 22 Jul 2008 22:52:15 +0400
+
 mc (1:4.6.2-pre1-1maemo2) diablo; urgency=low
 
   * Added dependency on terminfo-base. Without terminfo data mc
