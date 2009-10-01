@@ -1,0 +1,174 @@
+Hmm...  Looks like a unified diff to me...
+can't find file to patch at input line 3
+Perhaps you used the wrong -p or --strip option?
+The text leading up to this was:
+--------------------------
+|--- mc-4.6.1a/src/charsets.c.etcmc	2005-05-27 05:35:15.000000000 +0200
+|+++ mc-4.6.1a/src/charsets.c	2006-02-24 15:17:05.000000000 +0100
+--------------------------
+File to patch: 
+Skip this patch? [y] 
+Skipping patch.
+Hunk #1 ignored at 45.
+1 out of 1 hunk ignored
+Hmm...  The next patch looks like a unified diff to me...
+can't find file to patch at input line 24
+Perhaps you used the wrong -p or --strip option?
+The text leading up to this was:
+--------------------------
+|--- mc-4.6.1a/src/main.h.etcmc	2006-02-24 15:17:05.000000000 +0100
+|+++ mc-4.6.1a/src/main.h	2006-02-24 15:17:05.000000000 +0100
+--------------------------
+File to patch: 
+Skip this patch? [y] 
+Skipping patch.
+Hunk #1 ignored at 112.
+1 out of 1 hunk ignored
+Hmm...  The next patch looks like a unified diff to me...
+can't find file to patch at input line 35
+Perhaps you used the wrong -p or --strip option?
+The text leading up to this was:
+--------------------------
+|--- mc-4.6.1a/src/ext.c.etcmc	2005-07-31 22:29:35.000000000 +0200
+|+++ mc-4.6.1a/src/ext.c	2006-02-24 15:17:05.000000000 +0100
+--------------------------
+File to patch: 
+Skip this patch? [y] 
+Skipping patch.
+Hunk #1 ignored at 444.
+1 out of 1 hunk ignored
+Hmm...  The next patch looks like a unified diff to me...
+can't find file to patch at input line 48
+Perhaps you used the wrong -p or --strip option?
+The text leading up to this was:
+--------------------------
+|--- mc-4.6.1a/src/setup.c.etcmc	2006-01-29 21:26:05.000000000 +0100
+|+++ mc-4.6.1a/src/setup.c	2006-02-24 15:17:05.000000000 +0100
+--------------------------
+File to patch: 
+Skip this patch? [y] 
+Skipping patch.
+Hunk #1 ignored at 481.
+Hunk #2 ignored at 501.
+2 out of 2 hunks ignored
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|--- mc-4.6.1a/src/Makefile.am.etcmc	2006-02-04 12:13:30.000000000 +0100
+|+++ mc-4.6.1a/src/Makefile.am	2006-02-24 15:17:05.000000000 +0100
+--------------------------
+Patching file Makefile.am using Plan A...
+Hunk #1 FAILED at 8.
+1 out of 1 hunk FAILED -- saving rejects to file Makefile.am.rej
+Hmm...  The next patch looks like a unified diff to me...
+can't find file to patch at input line 95
+Perhaps you used the wrong -p or --strip option?
+The text leading up to this was:
+--------------------------
+|--- mc-4.6.1a/src/util.c.etcmc	2006-02-24 15:17:05.000000000 +0100
+|+++ mc-4.6.1a/src/util.c	2006-02-24 15:17:05.000000000 +0100
+--------------------------
+File to patch: 
+Skip this patch? [y] 
+Skipping patch.
+Hunk #1 ignored at 40.
+Hunk #2 ignored at 950.
+2 out of 2 hunks ignored
+Hmm...  The next patch looks like a unified diff to me...
+can't find file to patch at input line 139
+Perhaps you used the wrong -p or --strip option?
+The text leading up to this was:
+--------------------------
+|--- mc-4.6.1a/src/cmd.c.etcmc	2006-02-04 12:12:28.000000000 +0100
+|+++ mc-4.6.1a/src/cmd.c	2006-02-24 15:17:05.000000000 +0100
+--------------------------
+File to patch: 
+Skip this patch? [y] 
+Skipping patch.
+Hunk #1 ignored at 570.
+Hunk #2 ignored at 594.
+Hunk #3 ignored at 608.
+Hunk #4 ignored at 666.
+4 out of 4 hunks ignored
+Hmm...  The next patch looks like a unified diff to me...
+can't find file to patch at input line 188
+Perhaps you used the wrong -p or --strip option?
+The text leading up to this was:
+--------------------------
+|--- mc-4.6.1a/src/main.c.etcmc	2006-02-24 15:17:05.000000000 +0100
+|+++ mc-4.6.1a/src/main.c	2006-02-24 15:17:05.000000000 +0100
+--------------------------
+File to patch: 
+Skip this patch? [y] 
+Skipping patch.
+Hunk #1 ignored at 282.
+Hunk #2 ignored at 1817.
+Hunk #3 ignored at 1948.
+Hunk #4 ignored at 2326.
+4 out of 4 hunks ignored
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|--- mc-4.6.1a/src/Makefile.in.etcmc	2006-02-15 21:12:44.000000000 +0100
+|+++ mc-4.6.1a/src/Makefile.in	2006-02-24 15:17:05.000000000 +0100
+--------------------------
+Patching file Makefile.in using Plan A...
+Hunk #1 FAILED at 314.
+1 out of 1 hunk FAILED -- saving rejects to file Makefile.in.rej
+Hmm...  The next patch looks like a unified diff to me...
+can't find file to patch at input line 247
+Perhaps you used the wrong -p or --strip option?
+The text leading up to this was:
+--------------------------
+|--- mc-4.6.1a/src/user.c.etcmc	2006-02-04 15:41:42.000000000 +0100
+|+++ mc-4.6.1a/src/user.c	2006-02-24 15:17:05.000000000 +0100
+--------------------------
+File to patch: 
+Skip this patch? [y] 
+Skipping patch.
+Hunk #1 ignored at 726.
+1 out of 1 hunk ignored
+Hmm...  The next patch looks like a unified diff to me...
+can't find file to patch at input line 261
+Perhaps you used the wrong -p or --strip option?
+The text leading up to this was:
+--------------------------
+|--- mc-4.6.1a/edit/editcmd.c.etcmc	2006-02-24 15:17:05.000000000 +0100
+|+++ mc-4.6.1a/edit/editcmd.c	2006-02-24 15:17:05.000000000 +0100
+--------------------------
+File to patch: 
+Skip this patch? [y] 
+Skipping patch.
+Hunk #1 ignored at 49.
+Hunk #2 ignored at 2790.
+2 out of 2 hunks ignored
+Hmm...  The next patch looks like a unified diff to me...
+can't find file to patch at input line 294
+Perhaps you used the wrong -p or --strip option?
+The text leading up to this was:
+--------------------------
+|--- mc-4.6.1a/edit/syntax.c.etcmc	2006-02-04 15:41:42.000000000 +0100
+|+++ mc-4.6.1a/edit/syntax.c	2006-02-24 15:17:05.000000000 +0100
+--------------------------
+File to patch: 
+Skip this patch? [y] 
+Skipping patch.
+Hunk #1 ignored at 37.
+Hunk #2 ignored at 680.
+2 out of 2 hunks ignored
+Hmm...  The next patch looks like a unified diff to me...
+can't find file to patch at input line 318
+Perhaps you used the wrong -p or --strip option?
+The text leading up to this was:
+--------------------------
+|--- mc-4.6.1a/vfs/extfs.c.etcmc	2005-09-05 02:52:57.000000000 +0200
+|+++ mc-4.6.1a/vfs/extfs.c	2006-02-24 15:22:16.000000000 +0100
+--------------------------
+File to patch: 
+Skip this patch? [y] 
+Skipping patch.
+Hunk #1 ignored at 242.
+Hunk #2 ignored at 617.
+Hunk #3 ignored at 646.
+3 out of 3 hunks ignored
+done

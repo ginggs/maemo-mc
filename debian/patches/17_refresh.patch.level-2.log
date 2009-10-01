@@ -1,0 +1,14 @@
+Hmm...  Looks like a unified diff to me...
+can't find file to patch at input line 3
+Perhaps you used the wrong -p or --strip option?
+The text leading up to this was:
+--------------------------
+|--- mc-2007-06-04-22/src/file.c.refresh	2007-06-19 10:23:47.000000000 +0200
+|+++ mc-2007-06-04-22/src/file.c	2007-06-19 10:33:02.000000000 +0200
+--------------------------
+File to patch: 
+Skip this patch? [y] 
+Skipping patch.
+Hunk #1 ignored at 746.
+1 out of 1 hunk ignored
+done

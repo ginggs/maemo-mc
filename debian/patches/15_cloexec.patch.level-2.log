@@ -1,0 +1,15 @@
+Hmm...  Looks like a unified diff to me...
+can't find file to patch at input line 3
+Perhaps you used the wrong -p or --strip option?
+The text leading up to this was:
+--------------------------
+|--- mc-2006-11-14-16/src/subshell.c.desleak	2006-05-08 22:59:48.000000000 +0200
+|+++ mc-2006-11-14-16/src/subshell.c	2006-11-23 09:50:30.000000000 +0100
+--------------------------
+File to patch: 
+Skip this patch? [y] 
+Skipping patch.
+Hunk #1 ignored at 1150.
+Hunk #2 ignored at 1203.
+2 out of 2 hunks ignored
+done

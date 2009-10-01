@@ -1,3 +1,10 @@
+mc (1:4.6.2-pre1-1maemo4) diablo; urgency=low
+
+  * Removed Mime-Type from .deskop file
+  * First attempt at fremantle build
+
+ -- Andrew Zabolotny <zap@homelink.ru>  Thu,  1 Oct 2009 15:08:08 +0400
+
 mc (1:4.6.2-pre1-1maemo3) diablo; urgency=low
 
   * Adapted from mc 4.6.1 and applied the color-file-by-type patches from

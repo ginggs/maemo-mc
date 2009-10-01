@@ -1,0 +1,13 @@
+Hmm...  Looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|--- mc-4.6.1a/src/file.c.delcheck	2006-04-28 13:46:33.000000000 +0200
+|+++ mc-4.6.1a/src/file.c	2006-04-28 13:52:48.000000000 +0200
+--------------------------
+Patching file src/file.c using Plan A...
+Unreversed patch detected!  Ignore -R? [n] 
+Apply anyway? [n] 
+Skipping patch.
+Hunk #1 ignored at 1743.
+1 out of 1 hunk ignored -- saving rejects to file src/file.c.rej
+done

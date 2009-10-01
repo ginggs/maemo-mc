@@ -1,0 +1,169 @@
+Hmm...  Looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|--- mc-4.6.1a/src/charsets.c.etcmc	2005-05-27 05:35:15.000000000 +0200
+|+++ mc-4.6.1a/src/charsets.c	2006-02-24 15:17:05.000000000 +0100
+--------------------------
+Patching file src/charsets.c using Plan A...
+Unreversed patch detected!  Ignore -R? [n] 
+Apply anyway? [n] 
+Skipping patch.
+Hunk #1 ignored at 45.
+1 out of 1 hunk ignored -- saving rejects to file src/charsets.c.rej
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|--- mc-4.6.1a/src/main.h.etcmc	2006-02-24 15:17:05.000000000 +0100
+|+++ mc-4.6.1a/src/main.h	2006-02-24 15:17:05.000000000 +0100
+--------------------------
+Patching file src/main.h using Plan A...
+Unreversed patch detected!  Ignore -R? [n] 
+Apply anyway? [n] 
+Skipping patch.
+Hunk #1 ignored at 110.
+1 out of 1 hunk ignored -- saving rejects to file src/main.h.rej
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|--- mc-4.6.1a/src/ext.c.etcmc	2005-07-31 22:29:35.000000000 +0200
+|+++ mc-4.6.1a/src/ext.c	2006-02-24 15:17:05.000000000 +0100
+--------------------------
+Patching file src/ext.c using Plan A...
+Unreversed patch detected!  Ignore -R? [n] 
+Apply anyway? [n] 
+Skipping patch.
+Hunk #1 ignored at 444.
+1 out of 1 hunk ignored -- saving rejects to file src/ext.c.rej
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|--- mc-4.6.1a/src/setup.c.etcmc	2006-01-29 21:26:05.000000000 +0100
+|+++ mc-4.6.1a/src/setup.c	2006-02-24 15:17:05.000000000 +0100
+--------------------------
+Patching file src/setup.c using Plan A...
+Unreversed patch detected!  Ignore -R? [n] 
+Apply anyway? [n] 
+Skipping patch.
+Hunk #1 ignored at 483.
+Hunk #2 ignored at 503.
+2 out of 2 hunks ignored -- saving rejects to file src/setup.c.rej
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|--- mc-4.6.1a/src/Makefile.am.etcmc	2006-02-04 12:13:30.000000000 +0100
+|+++ mc-4.6.1a/src/Makefile.am	2006-02-24 15:17:05.000000000 +0100
+--------------------------
+Patching file src/Makefile.am using Plan A...
+Unreversed patch detected!  Ignore -R? [n] 
+Apply anyway? [n] 
+Skipping patch.
+Hunk #1 ignored at 8.
+1 out of 1 hunk ignored -- saving rejects to file src/Makefile.am.rej
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|--- mc-4.6.1a/src/util.c.etcmc	2006-02-24 15:17:05.000000000 +0100
+|+++ mc-4.6.1a/src/util.c	2006-02-24 15:17:05.000000000 +0100
+--------------------------
+Patching file src/util.c using Plan A...
+Unreversed patch detected!  Ignore -R? [n] 
+Apply anyway? [n] 
+Skipping patch.
+Hunk #1 ignored at 36.
+Hunk #2 ignored at 946.
+2 out of 2 hunks ignored -- saving rejects to file src/util.c.rej
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|--- mc-4.6.1a/src/cmd.c.etcmc	2006-02-04 12:12:28.000000000 +0100
+|+++ mc-4.6.1a/src/cmd.c	2006-02-24 15:17:05.000000000 +0100
+--------------------------
+Patching file src/cmd.c using Plan A...
+Unreversed patch detected!  Ignore -R? [n] 
+Apply anyway? [n] 
+Skipping patch.
+Hunk #1 ignored at 570.
+Hunk #2 ignored at 594.
+Hunk #3 ignored at 608.
+Hunk #4 ignored at 666.
+4 out of 4 hunks ignored -- saving rejects to file src/cmd.c.rej
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|--- mc-4.6.1a/src/main.c.etcmc	2006-02-24 15:17:05.000000000 +0100
+|+++ mc-4.6.1a/src/main.c	2006-02-24 15:17:05.000000000 +0100
+--------------------------
+Patching file src/main.c using Plan A...
+Unreversed patch detected!  Ignore -R? [n] 
+Apply anyway? [n] 
+Skipping patch.
+Hunk #1 ignored at 275.
+Hunk #2 ignored at 1810.
+Hunk #3 ignored at 1941.
+Hunk #4 ignored at 2319.
+4 out of 4 hunks ignored -- saving rejects to file src/main.c.rej
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|--- mc-4.6.1a/src/Makefile.in.etcmc	2006-02-15 21:12:44.000000000 +0100
+|+++ mc-4.6.1a/src/Makefile.in	2006-02-24 15:17:05.000000000 +0100
+--------------------------
+Patching file src/Makefile.in using Plan A...
+Unreversed patch detected!  Ignore -R? [n] 
+Apply anyway? [n] 
+Skipping patch.
+Hunk #1 ignored at 314.
+1 out of 1 hunk ignored -- saving rejects to file src/Makefile.in.rej
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|--- mc-4.6.1a/src/user.c.etcmc	2006-02-04 15:41:42.000000000 +0100
+|+++ mc-4.6.1a/src/user.c	2006-02-24 15:17:05.000000000 +0100
+--------------------------
+Patching file src/user.c using Plan A...
+Unreversed patch detected!  Ignore -R? [n] 
+Apply anyway? [n] 
+Skipping patch.
+Hunk #1 ignored at 725.
+1 out of 1 hunk ignored -- saving rejects to file src/user.c.rej
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|--- mc-4.6.1a/edit/editcmd.c.etcmc	2006-02-24 15:17:05.000000000 +0100
+|+++ mc-4.6.1a/edit/editcmd.c	2006-02-24 15:17:05.000000000 +0100
+--------------------------
+Patching file edit/editcmd.c using Plan A...
+Unreversed patch detected!  Ignore -R? [n] 
+Apply anyway? [n] 
+Skipping patch.
+Hunk #1 ignored at 49.
+Hunk #2 ignored at 2790.
+2 out of 2 hunks ignored -- saving rejects to file edit/editcmd.c.rej
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|--- mc-4.6.1a/edit/syntax.c.etcmc	2006-02-04 15:41:42.000000000 +0100
+|+++ mc-4.6.1a/edit/syntax.c	2006-02-24 15:17:05.000000000 +0100
+--------------------------
+Patching file edit/syntax.c using Plan A...
+Unreversed patch detected!  Ignore -R? [n] 
+Apply anyway? [n] 
+Skipping patch.
+Hunk #1 ignored at 37.
+Hunk #2 ignored at 680.
+2 out of 2 hunks ignored -- saving rejects to file edit/syntax.c.rej
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|--- mc-4.6.1a/vfs/extfs.c.etcmc	2005-09-05 02:52:57.000000000 +0200
+|+++ mc-4.6.1a/vfs/extfs.c	2006-02-24 15:22:16.000000000 +0100
+--------------------------
+Patching file vfs/extfs.c using Plan A...
+Unreversed patch detected!  Ignore -R? [n] 
+Apply anyway? [n] 
+Skipping patch.
+Hunk #1 ignored at 245.
+Hunk #2 ignored at 620.
+Hunk #3 ignored at 649.
+3 out of 3 hunks ignored -- saving rejects to file vfs/extfs.c.rej
+done

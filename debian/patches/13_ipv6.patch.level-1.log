@@ -1,0 +1,39 @@
+Hmm...  Looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|--- mc-2006-09-12-21/vfs/ftpfs.c.ipv6	2006-03-08 16:17:55.000000000 +0100
+|+++ mc-2006-09-12-21/vfs/ftpfs.c	2006-09-26 10:43:27.000000000 +0200
+--------------------------
+Patching file vfs/ftpfs.c using Plan A...
+Unreversed patch detected!  Ignore -R? [n] 
+Apply anyway? [n] 
+Skipping patch.
+Hunk #1 ignored at 639.
+Hunk #2 ignored at 657.
+Hunk #3 ignored at 861.
+3 out of 3 hunks ignored -- saving rejects to file vfs/ftpfs.c.rej
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|--- mc-2006-09-12-21/vfs/ftpfs.h.ipv6	2005-05-29 14:10:08.000000000 +0200
+|+++ mc-2006-09-12-21/vfs/ftpfs.h	2006-09-26 10:42:36.000000000 +0200
+--------------------------
+Patching file vfs/ftpfs.h using Plan A...
+Unreversed patch detected!  Ignore -R? [n] 
+Apply anyway? [n] 
+Skipping patch.
+Hunk #1 ignored at 15.
+1 out of 1 hunk ignored -- saving rejects to file vfs/ftpfs.h.rej
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|--- mc-2006-08-12-18/vfs/utilvfs.c.ipv6	2006-01-30 18:01:58.000000000 +0100
+|+++ mc-2006-08-12-18/vfs/utilvfs.c	2010-12-14 20:41:09.000000000 +0100
+--------------------------
+Patching file vfs/utilvfs.c using Plan A...
+Unreversed patch detected!  Ignore -R? [n] 
+Apply anyway? [n] 
+Skipping patch.
+Hunk #1 ignored at 109.
+1 out of 1 hunk ignored -- saving rejects to file vfs/utilvfs.c.rej
+done

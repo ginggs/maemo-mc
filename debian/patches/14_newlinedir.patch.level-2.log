@@ -1,0 +1,14 @@
+Hmm...  Looks like a unified diff to me...
+can't find file to patch at input line 3
+Perhaps you used the wrong -p or --strip option?
+The text leading up to this was:
+--------------------------
+|--- mc-2006-11-14-16/src/main.c.newlinedir	2006-11-20 14:54:21.000000000 +0100
+|+++ mc-2006-11-14-16/src/main.c	2006-11-20 14:47:52.000000000 +0100
+--------------------------
+File to patch: 
+Skip this patch? [y] 
+Skipping patch.
+Hunk #1 ignored at 647.
+1 out of 1 hunk ignored
+done

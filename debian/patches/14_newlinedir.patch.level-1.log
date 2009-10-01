@@ -1,0 +1,13 @@
+Hmm...  Looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|--- mc-2006-11-14-16/src/main.c.newlinedir	2006-11-20 14:54:21.000000000 +0100
+|+++ mc-2006-11-14-16/src/main.c	2006-11-20 14:47:52.000000000 +0100
+--------------------------
+Patching file src/main.c using Plan A...
+Unreversed patch detected!  Ignore -R? [n] 
+Apply anyway? [n] 
+Skipping patch.
+Hunk #1 ignored at 586.
+1 out of 1 hunk ignored -- saving rejects to file src/main.c.rej
+done

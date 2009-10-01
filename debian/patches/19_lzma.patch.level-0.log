@@ -1,0 +1,138 @@
+Hmm...  Looks like a unified diff to me...
+can't find file to patch at input line 23
+Perhaps you used the wrong -p or --strip option?
+The text leading up to this was:
+--------------------------
+|# LZMA support for Midnight Commander
+|# 2006-03-17
+|#
+|# This patch adds basic support for LZMA compressed files to
+|# Midnight Commander 4.6.1. You should have LZMA utils 4.32.x
+|# or later. Older versions of LZMA utils will *not* work.
+|#
+|# Copyright (C) 2006 Lasse Collin <lasse.collin@tukaani.org>
+|#
+|# This patch is free software; you can redistribute it and/or modify
+|# it under the terms of the GNU General Public License as published by
+|# the Free Software Foundation; either version 2 of the License, or
+|# (at your option) any later version.
+|#
+|# This program is distributed in the hope that it will be useful,
+|# but WITHOUT ANY WARRANTY; without even the implied warranty of
+|# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+|# GNU General Public License for more details.
+|
+|diff -Naru mc-4.6.1.orig/edit/edit.c mc-4.6.1/edit/edit.c
+|--- mc-4.6.1.orig/edit/edit.c	2005-05-27 17:19:18.000000000 +0300
+|+++ mc-4.6.1/edit/edit.c	2006-03-17 17:39:49.000000000 +0200
+--------------------------
+File to patch: 
+Skip this patch? [y] 
+Skipping patch.
+Hunk #1 ignored at 186.
+1 out of 1 hunk ignored
+Hmm...  The next patch looks like a unified diff to me...
+can't find file to patch at input line 35
+Perhaps you used the wrong -p or --strip option?
+The text leading up to this was:
+--------------------------
+|
+|diff -Naru mc-4.6.1.orig/src/util.c mc-4.6.1/src/util.c
+|--- mc-4.6.1.orig/src/util.c	2005-05-27 17:19:18.000000000 +0300
+|+++ mc-4.6.1/src/util.c	2006-03-17 18:20:50.000000000 +0200
+--------------------------
+File to patch: 
+Skip this patch? [y] 
+Skipping patch.
+Hunk #1 ignored at 900.
+Hunk #2 ignored at 944.
+Hunk #3 ignored at 954.
+3 out of 3 hunks ignored
+Hmm...  The next patch looks like a unified diff to me...
+can't find file to patch at input line 87
+Perhaps you used the wrong -p or --strip option?
+The text leading up to this was:
+--------------------------
+|diff -Naru mc-4.6.1.orig/src/util.h mc-4.6.1/src/util.h
+|--- mc-4.6.1.orig/src/util.h	2005-01-13 21:20:47.000000000 +0200
+|+++ mc-4.6.1/src/util.h	2006-03-17 17:34:34.000000000 +0200
+--------------------------
+File to patch: 
+Skip this patch? [y] 
+Skipping patch.
+Hunk #1 ignored at 169.
+1 out of 1 hunk ignored
+Hmm...  The next patch looks like a unified diff to me...
+can't find file to patch at input line 100
+Perhaps you used the wrong -p or --strip option?
+The text leading up to this was:
+--------------------------
+|diff -Naru mc-4.6.1.orig/vfs/extfs/iso9660.in mc-4.6.1/vfs/extfs/iso9660.in
+|--- mc-4.6.1.orig/vfs/extfs/iso9660.in	2004-10-29 12:14:38.000000000 +0300
+|+++ mc-4.6.1/vfs/extfs/iso9660.in	2006-03-17 17:45:28.000000000 +0200
+--------------------------
+File to patch: 
+Skip this patch? [y] 
+Skipping patch.
+Hunk #1 ignored at 25.
+1 out of 1 hunk ignored
+Hmm...  The next patch looks like a unified diff to me...
+can't find file to patch at input line 111
+Perhaps you used the wrong -p or --strip option?
+The text leading up to this was:
+--------------------------
+|diff -Naru mc-4.6.1.orig/vfs/extfs/lslR.in mc-4.6.1/vfs/extfs/lslR.in
+|--- mc-4.6.1.orig/vfs/extfs/lslR.in	2003-06-22 12:54:21.000000000 +0300
+|+++ mc-4.6.1/vfs/extfs/lslR.in	2006-03-17 17:45:08.000000000 +0200
+--------------------------
+File to patch: 
+Skip this patch? [y] 
+Skipping patch.
+Hunk #1 ignored at 12.
+1 out of 1 hunk ignored
+Hmm...  The next patch looks like a unified diff to me...
+can't find file to patch at input line 122
+Perhaps you used the wrong -p or --strip option?
+The text leading up to this was:
+--------------------------
+|diff -Naru mc-4.6.1.orig/vfs/extfs/mailfs.in mc-4.6.1/vfs/extfs/mailfs.in
+|--- mc-4.6.1.orig/vfs/extfs/mailfs.in	2002-12-24 08:56:17.000000000 +0200
+|+++ mc-4.6.1/vfs/extfs/mailfs.in	2006-03-17 17:53:47.000000000 +0200
+--------------------------
+File to patch: 
+Skip this patch? [y] 
+Skipping patch.
+Hunk #1 ignored at 7.
+Hunk #2 ignored at 132.
+2 out of 2 hunks ignored
+Hmm...  The next patch looks like a unified diff to me...
+can't find file to patch at input line 142
+Perhaps you used the wrong -p or --strip option?
+The text leading up to this was:
+--------------------------
+|diff -Naru mc-4.6.1.orig/vfs/extfs/patchfs.in mc-4.6.1/vfs/extfs/patchfs.in
+|--- mc-4.6.1.orig/vfs/extfs/patchfs.in	2004-11-17 01:00:40.000000000 +0200
+|+++ mc-4.6.1/vfs/extfs/patchfs.in	2006-03-17 17:52:47.000000000 +0200
+--------------------------
+File to patch: 
+Skip this patch? [y] 
+Skipping patch.
+Hunk #1 ignored at 12.
+Hunk #2 ignored at 70.
+Hunk #3 ignored at 86.
+3 out of 3 hunks ignored
+Hmm...  The next patch looks like a unified diff to me...
+can't find file to patch at input line 175
+Perhaps you used the wrong -p or --strip option?
+The text leading up to this was:
+--------------------------
+|diff -Naru mc-4.6.1.orig/vfs/extfs/sfs.ini mc-4.6.1/vfs/extfs/sfs.ini
+|--- mc-4.6.1.orig/vfs/extfs/sfs.ini	1998-12-15 17:57:43.000000000 +0200
+|+++ mc-4.6.1/vfs/extfs/sfs.ini	2006-03-17 17:44:01.000000000 +0200
+--------------------------
+File to patch: 
+Skip this patch? [y] 
+Skipping patch.
+Hunk #1 ignored at 10.
+1 out of 1 hunk ignored
+done

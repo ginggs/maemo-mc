@@ -1,0 +1,61 @@
+Hmm...  Looks like a unified diff to me...
+can't find file to patch at input line 3
+Perhaps you used the wrong -p or --strip option?
+The text leading up to this was:
+--------------------------
+|--- mc-2007-06-04-22/src/execute.c.prompt	2005-09-28 23:28:06.000000000 +0200
+|+++ mc-2007-06-04-22/src/execute.c	2007-06-20 14:07:17.000000000 +0200
+--------------------------
+File to patch: 
+Skip this patch? [y] 
+Skipping patch.
+Hunk #1 ignored at 140.
+1 out of 1 hunk ignored
+Hmm...  The next patch looks like a unified diff to me...
+can't find file to patch at input line 14
+Perhaps you used the wrong -p or --strip option?
+The text leading up to this was:
+--------------------------
+|--- mc-2007-06-04-22/src/main.c.prompt	2007-06-20 14:07:17.000000000 +0200
+|+++ mc-2007-06-04-22/src/main.c	2007-06-20 14:07:17.000000000 +0200
+--------------------------
+File to patch: 
+Skip this patch? [y] 
+Skipping patch.
+Hunk #1 ignored at 454.
+1 out of 1 hunk ignored
+Hmm...  The next patch looks like a unified diff to me...
+can't find file to patch at input line 25
+Perhaps you used the wrong -p or --strip option?
+The text leading up to this was:
+--------------------------
+|--- mc-2007-06-04-22/src/subshell.h.prompt	2004-12-03 20:17:47.000000000 +0100
+|+++ mc-2007-06-04-22/src/subshell.h	2007-06-20 14:07:17.000000000 +0200
+--------------------------
+File to patch: 
+Skip this patch? [y] 
+Skipping patch.
+Hunk #1 ignored at 20.
+1 out of 1 hunk ignored
+Hmm...  The next patch looks like a unified diff to me...
+can't find file to patch at input line 37
+Perhaps you used the wrong -p or --strip option?
+The text leading up to this was:
+--------------------------
+|--- mc-2007-06-04-22/src/subshell.c.prompt	2007-06-20 14:07:17.000000000 +0200
+|+++ mc-2007-06-04-22/src/subshell.c	2007-06-20 14:24:14.000000000 +0200
+--------------------------
+File to patch: 
+Skip this patch? [y] 
+Skipping patch.
+Hunk #1 ignored at 107.
+Hunk #2 ignored at 148.
+Hunk #3 ignored at 567.
+Hunk #4 ignored at 576.
+Hunk #5 ignored at 586.
+Hunk #6 ignored at 607.
+Hunk #7 ignored at 743.
+Hunk #8 ignored at 750.
+Hunk #9 ignored at 802.
+9 out of 9 hunks ignored
+done

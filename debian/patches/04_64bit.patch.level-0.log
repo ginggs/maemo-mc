@@ -1,0 +1,16 @@
+Hmm...  Looks like a unified diff to me...
+can't find file to patch at input line 3
+Perhaps you used the wrong -p or --strip option?
+The text leading up to this was:
+--------------------------
+|--- mc-4.6.1a/src/mountlist.c.64bit	2005-02-08 23:33:52.000000000 +0100
+|+++ mc-4.6.1a/src/mountlist.c	2005-05-10 17:09:24.122853504 +0200
+--------------------------
+File to patch: 
+Skip this patch? [y] 
+Skipping patch.
+Hunk #1 ignored at 131.
+Hunk #2 ignored at 665.
+Hunk #3 ignored at 672.
+3 out of 3 hunks ignored
+done

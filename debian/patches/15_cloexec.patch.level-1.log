@@ -1,0 +1,14 @@
+Hmm...  Looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|--- mc-2006-11-14-16/src/subshell.c.desleak	2006-05-08 22:59:48.000000000 +0200
+|+++ mc-2006-11-14-16/src/subshell.c	2006-11-23 09:50:30.000000000 +0100
+--------------------------
+Patching file src/subshell.c using Plan A...
+Unreversed patch detected!  Ignore -R? [n] 
+Apply anyway? [n] 
+Skipping patch.
+Hunk #1 ignored at 1109.
+Hunk #2 ignored at 1162.
+2 out of 2 hunks ignored -- saving rejects to file src/subshell.c.rej
+done

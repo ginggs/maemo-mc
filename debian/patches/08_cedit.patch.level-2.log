@@ -1,0 +1,14 @@
+Hmm...  Looks like a unified diff to me...
+can't find file to patch at input line 3
+Perhaps you used the wrong -p or --strip option?
+The text leading up to this was:
+--------------------------
+|--- mc-4.6.1a/lib/cedit.menu.changelog	2005-05-27 05:35:12.000000000 +0200
+|+++ mc-4.6.1a/lib/cedit.menu	2006-01-30 10:46:11.000000000 +0100
+--------------------------
+File to patch: 
+Skip this patch? [y] 
+Skipping patch.
+Hunk #1 ignored at 449.
+1 out of 1 hunk ignored
+done

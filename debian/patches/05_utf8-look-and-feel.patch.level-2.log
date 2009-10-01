@@ -1,0 +1,90 @@
+Hmm...  Looks like a unified diff to me...
+can't find file to patch at input line 4
+Perhaps you used the wrong -p or --strip option?
+The text leading up to this was:
+--------------------------
+|diff -ur mc-4.6.2-pre1.orig/slang/slcommon.c mc-4.6.2-pre1/slang/slcommon.c
+|--- mc-4.6.2-pre1.orig/slang/slcommon.c	2006-02-15 18:10:55.000000000 +0300
+|+++ mc-4.6.2-pre1/slang/slcommon.c	2008-07-06 18:31:21.000000000 +0400
+--------------------------
+File to patch: 
+Skip this patch? [y] 
+Skipping patch.
+Hunk #1 ignored at 31.
+Hunk #2 ignored at 87.
+2 out of 2 hunks ignored
+Hmm...  The next patch looks like a unified diff to me...
+can't find file to patch at input line 25
+Perhaps you used the wrong -p or --strip option?
+The text leading up to this was:
+--------------------------
+|diff -ur mc-4.6.2-pre1.orig/src/main.c mc-4.6.2-pre1/src/main.c
+|--- mc-4.6.2-pre1.orig/src/main.c	2008-07-06 18:31:02.000000000 +0400
+|+++ mc-4.6.2-pre1/src/main.c	2008-07-06 18:31:21.000000000 +0400
+--------------------------
+File to patch: 
+Skip this patch? [y] 
+Skipping patch.
+Hunk #1 ignored at 24.
+Hunk #2 ignored at 276.
+Hunk #3 ignored at 2163.
+3 out of 3 hunks ignored
+Hmm...  The next patch looks like a unified diff to me...
+can't find file to patch at input line 59
+Perhaps you used the wrong -p or --strip option?
+The text leading up to this was:
+--------------------------
+|diff -ur mc-4.6.2-pre1.orig/src/main.h mc-4.6.2-pre1/src/main.h
+|--- mc-4.6.2-pre1.orig/src/main.h	2008-07-06 18:31:02.000000000 +0400
+|+++ mc-4.6.2-pre1/src/main.h	2008-07-06 18:31:09.000000000 +0400
+--------------------------
+File to patch: 
+Skip this patch? [y] 
+Skipping patch.
+Hunk #1 ignored at 69.
+1 out of 1 hunk ignored
+Hmm...  The next patch looks like a unified diff to me...
+can't find file to patch at input line 70
+Perhaps you used the wrong -p or --strip option?
+The text leading up to this was:
+--------------------------
+|diff -ur mc-4.6.2-pre1.orig/src/screen.c mc-4.6.2-pre1/src/screen.c
+|--- mc-4.6.2-pre1.orig/src/screen.c	2008-07-06 18:31:02.000000000 +0400
+|+++ mc-4.6.2-pre1/src/screen.c	2008-07-06 18:31:09.000000000 +0400
+--------------------------
+File to patch: 
+Skip this patch? [y] 
+Skipping patch.
+Hunk #1 ignored at 888.
+Hunk #2 ignored at 1488.
+2 out of 2 hunks ignored
+Hmm...  The next patch looks like a unified diff to me...
+can't find file to patch at input line 92
+Perhaps you used the wrong -p or --strip option?
+The text leading up to this was:
+--------------------------
+|diff -ur mc-4.6.2-pre1.orig/src/widget.c mc-4.6.2-pre1/src/widget.c
+|--- mc-4.6.2-pre1.orig/src/widget.c	2008-07-06 18:31:02.000000000 +0400
+|+++ mc-4.6.2-pre1/src/widget.c	2008-07-06 18:31:09.000000000 +0400
+--------------------------
+File to patch: 
+Skip this patch? [y] 
+Skipping patch.
+Hunk #1 ignored at 1945.
+Hunk #2 ignored at 2031.
+2 out of 2 hunks ignored
+Hmm...  The next patch looks like a unified diff to me...
+can't find file to patch at input line 224
+Perhaps you used the wrong -p or --strip option?
+The text leading up to this was:
+--------------------------
+|diff -ur mc-4.6.2-pre1.orig/src/widget.h mc-4.6.2-pre1/src/widget.h
+|--- mc-4.6.2-pre1.orig/src/widget.h	2008-07-06 18:31:02.000000000 +0400
+|+++ mc-4.6.2-pre1/src/widget.h	2008-07-06 18:31:09.000000000 +0400
+--------------------------
+File to patch: 
+Skip this patch? [y] 
+Skipping patch.
+Hunk #1 ignored at 169.
+1 out of 1 hunk ignored
+done
