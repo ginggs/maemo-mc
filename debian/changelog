@@ -1,3 +1,10 @@
+mc (1:4.6.2-pre1-1maemo5) diablo; urgency=low
+
+  * Before invoking maemo-select-menu-location check that it actually exists.
+    In fremantle we don't have such thing.
+
+ -- Andrew Zabolotny <zap@homelink.ru>  Sat, 10 Oct 2009 12:45:10 +0400
+
 mc (1:4.6.2-pre1-1maemo4) diablo; urgency=low
 
   * Removed Mime-Type from .deskop file
