@@ -76,3 +76,4 @@ deb-binary-hook-mc:
 	python debian/conv.py ISO-8859-2 UTF-8 \
 		debian/mc/usr/share/man/hu/man1/mc.1 \
 		debian/mc/usr/share/man/pl/man1/mc.1
+	maemo-optify

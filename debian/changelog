@@ -1,3 +1,9 @@
+mc (1:4.6.2-pre1-1maemo8) fremantle; urgency=low
+
+  * Package optified, the right way this time.
+
+ -- Mohammad Abu-Garbeyyeh <mohammad7410@gmail.com>  Sat, 25 Apr 2010 00:24:50 +0400
+
 mc (1:4.6.2-pre1-1maemo7) fremantle; urgency=low
 
   * Package optified
