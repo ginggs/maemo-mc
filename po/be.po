@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mc 4.6.0\n"
 "Report-Msgid-Bugs-To: mc-devel@gnome.org\n"
-"POT-Creation-Date: 2007-09-11 17:35+0300\n"
+"POT-Creation-Date: 2008-07-23 01:57+0400\n"
 "PO-Revision-Date: 2002-08-25 16:15GMT+2\n"
 "Last-Translator: Vital Khilko <dojlid@mova.org>\n"
 "Language-Team: belarusian <i18n@mova.org>\n"
@@ -831,6 +831,41 @@ msgstr "Увесьці / адлюстраваць кодавую старонку:"
 
 msgid "&Select"
 msgstr "&Выбраць"
+
+#, fuzzy
+msgid "&Ok"
+msgstr "&Так"
+
+msgid "Databases"
+msgstr ""
+
+msgid "Graphics"
+msgstr ""
+
+msgid "Multimedia"
+msgstr ""
+
+#, fuzzy
+msgid "Sources"
+msgstr "Крыніца"
+
+msgid "Archives"
+msgstr ""
+
+msgid "Text/Doc Files"
+msgstr ""
+
+#, fuzzy
+msgid "Temp Files"
+msgstr " Файл "
+
+#, fuzzy
+msgid "Core Files"
+msgstr " Файл "
+
+#, fuzzy
+msgid " File highlighting "
+msgstr "Вылучэньне &колерам сынтаксысу"
 
 #, fuzzy
 msgid "Use passive mode over pro&xy"
@@ -2005,6 +2040,9 @@ msgstr "&Вертыкальнае"
 msgid "&Horizontal"
 msgstr "&Гарызантальнае"
 
+msgid "show free sp&Ace"
+msgstr ""
+
 #, fuzzy
 msgid "&Xterm window title"
 msgstr "Падказка ў &xterm"
@@ -2032,6 +2070,10 @@ msgstr "Правы д&оступу"
 
 msgid "&File types"
 msgstr "Тыпы &файлаў"
+
+#, fuzzy
+msgid "&Hidden files"
+msgstr "Адлюстроўваць с&хаваныя файлы"
 
 msgid " Panel split "
 msgstr " Расшчапленьне панеляў "
@@ -2121,6 +2163,10 @@ msgstr ""
 " паведаміў дачэрні працэс інтэрпрэтатару. Можа, вы \n"
 " выдалілі працоўны каталёг ці далі сабе дадатковыя \n"
 " прывілеі доступу пры дапамозе каманды \"su\"? "
+
+#, fuzzy, c-format
+msgid "%s (%d%%) of %s"
+msgstr "Вол. прастора %s (%d%%) з %s"
 
 msgid " The Midnight Commander "
 msgstr " Midnight Commander "
@@ -2284,6 +2330,10 @@ msgstr "&Біты сымбаляў..."
 msgid "learn &Keys..."
 msgstr "В&ызначэньне клявішаў..."
 
+#, fuzzy
+msgid "file &Highlighting..."
+msgstr "Вылучэньне &колерам сынтаксысу"
+
 msgid "&Virtual FS..."
 msgstr "Віртуальныя &ФС..."
 
@@ -2367,8 +2417,9 @@ msgid ""
 "   Menus:        menu, menuhot, menusel, menuhotsel\n"
 "   Editor:       editnormal, editbold, editmarked\n"
 "   Help:         helpnormal, helpitalic, helpbold, helplink, helpslink\n"
-"   File types:   directory, executable, link, stalelink, device, special, "
-"core\n"
+"   File types:   directory, executable, link, stalelink, device, special,\n"
+"                 core, hidden, temp, doc, archive, source, media, graph,\n"
+"                 database\n"
 "\n"
 "Colors:\n"
 "   black, gray, red, brightred, green, brightgreen, brown,\n"
@@ -2629,6 +2680,12 @@ msgstr "Уладальнік"
 
 msgid "Group"
 msgstr "Група"
+
+#, fuzzy, c-format
+msgid "Invalid file coloring pattern `%s'\n"
+msgstr ""
+"Памылковы узор `%s' \n"
+" %s "
 
 #, fuzzy, c-format
 msgid "%s byte"
@@ -3357,8 +3414,9 @@ msgstr "ftpfs: Памылка рэгістрацыі карыстальніку %s "
 msgid "ftpfs: Invalid host name."
 msgstr "ftpfs: Памылковае ймя сыстэмы."
 
-msgid "ftpfs: Invalid host address."
-msgstr "ftpfs: Памылковая адрэса сыстэмы."
+#, c-format
+msgid "ftpfs: %s"
+msgstr ""
 
 #, c-format
 msgid "ftpfs: making connection to %s"
@@ -3374,6 +3432,18 @@ msgstr "ftpfs: збой далучэньня да паслужніку: %s"
 #, c-format
 msgid "Waiting to retry... %d (Control-C to cancel)"
 msgstr "Чаканьне паўтору спробы... %d (Control-C для адмены)"
+
+#, fuzzy
+msgid "ftpfs: invalid address family"
+msgstr "ftpfs: Памылковая адрэса сыстэмы."
+
+#, fuzzy, c-format
+msgid "ftpfs: could not setup passive mode: %s"
+msgstr "ftpfs: немагчыма ўсталяваць пасыўны рэжым"
+
+#, fuzzy, c-format
+msgid "ftpfs: could not create socket: %s"
+msgstr " Немагчыма стварыць сокет: %s "
 
 msgid "ftpfs: could not setup passive mode"
 msgstr "ftpfs: немагчыма ўсталяваць пасыўны рэжым"

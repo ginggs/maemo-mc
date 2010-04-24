@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mc 4.5.99a\n"
 "Report-Msgid-Bugs-To: mc-devel@gnome.org\n"
-"POT-Creation-Date: 2007-09-11 17:35+0300\n"
+"POT-Creation-Date: 2008-07-23 01:57+0400\n"
 "PO-Revision-Date: 1999-03-18 23:11+0100\n"
 "Last-Translator: Lorint Hendschel <LorintHendschel@skynet.be>\n"
 "Language-Team: walon <linux-wa@chanae.alphanet.ch>\n"
@@ -851,6 +851,41 @@ msgstr "Ecôdaedje po ls intrêyes/rexhowes:"
 
 msgid "&Select"
 msgstr "T&chwezi"
+
+#, fuzzy
+msgid "&Ok"
+msgstr "I &Va"
+
+msgid "Databases"
+msgstr ""
+
+msgid "Graphics"
+msgstr ""
+
+msgid "Multimedia"
+msgstr ""
+
+#, fuzzy
+msgid "Sources"
+msgstr "Soûrdant"
+
+msgid "Archives"
+msgstr ""
+
+msgid "Text/Doc Files"
+msgstr ""
+
+#, fuzzy
+msgid "Temp Files"
+msgstr " Fitchî "
+
+#, fuzzy
+msgid "Core Files"
+msgstr " Fitchî "
+
+#, fuzzy
+msgid " File highlighting "
+msgstr "mete e &valeur l' emantchaedje"
 
 #, fuzzy
 msgid "Use passive mode over pro&xy"
@@ -2030,6 +2065,9 @@ msgstr "D' &Astampé"
 msgid "&Horizontal"
 msgstr "Di &Coûtchî"
 
+msgid "show free sp&Ace"
+msgstr ""
+
 #, fuzzy
 msgid "&Xterm window title"
 msgstr "Bår ås racsegnes &Xterm"
@@ -2058,6 +2096,10 @@ msgstr "pe&Rmissions"
 
 msgid "&File types"
 msgstr "Sôrts di &Fitchîs"
+
+#, fuzzy
+msgid "&Hidden files"
+msgstr "mostrer &Fitchîs catchîs"
 
 msgid " Panel split "
 msgstr " Pårti panea "
@@ -2151,6 +2193,10 @@ msgstr ""
 " sorshell prétind ki vos estoz dvins.  Mutwè avoz \n"
 " disfacé l' ovrant ridant, oudobén vs avoz-ve diné \n"
 " des novelès permissions po moussî avou li cmande «su» ? "
+
+#, fuzzy, c-format
+msgid "%s (%d%%) of %s"
+msgstr "Espace Libe: %s (%d%%) so %s"
 
 msgid " The Midnight Commander "
 msgstr " Li Midnight Commander "
@@ -2317,6 +2363,10 @@ msgstr ""
 msgid "learn &Keys..."
 msgstr "a&Prinde des tapes..."
 
+#, fuzzy
+msgid "file &Highlighting..."
+msgstr "mete e &valeur l' emantchaedje"
+
 msgid "&Virtual FS..."
 msgstr ""
 
@@ -2392,8 +2442,9 @@ msgid ""
 "   Menus:        menu, menuhot, menusel, menuhotsel\n"
 "   Editor:       editnormal, editbold, editmarked\n"
 "   Help:         helpnormal, helpitalic, helpbold, helplink, helpslink\n"
-"   File types:   directory, executable, link, stalelink, device, special, "
-"core\n"
+"   File types:   directory, executable, link, stalelink, device, special,\n"
+"                 core, hidden, temp, doc, archive, source, media, graph,\n"
+"                 database\n"
 "\n"
 "Colors:\n"
 "   black, gray, red, brightred, green, brightgreen, brown,\n"
@@ -2654,6 +2705,12 @@ msgstr "Da"
 
 msgid "Group"
 msgstr "Groupe"
+
+#, fuzzy, c-format
+msgid "Invalid file coloring pattern `%s'\n"
+msgstr ""
+"Li modele soûrdant n' est nén valåbe «%s» \n"
+" %s "
 
 #, fuzzy, c-format
 msgid "%s byte"
@@ -3370,8 +3427,9 @@ msgstr "ftpfs: måva login po l' ûzeu %s "
 msgid "ftpfs: Invalid host name."
 msgstr "ftpfs: måva no di lodjeu."
 
-msgid "ftpfs: Invalid host address."
-msgstr "ftpfs: mwaijhe adresse di lodjeu."
+#, c-format
+msgid "ftpfs: %s"
+msgstr ""
 
 #, c-format
 msgid "ftpfs: making connection to %s"
@@ -3387,6 +3445,18 @@ msgstr "ftpfs: dj' a fwait berwete come dji m' raloyîve å sierveu: %s"
 #, c-format
 msgid "Waiting to retry... %d (Control-C to cancel)"
 msgstr "Dji rawåde divant do rataker... %d (Control-C po rnoncî)"
+
+#, fuzzy
+msgid "ftpfs: invalid address family"
+msgstr "ftpfs: mwaijhe adresse di lodjeu."
+
+#, fuzzy, c-format
+msgid "ftpfs: could not setup passive mode: %s"
+msgstr "ftpfs: dj' a fwait berwete come dji m' raloyîve å sierveu: %s"
+
+#, fuzzy, c-format
+msgid "ftpfs: could not create socket: %s"
+msgstr " Dji n' sai fé on soket: %s "
 
 msgid "ftpfs: could not setup passive mode"
 msgstr ""

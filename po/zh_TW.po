@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mc 4.5.54a\n"
 "Report-Msgid-Bugs-To: mc-devel@gnome.org\n"
-"POT-Creation-Date: 2007-09-11 17:35+0300\n"
+"POT-Creation-Date: 2008-07-23 01:57+0400\n"
 "PO-Revision-Date: 2001-07-27 03:02+0800\n"
 "Last-Translator: Jing-Jong Shyue <shyue@sonoma.com.tw>\n"
 "Language-Team: Chinese <zh-l10n@linux.org.tw>\n"
@@ -835,6 +835,41 @@ msgstr "輸入/顯示 頁碼："
 
 msgid "&Select"
 msgstr "選取(&S)"
+
+#, fuzzy
+msgid "&Ok"
+msgstr "確定 (&O)"
+
+msgid "Databases"
+msgstr ""
+
+msgid "Graphics"
+msgstr ""
+
+msgid "Multimedia"
+msgstr ""
+
+#, fuzzy
+msgid "Sources"
+msgstr "來源"
+
+msgid "Archives"
+msgstr ""
+
+msgid "Text/Doc Files"
+msgstr ""
+
+#, fuzzy
+msgid "Temp Files"
+msgstr " 檔案 "
+
+#, fuzzy
+msgid "Core Files"
+msgstr " 檔案 "
+
+#, fuzzy
+msgid " File highlighting "
+msgstr "依語法改變顏色"
 
 #, fuzzy
 msgid "Use passive mode over pro&xy"
@@ -2008,6 +2043,9 @@ msgstr "垂直"
 msgid "&Horizontal"
 msgstr "水平"
 
+msgid "show free sp&Ace"
+msgstr ""
+
 #, fuzzy
 msgid "&Xterm window title"
 msgstr "xterm 提示列"
@@ -2035,6 +2073,10 @@ msgstr "權限"
 
 msgid "&File types"
 msgstr "檔案類型"
+
+#, fuzzy
+msgid "&Hidden files"
+msgstr "顯示隱藏檔"
 
 msgid " Panel split "
 msgstr " 分割面板 "
@@ -2124,6 +2166,10 @@ msgstr ""
 " 所在的地方，您可能刪除了您的工作 \n"
 " 目錄，或者因為執行過 \"su\" 指令 \n"
 " 而改變了權限狀態？ "
+
+#, fuzzy, c-format
+msgid "%s (%d%%) of %s"
+msgstr "空節點 %d (%d%%) 之 %d"
 
 msgid " The Midnight Commander "
 msgstr " The Midnight Commander "
@@ -2289,6 +2335,10 @@ msgstr "顯示位元數..."
 msgid "learn &Keys..."
 msgstr "認識按鍵..."
 
+#, fuzzy
+msgid "file &Highlighting..."
+msgstr "依語法改變顏色"
+
 msgid "&Virtual FS..."
 msgstr "虛擬檔案系統..."
 
@@ -2373,8 +2423,9 @@ msgid ""
 "   Menus:        menu, menuhot, menusel, menuhotsel\n"
 "   Editor:       editnormal, editbold, editmarked\n"
 "   Help:         helpnormal, helpitalic, helpbold, helplink, helpslink\n"
-"   File types:   directory, executable, link, stalelink, device, special, "
-"core\n"
+"   File types:   directory, executable, link, stalelink, device, special,\n"
+"                 core, hidden, temp, doc, archive, source, media, graph,\n"
+"                 database\n"
 "\n"
 "Colors:\n"
 "   black, gray, red, brightred, green, brightgreen, brown,\n"
@@ -2653,6 +2704,12 @@ msgstr "擁有者"
 
 msgid "Group"
 msgstr "群組"
+
+#, fuzzy, c-format
+msgid "Invalid file coloring pattern `%s'\n"
+msgstr ""
+"無效的來源樣式 `%s' \n"
+" %s "
 
 #, fuzzy, c-format
 msgid "%s byte"
@@ -3382,8 +3439,9 @@ msgstr "ftpfs: 使用者 %s 登入錯誤"
 msgid "ftpfs: Invalid host name."
 msgstr "ftpfs: 無效的主機名稱。"
 
-msgid "ftpfs: Invalid host address."
-msgstr "ftpfs: 無效的主機位址。"
+#, c-format
+msgid "ftpfs: %s"
+msgstr ""
 
 #, c-format
 msgid "ftpfs: making connection to %s"
@@ -3399,6 +3457,18 @@ msgstr "ftpfs: 連結到伺服器發生錯誤: %s"
 #, c-format
 msgid "Waiting to retry... %d (Control-C to cancel)"
 msgstr "等候重試... %d (Control-C 結束)"
+
+#, fuzzy
+msgid "ftpfs: invalid address family"
+msgstr "ftpfs: 無效的主機位址。"
+
+#, fuzzy, c-format
+msgid "ftpfs: could not setup passive mode: %s"
+msgstr "ftpfs: 無法設定 passive mode"
+
+#, fuzzy, c-format
+msgid "ftpfs: could not create socket: %s"
+msgstr " 無法建立插座: %s"
 
 msgid "ftpfs: could not setup passive mode"
 msgstr "ftpfs: 無法設定 passive mode"

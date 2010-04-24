@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mc\n"
 "Report-Msgid-Bugs-To: mc-devel@gnome.org\n"
-"POT-Creation-Date: 2007-09-11 17:35+0300\n"
+"POT-Creation-Date: 2008-07-23 01:57+0400\n"
 "PO-Revision-Date: 2001-11-20 15:15+0200\n"
 "Last-Translator: Artis Trops <hornet@navigators.lv>\n"
 "Language-Team: Latvian <hornet@navigators.lv>\n"
@@ -838,6 +838,41 @@ msgstr "Ievades / displeja kodu tabula:"
 
 msgid "&Select"
 msgstr "a&tlasît"
+
+#, fuzzy
+msgid "&Ok"
+msgstr "&Labi"
+
+msgid "Databases"
+msgstr ""
+
+msgid "Graphics"
+msgstr ""
+
+msgid "Multimedia"
+msgstr ""
+
+#, fuzzy
+msgid "Sources"
+msgstr "Avots"
+
+msgid "Archives"
+msgstr ""
+
+msgid "Text/Doc Files"
+msgstr ""
+
+#, fuzzy
+msgid "Temp Files"
+msgstr " Fails "
+
+#, fuzzy
+msgid "Core Files"
+msgstr " Fails "
+
+#, fuzzy
+msgid " File highlighting "
+msgstr "sinta&Kses izgaismoðana"
 
 #, fuzzy
 msgid "Use passive mode over pro&xy"
@@ -2012,6 +2047,9 @@ msgstr "&Vertikâli"
 msgid "&Horizontal"
 msgstr "&Horizontâli"
 
+msgid "show free sp&Ace"
+msgstr ""
+
 #, fuzzy
 msgid "&Xterm window title"
 msgstr "&Xterm padomjosla"
@@ -2039,6 +2077,10 @@ msgstr "a&tïaujas"
 
 msgid "&File types"
 msgstr "&Failu tipi"
+
+#, fuzzy
+msgid "&Hidden files"
+msgstr "parâdît a&Pslçptos failus"
 
 msgid " Panel split "
 msgstr "Paneïu sadalîjums"
@@ -2131,6 +2173,10 @@ msgstr ""
 "zemèaula paziòo, ka tajâ atrodaties.  Iespçjams, ka esat \n"
 "izdzçsis savu darba direktoriju vai arî esat iedevis sev \n"
 "papildus pieejas atïaujas ar \"su\" komandu? "
+
+#, fuzzy, c-format
+msgid "%s (%d%%) of %s"
+msgstr "Brîvâ vieta: %s (%d%%) no %s"
 
 msgid " The Midnight Commander "
 msgstr " Pusnakts Komandieris "
@@ -2296,6 +2342,10 @@ msgstr "&Displeja biti..."
 msgid "learn &Keys..."
 msgstr "mâcîbu &Taustiòi..."
 
+#, fuzzy
+msgid "file &Highlighting..."
+msgstr "sinta&Kses izgaismoðana"
+
 msgid "&Virtual FS..."
 msgstr "&Virtuâlâ FS..."
 
@@ -2380,8 +2430,9 @@ msgid ""
 "   Menus:        menu, menuhot, menusel, menuhotsel\n"
 "   Editor:       editnormal, editbold, editmarked\n"
 "   Help:         helpnormal, helpitalic, helpbold, helplink, helpslink\n"
-"   File types:   directory, executable, link, stalelink, device, special, "
-"core\n"
+"   File types:   directory, executable, link, stalelink, device, special,\n"
+"                 core, hidden, temp, doc, archive, source, media, graph,\n"
+"                 database\n"
 "\n"
 "Colors:\n"
 "   black, gray, red, brightred, green, brightgreen, brown,\n"
@@ -2661,6 +2712,12 @@ msgstr "Îpaðnieks"
 
 msgid "Group"
 msgstr "Grupa"
+
+#, fuzzy, c-format
+msgid "Invalid file coloring pattern `%s'\n"
+msgstr ""
+"Nepareizs koda raksts `%s' \n"
+" %s "
 
 #, fuzzy, c-format
 msgid "%s byte"
@@ -3389,8 +3446,9 @@ msgstr "ftpfs: lietotâja nepareiza %s pieteikðanâs "
 msgid "ftpfs: Invalid host name."
 msgstr "ftpfs: Nepareizs resursdatora nosaukums."
 
-msgid "ftpfs: Invalid host address."
-msgstr "ftpfs: Nepareiza resursdatora adrese."
+#, c-format
+msgid "ftpfs: %s"
+msgstr ""
 
 #, c-format
 msgid "ftpfs: making connection to %s"
@@ -3406,6 +3464,18 @@ msgstr "ftpfs: savienojums ar serveri neizdevâs: %s"
 #, c-format
 msgid "Waiting to retry... %d (Control-C to cancel)"
 msgstr "Gaidam atbildi... %d (Control-C lai atsauktu)"
+
+#, fuzzy
+msgid "ftpfs: invalid address family"
+msgstr "ftpfs: Nepareiza resursdatora adrese."
+
+#, fuzzy, c-format
+msgid "ftpfs: could not setup passive mode: %s"
+msgstr "ftpfs: nevar uzstâdît pasîvo reþîmu"
+
+#, fuzzy, c-format
+msgid "ftpfs: could not create socket: %s"
+msgstr " Nevar izveidot kontaktu: %s "
 
 msgid "ftpfs: could not setup passive mode"
 msgstr "ftpfs: nevar uzstâdît pasîvo reþîmu"

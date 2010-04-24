@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mc\n"
 "Report-Msgid-Bugs-To: mc-devel@gnome.org\n"
-"POT-Creation-Date: 2007-09-11 17:35+0300\n"
+"POT-Creation-Date: 2008-07-23 01:57+0400\n"
 "PO-Revision-Date: 2002-01-29 22:05+0800\n"
 "Last-Translator: Wang Jian <lark@linux.net.cn>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
@@ -833,6 +833,41 @@ msgstr "输入/显示代码页："
 
 msgid "&Select"
 msgstr "选择(&S)"
+
+#, fuzzy
+msgid "&Ok"
+msgstr "确认(&O)"
+
+msgid "Databases"
+msgstr ""
+
+msgid "Graphics"
+msgstr ""
+
+msgid "Multimedia"
+msgstr ""
+
+#, fuzzy
+msgid "Sources"
+msgstr "源"
+
+msgid "Archives"
+msgstr ""
+
+msgid "Text/Doc Files"
+msgstr ""
+
+#, fuzzy
+msgid "Temp Files"
+msgstr " 文件 "
+
+#, fuzzy
+msgid "Core Files"
+msgstr " 文件 "
+
+#, fuzzy
+msgid " File highlighting "
+msgstr "语法突出显示(&X)"
 
 #, fuzzy
 msgid "Use passive mode over pro&xy"
@@ -2002,6 +2037,9 @@ msgstr "垂直(&V)"
 msgid "&Horizontal"
 msgstr "水平(&H)"
 
+msgid "show free sp&Ace"
+msgstr ""
+
 #, fuzzy
 msgid "&Xterm window title"
 msgstr "Xterm 提示栏(&X)"
@@ -2029,6 +2067,10 @@ msgstr "权限(&R)"
 
 msgid "&File types"
 msgstr "文件类型(&F)"
+
+#, fuzzy
+msgid "&Hidden files"
+msgstr "显示隐藏文件(&H)"
 
 msgid " Panel split "
 msgstr " 显示分隔 "
@@ -2109,6 +2151,10 @@ msgstr ""
 " Commander 无法进入 subshell 声称的您所在的目录。 \n"
 " 也许您删除了工作目录，或者通过“su”命令给您的   \n"
 " 进程额外的访问权限？"
+
+#, fuzzy, c-format
+msgid "%s (%d%%) of %s"
+msgstr "空闲空间：%3$s 中的 %1$s (%2$d%%)"
 
 msgid " The Midnight Commander "
 msgstr " Midnight Commander "
@@ -2274,6 +2320,10 @@ msgstr "显示位(&D)..."
 msgid "learn &Keys..."
 msgstr "学习按键(&K)..."
 
+#, fuzzy
+msgid "file &Highlighting..."
+msgstr "语法突出显示(&X)"
+
 msgid "&Virtual FS..."
 msgstr "虚拟文件系统(&V)..."
 
@@ -2356,8 +2406,9 @@ msgid ""
 "   Menus:        menu, menuhot, menusel, menuhotsel\n"
 "   Editor:       editnormal, editbold, editmarked\n"
 "   Help:         helpnormal, helpitalic, helpbold, helplink, helpslink\n"
-"   File types:   directory, executable, link, stalelink, device, special, "
-"core\n"
+"   File types:   directory, executable, link, stalelink, device, special,\n"
+"                 core, hidden, temp, doc, archive, source, media, graph,\n"
+"                 database\n"
 "\n"
 "Colors:\n"
 "   black, gray, red, brightred, green, brightgreen, brown,\n"
@@ -2635,6 +2686,12 @@ msgstr "属主"
 
 msgid "Group"
 msgstr "群组"
+
+#, fuzzy, c-format
+msgid "Invalid file coloring pattern `%s'\n"
+msgstr ""
+"无效的源模式“%s”\n"
+" %s "
 
 #, fuzzy, c-format
 msgid "%s byte"
@@ -3362,8 +3419,9 @@ msgstr "ftpfs：用户 %s 登录不正确"
 msgid "ftpfs: Invalid host name."
 msgstr "ftpfs：无效的主机名。"
 
-msgid "ftpfs: Invalid host address."
-msgstr "ftpfs：无效的主机地址。"
+#, c-format
+msgid "ftpfs: %s"
+msgstr ""
 
 #, c-format
 msgid "ftpfs: making connection to %s"
@@ -3379,6 +3437,18 @@ msgstr "ftpfs：连接服务器失败：%s"
 #, c-format
 msgid "Waiting to retry... %d (Control-C to cancel)"
 msgstr "正在等待重试... %d (Control-C 取消)"
+
+#, fuzzy
+msgid "ftpfs: invalid address family"
+msgstr "ftpfs：无效的主机地址。"
+
+#, fuzzy, c-format
+msgid "ftpfs: could not setup passive mode: %s"
+msgstr "ftpfs：无法设置为被动模式"
+
+#, fuzzy, c-format
+msgid "ftpfs: could not create socket: %s"
+msgstr " 无法创建套接字：%s "
 
 msgid "ftpfs: could not setup passive mode"
 msgstr "ftpfs：无法设置为被动模式"

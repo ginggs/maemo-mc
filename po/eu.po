@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mc 4.5.99\n"
 "Report-Msgid-Bugs-To: mc-devel@gnome.org\n"
-"POT-Creation-Date: 2007-09-11 17:35+0300\n"
+"POT-Creation-Date: 2008-07-23 01:57+0400\n"
 "PO-Revision-Date: 2001-05-25 13:35+0200\n"
 "Last-Translator: mari susperregi <mari@elhuyar.com>\n"
 "Language-Team: Euskara\n"
@@ -839,6 +839,41 @@ msgstr "Sartu / bistaratu kode-orria:"
 
 msgid "&Select"
 msgstr "&Hautatu"
+
+#, fuzzy
+msgid "&Ok"
+msgstr "&Ados"
+
+msgid "Databases"
+msgstr ""
+
+msgid "Graphics"
+msgstr ""
+
+msgid "Multimedia"
+msgstr ""
+
+#, fuzzy
+msgid "Sources"
+msgstr "Iturburua"
+
+msgid "Archives"
+msgstr ""
+
+msgid "Text/Doc Files"
+msgstr ""
+
+#, fuzzy
+msgid "Temp Files"
+msgstr "Fitxategia "
+
+#, fuzzy
+msgid "Core Files"
+msgstr "Fitxategia "
+
+#, fuzzy
+msgid " File highlighting "
+msgstr "sinta&xia nabarmentzen"
 
 #, fuzzy
 msgid "Use passive mode over pro&xy"
@@ -2016,6 +2051,9 @@ msgstr "&Bertikalki"
 msgid "&Horizontal"
 msgstr "&Horizontala"
 
+msgid "show free sp&Ace"
+msgstr ""
+
 #, fuzzy
 msgid "&Xterm window title"
 msgstr "&Xterm-eko iradokizun-barra"
@@ -2043,6 +2081,10 @@ msgstr "bai&menak"
 
 msgid "&File types"
 msgstr "&Fitxategi-motak"
+
+#, fuzzy
+msgid "&Hidden files"
+msgstr "erakutsi &ezkutuko fitxategiak"
 
 msgid " Panel split "
 msgstr "Panel-zatiketa "
@@ -2134,6 +2176,10 @@ msgstr ""
 "direktoriora aldatu. Beharbada oraingo direktorioa \n"
 "ezabatu duzu edo zeure buruari atzipen-baimen gehiegi \n"
 "eman dizkiozu \"su\" komandoaren bidez?"
+
+#, fuzzy, c-format
+msgid "%s (%d%%) of %s"
+msgstr "Leku librea: %s (%d%%) %s(e)tik"
 
 msgid " The Midnight Commander "
 msgstr "Midnight Commander-a "
@@ -2299,6 +2345,10 @@ msgstr "&Bistaratu bitak..."
 msgid "learn &Keys..."
 msgstr "ikasteko &teklak..."
 
+#, fuzzy
+msgid "file &Highlighting..."
+msgstr "sinta&xia nabarmentzen"
+
 msgid "&Virtual FS..."
 msgstr "&FS birtuala..."
 
@@ -2382,8 +2432,9 @@ msgid ""
 "   Menus:        menu, menuhot, menusel, menuhotsel\n"
 "   Editor:       editnormal, editbold, editmarked\n"
 "   Help:         helpnormal, helpitalic, helpbold, helplink, helpslink\n"
-"   File types:   directory, executable, link, stalelink, device, special, "
-"core\n"
+"   File types:   directory, executable, link, stalelink, device, special,\n"
+"                 core, hidden, temp, doc, archive, source, media, graph,\n"
+"                 database\n"
 "\n"
 "Colors:\n"
 "   black, gray, red, brightred, green, brightgreen, brown,\n"
@@ -2665,6 +2716,12 @@ msgstr "Jabea"
 
 msgid "Group"
 msgstr "Taldea"
+
+#, fuzzy, c-format
+msgid "Invalid file coloring pattern `%s'\n"
+msgstr ""
+"Baliogabeko `%s' iturburu-eredua\n"
+" %s "
 
 #, fuzzy, c-format
 msgid "%s byte"
@@ -3392,8 +3449,9 @@ msgstr "ftpfs: %s erabiltzailearen erabiltzaile-izena ez da zuzena "
 msgid "ftpfs: Invalid host name."
 msgstr "ftpfs: Ostalari-izen baliogabea."
 
-msgid "ftpfs: Invalid host address."
-msgstr "ftpfs: Ostalari-helbide baliogabea."
+#, c-format
+msgid "ftpfs: %s"
+msgstr ""
 
 #, c-format
 msgid "ftpfs: making connection to %s"
@@ -3409,6 +3467,18 @@ msgstr "ftpfs: zerbitzariarekiko konexioak huts egin du: %s"
 #, c-format
 msgid "Waiting to retry... %d (Control-C to cancel)"
 msgstr "Berriro saiatzeko zain... %d (Control-C uzteko)"
+
+#, fuzzy
+msgid "ftpfs: invalid address family"
+msgstr "ftpfs: Ostalari-helbide baliogabea."
+
+#, fuzzy, c-format
+msgid "ftpfs: could not setup passive mode: %s"
+msgstr "ftpfs: ezin izan da modu pasiboa konfiguratu"
+
+#, fuzzy, c-format
+msgid "ftpfs: could not create socket: %s"
+msgstr " Ezin da socket-a sortu: %s "
 
 msgid "ftpfs: could not setup passive mode"
 msgstr "ftpfs: ezin izan da modu pasiboa konfiguratu"

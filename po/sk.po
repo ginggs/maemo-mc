@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mc\n"
 "Report-Msgid-Bugs-To: mc-devel@gnome.org\n"
-"POT-Creation-Date: 2007-09-11 17:35+0300\n"
+"POT-Creation-Date: 2008-07-23 01:57+0400\n"
 "PO-Revision-Date: 2003-01-22 21:50+0100\n"
 "Last-Translator: Marcel Telka <marcel@telka.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
@@ -835,6 +835,41 @@ msgstr "Vstupná/Zobrazovacia znaková sada:"
 
 msgid "&Select"
 msgstr "&Vybrať"
+
+#, fuzzy
+msgid "&Ok"
+msgstr "Án&o"
+
+msgid "Databases"
+msgstr ""
+
+msgid "Graphics"
+msgstr ""
+
+msgid "Multimedia"
+msgstr ""
+
+#, fuzzy
+msgid "Sources"
+msgstr "Zdroj"
+
+msgid "Archives"
+msgstr ""
+
+msgid "Text/Doc Files"
+msgstr ""
+
+#, fuzzy
+msgid "Temp Files"
+msgstr " Súbor "
+
+#, fuzzy
+msgid "Core Files"
+msgstr " Súbor "
+
+#, fuzzy
+msgid " File highlighting "
+msgstr "zvýraznenie s&Yntaxe"
 
 #, fuzzy
 msgid "Use passive mode over pro&xy"
@@ -2003,6 +2038,9 @@ msgstr "&Vertikálne"
 msgid "&Horizontal"
 msgstr "&Horizontálne"
 
+msgid "show free sp&Ace"
+msgstr ""
+
 msgid "&Xterm window title"
 msgstr "Titulok okna &Xterm"
 
@@ -2029,6 +2067,10 @@ msgstr "&Práva"
 
 msgid "&File types"
 msgstr "&Typ súboru"
+
+#, fuzzy
+msgid "&Hidden files"
+msgstr "ukázať &Skryté súbory"
 
 msgid " Panel split "
 msgstr " Rozdelenie panela "
@@ -2118,6 +2160,10 @@ msgstr ""
 " kedže subshell tvrdí, že ste v ňom.  Možno ste \n"
 " zmazali váš pracovný adresár alebo ste zadali vaše \n"
 " špeciálne práva pre prístup s príkazom \"su\"? "
+
+#, fuzzy, c-format
+msgid "%s (%d%%) of %s"
+msgstr "Voľné miesto: %s (%d%%) z %s"
 
 msgid " The Midnight Commander "
 msgstr " Midnight Commander "
@@ -2281,6 +2327,10 @@ msgstr "&Zobrazené bity..."
 msgid "learn &Keys..."
 msgstr "uč&Enie kláves..."
 
+#, fuzzy
+msgid "file &Highlighting..."
+msgstr "zvýraznenie s&Yntaxe"
+
 msgid "&Virtual FS..."
 msgstr "&Virtuálny FS..."
 
@@ -2364,8 +2414,9 @@ msgid ""
 "   Menus:        menu, menuhot, menusel, menuhotsel\n"
 "   Editor:       editnormal, editbold, editmarked\n"
 "   Help:         helpnormal, helpitalic, helpbold, helplink, helpslink\n"
-"   File types:   directory, executable, link, stalelink, device, special, "
-"core\n"
+"   File types:   directory, executable, link, stalelink, device, special,\n"
+"                 core, hidden, temp, doc, archive, source, media, graph,\n"
+"                 database\n"
 "\n"
 "Colors:\n"
 "   black, gray, red, brightred, green, brightgreen, brown,\n"
@@ -2641,6 +2692,12 @@ msgstr "Vlastník"
 
 msgid "Group"
 msgstr "Skupina"
+
+#, fuzzy, c-format
+msgid "Invalid file coloring pattern `%s'\n"
+msgstr ""
+"Neplatný zdrojový vzor `%s' \n"
+" %s "
 
 #, fuzzy, c-format
 msgid "%s byte"
@@ -3363,8 +3420,9 @@ msgstr "ftpfs: Nesprávne prihlásenie sa používateľa %s "
 msgid "ftpfs: Invalid host name."
 msgstr "ftpfs: Neplatné meno hostiteľa."
 
-msgid "ftpfs: Invalid host address."
-msgstr "ftpfs: Neplatná adresa hostiteľa."
+#, c-format
+msgid "ftpfs: %s"
+msgstr ""
 
 #, c-format
 msgid "ftpfs: making connection to %s"
@@ -3380,6 +3438,18 @@ msgstr "ftpfs: pripojenie k serveru neúspešné: %s"
 #, c-format
 msgid "Waiting to retry... %d (Control-C to cancel)"
 msgstr "Vyčkávam na zopakovanie... %d (Control-C pre zrušenie)"
+
+#, fuzzy
+msgid "ftpfs: invalid address family"
+msgstr "ftpfs: Neplatná adresa hostiteľa."
+
+#, fuzzy, c-format
+msgid "ftpfs: could not setup passive mode: %s"
+msgstr "ftpfs: nemohol som nastaviť pasívny mód"
+
+#, fuzzy, c-format
+msgid "ftpfs: could not create socket: %s"
+msgstr " Nemôžem vytvoriť soket: %s "
 
 msgid "ftpfs: could not setup passive mode"
 msgstr "ftpfs: nemohol som nastaviť pasívny mód"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mc 4.6.0\n"
 "Report-Msgid-Bugs-To: mc-devel@gnome.org\n"
-"POT-Creation-Date: 2007-09-11 17:35+0300\n"
+"POT-Creation-Date: 2008-07-23 01:57+0400\n"
 "PO-Revision-Date: 2003-09-20 18:50+0200\n"
 "Last-Translator: Strahinya Radich (Страхиња Радић) <mr99164@alas.matf.bg.ac."
 "yu>\n"
@@ -836,6 +836,41 @@ msgstr "Кодна страна улаза и приказа:"
 
 msgid "&Select"
 msgstr "&Изабери"
+
+#, fuzzy
+msgid "&Ok"
+msgstr "&У реду"
+
+msgid "Databases"
+msgstr ""
+
+msgid "Graphics"
+msgstr ""
+
+msgid "Multimedia"
+msgstr ""
+
+#, fuzzy
+msgid "Sources"
+msgstr "Извор"
+
+msgid "Archives"
+msgstr ""
+
+msgid "Text/Doc Files"
+msgstr ""
+
+#, fuzzy
+msgid "Temp Files"
+msgstr " Датотека "
+
+#, fuzzy
+msgid "Core Files"
+msgstr " Датотека "
+
+#, fuzzy
+msgid " File highlighting "
+msgstr "Исти&цање синтаксе"
 
 #, fuzzy
 msgid "Use passive mode over pro&xy"
@@ -2007,6 +2042,9 @@ msgstr "&Усправно"
 msgid "&Horizontal"
 msgstr "&Положено"
 
+msgid "show free sp&Ace"
+msgstr ""
+
 msgid "&Xterm window title"
 msgstr "наслов прозора и&Кс терминала"
 
@@ -2033,6 +2071,10 @@ msgstr "до&Зволе"
 
 msgid "&File types"
 msgstr "&Врсте датотека"
+
+#, fuzzy
+msgid "&Hidden files"
+msgstr "прикажи &Сакривене датотеке"
 
 msgid " Panel split "
 msgstr " Подела окна "
@@ -2122,6 +2164,10 @@ msgstr ""
 " подљуска тврди да се у њему налазите. Можда сте\n"
 " обрисали ваш текући директоријум, или сте дали\n"
 " себи прешироке дозволе преко наредбе `su'? "
+
+#, fuzzy, c-format
+msgid "%s (%d%%) of %s"
+msgstr "Слоб. простора:  %s (%d%%) од %s"
 
 msgid " The Midnight Commander "
 msgstr " Поноћни наредник "
@@ -2285,6 +2331,10 @@ msgstr "&Битова у приказу..."
 msgid "learn &Keys..."
 msgstr "Научи &тастере..."
 
+#, fuzzy
+msgid "file &Highlighting..."
+msgstr "Исти&цање синтаксе"
+
 msgid "&Virtual FS..."
 msgstr "&Виртуални СД..."
 
@@ -2368,8 +2418,9 @@ msgid ""
 "   Menus:        menu, menuhot, menusel, menuhotsel\n"
 "   Editor:       editnormal, editbold, editmarked\n"
 "   Help:         helpnormal, helpitalic, helpbold, helplink, helpslink\n"
-"   File types:   directory, executable, link, stalelink, device, special, "
-"core\n"
+"   File types:   directory, executable, link, stalelink, device, special,\n"
+"                 core, hidden, temp, doc, archive, source, media, graph,\n"
+"                 database\n"
 "\n"
 "Colors:\n"
 "   black, gray, red, brightred, green, brightgreen, brown,\n"
@@ -2646,6 +2697,12 @@ msgstr "Власник"
 
 msgid "Group"
 msgstr "Група"
+
+#, fuzzy, c-format
+msgid "Invalid file coloring pattern `%s'\n"
+msgstr ""
+"Неисправан изворни образац `%s' \n"
+" %s "
 
 #, fuzzy, c-format
 msgid "%s byte"
@@ -3369,8 +3426,9 @@ msgstr "ftpfs: Неуспешна пријава корисника %s "
 msgid "ftpfs: Invalid host name."
 msgstr "ftpfs: Неисправни назив домаћина."
 
-msgid "ftpfs: Invalid host address."
-msgstr "ftpfs: Неисправна адреса домаћина."
+#, c-format
+msgid "ftpfs: %s"
+msgstr ""
 
 #, c-format
 msgid "ftpfs: making connection to %s"
@@ -3386,6 +3444,18 @@ msgstr "ftpfs: повезивање са сервером није успело: %s"
 #, c-format
 msgid "Waiting to retry... %d (Control-C to cancel)"
 msgstr "Чекам на поновно повезивање... %d (Control-C поништава)"
+
+#, fuzzy
+msgid "ftpfs: invalid address family"
+msgstr "ftpfs: Неисправна адреса домаћина."
+
+#, fuzzy, c-format
+msgid "ftpfs: could not setup passive mode: %s"
+msgstr "ftpfs: нисам могао да подесим пасивни режим"
+
+#, fuzzy, c-format
+msgid "ftpfs: could not create socket: %s"
+msgstr " Не могу да створим утичницу: %s "
 
 msgid "ftpfs: could not setup passive mode"
 msgstr "ftpfs: нисам могао да подесим пасивни режим"

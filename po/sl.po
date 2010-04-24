@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mc \n"
 "Report-Msgid-Bugs-To: mc-devel@gnome.org\n"
-"POT-Creation-Date: 2007-09-11 17:35+0300\n"
+"POT-Creation-Date: 2008-07-23 01:57+0400\n"
 "PO-Revision-Date: 2000-06-22 00:00+0200\n"
 "Last-Translator: Andraz Tori <andraz.tori1@guest.arnes.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
@@ -835,6 +835,41 @@ msgstr "Vhodni / zaslonski nabor znakov:"
 
 msgid "&Select"
 msgstr "&Izberi"
+
+#, fuzzy
+msgid "&Ok"
+msgstr "&V redu"
+
+msgid "Databases"
+msgstr ""
+
+msgid "Graphics"
+msgstr ""
+
+msgid "Multimedia"
+msgstr ""
+
+#, fuzzy
+msgid "Sources"
+msgstr "Izvor"
+
+msgid "Archives"
+msgstr ""
+
+msgid "Text/Doc Files"
+msgstr ""
+
+#, fuzzy
+msgid "Temp Files"
+msgstr "Datoteka "
+
+#, fuzzy
+msgid "Core Files"
+msgstr "Datoteka "
+
+#, fuzzy
+msgid " File highlighting "
+msgstr "Osvetlitev &sintakse"
 
 #, fuzzy
 msgid "Use passive mode over pro&xy"
@@ -2004,6 +2039,9 @@ msgstr "&Navpično"
 msgid "&Horizontal"
 msgstr "&Vodoravno"
 
+msgid "show free sp&Ace"
+msgstr ""
+
 msgid "&Xterm window title"
 msgstr "Naziv okna &Xterm"
 
@@ -2030,6 +2068,10 @@ msgstr "_dovoljenja"
 
 msgid "&File types"
 msgstr "&Vrste datotek"
+
+#, fuzzy
+msgid "&Hidden files"
+msgstr "kaži skrite datoteke"
 
 msgid " Panel split "
 msgstr " Razdelitev pulta"
@@ -2121,6 +2163,10 @@ msgstr ""
 " podlupina trdi, da ste v njem.  Morda ste zbrisali \n"
 " vaš delavni imenik ali pa ste si dali dodatna \n"
 " dostopna dovoljenja z ukazom \"su\"? "
+
+#, fuzzy, c-format
+msgid "%s (%d%%) of %s"
+msgstr "Neuporabljen prostor: %s (%d%%) od %s"
 
 msgid " The Midnight Commander "
 msgstr " Polnočni Poveljnik"
@@ -2284,6 +2330,10 @@ msgstr "&Kaži bite..."
 msgid "learn &Keys..."
 msgstr "nauči se &Tipk..."
 
+#, fuzzy
+msgid "file &Highlighting..."
+msgstr "Osvetlitev &sintakse"
+
 msgid "&Virtual FS..."
 msgstr "&Navidezni Datotečni Sistem..."
 
@@ -2367,8 +2417,9 @@ msgid ""
 "   Menus:        menu, menuhot, menusel, menuhotsel\n"
 "   Editor:       editnormal, editbold, editmarked\n"
 "   Help:         helpnormal, helpitalic, helpbold, helplink, helpslink\n"
-"   File types:   directory, executable, link, stalelink, device, special, "
-"core\n"
+"   File types:   directory, executable, link, stalelink, device, special,\n"
+"                 core, hidden, temp, doc, archive, source, media, graph,\n"
+"                 database\n"
 "\n"
 "Colors:\n"
 "   black, gray, red, brightred, green, brightgreen, brown,\n"
@@ -2644,6 +2695,12 @@ msgstr "Lastnik"
 
 msgid "Group"
 msgstr "Skupina"
+
+#, fuzzy, c-format
+msgid "Invalid file coloring pattern `%s'\n"
+msgstr ""
+"Neveljaven vzorec izvora `%s' \n"
+" %s "
 
 #, fuzzy, c-format
 msgid "%s byte"
@@ -3368,8 +3425,9 @@ msgstr "ftpfs: Napačna prijava za uporabnika %s "
 msgid "ftpfs: Invalid host name."
 msgstr "ftpfs: Neveljavno ime gostitelja."
 
-msgid "ftpfs: Invalid host address."
-msgstr "ftpfs: Neveljaven naslov gostitelja."
+#, c-format
+msgid "ftpfs: %s"
+msgstr ""
 
 #, c-format
 msgid "ftpfs: making connection to %s"
@@ -3385,6 +3443,18 @@ msgstr "ftpfs: povezava do strežnika ni bila uspešna: %s"
 #, c-format
 msgid "Waiting to retry... %d (Control-C to cancel)"
 msgstr "Čakam na nov poizkus... %d (Control-C za preklic)"
+
+#, fuzzy
+msgid "ftpfs: invalid address family"
+msgstr "ftpfs: Neveljaven naslov gostitelja."
+
+#, fuzzy, c-format
+msgid "ftpfs: could not setup passive mode: %s"
+msgstr "ftpfs: ne morem nastaviti pasivnega načina"
+
+#, fuzzy, c-format
+msgid "ftpfs: could not create socket: %s"
+msgstr " Ne morem ustvariti vtiča: %s "
 
 msgid "ftpfs: could not setup passive mode"
 msgstr "ftpfs: ne morem nastaviti pasivnega načina"

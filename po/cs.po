@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mc 4.5.99a\n"
 "Report-Msgid-Bugs-To: mc-devel@gnome.org\n"
-"POT-Creation-Date: 2007-09-11 17:35+0300\n"
+"POT-Creation-Date: 2008-07-23 01:57+0400\n"
 "PO-Revision-Date: 2003-01-22 18:29+0100\n"
 "Last-Translator: Jindrich Novy <jnovy@redhat.com>\n"
 "Language-Team: Czech <cs@li.org>\n"
@@ -830,6 +830,41 @@ msgstr "Vstupní / zobrazovací kódová strana:"
 
 msgid "&Select"
 msgstr "&Výbìr"
+
+#, fuzzy
+msgid "&Ok"
+msgstr "&OK"
+
+msgid "Databases"
+msgstr ""
+
+msgid "Graphics"
+msgstr ""
+
+msgid "Multimedia"
+msgstr ""
+
+#, fuzzy
+msgid "Sources"
+msgstr "Zdroj"
+
+msgid "Archives"
+msgstr ""
+
+msgid "Text/Doc Files"
+msgstr ""
+
+#, fuzzy
+msgid "Temp Files"
+msgstr " Soubor "
+
+#, fuzzy
+msgid "Core Files"
+msgstr " Soubor "
+
+#, fuzzy
+msgid " File highlighting "
+msgstr "Vyber zvýraznìní synta&Xe"
 
 msgid "Use passive mode over pro&xy"
 msgstr "pou¾ívat pasivní re¾im pøes pro&Xy"
@@ -2002,6 +2037,9 @@ msgstr "&Vertikální"
 msgid "&Horizontal"
 msgstr "&Horizontální"
 
+msgid "show free sp&Ace"
+msgstr ""
+
 msgid "&Xterm window title"
 msgstr "nadpis okna &Xtermu"
 
@@ -2028,6 +2066,10 @@ msgstr "p&Ráva"
 
 msgid "&File types"
 msgstr "&Typy souborù"
+
+#, fuzzy
+msgid "&Hidden files"
+msgstr "ukázat &Skryté soubory"
 
 msgid " Panel split "
 msgstr " Rozdìlení panelù "
@@ -2118,6 +2160,10 @@ msgstr ""
 " ten, který mu oznámil shell.  Je to pravdìpodobnì \n"
 " proto, ¾e byl tento adresáø smazán nebo také proto,\n"
 " ¾e jste se do tohoto adresáøe pøepnuli pomocí su."
+
+#, fuzzy, c-format
+msgid "%s (%d%%) of %s"
+msgstr "Volný prostor: %s (%d%%) z %s"
 
 msgid " The Midnight Commander "
 msgstr " Midnight Commander "
@@ -2281,6 +2327,10 @@ msgstr "&Zobrazení bitù..."
 msgid "learn &Keys..."
 msgstr "uèení &Kláves..."
 
+#, fuzzy
+msgid "file &Highlighting..."
+msgstr "zvýraznìní synta&Xe"
+
 msgid "&Virtual FS..."
 msgstr "&Virtuální FS..."
 
@@ -2351,6 +2401,7 @@ msgstr ""
 "na mc-devel@gnome.org (pouze anglicky), pøipomínky\n"
 "k pøekladu zasílejte na adresu cs@li.org (èesky)\n"
 
+#, fuzzy
 msgid ""
 "--colors KEYWORD={FORE},{BACK}\n"
 "\n"
@@ -2364,8 +2415,9 @@ msgid ""
 "   Menus:        menu, menuhot, menusel, menuhotsel\n"
 "   Editor:       editnormal, editbold, editmarked\n"
 "   Help:         helpnormal, helpitalic, helpbold, helplink, helpslink\n"
-"   File types:   directory, executable, link, stalelink, device, special, "
-"core\n"
+"   File types:   directory, executable, link, stalelink, device, special,\n"
+"                 core, hidden, temp, doc, archive, source, media, graph,\n"
+"                 database\n"
 "\n"
 "Colors:\n"
 "   black, gray, red, brightred, green, brightgreen, brown,\n"
@@ -2645,6 +2697,12 @@ msgstr "Vlastník"
 
 msgid "Group"
 msgstr "Skupina"
+
+#, fuzzy, c-format
+msgid "Invalid file coloring pattern `%s'\n"
+msgstr ""
+"Chybný vzor zdroje `%s' \n"
+" %s "
 
 #, c-format
 msgid "%s byte"
@@ -3374,8 +3432,9 @@ msgstr "ftpfs: Pøihlá¹ení u¾ivatele %s selhalo "
 msgid "ftpfs: Invalid host name."
 msgstr "ftpfs: Chybné jméno poèítaèe."
 
-msgid "ftpfs: Invalid host address."
-msgstr "ftpfs: Chybná adresa poèítaèe."
+#, c-format
+msgid "ftpfs: %s"
+msgstr ""
 
 #, c-format
 msgid "ftpfs: making connection to %s"
@@ -3391,6 +3450,18 @@ msgstr "ftpfs: pøipojování k serveru selhalo: %s"
 #, c-format
 msgid "Waiting to retry... %d (Control-C to cancel)"
 msgstr "Nový pokus za... %d (Control-C zru¹í)"
+
+#, fuzzy
+msgid "ftpfs: invalid address family"
+msgstr "ftpfs: Chybná adresa poèítaèe."
+
+#, fuzzy, c-format
+msgid "ftpfs: could not setup passive mode: %s"
+msgstr "ftpfs: nelze nastavit pasivní re¾im"
+
+#, fuzzy, c-format
+msgid "ftpfs: could not create socket: %s"
+msgstr " Nelze vytvoøit soket: %s "
 
 msgid "ftpfs: could not setup passive mode"
 msgstr "ftpfs: nelze nastavit pasivní re¾im"

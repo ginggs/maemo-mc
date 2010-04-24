@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 4.6.0a\n"
 "Report-Msgid-Bugs-To: mc-devel@gnome.org\n"
-"POT-Creation-Date: 2007-09-11 17:35+0300\n"
+"POT-Creation-Date: 2008-07-23 01:57+0400\n"
 "PO-Revision-Date: 2007-08-20 11:00+0200\n"
 "Last-Translator: Marco Ciampa <ciampix@libero.it>\n"
 "Language-Team: Italian <tp@lists.linux.it>,<it@li.org>\n"
@@ -828,6 +828,41 @@ msgstr "Ingresso / mostra codepage:"
 
 msgid "&Select"
 msgstr "&Seleziona"
+
+#, fuzzy
+msgid "&Ok"
+msgstr "&OK"
+
+msgid "Databases"
+msgstr ""
+
+msgid "Graphics"
+msgstr ""
+
+msgid "Multimedia"
+msgstr ""
+
+#, fuzzy
+msgid "Sources"
+msgstr "Sorgente"
+
+msgid "Archives"
+msgstr ""
+
+msgid "Text/Doc Files"
+msgstr ""
+
+#, fuzzy
+msgid "Temp Files"
+msgstr " File "
+
+#, fuzzy
+msgid "Core Files"
+msgstr " File "
+
+#, fuzzy
+msgid " File highlighting "
+msgstr " Scegli la sintassi evidenziata "
 
 msgid "Use passive mode over pro&xy"
 msgstr "Usa modalità passiva su pro&xy"
@@ -2005,6 +2040,9 @@ msgstr "&Verticale"
 msgid "&Horizontal"
 msgstr "Orizzontal&e"
 
+msgid "show free sp&Ace"
+msgstr ""
+
 msgid "&Xterm window title"
 msgstr "Titolo finestra &xerm"
 
@@ -2031,6 +2069,10 @@ msgstr "&Permessi"
 
 msgid "&File types"
 msgstr "&Tipo di file"
+
+#, fuzzy
+msgid "&Hidden files"
+msgstr "Mostra file &nascosti"
 
 msgid " Panel split "
 msgstr " Divisione pannello "
@@ -2120,6 +2162,10 @@ msgstr ""
 " quale la subshell dichiara di operare. Forse avete \n"
 " eliminato la directory in questione o vi siete entrati \n"
 " usando il comando \"su\"?"
+
+#, fuzzy, c-format
+msgid "%s (%d%%) of %s"
+msgstr "Spazio libero: %s (%d%%) su %s"
 
 msgid " The Midnight Commander "
 msgstr " Midnight Commander "
@@ -2283,6 +2329,10 @@ msgstr "&Mostra bit..."
 msgid "learn &Keys..."
 msgstr "&Impara tasti..."
 
+#, fuzzy
+msgid "file &Highlighting..."
+msgstr "&Sintassi evidenziata..."
+
 msgid "&Virtual FS..."
 msgstr "FS &virtuale..."
 
@@ -2353,6 +2403,7 @@ msgstr ""
 "Prego spedire rapporti su bug (inclusa l'uscita di `mc -V')\n"
 "a mc-devel@gnome.org\n"
 
+#, fuzzy
 msgid ""
 "--colors KEYWORD={FORE},{BACK}\n"
 "\n"
@@ -2366,8 +2417,9 @@ msgid ""
 "   Menus:        menu, menuhot, menusel, menuhotsel\n"
 "   Editor:       editnormal, editbold, editmarked\n"
 "   Help:         helpnormal, helpitalic, helpbold, helplink, helpslink\n"
-"   File types:   directory, executable, link, stalelink, device, special, "
-"core\n"
+"   File types:   directory, executable, link, stalelink, device, special,\n"
+"                 core, hidden, temp, doc, archive, source, media, graph,\n"
+"                 database\n"
 "\n"
 "Colors:\n"
 "   black, gray, red, brightred, green, brightgreen, brown,\n"
@@ -2645,6 +2697,12 @@ msgstr "Proprietario"
 
 msgid "Group"
 msgstr "Gruppo"
+
+#, fuzzy, c-format
+msgid "Invalid file coloring pattern `%s'\n"
+msgstr ""
+"Modello sorgente non valido `%s' \n"
+" %s "
 
 #, c-format
 msgid "%s byte"
@@ -3371,8 +3429,9 @@ msgstr "ftpfs: login errato per utente %s "
 msgid "ftpfs: Invalid host name."
 msgstr "ftpfs: nome host non valido."
 
-msgid "ftpfs: Invalid host address."
-msgstr "ftpfs: indirizzo host non valido."
+#, c-format
+msgid "ftpfs: %s"
+msgstr ""
 
 #, c-format
 msgid "ftpfs: making connection to %s"
@@ -3388,6 +3447,18 @@ msgstr "ftpfs: connessione al server fallita: %s"
 #, c-format
 msgid "Waiting to retry... %d (Control-C to cancel)"
 msgstr "In attesa di riprovare...%d (Control-C per annullare)"
+
+#, fuzzy
+msgid "ftpfs: invalid address family"
+msgstr "ftpfs: indirizzo host non valido."
+
+#, fuzzy, c-format
+msgid "ftpfs: could not setup passive mode: %s"
+msgstr "ftpfs: non è possibile impostare la modalità passiva"
+
+#, fuzzy, c-format
+msgid "ftpfs: could not create socket: %s"
+msgstr " Non riesco a creare il socket: %s "
 
 msgid "ftpfs: could not setup passive mode"
 msgstr "ftpfs: non è possibile impostare la modalità passiva"

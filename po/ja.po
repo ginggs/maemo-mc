@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mc CVS-20011220\n"
 "Report-Msgid-Bugs-To: mc-devel@gnome.org\n"
-"POT-Creation-Date: 2007-09-11 17:35+0300\n"
+"POT-Creation-Date: 2008-07-23 01:57+0400\n"
 "PO-Revision-Date: 2001-12-20 18:33+0900\n"
 "Last-Translator: Akira TAGOH <tagoh@gnome.gr.jp>\n"
 "Language-Team: Japanese <translation@gnome.gr.jp>\n"
@@ -837,6 +837,41 @@ msgstr "入力 / コードページを表示:"
 
 msgid "&Select"
 msgstr "選択(&S)"
+
+#, fuzzy
+msgid "&Ok"
+msgstr "はい(&O)"
+
+msgid "Databases"
+msgstr ""
+
+msgid "Graphics"
+msgstr ""
+
+msgid "Multimedia"
+msgstr ""
+
+#, fuzzy
+msgid "Sources"
+msgstr "元"
+
+msgid "Archives"
+msgstr ""
+
+msgid "Text/Doc Files"
+msgstr ""
+
+#, fuzzy
+msgid "Temp Files"
+msgstr " ファイル "
+
+#, fuzzy
+msgid "Core Files"
+msgstr " ファイル "
+
+#, fuzzy
+msgid " File highlighting "
+msgstr "文法ハイライト(&S)"
 
 #, fuzzy
 msgid "Use passive mode over pro&xy"
@@ -2011,6 +2046,9 @@ msgstr "垂直(&V)"
 msgid "&Horizontal"
 msgstr "水平(&H)"
 
+msgid "show free sp&Ace"
+msgstr ""
+
 #, fuzzy
 msgid "&Xterm window title"
 msgstr "Xtermヒントバー(&X)"
@@ -2038,6 +2076,10 @@ msgstr "パーミッション(&R)"
 
 msgid "&File types"
 msgstr "ファイルタイプ(&F)"
+
+#, fuzzy
+msgid "&Hidden files"
+msgstr "隠しファイルを表示(&H)"
 
 msgid " Panel split "
 msgstr " パネル分割 "
@@ -2127,6 +2169,10 @@ msgstr ""
 "ません。おそらくそのディレクトリを削除したか、\n"
 "\"su\" コマンドで特別な権限を行使したのではないで\n"
 "すか?"
+
+#, fuzzy, c-format
+msgid "%s (%d%%) of %s"
+msgstr "空き容量: %s (%d%%) of %s"
 
 msgid " The Midnight Commander "
 msgstr " The Midnight Commander "
@@ -2292,6 +2338,10 @@ msgstr "表示ビット数(&D)..."
 msgid "learn &Keys..."
 msgstr "キーの学習(&K)..."
 
+#, fuzzy
+msgid "file &Highlighting..."
+msgstr "文法ハイライト(&S)"
+
 msgid "&Virtual FS..."
 msgstr "仮想FS(&V)..."
 
@@ -2375,8 +2425,9 @@ msgid ""
 "   Menus:        menu, menuhot, menusel, menuhotsel\n"
 "   Editor:       editnormal, editbold, editmarked\n"
 "   Help:         helpnormal, helpitalic, helpbold, helplink, helpslink\n"
-"   File types:   directory, executable, link, stalelink, device, special, "
-"core\n"
+"   File types:   directory, executable, link, stalelink, device, special,\n"
+"                 core, hidden, temp, doc, archive, source, media, graph,\n"
+"                 database\n"
 "\n"
 "Colors:\n"
 "   black, gray, red, brightred, green, brightgreen, brown,\n"
@@ -2655,6 +2706,12 @@ msgstr "所有者"
 
 msgid "Group"
 msgstr "グループ"
+
+#, fuzzy, c-format
+msgid "Invalid file coloring pattern `%s'\n"
+msgstr ""
+"不正な元パターン `%s' \n"
+" %s "
 
 #, fuzzy, c-format
 msgid "%s byte"
@@ -3378,8 +3435,9 @@ msgstr "ftpfs: ユーザ %s のログインが失敗しました "
 msgid "ftpfs: Invalid host name."
 msgstr "ftpfs: 不正なホスト名です"
 
-msgid "ftpfs: Invalid host address."
-msgstr "ftpfs: 不正なホストのアドレスです"
+#, c-format
+msgid "ftpfs: %s"
+msgstr ""
 
 #, c-format
 msgid "ftpfs: making connection to %s"
@@ -3395,6 +3453,18 @@ msgstr "ftpfs: サーバへの接続に失敗しました: %s"
 #, c-format
 msgid "Waiting to retry... %d (Control-C to cancel)"
 msgstr "再試行するのでお待ちください... %d (Control-C で中止)"
+
+#, fuzzy
+msgid "ftpfs: invalid address family"
+msgstr "ftpfs: 不正なホストのアドレスです"
+
+#, fuzzy, c-format
+msgid "ftpfs: could not setup passive mode: %s"
+msgstr "ftpfs: パッシブモードに失敗しました"
+
+#, fuzzy, c-format
+msgid "ftpfs: could not create socket: %s"
+msgstr "ソケットを作成できませんでした: %s"
 
 msgid "ftpfs: could not setup passive mode"
 msgstr "ftpfs: パッシブモードに失敗しました"

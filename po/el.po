@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mc 4.5.38\n"
 "Report-Msgid-Bugs-To: mc-devel@gnome.org\n"
-"POT-Creation-Date: 2007-09-11 17:35+0300\n"
+"POT-Creation-Date: 2008-07-23 01:57+0400\n"
 "PO-Revision-Date: 1997-07-23 00:04-0400\n"
 "Last-Translator: Spiros Papadimitriou <spapadim+@cs.cmu.edu>\n"
 "Language-Team: Greek <el@li.org>\n"
@@ -818,6 +818,40 @@ msgstr ""
 #, fuzzy
 msgid "&Select"
 msgstr "Επιλογή εικονιδίου"
+
+#, fuzzy
+msgid "&Ok"
+msgstr "&Εντάξει"
+
+msgid "Databases"
+msgstr ""
+
+msgid "Graphics"
+msgstr ""
+
+msgid "Multimedia"
+msgstr ""
+
+msgid "Sources"
+msgstr ""
+
+msgid "Archives"
+msgstr ""
+
+msgid "Text/Doc Files"
+msgstr ""
+
+#, fuzzy
+msgid "Temp Files"
+msgstr " Αρχείο "
+
+#, fuzzy
+msgid "Core Files"
+msgstr " Αρχείο "
+
+#, fuzzy
+msgid " File highlighting "
+msgstr "τονισμός σύντα&ξης"
 
 msgid "Use passive mode over pro&xy"
 msgstr ""
@@ -1906,6 +1940,9 @@ msgstr ""
 msgid "&Horizontal"
 msgstr ""
 
+msgid "show free sp&Ace"
+msgstr ""
+
 msgid "&Xterm window title"
 msgstr ""
 
@@ -1932,6 +1969,10 @@ msgstr ""
 
 msgid "&File types"
 msgstr ""
+
+#, fuzzy
+msgid "&Hidden files"
+msgstr "¶νοιγμα με..."
 
 msgid " Panel split "
 msgstr ""
@@ -2004,6 +2045,10 @@ msgid ""
 " the subshell claims you are in.  Perhaps you have \n"
 " deleted your working directory, or given yourself \n"
 " extra access permissions with the \"su\" command? "
+msgstr ""
+
+#, c-format
+msgid "%s (%d%%) of %s"
 msgstr ""
 
 msgid " The Midnight Commander "
@@ -2168,6 +2213,10 @@ msgstr ""
 msgid "learn &Keys..."
 msgstr ""
 
+#, fuzzy
+msgid "file &Highlighting..."
+msgstr "τονισμός σύντα&ξης"
+
 msgid "&Virtual FS..."
 msgstr ""
 
@@ -2244,8 +2293,9 @@ msgid ""
 "   Menus:        menu, menuhot, menusel, menuhotsel\n"
 "   Editor:       editnormal, editbold, editmarked\n"
 "   Help:         helpnormal, helpitalic, helpbold, helplink, helpslink\n"
-"   File types:   directory, executable, link, stalelink, device, special, "
-"core\n"
+"   File types:   directory, executable, link, stalelink, device, special,\n"
+"                 core, hidden, temp, doc, archive, source, media, graph,\n"
+"                 database\n"
 "\n"
 "Colors:\n"
 "   black, gray, red, brightred, green, brightgreen, brown,\n"
@@ -2501,6 +2551,10 @@ msgstr "Ιδιοκτήτης"
 
 msgid "Group"
 msgstr "Ομάδα"
+
+#, c-format
+msgid "Invalid file coloring pattern `%s'\n"
+msgstr ""
 
 #, fuzzy, c-format
 msgid "%s byte"
@@ -3204,8 +3258,9 @@ msgstr "ftpfs: Εσφαλμένο όνομα/κωδικός για το χρήστη %s "
 msgid "ftpfs: Invalid host name."
 msgstr "ftpfs: ¶κυρο όνομα συστήματος."
 
-msgid "ftpfs: Invalid host address."
-msgstr "ftpfs: ¶κυρη διεύθυνση συστήματος."
+#, c-format
+msgid "ftpfs: %s"
+msgstr ""
 
 #, c-format
 msgid "ftpfs: making connection to %s"
@@ -3221,6 +3276,18 @@ msgstr "ftpfs: ανεπιτυχής σύνδεση με τον εξυπηρέτη: %s"
 #, c-format
 msgid "Waiting to retry... %d (Control-C to cancel)"
 msgstr "Αναμονή επανάληψης... %d (Control-C για ακύρωση)"
+
+#, fuzzy
+msgid "ftpfs: invalid address family"
+msgstr "ftpfs: ¶κυρη διεύθυνση συστήματος."
+
+#, fuzzy, c-format
+msgid "ftpfs: could not setup passive mode: %s"
+msgstr "ftpfs: ανεπιτυχής σύνδεση με τον εξυπηρέτη: %s"
+
+#, c-format
+msgid "ftpfs: could not create socket: %s"
+msgstr ""
 
 msgid "ftpfs: could not setup passive mode"
 msgstr ""

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: uk\n"
 "Report-Msgid-Bugs-To: mc-devel@gnome.org\n"
-"POT-Creation-Date: 2007-09-11 17:35+0300\n"
+"POT-Creation-Date: 2008-07-23 01:57+0400\n"
 "PO-Revision-Date: 2005-09-10 13:28+0300\n"
 "Last-Translator: Anton Sergeevich Chumak <nightfast@yahoo.co.uk>\n"
 "Language-Team: Русский\n"
@@ -825,6 +825,41 @@ msgstr "Кодування вводу/показу:"
 
 msgid "&Select"
 msgstr "&Вибрати"
+
+#, fuzzy
+msgid "&Ok"
+msgstr "Г&aразд"
+
+msgid "Databases"
+msgstr ""
+
+msgid "Graphics"
+msgstr ""
+
+msgid "Multimedia"
+msgstr ""
+
+#, fuzzy
+msgid "Sources"
+msgstr "Джерело"
+
+msgid "Archives"
+msgstr ""
+
+msgid "Text/Doc Files"
+msgstr ""
+
+#, fuzzy
+msgid "Temp Files"
+msgstr " Файл "
+
+#, fuzzy
+msgid "Core Files"
+msgstr " Файл "
+
+#, fuzzy
+msgid " File highlighting "
+msgstr "&П╕дсв╕тка синтаксису"
 
 msgid "Use passive mode over pro&xy"
 msgstr "Використовувати пасивний режим pro&xy"
@@ -1992,6 +2027,9 @@ msgstr "&Вертикальне"
 msgid "&Horizontal"
 msgstr "&Горизонтальне"
 
+msgid "show free sp&Ace"
+msgstr ""
+
 msgid "&Xterm window title"
 msgstr "Заголовок в╕кна &xterm"
 
@@ -2018,6 +2056,10 @@ msgstr "Права д&оступу"
 
 msgid "&File types"
 msgstr "Типи &файл╕в"
+
+#, fuzzy
+msgid "&Hidden files"
+msgstr "Показувати при&хован╕ файли"
 
 msgid " Panel split "
 msgstr " Розбиття панелей "
@@ -2107,6 +2149,10 @@ msgstr ""
 " пов╕домив доч╕рн╕й процес ╕нтерпретатора. Може, ви \n"
 " видалили робочий каталог або дали соб╕ додатков╕ \n"
 " прив╕ле╖ при допомоз╕ команди \"su\"? "
+
+#, fuzzy, c-format
+msgid "%s (%d%%) of %s"
+msgstr "В╕ль. прост╕р: %s (%d%%) з %s"
 
 msgid " The Midnight Commander "
 msgstr " Midnight Commander "
@@ -2270,6 +2316,10 @@ msgstr "&В╕дображення символ╕в..."
 msgid "learn &Keys..."
 msgstr "Вивчення к&лав╕ш..."
 
+#, fuzzy
+msgid "file &Highlighting..."
+msgstr "&П╕дсв╕тка синтаксису"
+
 msgid "&Virtual FS..."
 msgstr "В╕ртуальн╕ &ФС..."
 
@@ -2339,6 +2389,7 @@ msgstr ""
 "Будь ласка, в╕дсилайте будь як╕ пов╕домлення про помилки\n"
 "(включаючи вив╕д \"mc -V\") на адресу mc-devel@gnome.org\n"
 
+#, fuzzy
 msgid ""
 "--colors KEYWORD={FORE},{BACK}\n"
 "\n"
@@ -2352,8 +2403,9 @@ msgid ""
 "   Menus:        menu, menuhot, menusel, menuhotsel\n"
 "   Editor:       editnormal, editbold, editmarked\n"
 "   Help:         helpnormal, helpitalic, helpbold, helplink, helpslink\n"
-"   File types:   directory, executable, link, stalelink, device, special, "
-"core\n"
+"   File types:   directory, executable, link, stalelink, device, special,\n"
+"                 core, hidden, temp, doc, archive, source, media, graph,\n"
+"                 database\n"
 "\n"
 "Colors:\n"
 "   black, gray, red, brightred, green, brightgreen, brown,\n"
@@ -2630,6 +2682,12 @@ msgstr "Власник"
 
 msgid "Group"
 msgstr "Група"
+
+#, fuzzy, c-format
+msgid "Invalid file coloring pattern `%s'\n"
+msgstr ""
+"Неправильний шаблон джерела \"%s\" \n"
+" %s "
 
 #, fuzzy, c-format
 msgid "%s byte"
@@ -3357,8 +3415,9 @@ msgstr "ftpfs: помилка ре╓страц╕╖ користувача %s "
 msgid "ftpfs: Invalid host name."
 msgstr "ftpfs: неправильна назва системи."
 
-msgid "ftpfs: Invalid host address."
-msgstr "ftpfs: неправильна адреса системи."
+#, c-format
+msgid "ftpfs: %s"
+msgstr ""
 
 #, c-format
 msgid "ftpfs: making connection to %s"
@@ -3374,6 +3433,18 @@ msgstr "ftpfs: зб╕й з'╓днання з сервером: %s"
 #, c-format
 msgid "Waiting to retry... %d (Control-C to cancel)"
 msgstr "Оч╕кування повтору спроби... %d (Control-C для скасування)"
+
+#, fuzzy
+msgid "ftpfs: invalid address family"
+msgstr "ftpfs: неправильна адреса системи."
+
+#, fuzzy, c-format
+msgid "ftpfs: could not setup passive mode: %s"
+msgstr "ftpfs: не зм╕г встановити пасивний режим"
+
+#, fuzzy, c-format
+msgid "ftpfs: could not create socket: %s"
+msgstr " Не вда╓ться створити сокет: %s "
 
 msgid "ftpfs: could not setup passive mode"
 msgstr "ftpfs: не зм╕г встановити пасивний режим"

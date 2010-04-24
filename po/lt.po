@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mc 4.6.1\n"
 "Report-Msgid-Bugs-To: mc-devel@gnome.org\n"
-"POT-Creation-Date: 2007-09-11 17:35+0300\n"
+"POT-Creation-Date: 2008-07-23 01:57+0400\n"
 "PO-Revision-Date: 2006-02-05 00:36+0100\n"
 "Last-Translator: Vaidrius Petrauskas <vaidrius@delfi.lt>\n"
 "Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
@@ -826,6 +826,41 @@ msgstr "Įvesties / išvesties kodų lentelė:"
 
 msgid "&Select"
 msgstr "Ž&ymėti"
+
+#, fuzzy
+msgid "&Ok"
+msgstr "&Gerai"
+
+msgid "Databases"
+msgstr ""
+
+msgid "Graphics"
+msgstr ""
+
+msgid "Multimedia"
+msgstr ""
+
+#, fuzzy
+msgid "Sources"
+msgstr "Iš"
+
+msgid "Archives"
+msgstr ""
+
+msgid "Text/Doc Files"
+msgstr ""
+
+#, fuzzy
+msgid "Temp Files"
+msgstr " Rinkmena "
+
+#, fuzzy
+msgid "Core Files"
+msgstr " Rinkmena "
+
+#, fuzzy
+msgid " File highlighting "
+msgstr " Parinkite sintaksės ryškinimą "
 
 msgid "Use passive mode over pro&xy"
 msgstr "Pasyvus režimas per įgaliotąjį serverį"
@@ -1998,6 +2033,9 @@ msgstr "&Vertikalus"
 msgid "&Horizontal"
 msgstr "&horizontalus"
 
+msgid "show free sp&Ace"
+msgstr ""
+
 msgid "&Xterm window title"
 msgstr "„&Xterm“ lango antraštė"
 
@@ -2024,6 +2062,10 @@ msgstr "Lei&dimai"
 
 msgid "&File types"
 msgstr "&Rinkmenų tipai"
+
+#, fuzzy
+msgid "&Hidden files"
+msgstr "Rodyti s&lepiam. rinkmenas"
 
 msgid " Panel split "
 msgstr " Skydų dalijimas "
@@ -2112,6 +2154,10 @@ msgstr ""
 " Nepavyko įeiti į katalogą, kurį aplinka nurodo kaip \n"
 " esamąjį. Galbūt jį ištrynėte arba naudojotės „su“, \n"
 " norėdami gauti platesnius leidimus? "
+
+#, fuzzy, c-format
+msgid "%s (%d%%) of %s"
+msgstr "Laisvos vietos: %s (%d%%) iš %s"
 
 msgid " The Midnight Commander "
 msgstr " Midnight Commander "
@@ -2275,6 +2321,10 @@ msgstr "Iš&vesties bitai..."
 msgid "learn &Keys..."
 msgstr "Mokyti &klavišų..."
 
+#, fuzzy
+msgid "file &Highlighting..."
+msgstr "Sintak&sės ryškinimas..."
+
 msgid "&Virtual FS..."
 msgstr "&Virtuali rinkmenų sistema..."
 
@@ -2343,6 +2393,7 @@ msgstr ""
 "Prašome siųsti klaidų pranešimus (taip pat ir „mc -V“ išvestį)\n"
 "į mc-devel@gnome.org\n"
 
+#, fuzzy
 msgid ""
 "--colors KEYWORD={FORE},{BACK}\n"
 "\n"
@@ -2356,8 +2407,9 @@ msgid ""
 "   Menus:        menu, menuhot, menusel, menuhotsel\n"
 "   Editor:       editnormal, editbold, editmarked\n"
 "   Help:         helpnormal, helpitalic, helpbold, helplink, helpslink\n"
-"   File types:   directory, executable, link, stalelink, device, special, "
-"core\n"
+"   File types:   directory, executable, link, stalelink, device, special,\n"
+"                 core, hidden, temp, doc, archive, source, media, graph,\n"
+"                 database\n"
 "\n"
 "Colors:\n"
 "   black, gray, red, brightred, green, brightgreen, brown,\n"
@@ -2634,6 +2686,12 @@ msgstr "Savin."
 
 msgid "Group"
 msgstr "Grupė"
+
+#, fuzzy, c-format
+msgid "Invalid file coloring pattern `%s'\n"
+msgstr ""
+"Netaisyklingas šaltinio formatas „%s“ \n"
+" %s "
 
 #, c-format
 msgid "%s byte"
@@ -3363,8 +3421,9 @@ msgstr "ftpfs: Neteisingas naudotojo „%s“ jungimasis "
 msgid "ftpfs: Invalid host name."
 msgstr "ftpfs: Neteisingas kompiuterio vardas."
 
-msgid "ftpfs: Invalid host address."
-msgstr "ftpfs: Neteisingas adresas."
+#, c-format
+msgid "ftpfs: %s"
+msgstr ""
 
 #, c-format
 msgid "ftpfs: making connection to %s"
@@ -3380,6 +3439,18 @@ msgstr "ftpfs: jungimasis į serverį nepavyko: %s"
 #, c-format
 msgid "Waiting to retry... %d (Control-C to cancel)"
 msgstr "Laukiama... %d (Control-C nutraukti)"
+
+#, fuzzy
+msgid "ftpfs: invalid address family"
+msgstr "ftpfs: Neteisingas adresas."
+
+#, fuzzy, c-format
+msgid "ftpfs: could not setup passive mode: %s"
+msgstr "ftpfs: nepavyko nustatyti pasyvaus režimo"
+
+#, fuzzy, c-format
+msgid "ftpfs: could not create socket: %s"
+msgstr " Nepavyko sukurti lizdo: %s "
 
 msgid "ftpfs: could not setup passive mode"
 msgstr "ftpfs: nepavyko nustatyti pasyvaus režimo"

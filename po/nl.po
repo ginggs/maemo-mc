@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mc 4.6.1\n"
 "Report-Msgid-Bugs-To: mc-devel@gnome.org\n"
-"POT-Creation-Date: 2007-09-11 17:35+0300\n"
+"POT-Creation-Date: 2008-07-23 01:57+0400\n"
 "PO-Revision-Date: 2005-10-04\n"
 "Last-Translator: Leonard den Ottolander <leonard den ottolander nl>\n"
 "Language-Team: \n"
@@ -827,6 +827,41 @@ msgstr "Invoer / weergave karakterset:"
 
 msgid "&Select"
 msgstr "&Selecteer"
+
+#, fuzzy
+msgid "&Ok"
+msgstr "&OK"
+
+msgid "Databases"
+msgstr ""
+
+msgid "Graphics"
+msgstr ""
+
+msgid "Multimedia"
+msgstr ""
+
+#, fuzzy
+msgid "Sources"
+msgstr "Bron"
+
+msgid "Archives"
+msgstr ""
+
+msgid "Text/Doc Files"
+msgstr ""
+
+#, fuzzy
+msgid "Temp Files"
+msgstr " Bestand "
+
+#, fuzzy
+msgid "Core Files"
+msgstr " Bestand "
+
+#, fuzzy
+msgid " File highlighting "
+msgstr "Kies syntax kleuring"
 
 msgid "Use passive mode over pro&xy"
 msgstr "Gebruik passieve modus over pro&xy"
@@ -1994,6 +2029,9 @@ msgstr "&Verticaal"
 msgid "&Horizontal"
 msgstr "&Horizontaal"
 
+msgid "show free sp&Ace"
+msgstr ""
+
 msgid "&Xterm window title"
 msgstr "&Xterm titelbalk"
 
@@ -2020,6 +2058,10 @@ msgstr "&Rechten"
 
 msgid "&File types"
 msgstr "Bestand&Formaten"
+
+#, fuzzy
+msgid "&Hidden files"
+msgstr "Toon verbor&Gen bestanden"
 
 msgid " Panel split "
 msgstr " Vensterverdeling "
@@ -2108,6 +2150,10 @@ msgstr ""
 " De Commander kan niet zich niet verplaatsen naar de directorie\n"
 " waarin u zich volgens de subshell bevindt.  Heeft u de werkdirectorie \n"
 " verwijderd, of  \"su\" gebruikt? "
+
+#, fuzzy, c-format
+msgid "%s (%d%%) of %s"
+msgstr "Vrije ruimte: %s (%d%%) van %s"
 
 msgid " The Midnight Commander "
 msgstr " De Midnight Commander "
@@ -2271,6 +2317,10 @@ msgstr "&Weergavebits...     "
 msgid "learn &Keys..."
 msgstr "&Leer toetsen...     "
 
+#, fuzzy
+msgid "file &Highlighting..."
+msgstr "Synta&X Kleuring..."
+
 msgid "&Virtual FS..."
 msgstr "&Virtueel FS...      "
 
@@ -2339,6 +2389,7 @@ msgstr ""
 "Stuur bugreports (met de uitvoer van 'mc -V')\n"
 "naar mc-devel@gnome.org\n"
 
+#, fuzzy
 msgid ""
 "--colors KEYWORD={FORE},{BACK}\n"
 "\n"
@@ -2352,8 +2403,9 @@ msgid ""
 "   Menus:        menu, menuhot, menusel, menuhotsel\n"
 "   Editor:       editnormal, editbold, editmarked\n"
 "   Help:         helpnormal, helpitalic, helpbold, helplink, helpslink\n"
-"   File types:   directory, executable, link, stalelink, device, special, "
-"core\n"
+"   File types:   directory, executable, link, stalelink, device, special,\n"
+"                 core, hidden, temp, doc, archive, source, media, graph,\n"
+"                 database\n"
 "\n"
 "Colors:\n"
 "   black, gray, red, brightred, green, brightgreen, brown,\n"
@@ -2633,6 +2685,12 @@ msgstr "Eigenaar"
 
 msgid "Group"
 msgstr "Groep"
+
+#, fuzzy, c-format
+msgid "Invalid file coloring pattern `%s'\n"
+msgstr ""
+"Ongeldig bronpatroon `%s' \n"
+" %s "
 
 #, fuzzy, c-format
 msgid "%s byte"
@@ -3363,8 +3421,9 @@ msgstr "ftpfs: Login niet correct voor gebruiker %s "
 msgid "ftpfs: Invalid host name."
 msgstr "ftpfs: Ongeldige hostnaam."
 
-msgid "ftpfs: Invalid host address."
-msgstr "ftpfs: Ongeldig hostadres."
+#, c-format
+msgid "ftpfs: %s"
+msgstr ""
 
 #, c-format
 msgid "ftpfs: making connection to %s"
@@ -3380,6 +3439,18 @@ msgstr "ftpfs: verbinding met server mislukt: %s"
 #, c-format
 msgid "Waiting to retry... %d (Control-C to cancel)"
 msgstr "Aan het wachten op nieuwe poging... %d (Control-C om af te breken)"
+
+#, fuzzy
+msgid "ftpfs: invalid address family"
+msgstr "ftpfs: Ongeldig hostadres."
+
+#, fuzzy, c-format
+msgid "ftpfs: could not setup passive mode: %s"
+msgstr "ftpfs: instellen passieve modus mislukt"
+
+#, fuzzy, c-format
+msgid "ftpfs: could not create socket: %s"
+msgstr " Kan socket niet creëren: %s "
 
 msgid "ftpfs: could not setup passive mode"
 msgstr "ftpfs: instellen passieve modus mislukt"

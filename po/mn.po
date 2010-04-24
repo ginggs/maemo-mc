@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mn\n"
 "Report-Msgid-Bugs-To: mc-devel@gnome.org\n"
-"POT-Creation-Date: 2007-09-11 17:35+0300\n"
+"POT-Creation-Date: 2008-07-23 01:57+0400\n"
 "PO-Revision-Date: 2003-03-04 21:16+0100\n"
 "Last-Translator: Sanlig Badral <badral@chinggis.com>\n"
 "Language-Team: Mongolian <mn@li.org>\n"
@@ -840,6 +840,41 @@ msgstr "Кодлогдсон оролт/гаралт: "
 
 msgid "&Select"
 msgstr "&Сонгох"
+
+#, fuzzy
+msgid "&Ok"
+msgstr "&ОК"
+
+msgid "Databases"
+msgstr ""
+
+msgid "Graphics"
+msgstr ""
+
+msgid "Multimedia"
+msgstr ""
+
+#, fuzzy
+msgid "Sources"
+msgstr "Эх"
+
+msgid "Archives"
+msgstr ""
+
+msgid "Text/Doc Files"
+msgstr ""
+
+#, fuzzy
+msgid "Temp Files"
+msgstr " Файл "
+
+#, fuzzy
+msgid "Core Files"
+msgstr " Файл "
+
+#, fuzzy
+msgid " File highlighting "
+msgstr "&өгүүлбэрзүйг өнгөөр тодотгох"
 
 #, fuzzy
 msgid "Use passive mode over pro&xy"
@@ -2009,6 +2044,9 @@ msgstr "&Хөндлөн"
 msgid "&Horizontal"
 msgstr "&Босоо"
 
+msgid "show free sp&Ace"
+msgstr ""
+
 msgid "&Xterm window title"
 msgstr "&Толгой xterm"
 
@@ -2035,6 +2073,10 @@ msgstr "&Зөвшөөрөл"
 
 msgid "&File types"
 msgstr "Файлын &төрөл"
+
+#, fuzzy
+msgid "&Hidden files"
+msgstr "&Нуусан файлуудыг харуулах"
 
 msgid " Panel split "
 msgstr " Панелийг хуваах "
@@ -2125,6 +2167,10 @@ msgstr ""
 " MC нь лавлахыг солиж чадахгүй байна \n"
 " Учир нь таны ажиллаж байгаа лавлах устгагдсан эсвэл \n"
 " \"su\" командаар өөртөө нэмэлт зөвшөөрөл өгсөн байна? "
+
+#, fuzzy, c-format
+msgid "%s (%d%%) of %s"
+msgstr "Чөлөөт зай: %s (%d%%) %s дэхь"
 
 msgid " The Midnight Commander "
 msgstr " Midnight Commander "
@@ -2288,6 +2334,10 @@ msgstr "&Бит тэмдэгтүүд..."
 msgid "learn &Keys..."
 msgstr "&Товчлууруудыг судлах..."
 
+#, fuzzy
+msgid "file &Highlighting..."
+msgstr "&өгүүлбэрзүйг өнгөөр тодотгох"
+
 msgid "&Virtual FS..."
 msgstr "Виртуаль &FS..."
 
@@ -2370,8 +2420,9 @@ msgid ""
 "   Menus:        menu, menuhot, menusel, menuhotsel\n"
 "   Editor:       editnormal, editbold, editmarked\n"
 "   Help:         helpnormal, helpitalic, helpbold, helplink, helpslink\n"
-"   File types:   directory, executable, link, stalelink, device, special, "
-"core\n"
+"   File types:   directory, executable, link, stalelink, device, special,\n"
+"                 core, hidden, temp, doc, archive, source, media, graph,\n"
+"                 database\n"
 "\n"
 "Colors:\n"
 "   black, gray, red, brightred, green, brightgreen, brown,\n"
@@ -2647,6 +2698,12 @@ msgstr "Эзэмшигч"
 
 msgid "Group"
 msgstr "Бүлэг"
+
+#, fuzzy, c-format
+msgid "Invalid file coloring pattern `%s'\n"
+msgstr ""
+"Буруу жишээ \"%s\" \n"
+" %s "
 
 #, fuzzy, c-format
 msgid "%s byte"
@@ -3369,8 +3426,9 @@ msgstr "ftpfs: %s хэрэглэгчийн нэвтрэлт буруу байн�
 msgid "ftpfs: Invalid host name."
 msgstr "ftpfs: буруу хост нэр."
 
-msgid "ftpfs: Invalid host address."
-msgstr "ftpfs: буруу хост хаяг."
+#, c-format
+msgid "ftpfs: %s"
+msgstr ""
 
 #, c-format
 msgid "ftpfs: making connection to %s"
@@ -3386,6 +3444,18 @@ msgstr "ftpfs: сервер руу холбогдолт амжилтгүй бо�
 #, c-format
 msgid "Waiting to retry... %d (Control-C to cancel)"
 msgstr "Дахин оролдохыг хүлээж байна... %d (Control-C дарвал таслагдана)"
+
+#, fuzzy
+msgid "ftpfs: invalid address family"
+msgstr "ftpfs: буруу хост хаяг."
+
+#, fuzzy, c-format
+msgid "ftpfs: could not setup passive mode: %s"
+msgstr "ftpfs: пассив горимыг тохируулж чадсангүй"
+
+#, fuzzy, c-format
+msgid "ftpfs: could not create socket: %s"
+msgstr " Сокет үүсгэж чадсангүй: %s "
 
 msgid "ftpfs: could not setup passive mode"
 msgstr "ftpfs: пассив горимыг тохируулж чадсангүй"

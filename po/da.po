@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mc 4.5.41\n"
 "Report-Msgid-Bugs-To: mc-devel@gnome.org\n"
-"POT-Creation-Date: 2007-09-11 17:35+0300\n"
+"POT-Creation-Date: 2008-07-23 01:57+0400\n"
 "PO-Revision-Date: 2001-10-20 21:37+02:00\n"
 "Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
@@ -843,6 +843,41 @@ msgstr "Kodning for inddata /visning:"
 
 msgid "&Select"
 msgstr "&Vælg"
+
+#, fuzzy
+msgid "&Ok"
+msgstr "&OK"
+
+msgid "Databases"
+msgstr ""
+
+msgid "Graphics"
+msgstr ""
+
+msgid "Multimedia"
+msgstr ""
+
+#, fuzzy
+msgid "Sources"
+msgstr "Kilde"
+
+msgid "Archives"
+msgstr ""
+
+msgid "Text/Doc Files"
+msgstr ""
+
+#, fuzzy
+msgid "Temp Files"
+msgstr " Filer "
+
+#, fuzzy
+msgid "Core Files"
+msgstr " Filer "
+
+#, fuzzy
+msgid " File highlighting "
+msgstr "synta&X farvning"
 
 #, fuzzy
 msgid "Use passive mode over pro&xy"
@@ -2017,6 +2052,9 @@ msgstr "&Lodret"
 msgid "&Horizontal"
 msgstr "&Vandret"
 
+msgid "show free sp&Ace"
+msgstr ""
+
 #, fuzzy
 msgid "&Xterm window title"
 msgstr "&Xterm hintlinje"
@@ -2044,6 +2082,10 @@ msgstr "rettigheder"
 
 msgid "&File types"
 msgstr "&Filtyper"
+
+#, fuzzy
+msgid "&Hidden files"
+msgstr "vis skjulte filer"
 
 msgid " Panel split "
 msgstr " Opsplit panel "
@@ -2134,6 +2176,10 @@ msgstr ""
 " underskallen påstår at du står i. Måske har du \n"
 " slettet den aktuelle mappe eller givet dig selv \n"
 " ekstra adgangstilladelser med \"su\" kommandoen? "
+
+#, fuzzy, c-format
+msgid "%s (%d%%) of %s"
+msgstr "Ledig plads: %s (%d%%) af %s"
 
 msgid " The Midnight Commander "
 msgstr " Midnight Commander'en "
@@ -2299,6 +2345,10 @@ msgstr "&Vis bits..."
 msgid "learn &Keys..."
 msgstr "lær &Taster..."
 
+#, fuzzy
+msgid "file &Highlighting..."
+msgstr "synta&X farvning"
+
 msgid "&Virtual FS..."
 msgstr "&Virtuelt FS..."
 
@@ -2382,8 +2432,9 @@ msgid ""
 "   Menus:        menu, menuhot, menusel, menuhotsel\n"
 "   Editor:       editnormal, editbold, editmarked\n"
 "   Help:         helpnormal, helpitalic, helpbold, helplink, helpslink\n"
-"   File types:   directory, executable, link, stalelink, device, special, "
-"core\n"
+"   File types:   directory, executable, link, stalelink, device, special,\n"
+"                 core, hidden, temp, doc, archive, source, media, graph,\n"
+"                 database\n"
 "\n"
 "Colors:\n"
 "   black, gray, red, brightred, green, brightgreen, brown,\n"
@@ -2662,6 +2713,12 @@ msgstr "Ejer"
 
 msgid "Group"
 msgstr "Gruppe"
+
+#, fuzzy, c-format
+msgid "Invalid file coloring pattern `%s'\n"
+msgstr ""
+"Ugyldigt kildemønster `%s' \n"
+" %s "
 
 #, fuzzy, c-format
 msgid "%s byte"
@@ -3387,8 +3444,9 @@ msgstr "ftpfs: Forkert login for bruger %s "
 msgid "ftpfs: Invalid host name."
 msgstr "ftpfs: Ugyldig værtsnavn."
 
-msgid "ftpfs: Invalid host address."
-msgstr "ftpfs: Ugyldig værtsadresse."
+#, c-format
+msgid "ftpfs: %s"
+msgstr ""
 
 #, c-format
 msgid "ftpfs: making connection to %s"
@@ -3404,6 +3462,18 @@ msgstr "ftpfs: forbindelse til server mislykkedes: %s"
 #, c-format
 msgid "Waiting to retry... %d (Control-C to cancel)"
 msgstr "Venter på at forsøge igen... %d (Ctrl-C annullerer)"
+
+#, fuzzy
+msgid "ftpfs: invalid address family"
+msgstr "ftpfs: Ugyldig værtsadresse."
+
+#, fuzzy, c-format
+msgid "ftpfs: could not setup passive mode: %s"
+msgstr "ftpfs: kunne ikke indstille passiv måde"
+
+#, fuzzy, c-format
+msgid "ftpfs: could not create socket: %s"
+msgstr " Kan ikke oprette sokkel %s "
 
 msgid "ftpfs: could not setup passive mode"
 msgstr "ftpfs: kunne ikke indstille passiv måde"

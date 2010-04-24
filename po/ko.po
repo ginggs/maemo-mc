@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mc 4.6.0-pre3\n"
 "Report-Msgid-Bugs-To: mc-devel@gnome.org\n"
-"POT-Creation-Date: 2007-09-11 17:35+0300\n"
+"POT-Creation-Date: 2008-07-23 01:57+0400\n"
 "PO-Revision-Date: 2003-01-22 17:31+0900\n"
 "Last-Translator: Nam SungHyun <namsh@kldp.org>\n"
 "Language-Team: Korean <gnome-kr-translation@lists.sourceforge.net>\n"
@@ -831,6 +831,41 @@ msgstr "입출력 코드페이지:"
 
 msgid "&Select"
 msgstr "선택(&S)"
+
+#, fuzzy
+msgid "&Ok"
+msgstr "확인(&O)"
+
+msgid "Databases"
+msgstr ""
+
+msgid "Graphics"
+msgstr ""
+
+msgid "Multimedia"
+msgstr ""
+
+#, fuzzy
+msgid "Sources"
+msgstr "원본"
+
+msgid "Archives"
+msgstr ""
+
+msgid "Text/Doc Files"
+msgstr ""
+
+#, fuzzy
+msgid "Temp Files"
+msgstr " 파일 "
+
+#, fuzzy
+msgid "Core Files"
+msgstr " 파일 "
+
+#, fuzzy
+msgid " File highlighting "
+msgstr " 하이라이트... "
 
 #, fuzzy
 msgid "Use passive mode over pro&xy"
@@ -1999,6 +2034,9 @@ msgstr "수직(&V)"
 msgid "&Horizontal"
 msgstr "수평(&H)"
 
+msgid "show free sp&Ace"
+msgstr ""
+
 msgid "&Xterm window title"
 msgstr "X 터미널 창 제목(&X)"
 
@@ -2025,6 +2063,10 @@ msgstr "허용(&R)"
 
 msgid "&File types"
 msgstr "파일 종류(&F)"
+
+#, fuzzy
+msgid "&Hidden files"
+msgstr "숨은 파일 보기(&H)"
 
 msgid " Panel split "
 msgstr " 패널 분리 "
@@ -2114,6 +2156,10 @@ msgstr ""
 " 그 디렉토리으로 바꿀 수 없습니다. 아마도 당신이 \n"
 " 작업 디렉토리을 지웠거나, 아니면 \"su\" 명령을\n"
 " 사용하여 특별한 액세스 권한을 가진 것 아녜요? "
+
+#, fuzzy, c-format
+msgid "%s (%d%%) of %s"
+msgstr "빈 공간: %s (%d%%) of %s"
 
 msgid " The Midnight Commander "
 msgstr " The Midnight Commander "
@@ -2277,6 +2323,10 @@ msgstr "출력 비트(&D)..."
 msgid "learn &Keys..."
 msgstr "글쇠 배우기(&K)..."
 
+#, fuzzy
+msgid "file &Highlighting..."
+msgstr " 하이라이트... "
+
 msgid "&Virtual FS..."
 msgstr "가상 파일체계(&V)..."
 
@@ -2360,8 +2410,9 @@ msgid ""
 "   Menus:        menu, menuhot, menusel, menuhotsel\n"
 "   Editor:       editnormal, editbold, editmarked\n"
 "   Help:         helpnormal, helpitalic, helpbold, helplink, helpslink\n"
-"   File types:   directory, executable, link, stalelink, device, special, "
-"core\n"
+"   File types:   directory, executable, link, stalelink, device, special,\n"
+"                 core, hidden, temp, doc, archive, source, media, graph,\n"
+"                 database\n"
 "\n"
 "Colors:\n"
 "   black, gray, red, brightred, green, brightgreen, brown,\n"
@@ -2637,6 +2688,12 @@ msgstr "소유자"
 
 msgid "Group"
 msgstr "집단"
+
+#, fuzzy, c-format
+msgid "Invalid file coloring pattern `%s'\n"
+msgstr ""
+"원본 패턴 `%s'이(가) 잘못되었습니다 \n"
+" %s "
 
 #, fuzzy, c-format
 msgid "%s byte"
@@ -3355,8 +3412,9 @@ msgstr "ftpfs: Login incorrect for user %s "
 msgid "ftpfs: Invalid host name."
 msgstr "ftpfs: 유효하지 않은 호스트 이름."
 
-msgid "ftpfs: Invalid host address."
-msgstr "ftpfs: 유효하지 않은 호스트 주소."
+#, c-format
+msgid "ftpfs: %s"
+msgstr ""
 
 #, c-format
 msgid "ftpfs: making connection to %s"
@@ -3372,6 +3430,18 @@ msgstr "ftpfs: 서버로 연결 실패: %s"
 #, c-format
 msgid "Waiting to retry... %d (Control-C to cancel)"
 msgstr "재시도 기다림... %d (취소하려면 Control-C)"
+
+#, fuzzy
+msgid "ftpfs: invalid address family"
+msgstr "ftpfs: 유효하지 않은 호스트 주소."
+
+#, fuzzy, c-format
+msgid "ftpfs: could not setup passive mode: %s"
+msgstr "ftpfs: 수동 모드로 설정할 수 없습니다"
+
+#, fuzzy, c-format
+msgid "ftpfs: could not create socket: %s"
+msgstr " 소켓을 만들 수 없음: %s "
 
 msgid "ftpfs: could not setup passive mode"
 msgstr "ftpfs: 수동 모드로 설정할 수 없습니다"

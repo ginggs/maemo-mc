@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mc-4.5.36\n"
 "Report-Msgid-Bugs-To: mc-devel@gnome.org\n"
-"POT-Creation-Date: 2007-09-11 17:35+0300\n"
+"POT-Creation-Date: 2008-07-23 01:57+0400\n"
 "PO-Revision-Date: 2000-10-27 15:37-03:00\n"
 "Last-Translator: E. A. Tacão <tacao@conectiva.com.br>\n"
 "Language-Team: pt_BR <ldp-br@bazar.conectiva.com.br>\n"
@@ -848,6 +848,41 @@ msgstr ""
 #, fuzzy
 msgid "&Select"
 msgstr " Selecionar "
+
+#, fuzzy
+msgid "&Ok"
+msgstr "&OK"
+
+msgid "Databases"
+msgstr ""
+
+msgid "Graphics"
+msgstr ""
+
+msgid "Multimedia"
+msgstr ""
+
+#, fuzzy
+msgid "Sources"
+msgstr "Origem"
+
+msgid "Archives"
+msgstr ""
+
+msgid "Text/Doc Files"
+msgstr ""
+
+#, fuzzy
+msgid "Temp Files"
+msgstr " Arquivo "
+
+#, fuzzy
+msgid "Core Files"
+msgstr " Arquivo "
+
+#, fuzzy
+msgid " File highlighting "
+msgstr "Ressaltar sinta&xe"
 
 #, fuzzy
 msgid "Use passive mode over pro&xy"
@@ -2030,6 +2065,9 @@ msgstr "&Vertical"
 msgid "&Horizontal"
 msgstr "&Horizontal"
 
+msgid "show free sp&Ace"
+msgstr ""
+
 #, fuzzy
 msgid "&Xterm window title"
 msgstr "Dicas do &Xterm"
@@ -2057,6 +2095,10 @@ msgstr "per&Rmissões"
 
 msgid "&File types"
 msgstr "Tipo de &Arquivos"
+
+#, fuzzy
+msgid "&Hidden files"
+msgstr "mostrar arquivos &Escondidos"
 
 msgid " Panel split "
 msgstr " Dividir painel "
@@ -2146,6 +2188,10 @@ msgstr ""
 " que o interpretador aponta.  Talvez ele tenha \n"
 " sido pagado, ou um comando de\n"
 " permissões extras foi executado, como \"su\" ? "
+
+#, fuzzy, c-format
+msgid "%s (%d%%) of %s"
+msgstr "Liberados %d (%d%%) nós de %d"
 
 msgid " The Midnight Commander "
 msgstr " O Midnight Commander"
@@ -2312,6 +2358,10 @@ msgstr "&Mostrar Bits..."
 msgid "learn &Keys..."
 msgstr "aprender &Teclas..."
 
+#, fuzzy
+msgid "file &Highlighting..."
+msgstr "Ressaltar sinta&xe"
+
 msgid "&Virtual FS..."
 msgstr "Sistema de Arquivos &Virtual..."
 
@@ -2397,8 +2447,9 @@ msgid ""
 "   Menus:        menu, menuhot, menusel, menuhotsel\n"
 "   Editor:       editnormal, editbold, editmarked\n"
 "   Help:         helpnormal, helpitalic, helpbold, helplink, helpslink\n"
-"   File types:   directory, executable, link, stalelink, device, special, "
-"core\n"
+"   File types:   directory, executable, link, stalelink, device, special,\n"
+"                 core, hidden, temp, doc, archive, source, media, graph,\n"
+"                 database\n"
 "\n"
 "Colors:\n"
 "   black, gray, red, brightred, green, brightgreen, brown,\n"
@@ -2677,6 +2728,12 @@ msgstr "Dono"
 
 msgid "Group"
 msgstr "Grupo"
+
+#, fuzzy, c-format
+msgid "Invalid file coloring pattern `%s'\n"
+msgstr ""
+"Padrão de origem inválido `%s' \n"
+" %s "
 
 #, fuzzy, c-format
 msgid "%s byte"
@@ -3422,8 +3479,9 @@ msgstr "ftpfs: Login incorreto para usuário %s "
 msgid "ftpfs: Invalid host name."
 msgstr "ftpfs: nome de host inválido."
 
-msgid "ftpfs: Invalid host address."
-msgstr "ftpfs: Endereço de host inválido."
+#, c-format
+msgid "ftpfs: %s"
+msgstr ""
 
 #, c-format
 msgid "ftpfs: making connection to %s"
@@ -3439,6 +3497,18 @@ msgstr "ftpfs: conexão para o servidor falhou: %s"
 #, c-format
 msgid "Waiting to retry... %d (Control-C to cancel)"
 msgstr "Aguardando para tentar novamente... %d (Control-C para cancelar)"
+
+#, fuzzy
+msgid "ftpfs: invalid address family"
+msgstr "ftpfs: Endereço de host inválido."
+
+#, fuzzy, c-format
+msgid "ftpfs: could not setup passive mode: %s"
+msgstr "ftpfs: não foi possível configurar modo passivo"
+
+#, fuzzy, c-format
+msgid "ftpfs: could not create socket: %s"
+msgstr " Impossível criar soquete: %s"
 
 msgid "ftpfs: could not setup passive mode"
 msgstr "ftpfs: não foi possível configurar modo passivo"

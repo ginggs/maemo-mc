@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mc 4.6.1\n"
 "Report-Msgid-Bugs-To: mc-devel@gnome.org\n"
-"POT-Creation-Date: 2007-09-11 17:35+0300\n"
+"POT-Creation-Date: 2008-07-23 01:57+0400\n"
 "PO-Revision-Date: 2006-08-16 16:20+0400\n"
 "Last-Translator: Phan Vĩnh Thịnh <teppi82@gmail.com>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
@@ -827,6 +827,41 @@ msgstr "Bảng mã đầu vào / hiển thị:"
 
 msgid "&Select"
 msgstr "&Lựa chọn"
+
+#, fuzzy
+msgid "&Ok"
+msgstr "Đồng ý &="
+
+msgid "Databases"
+msgstr ""
+
+msgid "Graphics"
+msgstr ""
+
+msgid "Multimedia"
+msgstr ""
+
+#, fuzzy
+msgid "Sources"
+msgstr "Nguồn"
+
+msgid "Archives"
+msgstr ""
+
+msgid "Text/Doc Files"
+msgstr ""
+
+#, fuzzy
+msgid "Temp Files"
+msgstr " Tập tin "
+
+#, fuzzy
+msgid "Core Files"
+msgstr " Tập tin "
+
+#, fuzzy
+msgid " File highlighting "
+msgstr "Chọn chiếu sáng cú pháp "
 
 msgid "Use passive mode over pro&xy"
 msgstr "Sử &dụng chế độ thụ động qua proxy"
@@ -1996,6 +2031,9 @@ msgstr "&Thẳng đứng"
 msgid "&Horizontal"
 msgstr "&Nằm ngang"
 
+msgid "show free sp&Ace"
+msgstr ""
+
 msgid "&Xterm window title"
 msgstr "tiê&U đề cửa sổ xterm"
 
@@ -2022,6 +2060,10 @@ msgstr "&Quyền truy cập"
 
 msgid "&File types"
 msgstr "&Loại tập tin"
+
+#, fuzzy
+msgid "&Hidden files"
+msgstr "&Hiển thị tập tin ẩn"
 
 msgid " Panel split "
 msgstr " Chia bảng "
@@ -2113,6 +2155,10 @@ msgstr ""
 " con thông báo. Rất có thể, bạn đã xóa thư mục làm việc \n"
 " hoặc thêm cho mình quyền truy cập mở rộng bằng câu \n"
 " lệnh \"su\"? "
+
+#, fuzzy, c-format
+msgid "%s (%d%%) of %s"
+msgstr "Chỗ trống:    %s (%d%%) của %s"
 
 msgid " The Midnight Commander "
 msgstr " Midnight Commander "
@@ -2276,6 +2322,10 @@ msgstr "bit &Hiển thị..."
 msgid "learn &Keys..."
 msgstr "&Tạo phím tắt...  "
 
+#, fuzzy
+msgid "file &Highlighting..."
+msgstr "&Chiếu sáng cú pháp..."
+
 msgid "&Virtual FS..."
 msgstr "&FS ảo..."
 
@@ -2345,6 +2395,7 @@ msgstr ""
 "Xin hãy gửi bất kỳ báo cáo lỗi bug nào (gồm cả kết quả của lệnh\n"
 "`mc -V') tới mc-devel@gnome.org\n"
 
+#, fuzzy
 msgid ""
 "--colors KEYWORD={FORE},{BACK}\n"
 "\n"
@@ -2358,8 +2409,9 @@ msgid ""
 "   Menus:        menu, menuhot, menusel, menuhotsel\n"
 "   Editor:       editnormal, editbold, editmarked\n"
 "   Help:         helpnormal, helpitalic, helpbold, helplink, helpslink\n"
-"   File types:   directory, executable, link, stalelink, device, special, "
-"core\n"
+"   File types:   directory, executable, link, stalelink, device, special,\n"
+"                 core, hidden, temp, doc, archive, source, media, graph,\n"
+"                 database\n"
 "\n"
 "Colors:\n"
 "   black, gray, red, brightred, green, brightgreen, brown,\n"
@@ -2637,6 +2689,12 @@ msgstr "Chủ sở hữu"
 
 msgid "Group"
 msgstr "Nhóm"
+
+#, fuzzy, c-format
+msgid "Invalid file coloring pattern `%s'\n"
+msgstr ""
+"Mẫu không đúng `%s' \n"
+" %s "
 
 #, c-format
 msgid "%s byte"
@@ -3365,8 +3423,9 @@ msgstr "ftpfs: lỗi đăng nhập cho người dùng %s "
 msgid "ftpfs: Invalid host name."
 msgstr "ftpfs: Tên máy không đúng."
 
-msgid "ftpfs: Invalid host address."
-msgstr "ftpfs: Địa chỉ không đúng."
+#, c-format
+msgid "ftpfs: %s"
+msgstr ""
 
 #, c-format
 msgid "ftpfs: making connection to %s"
@@ -3382,6 +3441,18 @@ msgstr "ftpfs: kết nối tới máy chủ không thành công: %s"
 #, c-format
 msgid "Waiting to retry... %d (Control-C to cancel)"
 msgstr "Chờ thử lại... %d (Control-C để hủy bỏ)"
+
+#, fuzzy
+msgid "ftpfs: invalid address family"
+msgstr "ftpfs: Địa chỉ không đúng."
+
+#, fuzzy, c-format
+msgid "ftpfs: could not setup passive mode: %s"
+msgstr "ftpfs: không đặt được chế độ bị động (passive)"
+
+#, fuzzy, c-format
+msgid "ftpfs: could not create socket: %s"
+msgstr " Không tạo được socket: %s "
 
 msgid "ftpfs: could not setup passive mode"
 msgstr "ftpfs: không đặt được chế độ bị động (passive)"

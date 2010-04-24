@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mc 4.6\n"
 "Report-Msgid-Bugs-To: mc-devel@gnome.org\n"
-"POT-Creation-Date: 2007-09-11 17:35+0300\n"
+"POT-Creation-Date: 2008-07-23 01:57+0400\n"
 "PO-Revision-Date: 2003-01-31 00:11+0200\n"
 "Last-Translator: Miºu Moldovan <dumol@go.ro>\n"
 "Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
@@ -836,6 +836,41 @@ msgstr "Intrare / cod de afiºare:"
 
 msgid "&Select"
 msgstr "&Selecteazã "
+
+#, fuzzy
+msgid "&Ok"
+msgstr "&OK"
+
+msgid "Databases"
+msgstr ""
+
+msgid "Graphics"
+msgstr ""
+
+msgid "Multimedia"
+msgstr ""
+
+#, fuzzy
+msgid "Sources"
+msgstr "Sursã"
+
+msgid "Archives"
+msgstr ""
+
+msgid "Text/Doc Files"
+msgstr ""
+
+#, fuzzy
+msgid "Temp Files"
+msgstr " Fiºier "
+
+#, fuzzy
+msgid "Core Files"
+msgstr " Fiºier "
+
+#, fuzzy
+msgid " File highlighting "
+msgstr "&Evidenþiere sintaxã"
 
 #, fuzzy
 msgid "Use passive mode over pro&xy"
@@ -2004,6 +2039,9 @@ msgstr "&Verticalã"
 msgid "&Horizontal"
 msgstr "ori&Zontalã"
 
+msgid "show free sp&Ace"
+msgstr ""
+
 msgid "&Xterm window title"
 msgstr "barã titlu &Xterm"
 
@@ -2030,6 +2068,10 @@ msgstr "&Drepturi"
 
 msgid "&File types"
 msgstr "tipul &Fiºierelor"
+
+#, fuzzy
+msgid "&Hidden files"
+msgstr "aratã fiºierele &Ascunse"
 
 msgid " Panel split "
 msgstr " Împãrþire panou "
@@ -2119,6 +2161,10 @@ msgstr ""
 " subshell-ul susþine cã sunteþi. Probabil cã aþi ºters \n"
 " directorul de lucru sau v-aþi dat drepturi adiþionale \n"
 " de acces folosind comanda \"su\". "
+
+#, fuzzy, c-format
+msgid "%s (%d%%) of %s"
+msgstr "Spaþiu gol: %s (%d%%) în %s"
 
 msgid " The Midnight Commander "
 msgstr " Midnight Commander "
@@ -2282,6 +2328,10 @@ msgstr "&Biþi de afiºare..."
 msgid "learn &Keys..."
 msgstr "învaþã &Tastele..."
 
+#, fuzzy
+msgid "file &Highlighting..."
+msgstr "&Evidenþiere sintaxã"
+
 msgid "&Virtual FS..."
 msgstr "Sistem &Virtual de Fiºiere..."
 
@@ -2367,8 +2417,9 @@ msgid ""
 "   Menus:        menu, menuhot, menusel, menuhotsel\n"
 "   Editor:       editnormal, editbold, editmarked\n"
 "   Help:         helpnormal, helpitalic, helpbold, helplink, helpslink\n"
-"   File types:   directory, executable, link, stalelink, device, special, "
-"core\n"
+"   File types:   directory, executable, link, stalelink, device, special,\n"
+"                 core, hidden, temp, doc, archive, source, media, graph,\n"
+"                 database\n"
 "\n"
 "Colors:\n"
 "   black, gray, red, brightred, green, brightgreen, brown,\n"
@@ -2645,6 +2696,12 @@ msgstr "Proprietar"
 
 msgid "Group"
 msgstr "Grup"
+
+#, fuzzy, c-format
+msgid "Invalid file coloring pattern `%s'\n"
+msgstr ""
+" Model de sursã invalid \"%s\" \n"
+" %s "
 
 #, fuzzy, c-format
 msgid "%s byte"
@@ -3366,8 +3423,9 @@ msgstr "ftpfs: Autentificare incorectã pentru utilizatorul %s"
 msgid "ftpfs: Invalid host name."
 msgstr "ftpfs: Nume invalid al gazdei."
 
-msgid "ftpfs: Invalid host address."
-msgstr "ftpfs: Adresã invalidã a gazdei."
+#, c-format
+msgid "ftpfs: %s"
+msgstr ""
 
 #, c-format
 msgid "ftpfs: making connection to %s"
@@ -3383,6 +3441,18 @@ msgstr "ftpfs: conectarea la server a eºuat: %s"
 #, c-format
 msgid "Waiting to retry... %d (Control-C to cancel)"
 msgstr "Aºtept sã reîncerc... %d (Control-C pentru a renunþa)"
+
+#, fuzzy
+msgid "ftpfs: invalid address family"
+msgstr "ftpfs: Adresã invalidã a gazdei."
+
+#, fuzzy, c-format
+msgid "ftpfs: could not setup passive mode: %s"
+msgstr "ftpfs: nu pot seta modul pasiv"
+
+#, fuzzy, c-format
+msgid "ftpfs: could not create socket: %s"
+msgstr " Nu pot crea socket-ul: %s "
 
 msgid "ftpfs: could not setup passive mode"
 msgstr "ftpfs: nu pot seta modul pasiv"

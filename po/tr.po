@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mc 4.5.54\n"
 "Report-Msgid-Bugs-To: mc-devel@gnome.org\n"
-"POT-Creation-Date: 2007-09-11 17:35+0300\n"
+"POT-Creation-Date: 2008-07-23 01:57+0400\n"
 "PO-Revision-Date: 2001-11-06 05:50+0200\n"
 "Last-Translator: Nilgün Belma Bugüner <nilgun@fide.org>\n"
 "Language-Team: Turkish <gnu-tr-u12a@lists.sourceforge.net>\n"
@@ -838,6 +838,41 @@ msgstr "Girdi / gösterme karakter kümesi:"
 
 msgid "&Select"
 msgstr "&Seç"
+
+#, fuzzy
+msgid "&Ok"
+msgstr "&Tamam"
+
+msgid "Databases"
+msgstr ""
+
+msgid "Graphics"
+msgstr ""
+
+msgid "Multimedia"
+msgstr ""
+
+#, fuzzy
+msgid "Sources"
+msgstr "Kaynak"
+
+msgid "Archives"
+msgstr ""
+
+msgid "Text/Doc Files"
+msgstr ""
+
+#, fuzzy
+msgid "Temp Files"
+msgstr " Dosya "
+
+#, fuzzy
+msgid "Core Files"
+msgstr " Dosya "
+
+#, fuzzy
+msgid " File highlighting "
+msgstr "&Sözdizimi aydýnlatma"
 
 #, fuzzy
 msgid "Use passive mode over pro&xy"
@@ -2010,6 +2045,9 @@ msgstr "Di&key"
 msgid "&Horizontal"
 msgstr "&Yatay"
 
+msgid "show free sp&Ace"
+msgstr ""
+
 #, fuzzy
 msgid "&Xterm window title"
 msgstr "&Xterm yardým satýrý"
@@ -2037,6 +2075,10 @@ msgstr "i&zinler"
 
 msgid "&File types"
 msgstr "Dosya tü&rleri"
+
+#, fuzzy
+msgid "&Hidden files"
+msgstr "&Gizli dosyalarý göster"
 
 msgid " Panel split "
 msgstr " Panel bölüþümü "
@@ -2126,6 +2168,10 @@ msgstr ""
 " Ya bu dizini sildiniz ya da \"su \" \n"
 " komutuyla kendinize fazladan haklar \n"
 " verdiniz? "
+
+#, fuzzy, c-format
+msgid "%s (%d%%) of %s"
+msgstr "%s (%%%d) / %s serbest alan"
 
 msgid " The Midnight Commander "
 msgstr " The Midnight Commander "
@@ -2291,6 +2337,10 @@ msgstr "Bit &gösterimi..."
 msgid "learn &Keys..."
 msgstr "&Tuþlarý öðren..."
 
+#, fuzzy
+msgid "file &Highlighting..."
+msgstr "&Sözdizimi aydýnlatma"
+
 msgid "&Virtual FS..."
 msgstr "&Sanal Dosya Sistemi..."
 
@@ -2375,8 +2425,9 @@ msgid ""
 "   Menus:        menu, menuhot, menusel, menuhotsel\n"
 "   Editor:       editnormal, editbold, editmarked\n"
 "   Help:         helpnormal, helpitalic, helpbold, helplink, helpslink\n"
-"   File types:   directory, executable, link, stalelink, device, special, "
-"core\n"
+"   File types:   directory, executable, link, stalelink, device, special,\n"
+"                 core, hidden, temp, doc, archive, source, media, graph,\n"
+"                 database\n"
 "\n"
 "Colors:\n"
 "   black, gray, red, brightred, green, brightgreen, brown,\n"
@@ -2655,6 +2706,12 @@ msgstr "Sahibi"
 
 msgid "Group"
 msgstr "Grup"
+
+#, fuzzy, c-format
+msgid "Invalid file coloring pattern `%s'\n"
+msgstr ""
+"Geçersiz kaynak maský `%s' \n"
+" %s"
 
 #, fuzzy, c-format
 msgid "%s byte"
@@ -3383,8 +3440,9 @@ msgstr "ftpfs: kullanýcý %s için baðlantý reddedildi"
 msgid "ftpfs: Invalid host name."
 msgstr "ftpfs: Makina ismi geçersiz."
 
-msgid "ftpfs: Invalid host address."
-msgstr "ftpfs: Makina adresi geçersiz."
+#, c-format
+msgid "ftpfs: %s"
+msgstr ""
 
 #, c-format
 msgid "ftpfs: making connection to %s"
@@ -3400,6 +3458,18 @@ msgstr "ftpfs: Sunucuya baðlantý baþarýsýz: %s"
 #, c-format
 msgid "Waiting to retry... %d (Control-C to cancel)"
 msgstr "Yinelemek için bekleniyor... %d (iptal etmek için Ctrl-C)"
+
+#, fuzzy
+msgid "ftpfs: invalid address family"
+msgstr "ftpfs: Makina adresi geçersiz."
+
+#, fuzzy, c-format
+msgid "ftpfs: could not setup passive mode: %s"
+msgstr "ftpfs: pasif kip ayarlanamadý"
+
+#, fuzzy, c-format
+msgid "ftpfs: could not create socket: %s"
+msgstr " Soket oluþturulamadý: %s "
 
 msgid "ftpfs: could not setup passive mode"
 msgstr "ftpfs: pasif kip ayarlanamadý"

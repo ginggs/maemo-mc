@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mc\n"
 "Report-Msgid-Bugs-To: mc-devel@gnome.org\n"
-"POT-Creation-Date: 2007-09-11 17:35+0300\n"
+"POT-Creation-Date: 2008-07-23 01:57+0400\n"
 "PO-Revision-Date: 2003-01-22 18:10+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -853,6 +853,41 @@ msgstr "Teckentabell för inmatning/visning:"
 
 msgid "&Select"
 msgstr "&Välj"
+
+#, fuzzy
+msgid "&Ok"
+msgstr "&OK"
+
+msgid "Databases"
+msgstr ""
+
+msgid "Graphics"
+msgstr ""
+
+msgid "Multimedia"
+msgstr ""
+
+#, fuzzy
+msgid "Sources"
+msgstr "Källa"
+
+msgid "Archives"
+msgstr ""
+
+msgid "Text/Doc Files"
+msgstr ""
+
+#, fuzzy
+msgid "Temp Files"
+msgstr " Fil "
+
+#, fuzzy
+msgid "Core Files"
+msgstr " Fil "
+
+#, fuzzy
+msgid " File highlighting "
+msgstr "Markera synta&x"
 
 #, fuzzy
 msgid "Use passive mode over pro&xy"
@@ -2036,6 +2071,9 @@ msgstr "&Vertikal"
 msgid "&Horizontal"
 msgstr "&Horisontell"
 
+msgid "show free sp&Ace"
+msgstr ""
+
 msgid "&Xterm window title"
 msgstr "&Xterm-fönstertitel"
 
@@ -2062,6 +2100,10 @@ msgstr "&Rättigheter"
 
 msgid "&File types"
 msgstr "&Filtyper"
+
+#, fuzzy
+msgid "&Hidden files"
+msgstr "visa &Gömda filer"
 
 msgid " Panel split "
 msgstr " Dela panelen "
@@ -2153,6 +2195,10 @@ msgstr ""
 " En tänkbar förklaring är att du har raderat din   \n"
 " arbetskatalog, eller gett dig själv extra         \n"
 " rättigheter mha \"su\"-kommandot?                 "
+
+#, fuzzy, c-format
+msgid "%s (%d%%) of %s"
+msgstr "Ledigt utrymme: %s (%d%%) av %s"
 
 msgid " The Midnight Commander "
 msgstr " Midnight Commander "
@@ -2320,6 +2366,10 @@ msgstr "&Display bitar..."
 msgid "learn &Keys..."
 msgstr "lär MC dina &Tangenter..."
 
+#, fuzzy
+msgid "file &Highlighting..."
+msgstr "Markera synta&x"
+
 msgid "&Virtual FS..."
 msgstr "&Virtuellt FS.."
 
@@ -2404,8 +2454,9 @@ msgid ""
 "   Menus:        menu, menuhot, menusel, menuhotsel\n"
 "   Editor:       editnormal, editbold, editmarked\n"
 "   Help:         helpnormal, helpitalic, helpbold, helplink, helpslink\n"
-"   File types:   directory, executable, link, stalelink, device, special, "
-"core\n"
+"   File types:   directory, executable, link, stalelink, device, special,\n"
+"                 core, hidden, temp, doc, archive, source, media, graph,\n"
+"                 database\n"
 "\n"
 "Colors:\n"
 "   black, gray, red, brightred, green, brightgreen, brown,\n"
@@ -2686,6 +2737,14 @@ msgstr "Ägare"
 
 msgid "Group"
 msgstr "Grupp"
+
+# om existerar" 
+# är inte säker på att texten får plats..
+#, fuzzy, c-format
+msgid "Invalid file coloring pattern `%s'\n"
+msgstr ""
+"Ogiltigt sökmönster \"%s\" \n"
+" %s "
 
 #, fuzzy, c-format
 msgid "%s byte"
@@ -3411,8 +3470,9 @@ msgstr "ftpfs: Inloggningen felaktig för användare %s "
 msgid "ftpfs: Invalid host name."
 msgstr "ftpfs: Ogiltigt värdnamn."
 
-msgid "ftpfs: Invalid host address."
-msgstr "ftpfs: Ogiltig värdadress."
+#, c-format
+msgid "ftpfs: %s"
+msgstr ""
 
 #, c-format
 msgid "ftpfs: making connection to %s"
@@ -3428,6 +3488,19 @@ msgstr "ftpfs: misslyckades att ansluta till servern: %s"
 #, c-format
 msgid "Waiting to retry... %d (Control-C to cancel)"
 msgstr "Försöker igen... %d (Control-C för att avbryta)"
+
+#, fuzzy
+msgid "ftpfs: invalid address family"
+msgstr "ftpfs: Ogiltig värdadress."
+
+# incomplete
+#, fuzzy, c-format
+msgid "ftpfs: could not setup passive mode: %s"
+msgstr "ftpfs: kan inte sätta upp passivt läge"
+
+#, fuzzy, c-format
+msgid "ftpfs: could not create socket: %s"
+msgstr " Kan inte skapa uttag: %s "
 
 # incomplete
 msgid "ftpfs: could not setup passive mode"

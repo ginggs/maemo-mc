@@ -1,3 +1,10 @@
+mc (1:4.6.2-pre1-1maemo7) fremantle; urgency=low
+
+  * Package optified
+  * New Maintainer
+
+ -- Mohammad Abu-Garbeyyeh <mohammad7410@gmail.com>  Sat, 24 Apr 2010 23:30:54 +0400
+
 mc (1:4.6.2-pre1-1maemo5) diablo; urgency=low
 
   * Before invoking maemo-select-menu-location check that it actually exists.

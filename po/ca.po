@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mc 4.5.99a\n"
 "Report-Msgid-Bugs-To: mc-devel@gnome.org\n"
-"POT-Creation-Date: 2007-09-11 17:35+0300\n"
+"POT-Creation-Date: 2008-07-23 01:57+0400\n"
 "PO-Revision-Date: 2001-09-29 17:41+0200\n"
 "Last-Translator: Softcatalà <tradgnome@softcatala.org>\n"
 "Language-Team: Catalan <info@softcatala.org>\n"
@@ -839,6 +839,43 @@ msgstr "Pàgina de codis d'entrada / visualització:"
 
 msgid "&Select"
 msgstr "&Seleccioneu"
+
+#, fuzzy
+msgid "&Ok"
+msgstr "&D'acord"
+
+msgid "Databases"
+msgstr ""
+
+msgid "Graphics"
+msgstr ""
+
+msgid "Multimedia"
+msgstr ""
+
+#, fuzzy
+msgid "Sources"
+msgstr "Font/Origen"
+
+msgid "Archives"
+msgstr ""
+
+msgid "Text/Doc Files"
+msgstr ""
+
+# Açò s'agraeix!  iv
+#, fuzzy
+msgid "Temp Files"
+msgstr " Fitxer "
+
+# Açò s'agraeix!  iv
+#, fuzzy
+msgid "Core Files"
+msgstr " Fitxer "
+
+#, fuzzy
+msgid " File highlighting "
+msgstr "Ressaltament de la sinta&Xi"
 
 #, fuzzy
 msgid "Use passive mode over pro&xy"
@@ -2015,6 +2052,9 @@ msgstr "&Vertical"
 msgid "&Horizontal"
 msgstr "&Horitzontal"
 
+msgid "show free sp&Ace"
+msgstr ""
+
 #, fuzzy
 msgid "&Xterm window title"
 msgstr "pistes a &Xterm"
@@ -2042,6 +2082,10 @@ msgstr "&Permisos"
 
 msgid "&File types"
 msgstr "tipus de &Fitxer"
+
+#, fuzzy
+msgid "&Hidden files"
+msgstr "mostra els &Fitxers ocults"
 
 msgid " Panel split "
 msgstr " Divisió de quadres "
@@ -2132,6 +2176,10 @@ msgstr ""
 " intèrpret diu que sou. Potser heu suprimit el    \n"
 " vostre directori de treball, o heu pres uns permisos   \n"
 " d'accés extra amb la comanda \"su\"?                  "
+
+#, fuzzy, c-format
+msgid "%s (%d%%) of %s"
+msgstr "Espai lliure: %s (%d%%) of %s"
 
 msgid " The Midnight Commander "
 msgstr " El Midnight Commander "
@@ -2297,6 +2345,10 @@ msgstr "&Bits de visualització..."
 msgid "learn &Keys..."
 msgstr "defineix &Tecles..."
 
+#, fuzzy
+msgid "file &Highlighting..."
+msgstr "Ressaltament de la sinta&Xi"
+
 msgid "&Virtual FS..."
 msgstr "Sistemes de fitxers &Virtuals..."
 
@@ -2382,8 +2434,9 @@ msgid ""
 "   Menus:        menu, menuhot, menusel, menuhotsel\n"
 "   Editor:       editnormal, editbold, editmarked\n"
 "   Help:         helpnormal, helpitalic, helpbold, helplink, helpslink\n"
-"   File types:   directory, executable, link, stalelink, device, special, "
-"core\n"
+"   File types:   directory, executable, link, stalelink, device, special,\n"
+"                 core, hidden, temp, doc, archive, source, media, graph,\n"
+"                 database\n"
 "\n"
 "Colors:\n"
 "   black, gray, red, brightred, green, brightgreen, brown,\n"
@@ -2665,6 +2718,12 @@ msgstr "Propietari"
 
 msgid "Group"
 msgstr "Grup"
+
+#, fuzzy, c-format
+msgid "Invalid file coloring pattern `%s'\n"
+msgstr ""
+" El patró de font `%s' no és vàlid \n"
+" %s "
 
 #, fuzzy, c-format
 msgid "%s byte"
@@ -3395,8 +3454,9 @@ msgstr "ftpfs: La identificació per a l'usuari %s no és correcta"
 msgid "ftpfs: Invalid host name."
 msgstr "ftpfs: El nom de l'ordinador central no és vàlid."
 
-msgid "ftpfs: Invalid host address."
-msgstr "ftpfs: L'adreça de l'ordinador central no és vàlida."
+#, c-format
+msgid "ftpfs: %s"
+msgstr ""
 
 #, c-format
 msgid "ftpfs: making connection to %s"
@@ -3412,6 +3472,18 @@ msgstr "ftpfs: ha fallat la connexió amb el servidor: %s"
 #, c-format
 msgid "Waiting to retry... %d (Control-C to cancel)"
 msgstr "Està esperant per reintentar... %d (Ctrl-C per cancel·lar)"
+
+#, fuzzy
+msgid "ftpfs: invalid address family"
+msgstr "ftpfs: L'adreça de l'ordinador central no és vàlida."
+
+#, fuzzy, c-format
+msgid "ftpfs: could not setup passive mode: %s"
+msgstr "ftpfs: no s'ha pogut establir el mode passiu"
+
+#, fuzzy, c-format
+msgid "ftpfs: could not create socket: %s"
+msgstr " No es pot crear el sòcol: %s"
 
 msgid "ftpfs: could not setup passive mode"
 msgstr "ftpfs: no s'ha pogut establir el mode passiu"
