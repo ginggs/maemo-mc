@@ -1,3 +1,9 @@
+mc (1:4.6.2-pre1-1maemo9) fremantle; urgency=low
+
+  * Changed XB-Maemo-Display-Name
+
+ -- Mohammad Abu-Garbeyyeh <mohammad7410@gmail.com>  Sat, 25 Apr 2010 17:58:35 +0400
+
 mc (1:4.6.2-pre1-1maemo8) fremantle; urgency=low
 
   * Package optified, the right way this time.
