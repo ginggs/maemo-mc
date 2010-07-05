@@ -1,7 +1,8 @@
 Source: mc
-Section: user/tools
+Section: user/utilities
 Priority: optional
 Maintainer: Mohammad Abu-Garbeyyeh <mohammad7410@gmail.com>
+XSBC-Bugtracker: mailto:mohammad7410@gmail.com
 Build-Depends: debhelper (>> 4.0.0), libglib2.0-dev, gettext, sharutils, python
 Standards-Version: 3.7.3
 
