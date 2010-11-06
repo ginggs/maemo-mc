@@ -1,5 +1,6 @@
 /* Directory panel listing format editor -- for the Midnight Commander
-   Copyright (C) 1994, 1995 The Free Software Foundation
+   Copyright (C) 1994, 1995, 1998, 1999, 2000, 2001, 2002, 2003, 2005,
+   2006, 2007 Free Software Foundation, Inc.
 
    Written by: 1994 Radek Doulik
    	       1995 Janne Kukonlehto
@@ -19,6 +20,10 @@
    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  
  */
 
+/** \file listmode.c
+ *  \brief Source: directory panel listing format editor
+ */
+
 #include <config.h>
 
 #ifdef LISTMODE_EDITOR
@@ -30,9 +35,9 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-#include "global.h"
+#include "lib/global.h"
 #include "tty.h"
-#include "win.h"
+#include "key.h"
 #include "color.h"
 #include "dialog.h"
 #include "widget.h"
@@ -42,6 +47,7 @@
 #include "dir.h"
 #include "panel.h"		/* Needed for the externs */
 #include "file.h"
+#include "layout.h"		/* repaint_screen() */
 #include "main.h"
 #include "listmode.h"
 
@@ -88,30 +94,26 @@ struct listmode_label {
 static char *
 select_new_item (void)
 {
-    /* NOTE: The following array of possible items must match the
-       formats array in screen.c. Better approach might be to make the
-       formats array global */
-    char *possible_items[] =
-	{ "name", "size", "type", "mtime", "perm", "mode", "|", "nlink",
-	"owner", "group", "atime", "ctime", "space", "mark",
-	"inode", NULL
-    };
-
+    char **possible_items;
+    char *ret = NULL;
     int i;
     Listbox *mylistbox;
 
+    possible_items = panel_get_user_possible_fields(NULL);
+
     mylistbox =
-	create_listbox_window (12, 20, " Add listing format item ",
+	create_listbox_window (20, 12, "Add listing format item",
 			       listmode_section);
     for (i = 0; possible_items[i]; i++) {
-	listbox_add_item (mylistbox->list, 0, 0, possible_items[i], NULL);
+	listbox_add_item (mylistbox->list, LISTBOX_APPEND_AT_END, 0, possible_items[i], NULL);
     }
 
     i = run_listbox (mylistbox);
     if (i >= 0)
-	return possible_items[i];
-    else
-	return NULL;
+	ret = g_strdup(possible_items[i]);
+
+    g_strfreev (possible_items);
+    return ret;
 }
 
 static int
@@ -131,7 +133,8 @@ badd_cback (int action)
 {
     char *s = select_new_item ();
     if (s) {
-	listbox_add_item (l_listmode, 0, 0, s, NULL);
+	listbox_add_item (l_listmode, LISTBOX_APPEND_AT_END, 0, s, NULL);
+	g_free(s);
     }
     return 0;
 }
@@ -139,7 +142,7 @@ badd_cback (int action)
 static int
 bremove_cback (int action)
 {
-    listbox_remove_current (l_listmode, 0);
+    listbox_remove_current (l_listmode);
     return 0;
 }
 
@@ -168,14 +171,14 @@ init_listmode (char *oldlistformat)
     do_refresh ();
 
     listmode_dlg =
-	create_dlg (0, 0, 22, 74, dialog_colors, NULL, listmode_section,
+	create_dlg (TRUE, 0, 0, 22, 74, dialog_colors, NULL, listmode_section,
 		    "Listing format edit", DLG_CENTER | DLG_REVERSE);
 
     add_widget (listmode_dlg,
-		groupbox_new (UX, UY, 63, 4, "General options"));
-    add_widget (listmode_dlg, groupbox_new (UX, UY + 4, 18, 11, "Items"));
+		groupbox_new (UY, UX, 4, 63, "General options"));
+    add_widget (listmode_dlg, groupbox_new (UY + 4, UX, 11, 18, "Items"));
     add_widget (listmode_dlg,
-		groupbox_new (UX + 20, UY + 4, 43, 11, "Item options"));
+		groupbox_new (UY + 4, UX + 20, 11, 43, "Item options"));
 
     for (i = 0;
 	 i < sizeof (listmode_but) / sizeof (struct listmode_button); i++)
@@ -204,7 +207,7 @@ init_listmode (char *oldlistformat)
     radio_justify->sel = 1;
 
     /* get new listbox */
-    l_listmode = listbox_new (UY + 5, UX + 1, 16, 9, NULL);
+    l_listmode = listbox_new (UY + 5, UX + 1, 9, 16, FALSE, NULL);
 
     if (strncmp (oldlistformat, "full ", 5) == 0) {
 	format_width = 1;
@@ -223,7 +226,7 @@ init_listmode (char *oldlistformat)
     s = strtok (oldlistformat, ",");
 
     while (s) {
-	listbox_add_item (l_listmode, 0, 0, s, NULL);
+	listbox_add_item (l_listmode, LISTBOX_APPEND_AT_END, 0, s, NULL);
 	s = strtok (NULL, ",");
     }
 
@@ -266,7 +269,7 @@ collect_new_format (void)
 	strcat (newformat, "2 ");
     last = NULL;
     for (i = 0;; i++) {
-	listbox_select_by_number (l_listmode, i);
+	listbox_select_entry (l_listmode, i);
 	listbox_get_current (l_listmode, &text, &extra);
 	if (text == last)
 	    break;
@@ -297,5 +300,4 @@ listmode_edit (char *oldlistformat)
     listmode_done (listmode_dlg);
     return newformat;
 }
-
 #endif				/* LISTMODE_EDITOR */

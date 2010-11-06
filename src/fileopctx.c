@@ -1,9 +1,10 @@
 /* File operation contexts for the Midnight Commander
 
-   Copyright (C) 1998 The Free Software Foundation
+   Copyright (C) 1999, 2001, 2002, 2003, 2004, 2005, 2007
+   Free Software Foundation, Inc.
 
    Authors: Federico Mena <federico@nuclecu.unam.mx>
-            Miguel de Icaza <miguel@nuclecu.unam.mx>
+   Miguel de Icaza <miguel@nuclecu.unam.mx>
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -20,22 +21,31 @@
    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
+/** \file fileopctx.c
+ *  \brief Source: file operation contexts
+ *  \date 1998-2007
+ *  \author Federico Mena <federico@nuclecu.unam.mx>
+ *  \author Miguel de Icaza <miguel@nuclecu.unam.mx>
+ */
+
 #include <config.h>
 
 #include <unistd.h>
 
-#include "global.h"
+#include "lib/global.h"
 #include "fileopctx.h"
-
+#include "filegui.h"
+#include "lib/search.h"
+#include "lib/vfs/mc-vfs/vfs.h"
 
 /**
- * file_op_context_new:
- * 
+ * \fn FileOpContext * file_op_context_new (FileOperation op)
+ * \param op file operation struct
+ * \return The newly-created context, filled with the default file mask values.
+ *
  * Creates a new file operation context with the default values.  If you later want
- * to have a user interface for this, call #file_op_context_create_ui().
- * 
- * Return value: The newly-created context, filled with the default file mask values.
- **/
+ * to have a user interface for this, call file_op_context_create_ui().
+ */
 FileOpContext *
 file_op_context_new (FileOperation op)
 {
@@ -46,10 +56,10 @@ file_op_context_new (FileOperation op)
     ctx->eta_secs = 0.0;
     ctx->progress_bytes = 0.0;
     ctx->op_preserve = TRUE;
-    ctx->do_reget = TRUE;
+    ctx->do_reget = 1;
     ctx->stat_func = mc_lstat;
     ctx->preserve = TRUE;
-    ctx->preserve_uidgid = (geteuid () == 0) ? TRUE : FALSE;
+    ctx->preserve_uidgid = (geteuid () == 0);
     ctx->umask_kill = 0777777;
     ctx->erase_at_end = TRUE;
 
@@ -58,23 +68,40 @@ file_op_context_new (FileOperation op)
 
 
 /**
- * file_op_context_destroy:
- * @ctx: The file operation context to destroy.
- * 
+ * \fn void file_op_context_destroy (FileOpContext *ctx)
+ * \param ctx The file operation context to destroy.
+ *
  * Destroys the specified file operation context and its associated UI data, if
  * it exists.
- **/
+ */
 void
-file_op_context_destroy (FileOpContext *ctx)
+file_op_context_destroy (FileOpContext * ctx)
 {
     g_return_if_fail (ctx != NULL);
 
     if (ctx->ui)
-	file_op_context_destroy_ui (ctx);
+        file_op_context_destroy_ui (ctx);
 
-    regfree (&ctx->rx);
+    mc_search_free (ctx->search_handle);
 
-    /* FIXME: do we need to free ctx->dest_mask? */
+    /** \todo FIXME: do we need to free ctx->dest_mask? */
 
     g_free (ctx);
+}
+
+FileOpTotalContext *
+file_op_total_context_new (void)
+{
+    FileOpTotalContext *tctx;
+    tctx = g_new0 (FileOpTotalContext, 1);
+    tctx->ask_overwrite = TRUE;
+    tctx->is_toplevel_file = TRUE;
+    return tctx;
+}
+
+void
+file_op_total_context_destroy (FileOpTotalContext * tctx)
+{
+    g_return_if_fail (tctx != NULL);
+    g_free (tctx);
 }

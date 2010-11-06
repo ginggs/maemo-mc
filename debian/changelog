@@ -1,3 +1,11 @@
+mc (1:4.7.4-maemo1) fremantle; urgency=low
+
+  * Upgraded to latest Midnight Commander version
+  * Full repackaging due to cardinal changes in directory structure
+  * Switched to ncurses instead of slang
+
+ -- Andrew Zabolotny <zap@homelink.ru>  Sat,  6 Nov 2010 18:00:09 +0300
+
 mc (1:4.6.2-pre1-1maemo10) fremantle; urgency=low
 
   * Changed Section: and added Bugtracker: sections to control file (ty Andrew ~M.A.G)

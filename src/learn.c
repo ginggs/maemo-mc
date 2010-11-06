@@ -1,5 +1,6 @@
 /* Learn keys
-   Copyright (C) 1995 The Free Software Foundation
+   Copyright (C) 1995, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005,
+   2007, 2009 Free Software Foundation, Inc.
    
    Written by: 1995 Jakub Jelinek
 
@@ -18,6 +19,10 @@
    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  
  */
 
+/** \file learn.c
+ *  \brief Source: learn keys module
+ */
+
 #include <config.h>
 
 #include <ctype.h>
@@ -29,16 +34,18 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-#include "global.h"
-#include "tty.h"
-#include "win.h"
-#include "color.h"
+#include "lib/global.h"
+
+#include "lib/tty/tty.h"
+#include "lib/tty/key.h"
+#include "lib/mcconfig.h"	/* Save profile */
+#include "lib/strescape.h"
+#include "lib/strutil.h"
+
 #include "dialog.h"
 #include "widget.h"
-#include "profile.h"		/* Save profile */
-#include "key.h"
 #include "setup.h"
-#include "main.h"
+#include "layout.h"			/* repaint_screen() */
 #include "learn.h"
 #include "wtools.h"
 
@@ -56,8 +63,10 @@ static struct {
     int ret_cmd, flags, y, x;
     const char *text;
 } learn_but[BUTTONS] = {
+    /* *INDENT-OFF */
     { B_CANCEL, NORMAL_BUTTON, 0, 39, N_("&Cancel") },
     { B_ENTER, DEFPUSH_BUTTON, 0, 25, N_("&Save") }
+    /* *INDENT-ON */
 };
 
 static Dlg_head *learn_dlg;
@@ -74,10 +83,14 @@ static int learnchanged;
 static const char* learn_title = N_("Learn keys");
 
 
-static int learn_button (int action)
+static int learn_button (WButton *button, int action)
 {
+    Dlg_head *d;
     char *seq;
-    Dlg_head *d = create_message (D_ERROR, _(" Teach me a key "),
+
+    (void) button;
+
+    d = create_message (D_ERROR, _("Teach me a key"),
 _("Please press the %s\n"
 "and then wait until this message disappears.\n\n"
 "Then, press it again to see if OK appears\n"
@@ -96,29 +109,26 @@ _("Please press the %s\n"
 	/* Esc hides the dialog and do not allow definitions of
 	 * regular characters
 	 */
-	int seq_ok;
+	gboolean seq_ok = FALSE;
 
 	if (*seq && strcmp (seq, "\\e") && strcmp (seq, "\\e\\e")
 	    && strcmp (seq, "^m" ) && strcmp (seq, "^i" )
             && (seq [1] || (*seq < ' ' || *seq > '~'))){
-	    
+
 	    learnchanged = 1;
 	    learnkeys [action - B_USER].sequence = seq;
 	    seq = convert_controls (seq);
 	    seq_ok = define_sequence (key_name_conv_tab [action - B_USER].code,
 				      seq, MCKEY_NOACTION);
-	} else {
-	    seq_ok = 0;
 	}
 
-	if (!seq_ok) {
-	    message (0, _(" Cannot accept this key "),
-		_(" You have entered \"%s\""), seq);
-	}
-	
-    	g_free (seq);
+	if (!seq_ok)
+	    message (D_NORMAL, _("Cannot accept this key"),
+		_("You have entered \"%s\""), seq);
+
+	g_free (seq);
     }
-    
+
     dlg_run_done (d);
     destroy_dlg (d);
     dlg_select_widget (learnkeys [action - B_USER].button);
@@ -131,7 +141,7 @@ static int learn_move (int right)
     
     totalcols = (learn_total - 1) / ROWS + 1;
     for (i = 0; i < learn_total; i++)
-        if (learnkeys [i].button == learn_dlg->current) {
+        if (learnkeys [i].button == (Widget *) learn_dlg->current->data) {
             if (right) {
                 if (i < learn_total - ROWS)
                     i += ROWS;
@@ -171,11 +181,11 @@ learn_check_key (int c)
 		if (query_dialog (learn_title,
 				  _
 				  ("It seems that all your keys already\n"
-				   "work fine. That's great."), 1, 2,
+				   "work fine. That's great."), D_ERROR, 2,
 				  _("&Save"), _("&Discard")) == 0)
 		    learn_dlg->ret_value = B_ENTER;
 	    } else {
-		message (1, learn_title,
+		message (D_ERROR, learn_title,
 			 _
 			 ("Great! You have a complete terminal database!\n"
 			  "All your keys work well."));
@@ -201,14 +211,15 @@ learn_check_key (int c)
 
     /* Prevent from disappearing if a non-defined sequence is pressed
        and contains a button hotkey.  Only recognize hotkeys with ALT.  */
-    if (c < 255 && isalnum (c))
+    if (c < 255 && g_ascii_isalnum (c))
 		return 1;
 
     return 0;
 }
 
 static cb_ret_t
-learn_callback (Dlg_head *h, dlg_msg_t msg, int parm)
+learn_callback (Dlg_head *h, Widget *sender,
+		dlg_msg_t msg, int parm, void *data)
 {
     switch (msg) {
     case DLG_DRAW:
@@ -219,7 +230,7 @@ learn_callback (Dlg_head *h, dlg_msg_t msg, int parm)
 	return learn_check_key (parm);
 
     default:
-	return default_dlg_callback (h, msg, parm);
+	return default_dlg_callback (h, sender, msg, parm, data);
     }
 }
 
@@ -227,7 +238,7 @@ static void
 init_learn (void)
 {
     int x, y, i, j;
-    key_code_name_t *key;
+    const key_code_name_t *key;
     char buffer[BUF_TINY];
 
 #ifdef ENABLE_NLS
@@ -237,7 +248,7 @@ init_learn (void)
 	learn_but[0].x = 78 / 2 + 4;
 
 	learn_but[1].text = _(learn_but[1].text);
-	learn_but[1].x = 78 / 2 - (strlen (learn_but[1].text) + 9);
+	learn_but[1].x = 78 / 2 - (str_term_width1 (learn_but[1].text) + 9);
 
 	learn_title = _(learn_title);
 	i18n_flag = 1;
@@ -247,7 +258,7 @@ init_learn (void)
     do_refresh ();
 
     learn_dlg =
-	create_dlg (0, 0, 23, 78, dialog_colors, learn_callback,
+	create_dlg (TRUE, 0, 0, 23, 78, dialog_colors, learn_callback,
 		    "[Learn keys]", learn_title, DLG_CENTER | DLG_REVERSE);
 
     for (i = 0; i < BUTTONS; i++)
@@ -259,7 +270,9 @@ init_learn (void)
     x = UX;
     y = UY;
     for (key = key_name_conv_tab, j = 0;
-	 key->name != NULL && strcmp (key->name, "kpleft"); key++, j++);
+	    key->name != NULL && strcmp (key->name, "kpleft");
+	    key++, j++)
+	;
     learnkeys = g_new (learnkey, j);
     x += ((j - 1) / ROWS) * COLSHIFT;
     y += (j - 1) % ROWS;
@@ -308,12 +321,18 @@ learn_save (void)
     int i;
     int profile_changed = 0;
     char *section = g_strconcat ("terminal:", getenv ("TERM"), (char *) NULL);
+    char *esc_str;
 
     for (i = 0; i < learn_total; i++) {
 	if (learnkeys [i].sequence != NULL) {
 	    profile_changed = 1;
-	    WritePrivateProfileString (section, key_name_conv_tab [i].name,
-	        learnkeys [i].sequence, profile_name);
+
+	    esc_str = strutils_escape (learnkeys [i].sequence, -1, ";\\", TRUE);
+
+	    mc_config_direct_set_string(mc_main_config, section,
+		key_name_conv_tab [i].name, esc_str);
+
+	    g_free(esc_str);
 	}
     }
 
@@ -324,7 +343,7 @@ learn_save (void)
      * disk is much worse.
      */
     if (profile_changed)
-	sync_profiles ();
+	mc_config_save_file (mc_main_config, NULL);
 
     g_free (section);
 }

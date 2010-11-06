@@ -15,11 +15,16 @@
    along with this program; if not, write to the Free Software
    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  */
 
+/** \file mountlist.h
+ *  \brief Header: list of mounted filesystems
+ */
+
 #ifndef MC_MOUNTLIST_H
 #define MC_MOUNTLIST_H
 
 /* Filesystem status */
-struct my_statfs {
+struct my_statfs
+{
     int type;
     char *typename;
     const char *mpoint;
@@ -32,5 +37,6 @@ struct my_statfs {
 
 void init_my_statfs (void);
 void my_statfs (struct my_statfs *myfs_stats, const char *path);
+void free_my_statfs (void);
 
 #endif

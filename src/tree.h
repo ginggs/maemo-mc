@@ -1,18 +1,27 @@
+
+/** \file tree.h
+ *  \brief Header: directory tree browser
+ */
+
 #ifndef MC_TREE_H
 #define MC_TREE_H
 
-struct WTree;
+#include "lib/global.h"
+
 typedef struct WTree WTree;
 
-int tree_init (const char *current_dir, int lines);
+extern WTree *the_tree;
+extern int xtree_mode;
+
+WTree *tree_new (int y, int x, int lines, int cols, gboolean is_panel);
+
 void tree_chdir (WTree *tree, const char *dir);
-char *tree_selected_name (WTree *tree);
+char *tree_selected_name (const WTree *tree);
 
 void sync_tree (const char *pathname);
 
-extern int xtree_mode;
+struct Dlg_head;
 
-WTree *tree_new (int is_panel, int y, int x, int lines, int cols);
-extern WTree *the_tree;
+WTree *find_tree (struct Dlg_head *h);
 
-#endif
+#endif /* MC_TREE_H */

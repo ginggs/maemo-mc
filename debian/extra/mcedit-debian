@@ -1,5 +1,0 @@
-#!/bin/sh
-
-# mcedit wrapper for Debian alternatives system
-
-exec mcedit $@

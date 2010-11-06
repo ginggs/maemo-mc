@@ -1,10 +1,12 @@
+
+/** \file treestore.h
+ *  \brief Header: tree store
+ *
+ *  Contains a storage of the file system tree representation.
+ */
+
 #ifndef MC_TREE_STORE_H
 #define MC_TREE_STORE_H
-
-/* Default filenames for the tree */
-
-#define MC_TREE ".mc/Tree"
-#define MC_TREE_TMP ".mc/Tree.tmp"
 
 typedef struct tree_entry {
     char *name;			/* The full path of directory */

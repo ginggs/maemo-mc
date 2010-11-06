@@ -1,5 +1,0 @@
-#!/bin/sh
-
-# mcview wrapper for Debian alternatives system
-
-exec mcview $@

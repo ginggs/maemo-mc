@@ -1,1606 +1,2837 @@
 # Serbian translation of GNU MC
 # Copyright (C) 2003 Free Software Foundation, Inc.
 # This file is distributed under the same license as the mc package.
-# Strahinya Radich (¡‚‡–Âÿ˙– ¿–‘ÿ˚) <mr99164@alas.matf.bg.ac.yu>, 2003.
+# Strahinya Radich (–°—Ç—Ä–∞—Ö–∏—ö–∞ –†–∞–¥–∏—õ) <mr99164@alas.matf.bg.ac.yu>, 2003.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: mc 4.6.0\n"
-"Report-Msgid-Bugs-To: mc-devel@gnome.org\n"
-"POT-Creation-Date: 2008-07-23 01:57+0400\n"
+"Report-Msgid-Bugs-To: http://www.midnight-commander.org/\n"
+"POT-Creation-Date: 2010-09-07 10:18+0300\n"
 "PO-Revision-Date: 2003-09-20 18:50+0200\n"
-"Last-Translator: Strahinya Radich (¡‚‡–Âÿ˙– ¿–‘ÿ˚) <mr99164@alas.matf.bg.ac."
+"Last-Translator: Strahinya Radich (–°—Ç—Ä–∞—Ö–∏—ö–∞ –†–∞–¥–∏—õ) <mr99164@alas.matf.bg.ac."
 "yu>\n"
-"Language-Team: Serbian (·‡ﬂ·⁄ÿ) <sr@li.org>\n"
+"Language-Team: Serbian (—Å—Ä–ø—Å–∫–∏) <sr@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-5\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#, fuzzy, c-format
+msgid ""
+"File \"%s\" is already being edited.\n"
+"User: %s\n"
+"Process ID: %d"
+msgstr ""
+"–î–∞—Ç–æ—Ç–µ–∫—É `%s' –≤–µ—õ —É—Ä–µ—í—É—ò–µ\n"
+"–∫–æ—Ä–∏—Å–Ω–∏–∫: %s\n"
+"–ò–ë –ø—Ä–æ—Ü–µ—Å–∞: %d"
+
+msgid "File locked"
+msgstr "–î–∞—Ç–æ—Ç–µ–∫–∞ —ò–µ –∑–∞–∫—ô—É—á–∞–Ω–∞"
+
+msgid "&Grab lock"
+msgstr "&–ó–∞—É–∑–º–∏ –∫–∞—Ç–∞–Ω–∞—Ü"
+
+msgid "&Ignore lock"
+msgstr "–ó&–∞–Ω–µ–º–∞—Ä–∏ –∫–∞—Ç–∞–Ω–∞—Ü"
+
 #, fuzzy
-msgid " Choose syntax highlighting "
-msgstr "∏·‚ÿ&Ê–˙’ ·ÿ›‚–⁄·’"
+msgid "Search string not found"
+msgstr " –¢—Ä–∞–∂–µ–Ω–∞ –Ω–∏—Å–∫–∞ –Ω–∏—ò–µ –Ω–∞—í–µ–Ω–∞ "
+
+msgid "Not implemented yet"
+msgstr ""
+
+msgid "Num of replace tokens not equal to num of found tokens"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "Invalid token number %d"
+msgstr " –ù–µ–∏—Å–ø—Ä–∞–≤–Ω–∞ –æ–¥—Ä–µ–¥–∏—à–Ω–∞ –º–∞—Å–∫–∞ "
+
+#, fuzzy
+msgid "Normal"
+msgstr "–§–æ—Ä–º–∞—Ç"
+
+msgid "&Regular expression"
+msgstr "&–†–µ–≥—É–ª–∞—Ä–Ω–∏ –∏–∑—Ä–∞–∑"
+
+msgid "Hexadecimal"
+msgstr ""
+
+msgid "Wildcard search"
+msgstr ""
+
+#, c-format
+msgid ""
+"Unable to load '%s' skin.\n"
+"Default skin has been loaded"
+msgstr ""
+
+#, c-format
+msgid ""
+"Unable to parse '%s' skin.\n"
+"Default skin has been loaded"
+msgstr ""
+
+msgid "Function key 1"
+msgstr "–§—É–Ω–∫—Ü. —Ç–∞—Å—Ç–µ—Ä 1"
+
+msgid "Function key 2"
+msgstr "–§—É–Ω–∫—Ü. —Ç–∞—Å—Ç–µ—Ä 2"
+
+msgid "Function key 3"
+msgstr "–§—É–Ω–∫—Ü. —Ç–∞—Å—Ç–µ—Ä 3"
+
+msgid "Function key 4"
+msgstr "–§—É–Ω–∫—Ü. —Ç–∞—Å—Ç–µ—Ä 4"
+
+msgid "Function key 5"
+msgstr "–§—É–Ω–∫—Ü. —Ç–∞—Å—Ç–µ—Ä 5"
+
+msgid "Function key 6"
+msgstr "–§—É–Ω–∫—Ü. —Ç–∞—Å—Ç–µ—Ä 6"
+
+msgid "Function key 7"
+msgstr "–§—É–Ω–∫—Ü. —Ç–∞—Å—Ç–µ—Ä 7"
+
+msgid "Function key 8"
+msgstr "–§—É–Ω–∫—Ü. —Ç–∞—Å—Ç–µ—Ä 8"
+
+msgid "Function key 9"
+msgstr "–§—É–Ω–∫—Ü. —Ç–∞—Å—Ç–µ—Ä 9"
+
+msgid "Function key 10"
+msgstr "–§—É–Ω–∫—Ü. —Ç–∞—Å—Ç–µ—Ä 10"
+
+msgid "Function key 11"
+msgstr "–§—É–Ω–∫—Ü. —Ç–∞—Å—Ç–µ—Ä 11"
+
+msgid "Function key 12"
+msgstr "–§—É–Ω–∫—Ü. —Ç–∞—Å—Ç–µ—Ä 12"
+
+msgid "Function key 13"
+msgstr "–§—É–Ω–∫—Ü. —Ç–∞—Å—Ç–µ—Ä 13"
+
+msgid "Function key 14"
+msgstr "–§—É–Ω–∫—Ü. —Ç–∞—Å—Ç–µ—Ä 14"
+
+msgid "Function key 15"
+msgstr "–§—É–Ω–∫—Ü. —Ç–∞—Å—Ç–µ—Ä 15"
+
+msgid "Function key 16"
+msgstr "–§—É–Ω–∫—Ü. —Ç–∞—Å—Ç–µ—Ä 16"
+
+msgid "Function key 17"
+msgstr "–§—É–Ω–∫—Ü. —Ç–∞—Å—Ç–µ—Ä 17"
+
+msgid "Function key 18"
+msgstr "–§—É–Ω–∫—Ü. —Ç–∞—Å—Ç–µ—Ä 18"
+
+msgid "Function key 19"
+msgstr "–§—É–Ω–∫—Ü. —Ç–∞—Å—Ç–µ—Ä 19"
+
+msgid "Function key 20"
+msgstr "–§—É–Ω–∫—Ü. —Ç–∞—Å—Ç–µ—Ä 20"
+
+msgid "Backspace key"
+msgstr "–¢–∞—Å—Ç. `Backspace'"
+
+msgid "End key"
+msgstr "–¢–∞—Å—Ç. `End'"
+
+msgid "Up arrow key"
+msgstr "–°—Ç—Ä–µ–ª–∏—Ü–∞ –Ω–∞–≥–æ—Ä–µ"
+
+msgid "Down arrow key"
+msgstr "–°—Ç—Ä–µ–ª–∏—Ü–∞ –Ω–∞–¥–æ–ª–µ"
+
+msgid "Left arrow key"
+msgstr "–°—Ç—Ä–µ–ª–∏—Ü–∞ –Ω–∞–ª–µ–≤–æ"
+
+msgid "Right arrow key"
+msgstr "–°—Ç—Ä–µ–ª–∏—Ü–∞ –Ω–∞–¥–µ—Å–Ω–æ"
+
+msgid "Home key"
+msgstr "–¢–∞—Å—Ç. `Home'"
+
+msgid "Page Down key"
+msgstr "–¢–∞—Å—Ç. `Page Up'"
+
+msgid "Page Up key"
+msgstr "–¢–∞—Å—Ç. `Page Down'"
+
+msgid "Insert key"
+msgstr "–¢–∞—Å—Ç. `Insert'"
+
+msgid "Delete key"
+msgstr "–¢–∞—Å—Ç. `Delete'"
+
+msgid "Completion/M-tab"
+msgstr "–î–æ–ø—É–Ω–∞/M-tab"
+
+msgid "+ on keypad"
+msgstr "–°–∏–≤–∏ +"
+
+msgid "- on keypad"
+msgstr "–°–∏–≤–∏ -"
+
+msgid "Slash on keypad"
+msgstr "–°–∏–≤–∏ /"
+
+msgid "* on keypad"
+msgstr "–°–∏–≤–∏ *"
+
+#, fuzzy
+msgid "Escape key"
+msgstr "–°–∏–≤–∏ /"
+
+msgid "Left arrow keypad"
+msgstr "–°–∏–≤–∞ —Å—Ç—Ä–µ–ª. –Ω–∞–ª–µ–≤–æ"
+
+msgid "Right arrow keypad"
+msgstr "–°–∏–≤–∞ —Å—Ç—Ä–µ–ª. –Ω–∞–¥–µ—Å–Ω–æ"
+
+msgid "Up arrow keypad"
+msgstr "–°–∏–≤–∞ —Å—Ç—Ä–µ–ª. –Ω–∞–≥–æ—Ä–µ"
+
+msgid "Down arrow keypad"
+msgstr "–°–∏–≤–∞ —Å—Ç—Ä–µ–ª. –Ω–∞–¥–æ–ª–µ"
+
+msgid "Home on keypad"
+msgstr "–°–∏–≤–∏ `Home'"
+
+msgid "End on keypad"
+msgstr "–°–∏–≤–∏ `End'"
+
+msgid "Page Down keypad"
+msgstr "–°–∏–≤–∏ `Page Down'"
+
+msgid "Page Up keypad"
+msgstr "–°–∏–≤–∏ `Page Up'"
+
+msgid "Insert on keypad"
+msgstr "–°–∏–≤–∏ `Insert'"
+
+msgid "Delete on keypad"
+msgstr "–°–∏–≤–∏ `Delete'"
+
+msgid "Enter on keypad"
+msgstr "–°–∏–≤–∏ `Enter'"
+
+#, fuzzy
+msgid "Function key 21"
+msgstr "–§—É–Ω–∫—Ü. —Ç–∞—Å—Ç–µ—Ä 1"
+
+#, fuzzy
+msgid "Function key 22"
+msgstr "–§—É–Ω–∫—Ü. —Ç–∞—Å—Ç–µ—Ä 2"
+
+#, fuzzy
+msgid "Function key 23"
+msgstr "–§—É–Ω–∫—Ü. —Ç–∞—Å—Ç–µ—Ä 2"
+
+#, fuzzy
+msgid "Function key 24"
+msgstr "–§—É–Ω–∫—Ü. —Ç–∞—Å—Ç–µ—Ä 2"
+
+#, fuzzy
+msgid "A1 key"
+msgstr "–¢–∞—Å—Ç. `End'"
+
+#, fuzzy
+msgid "C1 key"
+msgstr "–¢–∞—Å—Ç. `End'"
+
+msgid "Plus"
+msgstr ""
+
+#, fuzzy
+msgid "Minus"
+msgstr "–ú–µ–Ω–∏"
+
+msgid "Asterisk"
+msgstr ""
+
+msgid "Dot"
+msgstr ""
+
+msgid "Less than"
+msgstr ""
+
+msgid "Great than"
+msgstr ""
+
+msgid "Equal"
+msgstr ""
+
+#, fuzzy
+msgid "Comma"
+msgstr "–ù–∞—Ä–µ–¥–±–∞"
+
+msgid "Apostrophe"
+msgstr ""
+
+#, fuzzy
+msgid "Colon"
+msgstr "–ë—Ä–æ—ò"
+
+msgid "Exclamation mark"
+msgstr ""
+
+msgid "Question mark"
+msgstr ""
+
+#, fuzzy
+msgid "Ampersand"
+msgstr "&–ù–∞–¥–æ–≤–µ–∂–∏"
+
+msgid "Dollar sign"
+msgstr ""
+
+msgid "Quotation mark"
+msgstr ""
+
+#, fuzzy
+msgid "Caret"
+msgstr "–û–¥—Ä–µ–¥–∏—à—Ç–µ"
+
+msgid "Tilda"
+msgstr ""
+
+#, fuzzy
+msgid "Prime"
+msgstr "–ü—Ä–µ—Ç—Ö"
+
+#, fuzzy
+msgid "Underline"
+msgstr " –£–Ω–µ—Å–∏—Ç–µ –±—Ä–æ—ò —Ä–µ–¥–∞: "
+
+msgid "Understrike"
+msgstr ""
+
+msgid "Pipe"
+msgstr ""
+
+msgid "Left parenthesis"
+msgstr ""
+
+#, fuzzy
+msgid "Right parenthesis"
+msgstr "–°—Ç—Ä–µ–ª–∏—Ü–∞ –Ω–∞–¥–µ—Å–Ω–æ"
+
+#, fuzzy
+msgid "Left bracket"
+msgstr "–°—Ç—Ä–µ–ª–∏—Ü–∞ –Ω–∞–ª–µ–≤–æ"
+
+#, fuzzy
+msgid "Right bracket"
+msgstr "–°—Ç—Ä–µ–ª–∏—Ü–∞ –Ω–∞–¥–µ—Å–Ω–æ"
+
+msgid "Left brace"
+msgstr ""
+
+#, fuzzy
+msgid "Right brace"
+msgstr "–°—Ç—Ä–µ–ª–∏—Ü–∞ –Ω–∞–¥–µ—Å–Ω–æ"
+
+#, fuzzy
+msgid "Enter"
+msgstr "–≤–ª–∞—Å–Ω–∏–∫"
+
+#, fuzzy
+msgid "Tab key"
+msgstr "–°–∏–≤–∏ +"
+
+#, fuzzy
+msgid "Space key"
+msgstr "–°–∏–≤–∏ /"
+
+#, fuzzy
+msgid "Slash key"
+msgstr "–°–∏–≤–∏ /"
+
+#, fuzzy
+msgid "Backslash key"
+msgstr "–¢–∞—Å—Ç. `Backspace'"
+
+msgid "Number sign #"
+msgstr ""
+
+msgid "Ctrl"
+msgstr ""
+
+msgid "Alt"
+msgstr ""
+
+msgid "Shift"
+msgstr ""
+
+#, c-format
+msgid ""
+"Screen size %dx%d is not supported.\n"
+"Check the TERM environment variable.\n"
+msgstr ""
+"–í–µ–ª–∏—á–∏–Ω–∞ –µ–∫—Ä–∞–Ω–∞ %dx%d –Ω–∏—ò–µ –ø–æ–¥—Ä–∂–∞–Ω–∞.\n"
+"–ü—Ä–æ–≤–µ—Ä–∏—Ç–µ –ø—Ä–æ–º–µ–Ω—ô–∏–≤—É —ô—É—Å–∫–µ `TERM'.\n"
+
+#, c-format
+msgid "%s is not a directory\n"
+msgstr "%s –Ω–∏—ò–µ –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º\n"
+
+#, c-format
+msgid "Directory %s is not owned by you\n"
+msgstr "–ù–µ –ø–æ—Å–µ–¥—É—ò–µ—Ç–µ –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º %s\n"
+
+#, c-format
+msgid "Cannot set correct permissions for directory %s\n"
+msgstr "–ù–µ –º–æ–≥—É –¥–∞ –ø–æ—Å—Ç–∞–≤–∏–º –∏—Å–ø—Ä–∞–≤–Ω–µ –¥–æ–∑–≤–æ–ª–µ –∑–∞ –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º %s\n"
+
+#, c-format
+msgid "Cannot create temporary directory %s: %s\n"
+msgstr "–ù–µ –º–æ–≥—É –¥–∞ —Å—Ç–≤–æ—Ä–∏–º –ø—Ä–∏–≤—Ä–µ–º–µ–Ω–∏ –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º %s: %s\n"
+
+#, c-format
+msgid "Temporary files will be created in %s\n"
+msgstr "–ü—Ä–∏–≤—Ä–µ–º–µ–Ω–µ –¥–∞—Ç–æ—Ç–µ–∫–µ —õ–µ –±–∏—Ç–∏ —Å—Ç–≤–∞—Ä–∞–Ω–µ —É %s\n"
+
+#, c-format
+msgid "Temporary files will not be created\n"
+msgstr "–ü—Ä–∏–≤—Ä–µ–º–µ–Ω–µ –¥–∞—Ç–æ—Ç–µ–∫–µ –Ω–µ—õ–µ –±–∏—Ç–∏ —Å—Ç–≤–∞—Ä–∞–Ω–µ\n"
+
+#, c-format
+msgid "Press any key to continue..."
+msgstr "–ü—Ä–∏—Ç–∏—Å–Ω–∏—Ç–µ –±–∏–ª–æ –∫–æ—ò–∏ —Ç–∞—Å—Ç–µ—Ä –∑–∞ –Ω–∞—Å—Ç–∞–≤–∞–∫..."
+
+msgid "Warning"
+msgstr "–£–ø–æ–∑–æ—Ä–µ—ö–µ"
+
+#, fuzzy
+msgid "Pipe failed"
+msgstr " –¶–µ–≤ –Ω–∏—ò–µ —É—Å–ø–µ–ª–∞ "
+
+#, fuzzy
+msgid "Dup failed"
+msgstr " –ü–æ–∑–∏–≤ `dup' –Ω–∏—ò–µ —É—Å–ø–µ–æ "
+
+#, fuzzy
+msgid "Error dup'ing old error pipe"
+msgstr " –ì—Ä–µ—à–∫–∞ –ø—Ä–∏ —á–∏—Ç–∞—ö—É —Å–∞ —Ü–µ–≤–∏: "
+
+#, c-format
+msgid ""
+"Cannot open cpio archive\n"
+"%s"
+msgstr ""
+"–ù–µ –º–æ–≥—É –¥–∞ –æ—Ç–≤–æ—Ä–∏–º –∞—Ä—Ö–∏–≤—É –≤—Ä—Å—Ç–µ `cpio'\n"
+"%s"
+
+#, c-format
+msgid ""
+"Premature end of cpio archive\n"
+"%s"
+msgstr ""
+"–ü—Ä–µ—Ä–∞–Ω–∏ –∑–∞–≤—Ä—à–µ—Ç–∞–∫ –∞—Ä—Ö–∏–≤–µ –≤—Ä—Å—Ç–µ `cpio'\n"
+"%s"
+
+#, c-format
+msgid ""
+"Inconsistent hardlinks of\n"
+"%s\n"
+"in cpio archive\n"
+"%s"
+msgstr ""
+"–ù–µ–¥–æ—Å–ª–µ–¥–Ω–µ —Ç–≤—Ä–¥–µ –≤–µ–∑–µ\n"
+"%s\n"
+"—É –∞—Ä—Ö–∏–≤–∏ –≤—Ä—Å—Ç–µ `cpio'\n"
+"%s"
+
+#, c-format
+msgid "%s contains duplicate entries! Skipping!"
+msgstr "%s —Å–∞–¥—Ä–∂–∏ –¥–≤–æ—Å—Ç—Ä—É–∫–µ —Å—Ç–∞–≤–∫–µ! –ó–∞–æ–±–∏–ª–∞–∑–∏–º!"
+
+#, c-format
+msgid ""
+"Corrupted cpio header encountered in\n"
+"%s"
+msgstr ""
+"–ü–æ–∫–≤–∞—Ä–µ–Ω–æ –∑–∞–≥–ª–∞–≤—ô–µ –∞—Ä—Ö–∏–≤–µ –≤—Ä—Å—Ç–µ `cpio' —É\n"
+"%s"
+
+#, c-format
+msgid ""
+"Unexpected end of file\n"
+"%s"
+msgstr ""
+"–ù–µ–æ—á–µ–∫–∏–≤–∞–Ω–∏ –∑–∞–≤—Ä—à–µ—Ç–∞–∫ –¥–∞—Ç–æ—Ç–µ–∫–µ\n"
+"%s"
+
+#, c-format
+msgid "Directory cache expired for %s"
+msgstr "–û—Å—Ç–∞–≤–∞ –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º–∞ —ò–µ –∏—Å—Ç–µ–∫–ª–∞ –∑–∞ %s"
+
+msgid "Starting linear transfer..."
+msgstr "–ü–æ–∫—Ä–µ—õ–µ–º –ª–∏–Ω–µ–∞—Ä–Ω–∏ –ø—Ä–µ–Ω–æ—Å..."
+
+#, fuzzy, c-format
+msgid "%s: %s: %s %3d%% (%ju bytes transferred)"
+msgstr "%s: %s: %s %3d%% (–ø—Ä–µ–Ω–µ—Å–µ–Ω–æ %lu –±–∞—ò—Ç–æ–≤–∞)"
+
+#, fuzzy, c-format
+msgid "%s: %s: %s %ju bytes transferred"
+msgstr "%s: %s: %s –ø—Ä–µ–Ω–µ—Å–µ–Ω–æ %lu –±–∞—ò—Ç–æ–≤–∞"
+
+msgid "Getting file"
+msgstr "–î–æ–±–∞–≤—ô–∞–º –¥–∞—Ç–æ—Ç–µ–∫—É"
+
+#, c-format
+msgid ""
+"Cannot open %s archive\n"
+"%s"
+msgstr ""
+"–ù–µ –º–æ–≥—É –¥–∞ –æ—Ç–≤–æ—Ä–∏–º –∞—Ä—Ö–∏–≤—É –≤—Ä—Å—Ç–µ `%s'\n"
+"%s"
+
+msgid "Inconsistent extfs archive"
+msgstr "–ù–µ–¥–æ—Å–ª–µ–¥–Ω–∞ –∞—Ä—Ö–∏–≤–∞ extfs"
+
+#, fuzzy, c-format
+msgid "Warning: cannot open %s directory\n"
+msgstr "–ù–µ –º–æ–≥—É –¥–∞ –ø—Ä–æ–º–µ–Ω–∏–º –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º"
+
+#, c-format
+msgid "fish: Disconnecting from %s"
+msgstr "fish: –ü—Ä–µ–∫–∏–¥–∞–º –ø–æ–≤–µ–∑–∏–≤–∞—ö–µ —Å–∞ %s"
+
+msgid "fish: Waiting for initial line..."
+msgstr "fish: –ß–µ–∫–∞–º –ø–æ—á–µ—Ç–Ω–∏ —Ä–µ–¥..."
+
+msgid "Sorry, we cannot do password authenticated connections for now."
+msgstr "–ò–∑–≤–∏–Ω–∏—Ç–µ, –∞–ª–∏ –∑–∞ —Å–∞–¥ –Ω–µ –º–æ–∂–µ–º–æ –¥–∞ —Å–µ –ø–æ–≤–µ–∑—É—ò–µ–º–æ —É–∑ –ø–æ—Ç–≤—Ä–¥—É –ª–æ–∑–∏–Ω–∫–µ."
+
+#, fuzzy, c-format
+msgid "fish: Password is required for %s"
+msgstr " fish: –ù–µ–æ–ø—Ö–æ–¥–Ω–∞ —ò–µ –ª–æ–∑–∏–Ω–∫–∞ –∑–∞ "
+
+msgid "fish: Sending password..."
+msgstr "fish: –®–∞—ô–µ–º –ª–æ–∑–∏–Ω–∫—É..."
+
+msgid "fish: Sending initial line..."
+msgstr "fish: –®–∞—ô–µ–º –ø–æ—á–µ—Ç–Ω–∏ —Ä–µ–¥..."
+
+msgid "fish: Handshaking version..."
+msgstr "fish: –ü—Ä–µ–≥–æ–≤–∞—Ä–∞–º –æ –≤–µ—Ä–∑–∏—ò–∏..."
+
+#, fuzzy
+msgid "fish: Getting host info..."
+msgstr "fish: –®–∞—ô–µ–º –ø–æ—á–µ—Ç–Ω–∏ —Ä–µ–¥..."
+
+msgid "fish: Setting up current directory..."
+msgstr "fish: –ü–æ—Å—Ç–∞–≤—ô–∞–º —Ç–µ–∫—É—õ–∏ –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º..."
+
+#, c-format
+msgid "fish: Connected, home %s."
+msgstr "fish: –ü–æ–≤–µ–∑–∞–Ω, –¥–æ–º %s."
+
+#, c-format
+msgid "fish: Reading directory %s..."
+msgstr "fish: –£—á–∏—Ç–∞–≤–∞–º –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º %s..."
+
+#, c-format
+msgid "%s: done."
+msgstr "%s: –≥–æ—Ç–æ–≤–æ."
+
+#, c-format
+msgid "%s: failure"
+msgstr "%s: –Ω–µ—É—Å–ø–µ—Ö"
+
+#, c-format
+msgid "fish: store %s: sending command..."
+msgstr "fish: —Å–∫–ª–∞–¥–∏—à—Ç–µ—ö–µ %s: —à–∞—ô–µ–º –Ω–∞—Ä–µ–¥–±—É..."
+
+msgid "fish: Local read failed, sending zeros"
+msgstr "fish: –õ–æ–∫–∞–ª–Ω–æ —á–∏—Ç–∞—ö–µ –Ω–∏—ò–µ —É—Å–ø–µ–ª–æ, —à–∞—ô–µ–º –Ω—É–ª–µ"
+
+#, fuzzy, c-format
+msgid "fish: storing %s %d (%ju)"
+msgstr "fish: —Å–∫–ª–∞–¥–∏—à—Ç–∏–º %s %d (%lu)"
+
+msgid "zeros"
+msgstr "–Ω—É–ª–µ"
+
+msgid "file"
+msgstr "–¥–∞—Ç–æ—Ç–µ–∫—É"
+
+msgid "Aborting transfer..."
+msgstr "–ü—Ä–µ–∫–∏–¥–∞–º –ø—Ä–µ–Ω–æ—Å..."
+
+msgid "Error reported after abort."
+msgstr "–ü—Ä–∏—ò–∞–≤—ô–µ–Ω–∞ —ò–µ –≥—Ä–µ—à–∫–∞ –ø–æ—Å–ª–µ –ø—Ä–µ–∫–∏–¥–∞."
+
+msgid "Aborted transfer would be successful."
+msgstr "–ü—Ä–µ–∫–∏–Ω—É—Ç–∏ –ø—Ä–µ–Ω–æ—Å –±–∏ –±–∏–æ —É—Å–ø–µ—à–∞–Ω."
+
+#, c-format
+msgid "ftpfs: Disconnecting from %s"
+msgstr "ftpfs: –ü—Ä–µ–∫–∏–¥–∞–º –ø–æ–≤–µ–∑–∏–≤–∞—ö–µ —Å–∞ %s"
+
+#, fuzzy, c-format
+msgid "FTP: Password required for %s"
+msgstr " FTP: –ù–µ–æ–ø—Ö–æ–¥–Ω–∞ —ò–µ –ª–æ–∑–∏–Ω–∫–∞ –∑–∞ "
+
+msgid "ftpfs: sending login name"
+msgstr "ftpfs: —à–∞—ô–µ–º –∫–æ—Ä–∏—Å–Ω–∏—á–∫–æ –∏–º–µ"
+
+msgid "ftpfs: sending user password"
+msgstr "ftpfs: —à–∞—ô–µ–º –ª–æ–∑–∏–Ω–∫—É"
+
+#, c-format
+msgid "FTP: Account required for user %s"
+msgstr "FTP: –ù–µ–æ–ø—Ö–æ–¥–∞–Ω —ò–µ –Ω–∞–ª–æ–≥ –∑–∞ –∫–æ—Ä–∏—Å–Ω–∏–∫–∞ %s"
+
+msgid "Account:"
+msgstr "–ù–∞–ª–æ–≥:"
+
+msgid "ftpfs: sending user account"
+msgstr "ftpfs: —à–∞—ô–µ–º –∫–æ—Ä–∏—Å–Ω–∏—á–∫–∏ –Ω–∞–ª–æ–≥"
+
+msgid "ftpfs: logged in"
+msgstr "ftpfs: –ø—Ä–∏—ò–∞–≤–∏–æ —Å–∞–º —Å–µ"
+
+#, c-format
+msgid "ftpfs: Login incorrect for user %s "
+msgstr "ftpfs: –ù–µ—É—Å–ø–µ—à–Ω–∞ –ø—Ä–∏—ò–∞–≤–∞ –∫–æ—Ä–∏—Å–Ω–∏–∫–∞ %s "
+
+msgid "ftpfs: Invalid host name."
+msgstr "ftpfs: –ù–µ–∏—Å–ø—Ä–∞–≤–Ω–∏ –Ω–∞–∑–∏–≤ –¥–æ–º–∞—õ–∏–Ω–∞."
+
+#, c-format
+msgid "ftpfs: %s"
+msgstr ""
+
+#, c-format
+msgid "ftpfs: making connection to %s"
+msgstr "ftpfs: –ø–æ–≤–µ–∑—É—ò–µ–º —Å–µ —Å–∞ %s"
+
+msgid "ftpfs: connection interrupted by user"
+msgstr "ftpfs: –ø–æ–≤–µ–∑–∏–≤–∞—ö–µ —ò–µ –ø—Ä–µ–∫–∏–Ω—É–æ –∫–æ—Ä–∏—Å–Ω–∏–∫"
+
+#, c-format
+msgid "ftpfs: connection to server failed: %s"
+msgstr "ftpfs: –ø–æ–≤–µ–∑–∏–≤–∞—ö–µ —Å–∞ —Å–µ—Ä–≤–µ—Ä–æ–º –Ω–∏—ò–µ —É—Å–ø–µ–ª–æ: %s"
+
+#, c-format
+msgid "Waiting to retry... %d (Control-C to cancel)"
+msgstr "–ß–µ–∫–∞–º –Ω–∞ –ø–æ–Ω–æ–≤–Ω–æ –ø–æ–≤–µ–∑–∏–≤–∞—ö–µ... %d (Control-C –ø–æ–Ω–∏—à—Ç–∞–≤–∞)"
+
+#, fuzzy
+msgid "ftpfs: invalid address family"
+msgstr "ftpfs: –ù–µ–∏—Å–ø—Ä–∞–≤–Ω–∞ –∞–¥—Ä–µ—Å–∞ –¥–æ–º–∞—õ–∏–Ω–∞."
+
+#, fuzzy, c-format
+msgid "ftpfs: could not setup passive mode: %s"
+msgstr "ftpfs: –Ω–∏—Å–∞–º –º–æ–≥–∞–æ –¥–∞ –ø–æ–¥–µ—Å–∏–º –ø–∞—Å–∏–≤–Ω–∏ —Ä–µ–∂–∏–º"
+
+#, fuzzy, c-format
+msgid "ftpfs: could not create socket: %s"
+msgstr " –ù–µ –º–æ–≥—É –¥–∞ —Å—Ç–≤–æ—Ä–∏–º —É—Ç–∏—á–Ω–∏—Ü—É: %s "
+
+msgid "ftpfs: could not setup passive mode"
+msgstr "ftpfs: –Ω–∏—Å–∞–º –º–æ–≥–∞–æ –¥–∞ –ø–æ–¥–µ—Å–∏–º –ø–∞—Å–∏–≤–Ω–∏ —Ä–µ–∂–∏–º"
+
+msgid "ftpfs: aborting transfer."
+msgstr "ftpfs: –ø—Ä–µ–∫–∏–¥–∞–º –ø—Ä–µ–Ω–æ—Å."
+
+#, c-format
+msgid "ftpfs: abort error: %s"
+msgstr "ftpfs: –≥—Ä–µ—à–∫–∞ –ø—Ä–∏ –ø—Ä–µ–∫–∏–¥–∞—ö—É: %s"
+
+msgid "ftpfs: abort failed"
+msgstr "ftpfs: –ø—Ä–µ–∫–∏–¥–∞—ö–µ –Ω–∏—ò–µ —É—Å–ø–µ–ª–æ"
+
+msgid "ftpfs: CWD failed."
+msgstr "ftpfs: –Ω–∞—Ä–µ–¥–±–∞ `CWD' –Ω–∏—ò–µ —É—Å–ø–µ–ª–∞."
+
+msgid "ftpfs: couldn't resolve symlink"
+msgstr "ftpfs: –Ω–∏—Å–∞–º –º–æ–≥–∞–æ –¥–∞ —Ä–∞–∑—Ä–µ—à–∏–º —Å–∏–º–≤–µ–∑—É"
+
+msgid "Resolving symlink..."
+msgstr "–†–∞–∑—Ä–µ—à–∞–≤–∞–º —Å–∏–º–≤–µ–∑–µ..."
+
+#, c-format
+msgid "ftpfs: Reading FTP directory %s... %s%s"
+msgstr "ftpfs: –£—á–∏—Ç–∞–≤–∞–º –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º FTP-–∞ %s... %s%s"
+
+msgid "(strict rfc959)"
+msgstr "(—Å—Ç—Ä–æ–≥–æ –ø—Ä–µ–º–∞ rfc959)"
+
+msgid "(chdir first)"
+msgstr "(–ø—Ä–≤–æ –ø–æ—Å—Ç–∞–≤–∏ –¥–∏—Ä.)"
+
+msgid "ftpfs: failed; nowhere to fallback to"
+msgstr "ftpfs: –Ω–∏—Å–∞–º —É—Å–ø–µ–æ; –Ω–µ–º–∞–º —Ä–µ—à–µ—ö–∞"
+
+#, fuzzy, c-format
+msgid "ftpfs: storing file %ju (%ju)"
+msgstr "ftpfs: —Å–∫–ª–∞–¥–∏—à—Ç–∏–º –¥–∞—Ç–æ—Ç–µ–∫—É %lu (%lu)"
+
+#, fuzzy
+msgid ""
+"~/.netrc file has incorrect mode\n"
+"Remove password or correct mode"
+msgstr ""
+"–î–∞—Ç–æ—Ç–µ–∫–∞ ~/.netrc –Ω–µ–º–∞ –∏—Å–ø—Ä–∞–≤–Ω–µ –¥–æ–∑–≤–æ–ª–µ.\n"
+"–£–∫–ª–æ–Ω–∏—Ç–µ –ª–æ–∑–∏–Ω–∫—É –∏–ª–∏ –∏—Å–ø—Ä–∞–≤–∏—Ç–µ –¥–æ–∑–≤–æ–ª–µ."
+
+#, c-format
+msgid "Warning: file %s not found\n"
+msgstr "–£–ø–æ–∑–æ—Ä–µ—ö–µ: –¥–∞—Ç–æ—Ç–µ–∫–∞ %s –Ω–∏—ò–µ –Ω–∞—í–µ–Ω–∞\n"
+
+#, c-format
+msgid ""
+"Warning: Invalid line in %s:\n"
+"%s\n"
+msgstr ""
+"–£–ø–æ–∑–æ—Ä–µ—ö–µ: –ù–µ–∏—Å–ø—Ä–∞–≤–∞–Ω —Ä–µ–¥ —É %s:\n"
+"%s\n"
+
+#, c-format
+msgid ""
+"Warning: Invalid flag %c in %s:\n"
+"%s\n"
+msgstr ""
+"–£–ø–æ–∑–æ—Ä–µ—ö–µ: –ù–µ–∏—Å–ø—Ä–∞–≤–∞–Ω –ø—Ä–µ–∫–∏–¥–∞—á %c —É %s:\n"
+"%s\n"
+
+#, fuzzy, c-format
+msgid "reconnect to %s failed"
+msgstr ""
+" –ø–æ–Ω–æ–≤–Ω–æ –ø–æ–≤–µ–∑–∏–≤–∞—ö–µ —Å–∞ %s –Ω–∏—ò–µ —É—Å–ø–µ–ª–æ\n"
+" "
+
+#, fuzzy
+msgid "Authentication failed"
+msgstr " –ü–æ—Ç–≤—Ä–¥–∞ –∏—Å–ø—Ä–∞–≤–Ω–æ—Å—Ç–∏ –Ω–∏—ò–µ —É—Å–ø–µ–ª–∞ "
+
+#, fuzzy, c-format
+msgid "Error %s creating directory %s"
+msgstr " –ì—Ä–µ—à–∫–∞ %s –ø—Ä–∏–ª–∏–∫–æ–º —Å—Ç–≤–∞—Ä–∞—ö–∞ –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º–∞ %s "
+
+#, fuzzy, c-format
+msgid "Error %s removing directory %s"
+msgstr " –ì—Ä–µ—à–∫–∞ %s –ø—Ä–∏–ª–∏–∫–æ–º —É–∫–ª–∞—ö–∞—ö–∞ –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º–∞ %s "
+
+#, fuzzy, c-format
+msgid "%s opening remote file %s"
+msgstr " %s –ø—Ä–∏ –æ—Ç–≤–∞—Ä–∞—ö—É —É–¥–∞—ô–µ–Ω–µ –¥–∞—Ç–æ—Ç–µ–∫–µ %s "
+
+#, fuzzy, c-format
+msgid "%s removing remote file %s"
+msgstr " %s –ø—Ä–∏ —É–∫–ª–∞—ö–∞—ö—É —É–¥–∞—ô–µ–Ω–µ –¥–∞—Ç–æ—Ç–µ–∫–µ %s "
+
+#, fuzzy, c-format
+msgid "%s renaming files\n"
+msgstr " %s –ø—Ä–∏ –ø—Ä–µ–∏–º–µ–Ω–æ–≤–∞—ö—É –¥–∞—Ç–æ—Ç–µ–∫–∞\n"
+
+#, c-format
+msgid ""
+"Cannot open tar archive\n"
+"%s"
+msgstr ""
+"–ù–µ –º–æ–≥—É –¥–∞ –æ—Ç–≤–æ—Ä–∏–º –∞—Ä—Ö–∏–≤—É –≤—Ä—Å—Ç–µ `tar'\n"
+"%s"
+
+msgid "Inconsistent tar archive"
+msgstr "–ù–µ–¥–æ—Å–ª–µ–¥–Ω–∞ –∞—Ä—Ö–∏–≤–∞ –≤—Ä—Å—Ç–µ `tar'"
+
+msgid "Unexpected EOF on archive file"
+msgstr "–ù–µ–æ—á–µ–∫–∏–≤–∞–Ω–∏ –∑–∞–≤—Ä—à–µ—Ç–∞–∫ –¥–∞—Ç–æ—Ç–µ–∫–µ —É –∞—Ä—Ö–∏–≤–∏"
+
+#, fuzzy, c-format
+msgid ""
+"%s\n"
+"doesn't look like a tar archive."
+msgstr ""
+"–•–º–º,...\n"
+"%s\n"
+"–Ω–µ –ª–∏—á–∏ –Ω–∞ –∞—Ä—Ö–∏–≤—É –≤—Ä—Å—Ç–µ `tar'."
+
+#, fuzzy
+msgid "undelfs: error"
+msgstr " undelfs: –≥—Ä–µ—à–∫–∞ "
+
+#, fuzzy
+msgid "not enough memory"
+msgstr " –Ω–µ–¥–æ–≤–æ—ô–Ω–æ –º–µ–º–æ—Ä–∏—ò–µ "
+
+#, fuzzy
+msgid "while allocating block buffer"
+msgstr " –ø—Ä–∏ –∞–ª–æ—Ü–∏—Ä–∞—ö—É –±–ª–æ–∫–∞ –ø—Ä–∏—Ö–≤–∞—Ç–Ω–∏–∫–∞ "
+
+#, fuzzy, c-format
+msgid "open_inode_scan: %d"
+msgstr " open_inode_scan: %d "
+
+#, fuzzy, c-format
+msgid "while starting inode scan %d"
+msgstr " –ø—Ä–∏ –ø–æ—á–µ—Ç–∫—É –ø—Ä–µ—Ç—Ä–∞–∂–∏–≤–∞—ö–∞ –∏—á–≤–æ—Ä–æ–≤–∞ %d "
+
+#, c-format
+msgid "undelfs: loading deleted files information %d inodes"
+msgstr "undelfs: —É—á–∏—Ç–∞–≤–∞–º –ø–æ–¥–∞—Ç–∫–µ –æ –æ–±—Ä–∏—Å–∞–Ω–∏–º –∏—á–≤–æ—Ä–æ–≤–∏–º–∞: %d –∏—á–≤–æ—Ä–æ–≤–∞"
+
+#, fuzzy, c-format
+msgid "while calling ext2_block_iterate %d"
+msgstr " –ø—Ä–∏ –ø–æ–∑–∏–≤—É ext2_block_iterate %d "
+
+#, fuzzy
+msgid "no more memory while reallocating array"
+msgstr " –Ω–µ–º–∞ –≤–∏—à–µ –º–µ–º–æ—Ä–∏—ò–µ –ø—Ä–∏ –ø–æ–Ω–æ–≤–Ω–æ—ò –∞–ª–æ–∫. –Ω–∏–∑–∞ "
+
+#, fuzzy, c-format
+msgid "while doing inode scan %d"
+msgstr " –ø—Ä–∏ –ø—Ä–µ—Ç—Ä–∞–∂–∏–≤–∞—ö—É –∏—á–≤–æ—Ä–æ–≤–∞ %d "
+
+#, fuzzy
+msgid "Ext2lib error"
+msgstr " –ì—Ä–µ—à–∫–∞ –±–∏–±–ª–∏–æ—Ç–µ–∫–µ ext2lib "
+
+#, fuzzy, c-format
+msgid "Cannot open file %s"
+msgstr " –ù–µ –º–æ–≥—É –¥–∞ –æ—Ç–≤–æ—Ä–∏–º –¥–∞—Ç–æ—Ç–µ–∫—É %s "
+
+msgid "undelfs: reading inode bitmap..."
+msgstr "undelfs: —á–∏—Ç–∞–º –º–∞–ø—É –±–∏—Ç–æ–≤–∞ –∑–∞ –∏—á–≤–æ—Ä–æ–≤–µ..."
+
+#, fuzzy, c-format
+msgid ""
+"Cannot load inode bitmap from:\n"
+"%s"
+msgstr ""
+" –ù–µ –º–æ–≥—É –¥–∞ —É—á–∏—Ç–∞–º –º–∞–ø—É –±–∏—Ç–æ–≤–∞ –∑–∞ –∏—á–≤–æ—Ä–æ–≤–µ –∏–∑: \n"
+" %s \n"
+
+msgid "undelfs: reading block bitmap..."
+msgstr "undelfs: —É—á–∏—Ç–∞–≤–∞–º –º–∞–ø—É –±–∏—Ç–æ–≤–∞ –∑–∞ –∏—á–≤–æ—Ä–æ–≤–µ..."
+
+#, fuzzy, c-format
+msgid ""
+"Cannot load block bitmap from:\n"
+"%s"
+msgstr ""
+" –ù–µ –º–æ–≥—É –¥–∞ —É—á–∏—Ç–∞–º –º–∞–ø—É –±–∏—Ç–æ–≤–∞ –∑–∞ –±–ª–æ–∫–æ–≤–µ –∏–∑: \n"
+" %s \n"
+
+#, fuzzy
+msgid "vfs_info is not fs!"
+msgstr " vfs_info - –Ω–∏—ò–µ —Å–∏—Å—Ç–µ–º –¥–∞—Ç–æ—Ç–µ–∫–∞! "
+
+#, fuzzy
+msgid "You have to chdir to extract files first"
+msgstr " –ú–æ—Ä–∞—Ç–µ –¥–∞ –ø–æ—Å—Ç–∞–≤–∏—Ç–µ –¥–∏—Ä. —É –∫–æ—ò–∏ –∂–µ–ª–∏—Ç–µ –¥–∞ –∏–∑–¥–≤–∞—ò–∞—Ç–µ "
+
+#, fuzzy
+msgid "while iterating over blocks"
+msgstr " –ø—Ä–∏ –∏—Ç–µ—Ä–∞—Ü–∏—ò–∏ –±–ª–æ–∫–æ–≤–∞ "
+
+#, fuzzy, c-format
+msgid "Cannot open file \"%s\""
+msgstr " –ù–µ –º–æ–≥—É –¥–∞ –æ—Ç–≤–æ—Ä–∏–º –¥–∞—Ç–æ—Ç–µ–∫—É %s "
+
+msgid "Cannot parse:"
+msgstr "–ù–µ –º–æ–≥—É –¥–∞ —Ä–∞—à—á–ª–∞–Ω–∏–º:"
+
+msgid "More parsing errors will be ignored."
+msgstr "–î–∞—ô–µ –≥—Ä–µ—à–∫–µ —õ–µ –±–∏—Ç–∏ –∑–∞–Ω–µ–º–∞—Ä–µ–Ω–µ."
+
+msgid "Internal error:"
+msgstr "–£–Ω—É—Ç—Ä–∞—à—ö–∞ –≥—Ä–µ—à–∫–∞:"
+
+msgid "Password:"
+msgstr "–õ–æ–∑–∏–Ω–∫–∞:"
+
+msgid "Changes to file lost"
+msgstr "–ò–∑–º–µ–Ω–µ —É –¥–∞—Ç–æ—Ç–µ—Ü–∏ —Å—É –∏–∑–≥—É–±—ô–µ–Ω–µ"
+
+msgid "&Cancel"
+msgstr "&–ü–æ–Ω–∏—à—Ç–∏"
+
+msgid "&Set"
+msgstr "&–ü–æ—Å—Ç–∞–≤–∏"
+
+msgid "S&kip"
+msgstr "–ü—Ä–µ—Å&–∫–æ—á–∏"
+
+msgid "Set &all"
+msgstr "–ü–æ—Å—Ç–∞–≤–∏ &—Å–≤–µ"
+
+msgid "owner"
+msgstr "–≤–ª–∞—Å–Ω–∏–∫"
+
+msgid "group"
+msgstr "–≥—Ä—É–ø–∞"
+
+msgid "other"
+msgstr "–¥—Ä—É–≥–∏"
+
+msgid "On"
+msgstr "–ó–∞"
+
+msgid "Flag"
+msgstr "–û–∑–Ω–∞–∫–∞"
+
+msgid "Mode"
+msgstr "–†–µ–∂–∏–º"
+
+#, c-format
+msgid "%6d of %d"
+msgstr "%6d –æ–¥ %d"
+
+#, fuzzy
+msgid "Chown advanced command"
+msgstr " –ù–∞–ø—Ä–µ–¥–Ω–∞ –ø—Ä–æ–º–µ–Ω–∞ –≤–ª–∞—Å–Ω–∏–∫–∞ "
+
+#, fuzzy, c-format
+msgid ""
+"Cannot chmod \"%s\"\n"
+"%s"
+msgstr ""
+" –ù–µ –º–æ–≥—É –¥–∞ –ø—Ä–æ–º–µ–Ω–∏–º –¥–æ–∑–≤–æ–ª–µ `%s'\n"
+" %s "
+
+#, fuzzy, c-format
+msgid ""
+"Cannot chown \"%s\"\n"
+"%s"
+msgstr ""
+" –ù–µ –º–æ–≥—É –¥–∞ –ø—Ä–æ–º–µ–Ω–∏–º –≤–ª–∞—Å–Ω–∏–∫–∞ `%s' \n"
+" %s "
+
+msgid "Displays the current version"
+msgstr "–ü—Ä–∏–∫–∞–∑—É—ò–µ —Ç–µ–∫—É—õ—É –≤–µ—Ä–∑–∏—ò—É"
+
+msgid "Print data directory"
+msgstr "–®—Ç–∞–º–ø–∞—ò –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º —Å–∞ –ø–æ–¥–∞—Ü–∏–º–∞"
+
+msgid "Print last working directory to specified file"
+msgstr "–®—Ç–∞–º–ø–∞—ò –ø–æ—Å–ª–µ–¥—ö–∏ —Ä–∞–¥–Ω–∏ –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º —É –∑–∞–¥–∞–Ω—É –¥–∞—Ç–æ—Ç–µ–∫—É"
+
+msgid "Enables subshell support (default)"
+msgstr "–£–∫—ô—É—á—É—ò–µ –ø–æ–¥—Ä—à–∫—É –∑–∞ –ø–æ–¥—ô—É—Å–∫–µ (–ø–æ–¥—Ä–∞–∑.)"
+
+msgid "Disables subshell support"
+msgstr "–ò—Å–∫—ô—É—á—É—ò–µ –ø–æ–¥—Ä—à–∫—É –∑–∞ –ø–æ–¥—ô—É—Å–∫–µ"
+
+msgid "Log ftp dialog to specified file"
+msgstr "–ë–µ–ª–µ–∂–∏ —Å–∞–¥—Ä–∂–∞—ò –¥–∏—ò–∞–ª–æ–≥–∞ FTP-–∞ —É –∑–∞–¥–∞–Ω—É –¥–∞—Ç–æ—Ç–µ–∫—É"
+
+msgid "Set debug level"
+msgstr "–ü–æ—Å—Ç–∞–≤—ô–∞—ö–µ –Ω–∏–≤–æ–∞ –ø–æ–ø—Ä–∞–≤—ô–∞—ö–∞"
+
+msgid "Launches the file viewer on a file"
+msgstr "–ü–æ–∫—Ä–µ—õ–µ –ø—Ä–µ–≥–ª–µ–¥–∞—á –¥–∞—Ç–æ—Ç–µ–∫–∞ –Ω–∞–¥ –¥–∞—Ç–æ—Ç–µ–∫–æ–º"
+
+msgid "Edits one file"
+msgstr "–£—Ä–µ—í—É—ò–µ —ò–µ–¥–Ω—É –¥–∞—Ç–æ—Ç–µ–∫—É"
+
+msgid "Forces xterm features"
+msgstr "–ó–∞—Ö—Ç–µ–≤–∞ –æ–¥–ª–∏–∫–µ –ò–∫—Å —Ç–µ—Ä–º–∏–Ω–∞–ª–∞"
+
+msgid "Disable mouse support in text version"
+msgstr "–ò—Å–∫—ô—É—á–∏ –ø–æ–¥—Ä—à–∫—É –∑–∞ –º–∏—à–∞ —É —Ç–µ–∫—Å—Ç—É–∞–ª–Ω–æ—ò –≤–µ—Ä–∑–∏—ò–∏"
+
+msgid "Tries to use termcap instead of terminfo"
+msgstr "–ü–æ–∫—É—à–∞–≤–∞ –¥–∞ –∫–æ—Ä–∏—Å—Ç–∏ termcap —É–º–µ—Å—Ç–æ terminfo-–∞"
+
+msgid "To run on slow terminals"
+msgstr "–ü–æ–∫—Ä–µ—Ç–∞—ö–µ –Ω–∞ —Å–ø–æ—Ä–æ–º —Ç–µ—Ä–º–∏–Ω–∞–ª—É"
+
+msgid "Use stickchars to draw"
+msgstr "–ö–æ—Ä–∏—Å—Ç–∏ –∫–≤–∞–∑–∏–≥—Ä–∞—Ñ–∏—á–∫–µ —Å–∏–º–±–æ–ª–µ –∑–∞ —Ü—Ä—Ç–∞—ö–µ"
+
+msgid "Resets soft keys on HP terminals"
+msgstr "–ü–æ—Å—Ç–∞–≤—ô–∞ –º–µ–∫–µ —Ç–∞—Å—Ç–µ—Ä–µ –Ω–∞ –•–ü-–æ–≤–∏–º —Ç–µ—Ä–º–∏–Ω–∞–ª–∏–º–∞"
+
+#, fuzzy
+msgid "Load definitions of key bindings from specified file"
+msgstr "–ë–µ–ª–µ–∂–∏ —Å–∞–¥—Ä–∂–∞—ò –¥–∏—ò–∞–ª–æ–≥–∞ FTP-–∞ —É –∑–∞–¥–∞–Ω—É –¥–∞—Ç–æ—Ç–µ–∫—É"
+
+msgid "Requests to run in black and white"
+msgstr "–ó–∞—Ö—Ç–µ–≤–∞ –ø–æ–∫—Ä–µ—Ç–∞—ö–µ —É —Ä–µ–∂–∏–º—É –±–µ–∑ –±–æ—ò–∞"
+
+msgid "Request to run in color mode"
+msgstr "–ó–∞—Ö—Ç–µ–≤–∞—ö–µ –æ–±–æ—ò–µ–Ω–æ–≥ —Ä–µ–∂–∏–º–∞"
+
+msgid "Specifies a color configuration"
+msgstr "–ü–æ—Å—Ç–∞–≤—ô–∞ –ø–æ–¥–µ—à–∞–≤–∞—ö–∞ –±–æ—ò–∞"
+
+msgid "Show mc with specified skin"
+msgstr ""
+
+#. TRANSLATORS: don't translate keywords and names of colors
+#, fuzzy
+msgid ""
+"--colors KEYWORD={FORE},{BACK}\n"
+"\n"
+"{FORE} and {BACK} can be omitted, and the default will be used\n"
+"\n"
+"Keywords:\n"
+"   Global:       errors, disabled, reverse, gauge, viewunderline\n"
+"                 input, inputmark, inputunchanged, commandlinemark\n"
+"   File display: normal, selected, marked, markselect\n"
+"   Dialog boxes: dnormal, dfocus, dhotnormal, dhotfocus, errdhotnormal,\n"
+"                 errdhotfocus\n"
+"   Menus:        menunormal, menuhot, menusel, menuhotsel, menuinactive\n"
+"   Editor:       editnormal, editbold, editmarked, editwhitespace,\n"
+"                 editlinestate\n"
+msgstr ""
+"--colors –ö–â–£–ß–ù–ê –†–ï–ß={–ò–°–ü–ò–°},{–ü–û–ó–ê–î}\n"
+"\n"
+"{–ò–°–ü–ò–°} –∏ {–ü–û–ó–ê–î} —Å–µ –º–æ–≥—É –∏–∑–æ—Å—Ç–∞–≤–∏—Ç–∏ –∏ –∫–æ—Ä–∏—Å—Ç–∏—õ–µ —Å–µ –ø–æ–¥—Ä–∞–∑. –≤—Ä–µ–¥–Ω–æ—Å—Ç–∏\n"
+"\n"
+"–ö—ô—É—á–Ω–µ —Ä–µ—á–∏:\n"
+"   –û–ø—à—Ç–µ:       errors, reverse, gauge, input\n"
+"   –ü—Ä–∏–∫–∞–∑ –¥–∞—Ç.: normal, selected, marked, markselect\n"
+"   –î–∏—ò–∞–ª–æ–∑–∏:    dnormal, dfocus, dhotnormal, dhotfocus\n"
+"   –ú–µ–Ω–∏—ò–∏:      menu, menuhot, menusel, menuhotsel\n"
+"   –ü–æ–º–æ—õ:       helpnormal, helpitalic, helplink, helpslink\n"
+"   –í—Ä—Å—Ç–µ –¥–∞—Ç.:  directory, executable, link, stalelink, device, special, "
+"core\n"
+"\n"
+"–ë–æ—ò–µ:\n"
+"   black, gray, red, brightred, green, brightgreen, brown,\n"
+"   yellow, blue, brightblue, magenta, brightmagenta, cyan,\n"
+"   brightcyan, lightgray –∏ white\n"
+"\n"
+
+msgid ""
+"   Help:         helpnormal, helpitalic, helpbold, helplink, helpslink\n"
+"\n"
+"Colors:\n"
+"   black, gray, red, brightred, green, brightgreen, brown,\n"
+"   yellow, blue, brightblue, magenta, brightmagenta, cyan,\n"
+"   brightcyan, lightgray and white\n"
+"\n"
+msgstr ""
+
+#, fuzzy
+msgid "Color options"
+msgstr "–ü–æ–¥–µ—Å–∏ –∏–∑–±–æ—Ä–µ"
+
+msgid "+number"
+msgstr "+–±—Ä–æ—ò"
+
+#, fuzzy
+msgid "[this_dir] [other_panel_dir]"
+msgstr "[–ø—Ä–µ–∫–∏–¥–∞—á–∏] [–æ–≤–∞—ò_–¥–∏—Ä] [–¥–∏—Ä_–¥—Ä—É–≥–æ–≥_–æ–∫–Ω–∞]\n"
+
+msgid "Set initial line number for the internal editor"
+msgstr "–ü–æ—Å—Ç–∞–≤–∏—Ç–µ –±—Ä–æ—ò –ø–æ—á–µ—Ç–Ω–æ–≥ —Ä–µ–¥–∞ –∑–∞ —É–≥—Ä–∞—í–µ–Ω–∏ —É—Ä–µ—í–∏–≤–∞—á"
+
+#, fuzzy
+msgid ""
+"\n"
+"Please send any bug reports (including the output of `mc -V')\n"
+"as tickets at www.midnight-commander.org\n"
+msgstr ""
+"\n"
+"–ú–æ–ª–∏–º –¥–∞ –ø–æ—à–∞—ô–µ—Ç–µ –ø—Ä–∏—ò–∞–≤–µ –≥—Ä–µ—à–∞–∫–∞ (—É–∫—ô—É—á–∏–≤—à–∏ –∏–∑–ª–∞–∑ –Ω–∞—Ä–µ–¥–±–µ `mc -V')\n"
+"–Ω–∞ –∞–¥—Ä–µ—Å—É mc-devel@gnome.org\n"
+
+#, c-format
+msgid "GNU Midnight Commander %s\n"
+msgstr "–ì–ù–£-–æ–≤ –ø–æ–Ω–æ—õ–Ω–∏ –Ω–∞—Ä–µ–¥–Ω–∏–∫ %s\n"
+
+msgid "No arguments given to the viewer."
+msgstr ""
+
+msgid "Two files are required to evoke the diffviewer."
+msgstr ""
+
+#, fuzzy
+msgid "Main options"
+msgstr " –ò–∑–±–æ—Ä–∏ –æ–∫–Ω–∞ "
+
+#, fuzzy
+msgid "Terminal options"
+msgstr " –î—Ä—É–≥–∏ –∏–∑–±–æ—Ä–∏ "
+
+#, fuzzy
+msgid "Background process error"
+msgstr " –ì—Ä–µ—à–∫–∞ –ø–æ–∑–∞–¥–∏–Ω—Å–∫–æ–≥ –ø—Ä–æ—Ü–µ—Å–∞ "
+
+#, fuzzy
+msgid "Unknown error in child"
+msgstr " –ù–µ–ø–æ–∑–Ω–∞—Ç–∞ –≥—Ä–µ—à–∫–∞ —É –¥–µ—Ç–µ—Ç—É "
+
+#, fuzzy
+msgid "Child died unexpectedly"
+msgstr " –î–µ—Ç–µ —ò–µ –∏–∑–Ω–µ–Ω–∞–¥–Ω–æ –∑–∞–≤—Ä—à–∏–ª–æ —Ä–∞–¥ "
+
+#, fuzzy
+msgid "Background protocol error"
+msgstr " –ì—Ä–µ—à–∫–∞ –ø–æ–∑–∞–¥–∏–Ω—Å–∫–æ–≥ –ø—Ä–æ—Ç–æ–∫–æ–ª–∞ "
+
+#, fuzzy
+msgid "Reading failed"
+msgstr "<–Ω–µ—É—Å–ø–µ—à–Ω–æ —á–∏—Ç–∞—ö–µ –≤–µ–∑–µ>"
+
+#, fuzzy
+msgid ""
+"Background process sent us a request for more arguments\n"
+"than we can handle."
+msgstr ""
+" –ü–æ–∑–∞–¥–∏–Ω—Å–∫–∏ –ø—Ä–æ—Ü–µ—Å –Ω–∞–º —ò–µ –ø–æ—Å–ª–∞–æ –∑–∞—Ö—Ç–µ–≤ –∑–∞ –≤–∏—à–µ –∞—Ä–≥—É–º–µ–Ω–∞—Ç–∞\n"
+" –Ω–µ–≥–æ —à—Ç–æ –º–æ–∂–µ–º–æ –¥–∞ –æ–±—Ä–∞–¥–∏–º–æ. \n"
+
+msgid "&Full file list"
+msgstr "&–ü—É–Ω —Å–ø–∏—Å–∞–∫ –¥–∞—Ç–æ—Ç–µ–∫–∞"
+
+msgid "&Brief file list"
+msgstr "&–ö—Ä–∞—Ç–∞–∫ —Å–ø–∏—Å–∞–∫ –¥–∞—Ç–æ—Ç–µ–∫–∞"
+
+msgid "&Long file list"
+msgstr "&–î—É–≥–∞—á–∞–∫ —Å–ø–∏—Å–∞–∫ –¥–∞—Ç–æ—Ç–µ–∫–∞"
+
+msgid "&User defined:"
+msgstr "&–ö–æ—Ä–∏—Å–Ω–∏—á–∫–∏ –∑–∞–¥–∞–Ω–æ:"
+
+msgid "Listing mode"
+msgstr "–†–µ–∂–∏–º —Å–ø–∏—Å–∫–∞"
+
+#, fuzzy
+msgid "User &mini status"
+msgstr "–∫–æ—Ä–∏—Å–Ω–∏—á–∫–æ &–ú–∏–Ω–∏ —Å—Ç–∞—ö–µ"
+
+msgid "&OK"
+msgstr "&–£ —Ä–µ–¥—É"
+
+msgid "&Reverse"
+msgstr "&–û–±—Ä–Ω–∏"
+
+#, fuzzy
+msgid "Case sensi&tive"
+msgstr "—Ä–∞–∑–ª–∏–∫—É&—ò –≤–µ–ª–∏–∫–∞ –∏ –º–∞–ª–∞ —Å–ª–æ–≤–∞"
+
+msgid "Executable &first"
+msgstr ""
+
+msgid "Sort order"
+msgstr "–ü–æ—Ä–µ–¥–∞–∫ —Ä–µ—í–∞—ö–∞"
+
+#, fuzzy
+msgid "Confirmation"
+msgstr " –ü–æ—Ç–≤—Ä–¥–µ "
+
+#. TRANSLATORS: no need to translate 'Confirmation', it's just a context prefix
+#. 2
+#, fuzzy
+msgid "Confirmation|&History cleanup"
+msgstr " –ü–æ—Ç–≤—Ä–¥–µ "
+
+#, fuzzy
+msgid "Confirmation|Di&rectory hotlist delete"
+msgstr "–±—Ä–∑–∏ —Å&–ü–∏—Å–∞–∫ –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º–∞  C-\\"
+
+#, fuzzy
+msgid "Confirmation|E&xit"
+msgstr " –ü–æ—Ç–≤—Ä–¥–µ "
+
+#, fuzzy
+msgid "Confirmation|&Execute"
+msgstr " –ü–æ—Ç–≤—Ä–¥–µ "
+
+#, fuzzy
+msgid "Confirmation|O&verwrite"
+msgstr " –ø–æ—Ç–≤—Ä–¥–∞ &–ü—Ä–µ–ø–∏—Å–∏–≤–∞—ö–∞ "
+
+#, fuzzy
+msgid "Confirmation|&Delete"
+msgstr " –ü–æ—Ç–≤—Ä–¥–µ "
+
+#, fuzzy
+msgid "UTF-8 output"
+msgstr "–ü—É–Ω –æ—Å–º–æ–±–∏—Ç–Ω–∏ –∏–∑–ª–∞–∑"
+
+msgid "Full 8 bits output"
+msgstr "–ü—É–Ω –æ—Å–º–æ–±–∏—Ç–Ω–∏ –∏–∑–ª–∞–∑"
+
+msgid "ISO 8859-1"
+msgstr "–∏–∑–æ 8859-1"
+
+msgid "7 bits"
+msgstr "7 –±–∏—Ç–∞"
+
+msgid "F&ull 8 bits input"
+msgstr "–ü&—É–Ω –æ—Å–º–æ–±–∏—Ç–Ω–∏ —É–ª–∞–∑"
+
+#, fuzzy
+msgid "Display bits"
+msgstr " –ë–∏—Ç–æ–≤–∞ —É –ø—Ä–∏–∫–∞–∑—É "
+
+msgid "Other 8 bit"
+msgstr "–î—Ä—É–≥a, –æ—Å–º–æ–±–∏—Ç–Ωa"
+
+msgid "Input / display codepage:"
+msgstr "–ö–æ–¥–Ω–∞ —Å—Ç—Ä–∞–Ω–∞ —É–ª–∞–∑–∞ –∏ –ø—Ä–∏–∫–∞–∑–∞:"
+
+msgid "&Select"
+msgstr "&–ò–∑–∞–±–µ—Ä–∏"
+
+#, fuzzy
+msgid "Directory tree"
+msgstr "&–°—Ç–∞–±–ª–æ –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º–∞"
+
+#, fuzzy
+msgid "Use passive mode over pro&xy"
+msgstr "–ö–æ—Ä–∏—Å—Ç–∏ &–ø–∞—Å–∏–≤–Ω–∏ —Ä–µ–∂–∏–º"
+
+msgid "Use &passive mode"
+msgstr "–ö–æ—Ä–∏—Å—Ç–∏ &–ø–∞—Å–∏–≤–Ω–∏ —Ä–µ–∂–∏–º"
+
+msgid "&Use ~/.netrc"
+msgstr "&–ö–æ—Ä–∏—Å—Ç–∏ ~/.netrc"
+
+msgid "&Always use ftp proxy"
+msgstr "&–£–≤–µ–∫ –∫–æ—Ä–∏—Å—Ç–∏ –ø–æ—Å—Ä–µ–¥–Ω–∏–∫–∞ –∑–∞ ftp"
+
+msgid "sec"
+msgstr "—Å–µ–∫"
+
+msgid "ftpfs directory cache timeout:"
+msgstr "–∏—Å—Ç–µ–∫–ª–æ –≤—Ä–µ–º–µ –∑–∞ –æ—Å—Ç–∞–≤—É –¥–∏—Ä. ftpfs-–∞:"
+
+msgid "ftp anonymous password:"
+msgstr "–∞–Ω–æ–Ω–∏–º–Ω–∞ –ª–æ–∑–∏–Ω–∫–∞ –∑–∞ ftp:"
+
+msgid "Timeout for freeing VFSs:"
+msgstr "–ß–µ–∫–∞—ö–µ –æ—Å–ª–æ–±–∞—í–∞—ö–∞ –í–°–î-–æ–≤–∞:"
+
+#, fuzzy
+msgid "Virtual File System Setting"
+msgstr " –ü–æ–¥–µ—à–∞–≤–∞—ö–µ –≤–∏—Ä—Ç—É–∞–ª–Ω–æ–≥ —Å–∏—Å—Ç–µ–º–∞ –¥–∞—Ç–æ—Ç–µ–∫–∞ "
+
+msgid "cd"
+msgstr "–ø—Ä–æ–º.–¥–∏—Ä."
+
+msgid "Quick cd"
+msgstr "–ë—Ä–∑–∞ –ø—Ä–æ–º.–¥–∏—Ä."
+
+msgid "Symbolic link filename:"
+msgstr "–î–∞—Ç–æ—Ç–µ–∫–∞ —Å–∏–º–±–æ–ª–∏—á–∫–µ –≤–µ–∑–µ:"
+
+msgid "Existing filename (filename symlink will point to):"
+msgstr "–ü–æ—Å—Ç–æ—ò–µ—õ–∞ –¥–∞—Ç–æ—Ç–µ–∫–∞ (–Ω–∞ –∫–æ—ò—É —õ–µ —É–ø—É—õ–∏–≤–∞—Ç–∏ –≤–µ–∑–∞):"
+
+msgid "Symbolic link"
+msgstr "–°–∏–º–±–æ–ª–∏—á–∫–∞ –≤–µ–∑–∞"
+
+#, fuzzy
+msgid "Running"
+msgstr "–ü–æ–∫—Ä–µ–Ω—É—Ç–æ "
+
+msgid "Stopped"
+msgstr "–ó–∞—É—Å—Ç–∞–≤—ô–µ–Ω–æ "
+
+msgid "&Stop"
+msgstr "&–ó–∞—É—Å—Ç–∞–≤–∏"
+
+msgid "&Resume"
+msgstr "&–ù–∞—Å—Ç–∞–≤–∏"
+
+msgid "&Kill"
+msgstr "&–£–±–∏—ò"
+
+msgid "Background Jobs"
+msgstr "–ü–æ–∑–∞–¥–∏–Ω—Å–∫–∏ –ø–æ—Å–ª–æ–≤–∏"
+
+msgid "Domain:"
+msgstr "–î–æ–º–µ–Ω:"
+
+msgid "Username:"
+msgstr "–ö–æ—Ä–∏—Å–Ω. –∏–º–µ:"
+
+#, c-format
+msgid "Password for \\\\%s\\%s"
+msgstr "–õ–æ–∑–∏–Ω–∫–∞ –∑–∞ \\\\%s\\%s"
+
+msgid "7-bit ASCII"
+msgstr ""
+
+#, c-format
+msgid "Cannot translate from %s to %s"
+msgstr "–ù–µ –º–æ–≥—É –¥–∞ –ø—Ä–µ–≤–µ–¥–µ–º –∏–∑ %s —É %s"
+
+msgid "execute/search by others"
+msgstr "–∏–∑–≤—Ä./–ø—Ä–µ—Ç—Ä. –∑–∞ –æ—Å—Ç–∞–ª–µ"
+
+msgid "write by others"
+msgstr "—É–ø–∏—Å –∑–∞ –æ—Å—Ç–∞–ª–µ"
+
+msgid "read by others"
+msgstr "—á–∏—Ç–∞—ö–µ –∑–∞ –æ—Å—Ç–∞–ª–µ"
+
+msgid "execute/search by group"
+msgstr "–∏–∑–≤—Ä./–ø—Ä–µ—Ç—Ä. –∑–∞ –≥—Ä—É–ø—É"
+
+msgid "write by group"
+msgstr "—É–ø–∏—Å –∑–∞ –≥—Ä—É–ø—É"
+
+msgid "read by group"
+msgstr "—á–∏—Ç–∞—ö–µ –∑–∞ –≥—Ä—É–ø—É"
+
+msgid "execute/search by owner"
+msgstr "–∏–∑–≤—Ä./–ø—Ä–µ—Ç—Ä. –∑–∞ –≤–ª–∞—Å–Ω–∏–∫–∞"
+
+msgid "write by owner"
+msgstr "—É–ø–∏—Å –∑–∞ –≤–ª–∞—Å–Ω–∏–∫–∞"
+
+msgid "read by owner"
+msgstr "—á–∏—Ç–∞—ö–µ –∑–∞ –≤–ª–∞—Å–Ω–∏–∫–∞"
+
+msgid "sticky bit"
+msgstr "–ª–µ–ø—ô–∏–≤–∏ –±–∏—Ç"
+
+msgid "set group ID on execution"
+msgstr "–ø–æ—Å—Ç–∞–≤–∏ –ò–ë –≥—Ä—É–ø–µ –ø—Ä–∏ –∏–∑–≤."
+
+msgid "set user ID on execution"
+msgstr "–ø–æ—Å—Ç–∞–≤–∏ –ò–ë –∫–æ—Ä–∏—Å. –ø—Ä–∏ –∏–∑–≤."
+
+msgid "C&lear marked"
+msgstr "–û&—á–∏—Å—Ç–∏ –æ–∑–Ω–∞—á–µ–Ω–µ"
+
+msgid "S&et marked"
+msgstr "–ü&–æ—Å—Ç–∞–≤–∏ –æ–∑–Ω–∞—á–µ–Ω–µ"
+
+msgid "&Marked all"
+msgstr "&–°–≤–µ –æ–∑–Ω–∞—á–µ–Ω–µ"
+
+msgid "Name"
+msgstr "–ù–∞–∑–∏–≤"
+
+msgid "Permissions (Octal)"
+msgstr "–î–æ–∑–≤–æ–ª–µ (–æ–∫—Ç–∞–ª–Ω–æ)"
+
+msgid "Owner name"
+msgstr "–ò–º–µ –≤–ª–∞—Å–Ω–∏–∫–∞"
+
+msgid "Group name"
+msgstr "–ù–∞–∑–∏–≤ –≥—Ä—É–ø–µ"
+
+msgid "Use SPACE to change"
+msgstr "–†–∞–∑–º–∞–∫–Ω–∏—Ü–∞ –∑–∞ –∏–∑–º–µ–Ω—É"
+
+msgid "an option, ARROW KEYS"
+msgstr "–∏–∑–±–æ—Ä–∞, —Å—Ç—Ä–µ–ª–∏—Ü–µ –∑–∞"
+
+msgid "to move between options"
+msgstr "–∫—Ä–µ—Ç–∞—ö–µ –ø–æ –∏–∑–±–æ—Ä–∏–º–∞"
+
+msgid "and T or INS to mark"
+msgstr "–∞ T –∏–ª–∏ INS –∑–∞ –æ–∑–Ω–∞—á–∞–≤–∞—ö–µ"
+
+msgid "Chmod command"
+msgstr "–ü—Ä–æ–º–µ–Ω–∞ –¥–æ–∑–≤–æ–ª–∞"
+
+msgid "File"
+msgstr "–î–∞—Ç–æ—Ç–µ–∫–∞"
+
+msgid "Permission"
+msgstr "–î–æ–∑–≤–æ–ª–µ"
+
+msgid "Set &users"
+msgstr "–ü–æ—Å—Ç–∞–≤–∏ &–∫–æ—Ä–∏—Å–Ω–∏–∫–µ"
+
+msgid "Set &groups"
+msgstr "–ü–æ—Å—Ç–∞–≤–∏ &–≥—Ä—É–ø–µ"
+
+msgid "Size"
+msgstr "–í–µ–ª–∏—á–∏–Ω–∞"
+
+#, fuzzy
+msgid "Chown command"
+msgstr " –ü—Ä–æ–º–µ–Ω–∞ –≤–ª–∞—Å–Ω–∏–∫–∞ "
+
+msgid "<Unknown user>"
+msgstr "<–ù–µ–ø–æ–∑–Ω–∞—Ç –∫–æ—Ä–∏—Å–Ω–∏–∫>"
+
+msgid "<Unknown group>"
+msgstr "<–ù–µ–ø–æ–∑–Ω–∞—Ç–∞ –≥—Ä—É–ø–∞>"
+
+#, fuzzy
+msgid "User name"
+msgstr " –ò–º–µ –∫–æ—Ä–∏—Å–Ω–∏–∫–∞ "
+
+msgid "Files tagged, want to cd?"
+msgstr "–î–∞—Ç–æ—Ç–µ–∫–µ –æ–∑–Ω–∞—á–µ–Ω–µ, –¥–∞ –ø—Ä–æ–º.–¥–∏—Ä.?"
+
+msgid "&Yes"
+msgstr "&–î–∞"
+
+msgid "&No"
+msgstr "&–ù–µ"
+
+msgid "Cannot change directory"
+msgstr "–ù–µ –º–æ–≥—É –¥–∞ –ø—Ä–æ–º–µ–Ω–∏–º –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º"
+
+#, fuzzy
+msgid "View file"
+msgstr " –ü—Ä–µ–≥–ª–µ–¥–∞—ò –¥–∞—Ç–æ—Ç–µ–∫—É "
+
+#, fuzzy
+msgid "Filename:"
+msgstr " –î–∞—Ç–æ—Ç–µ–∫–∞: "
+
+#, fuzzy
+msgid "Filtered view"
+msgstr " –§–∏–ª—Ç—Ä–∏—Ä–∞–Ω–∏ –ø—Ä–∏–∫–∞–∑ "
+
+#, fuzzy
+msgid "Filter command and arguments:"
+msgstr " –ù–∞—Ä–µ–¥–±–∞ –∏ –∞—Ä–≥—É–º–µ–Ω—Ç–∏ —Ñ–∏–ª—Ç–µ—Ä–∞: "
+
+msgid "Create a new Directory"
+msgstr "–°—Ç–≤–æ—Ä–∏ –Ω–æ–≤–∏ –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º"
+
+#, fuzzy
+msgid "Enter directory name:"
+msgstr " –£–Ω–µ—Å–∏—Ç–µ –Ω–∞–∑–∏–≤ –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º–∞:"
+
+#, fuzzy
+msgid "Filter"
+msgstr " –§–∏–ª—Ç–∞—Ä "
+
+#, fuzzy
+msgid "Set expression for filtering filenames"
+msgstr " –ü–æ—Å—Ç–∞–≤–∏ –∏–∑—Ä–∞–∑ –∑–∞ —Ñ–∏–ª—Ç—Ä–∏—Ä–∞—ö–µ –¥–∞—Ç–æ—Ç–µ–∫–∞"
+
+msgid "&Using shell patterns"
+msgstr "&–ö–æ—Ä–∏—Å—Ç–∏ –æ–±—Ä–∞—Å—Ü–µ —ô—É—Å–∫–µ"
+
+#, fuzzy
+msgid "&Case sensitive"
+msgstr "—Ä–∞–∑–ª–∏–∫—É&—ò –≤–µ–ª–∏–∫–∞ –∏ –º–∞–ª–∞ —Å–ª–æ–≤–∞"
+
+#, fuzzy
+msgid "&Files only"
+msgstr "&–°–∞–º–æ –≤–µ–ª–∏—á–∏–Ω–∞"
+
+#, fuzzy
+msgid "Select"
+msgstr "&–ò–∑–∞–±–µ—Ä–∏"
+
+#, fuzzy
+msgid "Unselect"
+msgstr " –û–¥–∏–∑–∞–±–µ—Ä–∏ "
+
+msgid "Extension file edit"
+msgstr "–£—Ä–µ—í–∏–≤–∞—ö–µ –¥–∞—Ç–æ—Ç–µ–∫–µ —Å–∞ –≤—Ä—Å—Ç–∞–º–∞"
+
+#, fuzzy
+msgid "Which extension file you want to edit?"
+msgstr " –ö–æ—ò—É –¥–∞—Ç–æ—Ç–µ–∫—É —Å–∞ –≤—Ä—Å—Ç–∞–º–∞ –∂–µ–ª–∏—Ç–µ –¥–∞ —É—Ä–µ–¥–∏—Ç–µ? "
+
+msgid "&User"
+msgstr "&–ö–æ—Ä–∏—Å–Ω–∏—á–∫—É"
+
+msgid "&System Wide"
+msgstr "&–°–∏—Å—Ç–µ–º—Å–∫—É"
+
+#, fuzzy
+msgid "Menu edit"
+msgstr " –£—Ä–µ—í–∏–≤–∞—ö–µ –º–µ–Ω–∏—ò–∞ "
+
+#, fuzzy
+msgid "Which menu file do you want to edit?"
+msgstr " –ö–æ—ò—É –¥–∞—Ç–æ—Ç–µ–∫—É –º–µ–Ω–∏—ò–∞ –∂–µ–ª–∏—Ç–µ –¥–∞ —É—Ä–µ–¥–∏—Ç–µ? "
+
+msgid "&Local"
+msgstr "&–õ–æ–∫–∞–ª–Ω—É"
+
+msgid "Highlighting groups file edit"
+msgstr ""
+
+#, fuzzy
+msgid "Which highlighting file you want to edit?"
+msgstr " –ö–æ—ò—É –¥–∞—Ç–æ—Ç–µ–∫—É —Å–∞ –≤—Ä—Å—Ç–∞–º–∞ –∂–µ–ª–∏—Ç–µ –¥–∞ —É—Ä–µ–¥–∏—Ç–µ? "
+
+#, fuzzy
+msgid "Compare directories"
+msgstr " –£–ø–æ—Ä–µ–¥–∏ –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º–µ "
+
+#, fuzzy
+msgid "Select compare method:"
+msgstr " –ò–∑–∞–±–µ—Ä–∏—Ç–µ –Ω–∞—á–∏–Ω –ø–æ—Ä–µ—í–µ—ö–∞: "
+
+msgid "&Quick"
+msgstr "&–ë—Ä–∑"
+
+msgid "&Size only"
+msgstr "&–°–∞–º–æ –≤–µ–ª–∏—á–∏–Ω–∞"
+
+msgid "&Thorough"
+msgstr "&–¢–µ–º–µ—ô–∞–Ω"
+
+#, fuzzy
+msgid ""
+"Both panels should be in the listing mode\n"
+"to use this command"
+msgstr " –û–±–∞ –æ–∫–Ω–∞ –±–∏ —Ç—Ä–µ–±–∞–ª–æ –¥–∞ —Å—É —É —Ä–µ–∂–∏–º—É —Å–ø–∏—Å–∫–∞ –∑–∞ —É–ø–æ—Ç—Ä–µ–±—É –æ–≤–µ –Ω–∞—Ä–µ–¥–±–µ "
+
+#, fuzzy
+msgid ""
+"Not an xterm or Linux console;\n"
+"the panels cannot be toggled."
+msgstr ""
+" –û–≤–æ –Ω–∏—ò–µ –ò–∫—Å —Ç–µ—Ä–º–∏–Ω–∞–ª –∏–ª–∏ –∫–æ–Ω–∑–æ–ª–∞; \n"
+" –æ–∫–Ω–∞ —Å–µ –Ω–µ –º–æ–≥—É —Å–º–µ—ö–∏–≤–∞—Ç–∏. "
+
+#, c-format
+msgid "Link %s to:"
+msgstr "–ü–æ–≤–µ–∂–∏ %s —Å–∞:"
+
+#, fuzzy
+msgid "Link"
+msgstr "–í–µ&–∑–µ"
+
+#, fuzzy, c-format
+msgid "link: %s"
+msgstr " –≤–µ–∑–∞: %s "
+
+#, fuzzy, c-format
+msgid "symlink: %s"
+msgstr " —Å–∏–º–≤–µ–∑–∞: %s "
+
+#, fuzzy, c-format
+msgid "Symlink `%s' points to:"
+msgstr " –°–∏–º–≤–µ–∑–∞ `%s' —É–ø—É—õ—É—ò–µ –Ω–∞: "
+
+#, fuzzy
+msgid "Edit symlink"
+msgstr " –£—Ä–µ–¥–∏ —Å–∏–º–≤–µ–∑—É "
+
+#, fuzzy, c-format
+msgid "edit symlink, unable to remove %s: %s"
+msgstr " —É—Ä–µ—í–∏–≤–∞—ö–µ —Å–∏–º–≤–µ–∑–µ; –Ω–µ –º–æ–≥—É –¥–∞ —É–∫–ª–æ–Ω–∏–º %s: %s "
+
+#, fuzzy, c-format
+msgid "edit symlink: %s"
+msgstr " —É—Ä–µ—í–∏–≤–∞—ö–µ —Å–∏–º–≤–µ–∑–µ: %s "
+
+#, c-format
+msgid "`%s' is not a symbolic link"
+msgstr "`%s' –Ω–∏—ò–µ —Å–∏–º–±–æ–ª–∏—á–∫–∞ –≤–µ–∑–∞"
+
+#, fuzzy, c-format
+msgid "Cannot chdir to %s"
+msgstr " –ù–µ –º–æ–≥—É –¥–∞ –ø–æ—Å—Ç–∞–≤–∏–º –¥–∏—Ä. –Ω–∞ %s "
+
+#, fuzzy
+msgid "Enter machine name (F1 for details):"
+msgstr " –£–Ω–µ—Å–∏—Ç–µ –Ω–∞–∑–∏–≤ –º–∞—à–∏–Ω–µ (F1 –∑–∞ –¥–µ—Ç–∞—ô–µ): "
+
+#, fuzzy
+msgid "FTP to machine"
+msgstr " FTP –Ω–∞ –º–∞—à–∏–Ω—É "
+
+#, fuzzy
+msgid "Shell link to machine"
+msgstr " –ü–æ–≤–µ–∑–∏–≤–∞—ö–µ —ô—É—Å–∫–µ —Å–∞ –º–∞—à–∏–Ω–æ–º "
+
+#, fuzzy
+msgid "SMB link to machine"
+msgstr " –í–µ–∑–∞ SMB-–æ–º —Å–∞ –º–∞—à–∏–Ω–æ–º "
+
+#, fuzzy
+msgid "Undelete files on an ext2 file system"
+msgstr " –û–¥–æ–±—Ä–∏—à–∏ –¥–∞—Ç–æ—Ç–µ–∫–µ –Ω–∞ —Å–∏—Å—Ç–µ–º—É –¥–∞—Ç–æ—Ç–µ–∫–∞ ext2 "
+
+#, fuzzy
+msgid ""
+"Enter device (without /dev/) to undelete\n"
+"files on: (F1 for details)"
+msgstr ""
+" –£–Ω–µ—Å–∏—Ç–µ —É—Ä–µ—í–∞—ò (–±–µ–∑ /dev/) –∑–∞ –æ–¥–æ–±—Ä–∏—Å–∞—ö–µ\n"
+"   –¥–∞—Ç–æ—Ç–µ–∫–∞ –Ω–∞: (F1 –∑–∞ –¥–µ—Ç–∞—ô–µ)"
+
+#, fuzzy
+msgid "Setup"
+msgstr " –ü–æ–¥–µ—à–∞–≤–∞—ö–∞ "
+
+#, fuzzy, c-format
+msgid "Setup saved to ~/%s"
+msgstr " –ü–æ–¥–µ—à–∞–≤–∞—ö–∞ —Å—É —Å–∞—á—É–≤–∞–Ω–∞ —É ~/"
+
+#, fuzzy, c-format
+msgid ""
+"Cannot chdir to \"%s\"\n"
+"%s"
+msgstr ""
+" –ù–µ –º–æ–≥—É –¥–∞ –ø–æ—Å—Ç–∞–≤–∏–º –¥–∏—Ä. –Ω–∞ `%s' \n"
+" %s "
+
+#, fuzzy
+msgid "Cannot execute commands on non-local filesystems"
+msgstr " –ù–µ –º–æ–≥—É –¥–∞ –∏–∑–≤—Ä—à–∞–≤–∞–º –Ω–∞—Ä–µ–¥–±–µ –Ω–∞ –Ω–µ-–ª–æ–∫. —Å–∏—Å—Ç–µ–º–∏–º–∞ –¥–∞—Ço—Ç–µ–∫–∞"
+
+#, fuzzy
+msgid "The shell is already running a command"
+msgstr " –â—É—Å–∫–∞ –≤–µ—õ –∏–∑–≤—Ä—à–∞–≤–∞ –Ω–∞—Ä–µ–¥–±—É "
+
+msgid "Screens"
+msgstr ""
+
+msgid "&Dismiss"
+msgstr "&–û—Ç–ø—É—Å—Ç–∏"
+
+msgid "All charsets"
+msgstr ""
+
+#, fuzzy
+msgid "&Whole words"
+msgstr "–°–∞–º–æ &—Ü–µ–ª–µ —Ä–µ—á–∏"
+
+msgid "&Backwards"
+msgstr "–£–Ω–∞&–∑–∞–¥"
+
+#, fuzzy
+msgid "Case &sensitive"
+msgstr "—Ä–∞–∑–ª–∏–∫—É&—ò –≤–µ–ª–∏–∫–∞ –∏ –º–∞–ª–∞ —Å–ª–æ–≤–∞"
+
+#, fuzzy
+msgid "Enter search string:"
+msgstr " –£–Ω–µ—Å–∏—Ç–µ –Ω–∏—Å–∫—É –ø—Ä–µ—Ç—Ä–∞–≥–µ:"
+
+msgid "Search"
+msgstr "–¢—Ä–∞–∂–∏"
+
+#, fuzzy
+msgid "Search is disabled"
+msgstr "–¢—Ä–∞–∂–∏"
+
+#, fuzzy, c-format
+msgid ""
+"Cannot create temporary diff file\n"
+"%s"
+msgstr ""
+" –ù–µ –º–æ–≥—É –¥–∞ —Å—Ç–≤–æ—Ä–∏–º –ø—Ä–∏–≤—Ä–µ–º–µ–Ω—É –¥–∞—Ç–æ—Ç–µ–∫—É –Ω–∞—Ä–µ–¥–±–∏ \n"
+" %s "
+
+#, fuzzy, c-format
+msgid ""
+"Cannot create backup file\n"
+"%s%s\n"
+"%s"
+msgstr ""
+" –ù–µ –º–æ–≥—É –¥–∞ —Å—Ç–≤–æ—Ä–∏–º –æ–¥—Ä–µ–¥–∏—à–Ω—É –¥–∞—Ç–æ—Ç–µ–∫—É `%s' \n"
+" %s "
+
+#, fuzzy, c-format
+msgid ""
+"Cannot create temporary merge file\n"
+"%s"
+msgstr ""
+" –ù–µ –º–æ–≥—É –¥–∞ —Å—Ç–≤–æ—Ä–∏–º –ø—Ä–∏–≤—Ä–µ–º–µ–Ω—É –¥–∞—Ç–æ—Ç–µ–∫—É –Ω–∞—Ä–µ–¥–±–∏ \n"
+" %s "
+
+#, fuzzy
+msgid "&Normal"
+msgstr "–§–æ—Ä–º–∞—Ç"
+
+msgid "&Fastest (Assume large files)"
+msgstr ""
+
+msgid "&Minimal (Find a smaller set of change)"
+msgstr ""
+
+msgid "Strip &trailing carriage return"
+msgstr ""
+
+msgid "Ignore all &whitespace"
+msgstr ""
+
+msgid "Ignore &space change"
+msgstr ""
+
+msgid "Ignore tab &expansion"
+msgstr ""
+
+#, fuzzy
+msgid "&Ignore case"
+msgstr "–ó&–∞–Ω–µ–º–∞—Ä–∏ –∫–∞—Ç–∞–Ω–∞—Ü"
+
+#, fuzzy
+msgid "Diff extra options"
+msgstr " –î—Ä—É–≥–∏ –∏–∑–±–æ—Ä–∏ "
+
+msgid "Diff algorithm"
+msgstr ""
+
+#, fuzzy
+msgid "Diff Options"
+msgstr " –ò–∑–±–æ—Ä–∏ "
+
+#, fuzzy
+msgid "Edit"
+msgstr "–£—Ä–µ–¥–∏"
+
+#, fuzzy
+msgid "Edit is disabled"
+msgstr "–£—Ä–µ–¥–∏ –¥–∞—Ç–æ—Ç–µ–∫—É &—Å–∏–Ω—Ç–∞–∫—Å–µ"
+
+#, fuzzy
+msgid "Goto line (left)"
+msgstr " –ò–¥–∏ –Ω–∞ —Ä–µ–¥ "
+
+#, fuzzy
+msgid "Goto line (right)"
+msgstr " –ò–¥–∏ –Ω–∞ —Ä–µ–¥ "
+
+#, fuzzy
+msgid "Enter line:"
+msgstr " –£–Ω–µ—Å–∏—Ç–µ –±—Ä–æ—ò —Ä–µ–¥–∞: "
+
+msgid "ButtonBar|Help"
+msgstr ""
+
+msgid "ButtonBar|Save"
+msgstr ""
+
+msgid "ButtonBar|Edit"
+msgstr ""
+
+msgid "ButtonBar|Merge"
+msgstr ""
+
+msgid "ButtonBar|Search"
+msgstr ""
+
+msgid "ButtonBar|Options"
+msgstr ""
+
+msgid "ButtonBar|Quit"
+msgstr ""
+
+msgid "Quit"
+msgstr "–ó–∞–≤—Ä—à–∏"
+
+#, fuzzy
+msgid "File was modified. Save with exit?"
+msgstr " –î–∞—Ç–æ—Ç–µ–∫–∞ —ò–µ –∏–∑–º–µ—ö–µ–Ω–∞, –¥–∞ —Å–∞—á—É–≤–∞–º –ø—Ä–∏ –∏–∑–ª–∞–∑—É? "
+
+msgid ""
+"Midnight Commander is being shut down.\n"
+"Save modified file?"
+msgstr ""
+
+msgid "Diff:"
+msgstr ""
+
+msgid "Two files are needed to compare"
+msgstr ""
+
+msgid "Cannot read directory contents"
+msgstr "–ù–µ –º–æ–≥—É –¥–∞ —É—á–∏—Ç–∞–º —Å–∞–¥—Ä–∂–∞—ò –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º–∞"
+
+#, fuzzy
+msgid "Choose syntax highlighting"
+msgstr "–ò—Å—Ç–∏&—Ü–∞—ö–µ —Å–∏–Ω—Ç–∞–∫—Å–µ"
 
 #, fuzzy
 msgid "< Auto >"
-msgstr " æ ﬂ‡ﬁ”‡–‹„"
+msgstr " –û –ø—Ä–æ–≥—Ä–∞–º—É"
 
 msgid "< Reload Current Syntax >"
 msgstr ""
 
-#, fuzzy, c-format
-msgid " Cannot open %s for reading "
-msgstr " Ω’ ‹ﬁ”„ ‘– ﬁ‚“ﬁ‡ÿ‹ Ê’“ ◊– Áÿ‚–˙’: "
-
-msgid "Error"
-msgstr "≥‡’Ë⁄–"
-
-#, fuzzy, c-format
-msgid " Error reading from pipe: %s "
-msgstr " ≥‡’Ë⁄– ﬂ‡ÿ Áÿ‚–˙„ ·– Ê’“ÿ: "
-
-#, fuzzy, c-format
-msgid " Cannot open pipe for reading: %s "
-msgstr " Ω’ ‹ﬁ”„ ‘– ﬁ‚“ﬁ‡ÿ‹ Ê’“ ◊– Áÿ‚–˙’: "
-
-#, fuzzy, c-format
-msgid " Cannot get size/permissions for %s "
-msgstr " Ω’ ‹ﬁ”„ ‘– ·–◊›–‹ “’€ÿÁÿ›„ ÿ ‘ﬁ◊“ﬁ€’ ◊– ‘–‚ﬁ‚’⁄„: "
-
-#, fuzzy, c-format
-msgid " %s is not a regular file "
-msgstr " Ω’ ‹ﬁ”„ ‘– ﬂ‡’”€’‘–‹: ‘–‚ﬁ‚’⁄– ›ÿ¯’ ﬁ—ÿÁ›– "
-
-#, fuzzy, c-format
-msgid " File %s is too large "
-msgstr " ¥–‚ﬁ‚’⁄– ¯’ ﬂ‡’“’€ÿ⁄–: "
-
-msgid "Macro recursion is too deep"
-msgstr "Ωÿ“ﬁ ‡’⁄„‡◊ÿ¯’ ‹–⁄‡ﬁ– ¯’ ﬂ‡’“ÿ·ﬁ⁄"
-
-msgid " Enter file name: "
-msgstr " √›’·ÿ‚’ ›–◊ÿ“ ‘–‚ﬁ‚’⁄’: "
-
-msgid "Warning"
-msgstr "√ﬂﬁ◊ﬁ‡’˙’"
-
-msgid " File has hard-links. Detach before saving? "
-msgstr ""
-
-msgid "&Yes"
-msgstr "&¥–"
-
-msgid "&No"
-msgstr "&Ω’"
-
-msgid "&Cancel"
-msgstr "&øﬁ›ÿË‚ÿ"
-
-msgid "The file has been modified in the meantime. Save anyway?"
-msgstr ""
-
-msgid " Error writing to pipe: "
-msgstr " ≥‡’Ë⁄– ﬂ‡ÿ „ﬂÿ·„ „ Ê’“: "
-
-msgid " Cannot open pipe for writing: "
-msgstr " Ω’ ‹ﬁ”„ ‘– ﬁ‚“ﬁ‡ÿ‹ Ê’“ ◊– „ﬂÿ·: "
-
-msgid "Quick save "
-msgstr "±‡◊ﬁ Á„“–˙’ "
-
-msgid "Safe save "
-msgstr "±’◊—’‘›ﬁ Á„“–˙’ "
-
-msgid "Do backups -->"
-msgstr "ø‡–“ÿ ‡’◊’‡“„ -->"
-
-msgid "&OK"
-msgstr "&√ ‡’‘„"
-
-msgid "Extension:"
-msgstr "≤‡·‚–:"
-
-msgid " Edit Save Mode "
-msgstr " ¿’÷ÿ‹ Á„“–˙– "
-
-msgid " Save As "
-msgstr " ¡–Á„“–¯ ⁄–ﬁ "
-
-msgid " A file already exists with this name. "
-msgstr " ¥–‚ﬁ‚’⁄– ﬂﬁ‘ ‚ÿ‹ ›–◊ÿ“ﬁ‹ “’˚ ﬂﬁ·‚ﬁ¯ÿ. "
+#, fuzzy
+msgid "About"
+msgstr " –û –ø—Ä–æ–≥—Ä–∞–º—É"
 
 #, fuzzy
-msgid "&Overwrite"
-msgstr "ø‡’ﬂÿËÿ"
-
-msgid " Cannot save file. "
-msgstr " Ω’ ‹ﬁ”„ ‘– ·–Á„“–‹ ‘–‚ﬁ‚’⁄„. "
-
-msgid "Cancel"
-msgstr "øﬁ›ÿË‚ÿ"
-
-msgid " Delete macro "
-msgstr " ±‡ÿ·–˙’ ‹–⁄‡ﬁ– "
-
-msgid " Cannot open temp file "
-msgstr " Ω’ ‹ﬁ”„ ‘– ﬁ‚“ﬁ‡ÿ‹ ﬂ‡ÿ“‡’‹’›„ ‘–‚ﬁ‚’⁄„ "
-
-msgid " Cannot open macro file "
-msgstr " Ω’ ‹ﬁ”„ ‘– ﬁ‚“ﬁ‡ÿ‹ ‘–‚ﬁ‚’⁄„ ‹–⁄‡ﬁ– "
-
-msgid " Cannot overwrite macro file "
-msgstr " Ω’ ‹ﬁ”„ ‘– ﬂ‡’ﬂÿË’‹ ‘–‚ﬁ‚’⁄„ ‹–⁄‡ﬁ– "
-
-msgid " Save macro "
-msgstr " «„“–˙’ ‹–⁄‡ﬁ– "
-
-msgid " Press the macro's new hotkey: "
-msgstr " ø‡ÿ‚ÿ·›ÿ‚’ ›ﬁ“„ ﬂ‡’ÁÿÊ„ ‹–⁄‡ﬁ–: "
-
-msgid " Press macro hotkey: "
-msgstr " ø‡ÿ‚ÿ·›ÿ‚’ ﬂ‡’ÁÿÊ„ ‹–⁄‡ﬁ–: "
-
-msgid " Load macro "
-msgstr " √Áÿ‚–“–˙’ ‹–⁄‡ﬁ– "
-
-msgid " Confirm save file? : "
-msgstr " øﬁ‚“‡‘– Á„“–˙– ‘–‚ﬁ‚’⁄’? : "
-
-msgid " Save file "
-msgstr " «„“–˙’ ‘–‚ﬁ‚’⁄’ "
-
-msgid "&Save"
-msgstr "·–&«„“–¯"
-
 msgid ""
-" Current text was modified without a file save. \n"
-" Continue discards these changes. "
-msgstr ""
-" øﬁ·‚ﬁ¯’˚ÿ ‚’⁄·‚ ¯’ ÿ◊‹’˙’› – ›ÿ¯’ ·–Á„“–›.\n"
-" ¥„”‹’ `›–·‚–“ÿ' ﬁ‘—–Ê„¯’ ﬁ“’ ÿ◊‹’›’. "
-
-#, fuzzy
-msgid "C&ontinue"
-msgstr "Ω–·‚–“ÿ"
-
-msgid " Load "
-msgstr " √Áÿ‚–¯ "
-
-msgid " Block is large, you may not be able to undo this action. "
-msgstr " ±€ﬁ⁄ ¯’ “’€ÿ⁄ÿ, ‹ﬁ÷‘– ›’˚’‚’ ‹ﬁ˚ÿ ‘– ﬁﬂﬁ◊ﬁ“’‚’ ﬁ“„ ‡–‘˙„. "
-
-msgid "O&ne"
-msgstr "®’‘–&›"
-
-msgid "A&ll"
-msgstr "¡&“’"
-
-msgid "&Skip"
-msgstr "ø‡’&·⁄ﬁÁÿ"
-
-msgid "&Replace"
-msgstr "∑–&‹’›ÿ"
-
-msgid " Replace with: "
-msgstr " ∑–‹’›ÿ ·–: "
-
-msgid " Confirm replace "
-msgstr " øﬁ‚“‡‘– ◊–‹’›’ "
-
-msgid "scanf &Expression"
-msgstr "∏◊‡&–◊ ◊– scanf"
-
-msgid "replace &All"
-msgstr "◊–‹’›ÿ &¡“’"
-
-msgid "pro&Mpt on replace"
-msgstr "ﬂ&æ‚“‡‘– ◊–‹’›’"
-
-msgid "&Backwards"
-msgstr "√›–&◊–‘"
-
-msgid "&Regular expression"
-msgstr "&¿’”„€–‡›ÿ ÿ◊‡–◊"
-
-msgid "&Whole words only"
-msgstr "¡–‹ﬁ &Ê’€’ ‡’Áÿ"
-
-msgid "case &Sensitive"
-msgstr "‡–◊€. &≤’€./‹–€– ·€ﬁ“–"
-
-msgid " Enter replacement argument order eg. 3,2,1,4 "
-msgstr " √›’·ÿ‚’ ‡’‘ﬁ·€’‘ ◊–‹’›’ –‡”„‹’›–‚–, ›ﬂ‡. 3,2,1,4 "
-
-msgid " Enter replacement string:"
-msgstr " √›’·ÿ‚’ ›ÿ·⁄„ ◊–‹’›’:"
-
-msgid " Enter search string:"
-msgstr " √›’·ÿ‚’ ›ÿ·⁄„ ﬂ‡’‚‡–”’:"
-
-msgid " Replace "
-msgstr " ∑–‹’›– "
-
-msgid "Search"
-msgstr "¬‡–÷ÿ"
-
-msgid ""
-" Invalid regular expression, or scanf expression with too many conversions "
-msgstr ""
-" ¿’”„€–‡›ÿ ÿ◊‡–◊ ¯’ ›’ÿ·ﬂ‡–“–› ÿ€ÿ ¯’ ÿ◊‡–◊ ◊– `scanf' ·– ﬂ‡’“ÿË’ ﬂ‡’‚“–‡–˙– "
-
-msgid " Error in replacement format string. "
-msgstr " ≥‡’Ë⁄– „ ‰ﬁ‡‹–‚ÿ‡–¯„˚ﬁ¯ ›ÿ·Êÿ ◊–‹’›’. "
-
-#, fuzzy
-msgid " Replacement too long. "
-msgstr " √›’·ÿ‚’ ›ÿ·⁄„ ◊–‹’›’:"
-
-#, c-format
-msgid " %ld replacements made. "
-msgstr " ∏◊“‡Ë’›ﬁ %ld ◊–‹’›–. "
-
-msgid " Search string not found "
-msgstr " ¬‡–÷’›– ›ÿ·⁄– ›ÿ¯’ ›–Ú’›– "
-
-#, c-format
-msgid " %d items found, %d bookmarks added "
-msgstr " Ω–Ú’›ﬁ %d, ‘ﬁ‘–›ﬁ %d ﬁ—’€’÷ÿ“–Á– "
-
-msgid "Quit"
-msgstr "∑–“‡Ëÿ"
-
-msgid " File was modified, Save with exit? "
-msgstr " ¥–‚ﬁ‚’⁄– ¯’ ÿ◊‹’˙’›–, ‘– ·–Á„“–‹ ﬂ‡ÿ ÿ◊€–◊„? "
-
-#, fuzzy
-msgid "&Cancel quit"
-msgstr "øﬁ›ÿË‚ÿ ◊–“‡Ë’‚–⁄"
-
-#, fuzzy
-msgid " Error "
-msgstr "≥‡’Ë⁄–"
-
-msgid " This function is not implemented. "
-msgstr ""
-
-msgid " Copy to clipboard "
-msgstr " ∫ﬁﬂÿ‡–¯ „ ﬂ‡ÿÂ“–‚›ÿ⁄ "
-
-msgid " Unable to save to file. "
-msgstr " Ω’ ‹ﬁ”„ ‘– ·–Á„“–‹ ‘–‚ﬁ‚’⁄„. "
-
-msgid " Cut to clipboard "
-msgstr " ∏·’Êÿ „ ﬂ‡ÿÂ“–‚›ÿ⁄ "
-
-msgid " Goto line "
-msgstr " ∏‘ÿ ›– ‡’‘ "
-
-msgid " Enter line: "
-msgstr " √›’·ÿ‚’ —‡ﬁ¯ ‡’‘–: "
-
-msgid " Save Block "
-msgstr " ¡–Á„“–¯ —€ﬁ⁄ "
-
-msgid " Insert File "
-msgstr " √‹’‚›ÿ ‘–‚ﬁ‚’⁄„ "
-
-msgid " Cannot insert file. "
-msgstr " Ω’ ‹ﬁ”„ ‘– „‹’‚›’‹ ‘–‚ﬁ‚’⁄„. "
-
-msgid " Sort block "
-msgstr " øﬁ‡’Ú–¯ —€ﬁ⁄ "
-
-msgid " You must first highlight a block of text. "
-msgstr " ø‡“ﬁ ‹ﬁ‡–‚’ ‘– ﬁ◊›–Áÿ‚’ —€ﬁ⁄ ‚’⁄·‚–. "
-
-msgid " Run Sort "
-msgstr " ¿’Ú–¯ "
-
-msgid " Enter sort options (see manpage) separated by whitespace: "
-msgstr " √›’·ÿ‚’ ÿ◊—ﬁ‡’ ‡’Ú–˙– (“ÿ‘ÿ „ﬂ„‚·‚“ﬁ) ‡–◊‘“ﬁ¯’›’ —’€ÿ›–‹–: "
-
-msgid " Sort "
-msgstr " ¿’Ú–¯ "
-
-msgid " Cannot execute sort command "
-msgstr " Ω’ ‹ﬁ”„ ‘– ÿ◊“‡Ëÿ‹ ›–‡’‘—„ ‡’Ú–˙– "
-
-msgid " Sort returned non-zero: "
-msgstr " ¿’Ú–˙’ ›ÿ¯’ „·ﬂ’Ë›ﬁ ◊–“‡Ë’›ﬁ: "
-
-msgid "Paste output of external command"
-msgstr "∑–€’ﬂÿ ÿ◊€–◊ ·ﬂﬁ˘–Ë˙’ ›–‡’‘—’"
-
-msgid "Enter shell command(s):"
-msgstr "√›’·ÿ‚’ ›–‡’‘—’ ˘„·⁄’:"
-
-msgid "External command"
-msgstr "¡ﬂﬁ˘–Ë˙– ›–‡’‘—–"
-
-msgid "Cannot execute command"
-msgstr "Ω’ ‹ﬁ”„ ‘– ÿ◊“‡Ëÿ‹ ›–‡’‘—„"
-
-msgid "Error creating script:"
-msgstr "≥‡’Ë⁄– ﬂ‡ÿ ·‚“–‡–˙„ ·ﬂÿ·–:"
-
-msgid "Error reading script:"
-msgstr "≥‡’Ë⁄– ﬂ‡ÿ Áÿ‚–˙„ ·ﬂÿ·–:"
-
-msgid "Error closing script:"
-msgstr "≥‡’Ë⁄– ﬂ‡ÿ ◊–‚“–‡–˙„ ·ﬂÿ·–:"
-
-msgid "Script created:"
-msgstr "¡ﬂÿ· ¯’ ·‚“ﬁ‡’›:"
-
-msgid "Process block"
-msgstr "æ—‡–‘ÿ —€ﬁ⁄"
-
-msgid " Mail "
-msgstr " øﬁË‚– "
-
-msgid " Copies to"
-msgstr " ∫ﬁﬂÿ¯’ "
-
-msgid " Subject"
-msgstr " ¬’‹– "
-
-msgid " To"
-msgstr " ∫ﬁ‹’"
-
-msgid " mail -s <subject> -c <cc> <to>"
-msgstr " mail -s <‚’‹–> -c <⁄ﬁﬂÿ¯’> <⁄ﬁ‹’>"
-
-msgid " Insert Literal "
-msgstr " √—–Êÿ €ÿ‚’‡–€ "
-
-msgid " Press any key: "
-msgstr " ø‡ÿ‚ÿ·›ÿ‚’ —ÿ€ﬁ ⁄ﬁ¯ÿ ‚–·‚’‡: "
-
-msgid " Execute Macro "
-msgstr " ∏◊“‡Ëÿ ‹–⁄‡ﬁ "
-
-msgid "&Dismiss"
-msgstr "&æ‚ﬂ„·‚ÿ"
-
-msgid " Emacs key: "
-msgstr " ø‡’ÁÿÊ– µ‹–⁄·–: "
-
-#, c-format
-msgid ""
-"File \"%s\" is already being edited\n"
-"User: %s\n"
-"Process ID: %d"
-msgstr ""
-"¥–‚ﬁ‚’⁄„ `%s' “’˚ „‡’Ú„¯’\n"
-"⁄ﬁ‡ÿ·›ÿ⁄: %s\n"
-"∏± ﬂ‡ﬁÊ’·–: %d"
-
-msgid "File locked"
-msgstr "¥–‚ﬁ‚’⁄– ¯’ ◊–⁄˘„Á–›–"
-
-msgid "&Grab lock"
-msgstr "&∑–„◊‹ÿ ⁄–‚–›–Ê"
-
-msgid "&Ignore lock"
-msgstr "∑&–›’‹–‡ÿ ⁄–‚–›–Ê"
-
-msgid " About "
-msgstr " æ ﬂ‡ﬁ”‡–‹„"
-
-msgid ""
+"Copyright (C) 1996-2010 the Free Software Foundation\n"
 "\n"
-"                Cooledit  v3.11.5\n"
-"\n"
-" Copyright (C) 1996 the Free Software Foundation\n"
-"\n"
-"       A user friendly text editor written\n"
-"           for the Midnight Commander.\n"
+"            A user friendly text editor\n"
+"         written for the Midnight Commander"
 msgstr ""
 "\n"
 "                    Cooledit  v3.11.5\n"
 "\n"
-" ∞„‚ﬁ‡·⁄– ﬂ‡–“– (C) 1996 ∑–‘„÷—ÿ›– ◊– ·€ﬁ—ﬁ‘›ÿ ·ﬁ‰‚“’‡\n"
+" –ê—É—Ç–æ—Ä—Å–∫–∞ –ø—Ä–∞–≤–∞ (C) 1996 –ó–∞–¥—É–∂–±–∏–Ω–∞ –∑–∞ —Å–ª–æ–±–æ–¥–Ω–∏ —Å–æ—Ñ—Ç–≤–µ—Ä\n"
 "\n"
-"     ø‡ÿ¯–‚’˘·⁄ÿ ﬂ‡’‹– ⁄ﬁ‡ÿ·›ÿ⁄„ „‡’Úÿ“–Á ‚’⁄·‚– ›–ﬂÿ·–›\n"
-"                  ◊– øﬁ›ﬁ˚›ﬁ” ›–‡’‘›ÿ⁄–.\n"
+"     –ü—Ä–∏—ò–∞—Ç–µ—ô—Å–∫–∏ –ø—Ä–µ–º–∞ –∫–æ—Ä–∏—Å–Ω–∏–∫—É —É—Ä–µ—í–∏–≤–∞—á —Ç–µ–∫—Å—Ç–∞ –Ω–∞–ø–∏—Å–∞–Ω\n"
+"                  –∑–∞ –ü–æ–Ω–æ—õ–Ω–æ–≥ –Ω–∞—Ä–µ–¥–Ω–∏–∫–∞.\n"
 
-msgid "&Open file..."
-msgstr "&æ‚“ﬁ‡ÿ ‘–‚ﬁ‚’⁄„..."
+#, fuzzy, c-format
+msgid "Cannot open %s for reading"
+msgstr " –ù–µ –º–æ–≥—É –¥–∞ –æ—Ç–≤–æ—Ä–∏–º —Ü–µ–≤ –∑–∞ —á–∏—Ç–∞—ö–µ: "
 
-msgid "&New              C-n"
-msgstr "&Ωﬁ“ﬁ                   C-n"
+msgid "Error"
+msgstr "–ì—Ä–µ—à–∫–∞"
 
-msgid "&Save              F2"
-msgstr "&¡–Á„“–¯                 F2"
+#, fuzzy, c-format
+msgid "Error reading %s"
+msgstr "–ì—Ä–µ—à–∫–∞ –ø—Ä–∏ —á–∏—Ç–∞—ö—É —Å–ø–∏—Å–∞:"
 
-msgid "Save &as...       F12"
-msgstr "¡–Á„“–¯ &⁄–ﬁ...         F12"
+#, fuzzy, c-format
+msgid "Error reading from pipe: %s"
+msgstr " –ì—Ä–µ—à–∫–∞ –ø—Ä–∏ —á–∏—Ç–∞—ö—É —Å–∞ —Ü–µ–≤–∏: "
 
-msgid "&Insert file...   F15"
-msgstr "&√—–Êÿ ‘–‚ﬁ‚’⁄„...      F15"
+#, fuzzy, c-format
+msgid "Cannot open pipe for reading: %s"
+msgstr " –ù–µ –º–æ–≥—É –¥–∞ –æ—Ç–≤–æ—Ä–∏–º —Ü–µ–≤ –∑–∞ —á–∏—Ç–∞—ö–µ: "
 
-msgid "Copy to &file...  C-f"
-msgstr "∫ﬁﬂÿ‡–¯ „ &‘–‚ﬁ‚’⁄„...  C-f"
+#, fuzzy, c-format
+msgid "Cannot get size/permissions for %s"
+msgstr " –ù–µ –º–æ–≥—É –¥–∞ —Å–∞–∑–Ω–∞–º –≤–µ–ª–∏—á–∏–Ω—É –∏ –¥–æ–∑–≤–æ–ª–µ –∑–∞ –¥–∞—Ç–æ—Ç–µ–∫—É: "
 
-msgid "&User menu...     F11"
-msgstr "∫ﬁ‡ÿ·›ÿÁ⁄ÿ &‹’›ÿ...     F11"
+#, fuzzy, c-format
+msgid "\"%s\" is not a regular file"
+msgstr " –ù–µ –º–æ–≥—É –¥–∞ –ø—Ä–µ–≥–ª–µ–¥–∞–º: –¥–∞—Ç–æ—Ç–µ–∫–∞ –Ω–∏—ò–µ –æ–±–∏—á–Ω–∞ "
 
-msgid "A&bout...            "
-msgstr "&æ ﬂ‡ﬁ”‡–‹„...             "
+#, fuzzy, c-format
+msgid "File \"%s\" is too large"
+msgstr " –î–∞—Ç–æ—Ç–µ–∫–∞ —ò–µ –ø—Ä–µ–≤–µ–ª–∏–∫–∞: "
 
-msgid "&Quit             F10"
-msgstr "&∑–“‡Ëÿ                 F10"
+msgid "Macro recursion is too deep"
+msgstr "–ù–∏–≤–æ —Ä–µ–∫—É—Ä–∑–∏—ò–µ –º–∞–∫—Ä–æ–∞ —ò–µ –ø—Ä–µ–≤–∏—Å–æ–∫"
 
-msgid "&New            C-x k"
-msgstr "&Ωﬁ“ﬁ                   C-x k"
-
-msgid "Copy to &file...     "
-msgstr "∫ﬁﬂÿ‡–¯ „ &‘–‚ﬁ‚’⁄„...       "
-
-msgid "&Toggle Mark       F3"
-msgstr "&¡‹’›ÿ ﬁ◊›–⁄„            F3"
-
-msgid "&Mark Columns    S-F3"
-msgstr "&æ◊›–Áÿ ⁄ﬁ€ﬁ›’           S-F3"
-
-msgid "Toggle &ins/overw Ins"
-msgstr "¡‹’›ÿ &„—–Ê./ﬂ‡’ﬂÿ·.    Ins"
-
-msgid "&Copy              F5"
-msgstr "&∫ﬁﬂÿ‡–¯                   F5"
-
-msgid "&Move              F6"
-msgstr "&ø‡’‹’·‚ÿ                  F6"
-
-msgid "&Delete            F8"
-msgstr "&æ—‡ÿËÿ                    F8"
-
-msgid "&Undo             C-u"
-msgstr "&æﬂﬁ◊ﬁ“ÿ                  C-u"
-
-msgid "&Beginning     C-PgUp"
-msgstr "&øﬁÁ’‚–⁄               C-PgUp"
-
-msgid "&End           C-PgDn"
-msgstr "&∫‡–¯                  C-PgDn"
-
-msgid "&Search...         F7"
-msgstr "&¬‡–÷ÿ                     F7"
-
-msgid "Search &again     F17"
-msgstr "¬‡–&÷ÿ ﬂﬁ›ﬁ“ﬁ             F17"
-
-msgid "&Replace...        F4"
-msgstr "&∑–‹’›ÿ...                 F4"
-
-msgid "&Go to line...            M-l"
-msgstr "&∏‘ÿ ›– ‡’‘...               M-l"
-
-msgid "Go to matching &bracket   M-b"
-msgstr "∏‘ÿ ›– ﬁ‘”ﬁ“–‡–¯„˚„ &◊–”‡–‘„    M-b"
-
-msgid "Insert &literal...       C-q"
-msgstr "√—–Êÿ &€ÿ‚’‡–€...               C-q"
-
-msgid "&Refresh screen          C-l"
-msgstr "&æ·“’÷ÿ ’⁄‡–›                   C-l"
-
-msgid "&Start record macro      C-r"
-msgstr "&øﬁÁ›ÿ ·›ÿ‹–˙’ ‹–⁄‡ﬁ–           C-r"
-
-msgid "&Finish record macro...  C-r"
-msgstr "&∑–“‡Ëÿ ·›ÿ‹–˙’ ‹–⁄‡ﬁ–...       C-r"
-
-msgid "&Execute macro...   C-a, KEY"
-msgstr "&∏◊“‡Ëÿ ‹–⁄‡ﬁ...           C-a, KEY"
-
-msgid "Delete macr&o...            "
-msgstr "æ—‡ÿËÿ ‹–⁄‡&ﬁ...                   "
-
-msgid "Insert &date/time           "
-msgstr "√—–Êÿ &‘–‚„‹ ÿ “‡’‹’               "
-
-msgid "Format p&aragraph        M-p"
-msgstr "ƒﬁ‡‹–‚ÿ‡–¯ ﬂ&–·„·               M-p"
-
-msgid "'ispell' s&pell check    C-p"
-msgstr "ø‡ﬁ“’‡ÿ &ﬂ‡–“ﬁﬂÿ· `ispell'-ﬁ‹ C-p"
-
-msgid "Sor&t...                 M-t"
-msgstr "øﬁ‡’&Ú–¯...                     M-t"
-
-msgid "Paste o&utput of...      M-u"
-msgstr "∑–€’ﬂÿ &ÿ◊€–◊ ›–‡’‘—’...        M-u"
-
-msgid "E&xternal Formatter      F19"
-msgstr "¡ﬂﬁ&˘–Ë˙ÿ ‰ﬁ‡‹–‚’‡              F19"
-
-msgid "&Mail...                    "
-msgstr "øﬁ&Ë‚–...                          "
-
-msgid "&Execute macro... C-x e, KEY"
-msgstr "&∏◊“‡Ëÿ ‹–⁄‡ﬁ...         C-x e, KEY"
-
-msgid "'ispell' s&pell check    M-$"
-msgstr "ø‡ﬁ“’‡ÿ &ﬂ‡–“ﬁﬂÿ· `ispell'-ﬁ‹ M-$"
-
-msgid "&General...  "
-msgstr "&æﬂË‚’...  "
-
-msgid "&Save mode..."
-msgstr "&¿’÷ÿ‹ Á„“–˙–..."
-
-#, fuzzy
-msgid "Learn &Keys..."
-msgstr "Ω–„Áÿ &‚–·‚’‡’..."
-
-#, fuzzy
-msgid "Syntax &Highlighting..."
-msgstr "∏·‚ÿ&Ê–˙’ ·ÿ›‚–⁄·’"
-
-#, fuzzy
-msgid "Save setu&p..."
-msgstr "&¡–Á„“–¯ ﬂﬁ‘’Ë–“–˙–"
-
-msgid " File "
-msgstr " ¥–‚ﬁ‚’⁄– "
-
-msgid " Edit "
-msgstr " √‡’Úÿ“–˙’ "
-
-msgid " Sear/Repl "
-msgstr " ø‡’‚‡–÷ÿ/◊–‹’›ÿ "
-
-msgid " Command "
-msgstr " Ω–‡’‘—– "
-
-msgid " Options "
-msgstr " ∏◊—ﬁ‡ÿ "
-
-msgid "Intuitive"
-msgstr "∏›‚„ÿ‚ÿ“›ﬁ"
-
-msgid "Emacs"
-msgstr "µ‹–⁄·"
-
-#, fuzzy
-msgid "User-defined"
-msgstr "&∫ﬁ‡ÿ·›ÿÁ⁄ÿ ◊–‘–›ﬁ:"
-
-msgid "None"
-msgstr "ΩÿË‚–"
-
-msgid "Dynamic paragraphing"
-msgstr "¥ÿ›–‹ÿÁ›ÿ ﬂ–·„·ÿ"
-
-msgid "Type writer wrap"
-msgstr "∞„‚ﬁ‹–‚·⁄ÿ ﬂ‡’€ﬁ‹"
-
-msgid "Word wrap line length: "
-msgstr "ø‡’€ﬁ‹ ‡’‘– ›– ‘„÷ÿ›ÿ: "
-
-msgid "Tab spacing: "
-msgstr "¿–◊‹–⁄ ‚–—„€–‚ﬁ‡–: "
-
-msgid "Synta&x highlighting"
-msgstr "∏·‚ÿ&Ê–˙’ ·ÿ›‚–⁄·’"
-
-msgid "Save file &position"
-msgstr "«„“–˙’ ‚’⁄„˚’ &ﬂﬁ◊ÿÊÿ¯’"
-
-msgid "Confir&m before saving"
-msgstr "øﬁ‚“‡‘– &Á„“–˙–"
-
-msgid "Fill tabs with &spaces"
-msgstr "øﬁﬂ„›ÿ ‚–—„€–‚ﬁ&‡’ ‡–◊‹–Êÿ‹–"
-
-msgid "&Return does autoindent"
-msgstr "¬–·‚’‡ `&Return' ›’ „“€–Áÿ"
-
-msgid "&Backspace through tabs"
-msgstr "¬–·‚’‡ﬁ‹ `&Backsp' ⁄‡ﬁ◊ ‚–—„€."
-
-msgid "&Fake half tabs"
-msgstr "&ª–÷›– ﬂﬁ€„‚–—„€–Êÿ¯–"
-
-msgid "Wrap mode"
-msgstr "ø‡’€ﬁ‹ ‡’‘ﬁ“–"
-
-msgid "Key emulation"
-msgstr "∏‹ÿ‚–Êÿ¯– ﬂ‡’ÁÿÊ–"
-
-msgid " Editor options "
-msgstr " ∏◊—ﬁ‡ÿ „‡’Úÿ“–Á– "
-
-msgid "Help"
-msgstr "øﬁ‹ﬁ˚"
-
-msgid "Save"
-msgstr "¡–Á„“–¯"
-
-msgid "Mark"
-msgstr "æ◊›–Áÿ"
-
-msgid "Replac"
-msgstr "∑–‹’›ÿ"
-
-msgid "Copy"
-msgstr "∫ﬁﬂÿ‡¯"
-
-msgid "Move"
-msgstr "ø‡‹·‚ÿ"
-
-msgid "Delete"
-msgstr "æ—‡ÿËÿ"
-
-msgid "PullDn"
-msgstr "ø–‘º›ÿ"
-
-msgid " Load syntax file "
-msgstr " √Áÿ‚–¯ ‘–‚ﬁ‚’⁄„ ·ÿ›‚–⁄·’ "
-
-#, c-format
-msgid ""
-" Cannot open file %s \n"
-" %s "
-msgstr ""
-" Ω’ ‹ﬁ”„ ‘– ﬁ‚“ﬁ‡ÿ‹ ‘–‚ﬁ‚’⁄„ `%s' \n"
-" %s "
-
-#, c-format
-msgid " Error in file %s on line %d "
-msgstr " ≥‡’Ë⁄– „ ‘–‚ﬁ‚’Êÿ `%s' ›– ‡’‘„ %d "
-
-#, c-format
-msgid "bind: Wrong argument number, bind <key> <command>"
+msgid "File has hard-links. Detach before saving?"
 msgstr ""
 
-#, c-format
-msgid "bind: Bad key value `%s'"
-msgstr ""
-
-#, c-format
-msgid "bind: Ehh...no key?"
-msgstr ""
-
-#, c-format
-msgid "bind: Unknown key: `%s'"
+msgid "The file has been modified in the meantime. Save anyway?"
 msgstr ""
 
 #, fuzzy, c-format
-msgid "bind: Unknown command: `%s'"
-msgstr " ø‡ﬁ‹’›– “€–·›ÿ⁄– "
-
-#, c-format
-msgid "%s: Syntax: %s <n> <command> <label>"
-msgstr ""
+msgid "Error writing to pipe: %s"
+msgstr " –ì—Ä–µ—à–∫–∞ –ø—Ä–∏ —É–ø–∏—Å—É —É —Ü–µ–≤: "
 
 #, fuzzy, c-format
-msgid "%s: Unknown command: `%s'"
-msgstr " ø‡ﬁ‹’›– “€–·›ÿ⁄– "
-
-#, c-format
-msgid "%s: fn should be 1-10"
-msgstr ""
-
-#, c-format
-msgid "%s: fopen(): %s"
-msgstr ""
+msgid "Cannot open pipe for writing: %s"
+msgstr " –ù–µ –º–æ–≥—É –¥–∞ –æ—Ç–≤–æ—Ä–∏–º —Ü–µ–≤ –∑–∞ —É–ø–∏—Å: "
 
 #, fuzzy, c-format
-msgid "%s:%d: unknown command `%s'"
-msgstr " ø‡ﬁ‹’›– “€–·›ÿ⁄– "
+msgid "Cannot open file for writing: %s"
+msgstr " –ù–µ –º–æ–≥—É –¥–∞ –æ—Ç–≤–æ—Ä–∏–º —Ü–µ–≤ –∑–∞ —É–ø–∏—Å: "
 
-#, c-format
-msgid "%s:%d: %s"
+#, fuzzy
+msgid "&Quick save"
+msgstr "–ë—Ä–∑–æ —á—É–≤–∞—ö–µ "
+
+#, fuzzy
+msgid "&Safe save"
+msgstr "–ë–µ–∑–±–µ–¥–Ω–æ —á—É–≤–∞—ö–µ "
+
+msgid "&Do backups with following extension:"
 msgstr ""
+
+msgid "Check &POSIX new line"
+msgstr ""
+
+#, fuzzy
+msgid "Edit Save Mode"
+msgstr " –†–µ–∂–∏–º —á—É–≤–∞—ö–∞ "
+
+msgid "The file you are saving is not finished with a newline"
+msgstr ""
+
+#, fuzzy
+msgid "C&ontinue"
+msgstr "–ù–∞—Å—Ç–∞–≤–∏"
+
+msgid "&Do not change"
+msgstr ""
+
+msgid "&Unix format (LF)"
+msgstr ""
+
+msgid "&Windows/DOS format (CR LF)"
+msgstr ""
+
+msgid "&Macintosh format (CR)"
+msgstr ""
+
+msgid "Change line breaks to:"
+msgstr ""
+
+#, fuzzy
+msgid "Enter file name:"
+msgstr " –£–Ω–µ—Å–∏—Ç–µ –Ω–∞–∑–∏–≤ –¥–∞—Ç–æ—Ç–µ–∫–µ: "
+
+#, fuzzy
+msgid "Save As"
+msgstr " –°–∞—á—É–≤–∞—ò –∫–∞–æ "
+
+#, fuzzy
+msgid "A file already exists with this name"
+msgstr " –î–∞—Ç–æ—Ç–µ–∫–∞ –ø–æ–¥ —Ç–∏–º –Ω–∞–∑–∏–≤–æ–º –≤–µ—õ –ø–æ—Å—Ç–æ—ò–∏. "
+
+#, fuzzy
+msgid "&Overwrite"
+msgstr "–ü—Ä–µ–ø–∏—à–∏"
+
+#, fuzzy
+msgid "Save as"
+msgstr "&–°–∞—á—É–≤–∞—ò –ø–æ–¥–µ—à–∞–≤–∞—ö–∞"
+
+#, fuzzy
+msgid "Cannot save file"
+msgstr " –ù–µ –º–æ–≥—É –¥–∞ —Å–∞—á—É–≤–∞–º –¥–∞—Ç–æ—Ç–µ–∫—É. "
+
+#, fuzzy
+msgid "Delete macro"
+msgstr " –ë—Ä–∏—Å–∞—ö–µ –º–∞–∫—Ä–æ–∞ "
+
+#, fuzzy
+msgid "Cannot open temp file"
+msgstr " –ù–µ –º–æ–≥—É –¥–∞ –æ—Ç–≤–æ—Ä–∏–º –ø—Ä–∏–≤—Ä–µ–º–µ–Ω—É –¥–∞—Ç–æ—Ç–µ–∫—É "
+
+#, fuzzy
+msgid "Cannot open macro file"
+msgstr " –ù–µ –º–æ–≥—É –¥–∞ –æ—Ç–≤–æ—Ä–∏–º –¥–∞—Ç–æ—Ç–µ–∫—É –º–∞–∫—Ä–æ–∞ "
+
+#, fuzzy
+msgid "Cannot overwrite macro file"
+msgstr " –ù–µ –º–æ–≥—É –¥–∞ –ø—Ä–µ–ø–∏—à–µ–º –¥–∞—Ç–æ—Ç–µ–∫—É –º–∞–∫—Ä–æ–∞ "
+
+#, fuzzy
+msgid "Save macro"
+msgstr " –ß—É–≤–∞—ö–µ –º–∞–∫—Ä–æ–∞ "
+
+#, fuzzy
+msgid "Press the macro's new hotkey:"
+msgstr " –ü—Ä–∏—Ç–∏—Å–Ω–∏—Ç–µ –Ω–æ–≤—É –ø—Ä–µ—á–∏—Ü—É –º–∞–∫—Ä–æ–∞: "
+
+#, fuzzy
+msgid "Press macro hotkey:"
+msgstr " –ü—Ä–∏—Ç–∏—Å–Ω–∏—Ç–µ –ø—Ä–µ—á–∏—Ü—É –º–∞–∫—Ä–æ–∞: "
+
+#, fuzzy
+msgid "Load macro"
+msgstr " –£—á–∏—Ç–∞–≤–∞—ö–µ –º–∞–∫—Ä–æ–∞ "
 
 #, fuzzy, c-format
-msgid "%s not found!"
-msgstr "√ﬂﬁ◊ﬁ‡’˙’: ‘–‚ﬁ‚’⁄– %s ›ÿ¯’ ›–Ú’›–\n"
+msgid "Confirm save file: \"%s\""
+msgstr " –ü–æ—Ç–≤—Ä–¥–∞ —á—É–≤–∞—ö–∞ –¥–∞—Ç–æ—Ç–µ–∫–µ? : "
 
-msgid "&Set"
-msgstr "&øﬁ·‚–“ÿ"
+#, fuzzy
+msgid "Save file"
+msgstr " –ß—É–≤–∞—ö–µ –¥–∞—Ç–æ—Ç–µ–∫–µ "
 
-msgid "S&kip"
-msgstr "ø‡’·&⁄ﬁÁÿ"
+msgid "&Save"
+msgstr "—Å–∞&–ß—É–≤–∞—ò"
 
-msgid "Set &all"
-msgstr "øﬁ·‚–“ÿ &·“’"
-
-msgid "owner"
-msgstr "“€–·›ÿ⁄"
-
-msgid "group"
-msgstr "”‡„ﬂ–"
-
-msgid "other"
-msgstr "‘‡„”ÿ"
-
-msgid "On"
-msgstr "∑–"
-
-msgid "Flag"
-msgstr "æ◊›–⁄–"
-
-msgid "Mode"
-msgstr "¿’÷ÿ‹"
-
-#, c-format
-msgid "%6d of %d"
-msgstr "%6d ﬁ‘ %d"
-
-msgid " Chown advanced command "
-msgstr " Ω–ﬂ‡’‘›– ﬂ‡ﬁ‹’›– “€–·›ÿ⁄– "
-
-#, c-format
+#, fuzzy
 msgid ""
-" Cannot chmod \"%s\" \n"
-" %s "
+"Current text was modified without a file save.\n"
+"Continue discards these changes"
 msgstr ""
-" Ω’ ‹ﬁ”„ ‘– ﬂ‡ﬁ‹’›ÿ‹ ‘ﬁ◊“ﬁ€’ `%s'\n"
-" %s "
-
-#, c-format
-msgid ""
-" Cannot chown \"%s\" \n"
-" %s "
-msgstr ""
-" Ω’ ‹ﬁ”„ ‘– ﬂ‡ﬁ‹’›ÿ‹ “€–·›ÿ⁄– `%s' \n"
-" %s "
-
-msgid " Background process error "
-msgstr " ≥‡’Ë⁄– ﬂﬁ◊–‘ÿ›·⁄ﬁ” ﬂ‡ﬁÊ’·– "
-
-msgid " Unknown error in child "
-msgstr " Ω’ﬂﬁ◊›–‚– ”‡’Ë⁄– „ ‘’‚’‚„ "
-
-msgid " Child died unexpectedly "
-msgstr " ¥’‚’ ¯’ ÿ◊›’›–‘›ﬁ ◊–“‡Ëÿ€ﬁ ‡–‘ "
-
-msgid " Background protocol error "
-msgstr " ≥‡’Ë⁄– ﬂﬁ◊–‘ÿ›·⁄ﬁ” ﬂ‡ﬁ‚ﬁ⁄ﬁ€– "
-
-msgid ""
-" Background process sent us a request for more arguments \n"
-" than we can handle. \n"
-msgstr ""
-" øﬁ◊–‘ÿ›·⁄ÿ ﬂ‡ﬁÊ’· ›–‹ ¯’ ﬂﬁ·€–ﬁ ◊–Â‚’“ ◊– “ÿË’ –‡”„‹’›–‚–\n"
-" ›’”ﬁ Ë‚ﬁ ‹ﬁ÷’‹ﬁ ‘– ﬁ—‡–‘ÿ‹ﬁ. \n"
-
-msgid "&Full file list"
-msgstr "&ø„› ·ﬂÿ·–⁄ ‘–‚ﬁ‚’⁄–"
-
-msgid "&Brief file list"
-msgstr "&∫‡–‚–⁄ ·ﬂÿ·–⁄ ‘–‚ﬁ‚’⁄–"
-
-msgid "&Long file list"
-msgstr "&¥„”–Á–⁄ ·ﬂÿ·–⁄ ‘–‚ﬁ‚’⁄–"
-
-msgid "&User defined:"
-msgstr "&∫ﬁ‡ÿ·›ÿÁ⁄ÿ ◊–‘–›ﬁ:"
-
-msgid "Listing mode"
-msgstr "¿’÷ÿ‹ ·ﬂÿ·⁄–"
-
-msgid "user &Mini status"
-msgstr "⁄ﬁ‡ÿ·›ÿÁ⁄ﬁ &ºÿ›ÿ ·‚–˙’"
-
-msgid "&Reverse"
-msgstr "&æ—‡›ÿ"
-
-msgid "case sensi&tive"
-msgstr "‡–◊€ÿ⁄„&¯ “’€ÿ⁄– ÿ ‹–€– ·€ﬁ“–"
-
-msgid "Sort order"
-msgstr "øﬁ‡’‘–⁄ ‡’Ú–˙–"
-
-#, fuzzy
-msgid " confirm di&Rectory hotlist delete "
-msgstr "—‡◊ÿ ·&øÿ·–⁄ ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹–  C-\\"
-
-msgid " confirm &Exit "
-msgstr " ﬂﬁ‚“‡‘– &∏◊€–◊– "
-
-msgid " confirm e&Xecute "
-msgstr " ﬂﬁ‚“‡‘– ÿ&∑“‡Ë–“–˙– "
-
-msgid " confirm o&Verwrite "
-msgstr " ﬂﬁ‚“‡‘– &ø‡’ﬂÿ·ÿ“–˙– "
-
-msgid " confirm &Delete "
-msgstr " ﬂﬁ‚“‡‘– &±‡ÿ·–˙– "
-
-msgid " Confirmation "
-msgstr " øﬁ‚“‡‘’ "
-
-msgid "Full 8 bits output"
-msgstr "ø„› ﬁ·‹ﬁ—ÿ‚›ÿ ÿ◊€–◊"
-
-msgid "ISO 8859-1"
-msgstr "ÿ◊ﬁ 8859-1"
-
-msgid "7 bits"
-msgstr "7 —ÿ‚–"
-
-msgid "F&ull 8 bits input"
-msgstr "ø&„› ﬁ·‹ﬁ—ÿ‚›ÿ „€–◊"
-
-msgid " Display bits "
-msgstr " ±ÿ‚ﬁ“– „ ﬂ‡ÿ⁄–◊„ "
-
-msgid "Other 8 bit"
-msgstr "¥‡„”a, ﬁ·‹ﬁ—ÿ‚›a"
-
-msgid "Input / display codepage:"
-msgstr "∫ﬁ‘›– ·‚‡–›– „€–◊– ÿ ﬂ‡ÿ⁄–◊–:"
-
-msgid "&Select"
-msgstr "&∏◊–—’‡ÿ"
-
-#, fuzzy
-msgid "&Ok"
-msgstr "&√ ‡’‘„"
-
-msgid "Databases"
-msgstr ""
-
-msgid "Graphics"
-msgstr ""
-
-msgid "Multimedia"
-msgstr ""
-
-#, fuzzy
-msgid "Sources"
-msgstr "∏◊“ﬁ‡"
-
-msgid "Archives"
-msgstr ""
-
-msgid "Text/Doc Files"
-msgstr ""
-
-#, fuzzy
-msgid "Temp Files"
-msgstr " ¥–‚ﬁ‚’⁄– "
-
-#, fuzzy
-msgid "Core Files"
-msgstr " ¥–‚ﬁ‚’⁄– "
-
-#, fuzzy
-msgid " File highlighting "
-msgstr "∏·‚ÿ&Ê–˙’ ·ÿ›‚–⁄·’"
-
-#, fuzzy
-msgid "Use passive mode over pro&xy"
-msgstr "∫ﬁ‡ÿ·‚ÿ &ﬂ–·ÿ“›ÿ ‡’÷ÿ‹"
-
-msgid "Use &passive mode"
-msgstr "∫ﬁ‡ÿ·‚ÿ &ﬂ–·ÿ“›ÿ ‡’÷ÿ‹"
-
-msgid "&Use ~/.netrc"
-msgstr "&∫ﬁ‡ÿ·‚ÿ ~/.netrc"
-
-msgid "&Always use ftp proxy"
-msgstr "&√“’⁄ ⁄ﬁ‡ÿ·‚ÿ ﬂﬁ·‡’‘›ÿ⁄– ◊– ftp"
-
-msgid "sec"
-msgstr "·’⁄"
-
-msgid "ftpfs directory cache timeout:"
-msgstr "ÿ·‚’⁄€ﬁ “‡’‹’ ◊– ﬁ·‚–“„ ‘ÿ‡. ftpfs-–:"
-
-msgid "ftp anonymous password:"
-msgstr "–›ﬁ›ÿ‹›– €ﬁ◊ÿ›⁄– ◊– ftp:"
-
-msgid "Timeout for freeing VFSs:"
-msgstr "«’⁄–˙’ ﬁ·€ﬁ—–Ú–˙– ≤¡¥-ﬁ“–:"
-
-msgid " Virtual File System Setting "
-msgstr " øﬁ‘’Ë–“–˙’ “ÿ‡‚„–€›ﬁ” ·ÿ·‚’‹– ‘–‚ﬁ‚’⁄– "
-
-msgid "Quick cd"
-msgstr "±‡◊– ﬂ‡ﬁ‹.‘ÿ‡."
-
-msgid "cd"
-msgstr "ﬂ‡ﬁ‹.‘ÿ‡."
-
-msgid "Symbolic link filename:"
-msgstr "¥–‚ﬁ‚’⁄– ·ÿ‹—ﬁ€ÿÁ⁄’ “’◊’:"
-
-msgid "Existing filename (filename symlink will point to):"
-msgstr "øﬁ·‚ﬁ¯’˚– ‘–‚ﬁ‚’⁄– (›– ⁄ﬁ¯„ ˚’ „ﬂ„˚ÿ“–‚ÿ “’◊–):"
-
-msgid "Symbolic link"
-msgstr "¡ÿ‹—ﬁ€ÿÁ⁄– “’◊–"
-
-msgid "Running "
-msgstr "øﬁ⁄‡’›„‚ﬁ "
-
-msgid "Stopped"
-msgstr "∑–„·‚–“˘’›ﬁ "
-
-msgid "&Stop"
-msgstr "&∑–„·‚–“ÿ"
-
-msgid "&Resume"
-msgstr "&Ω–·‚–“ÿ"
-
-msgid "&Kill"
-msgstr "&√—ÿ¯"
-
-msgid "Background Jobs"
-msgstr "øﬁ◊–‘ÿ›·⁄ÿ ﬂﬁ·€ﬁ“ÿ"
-
-msgid "Domain:"
-msgstr "¥ﬁ‹’›:"
-
-msgid "Username:"
-msgstr "∫ﬁ‡ÿ·›. ÿ‹’:"
-
-msgid "Password:"
-msgstr "ªﬁ◊ÿ›⁄–:"
-
-#, c-format
-msgid "Password for \\\\%s\\%s"
-msgstr "ªﬁ◊ÿ›⁄– ◊– \\\\%s\\%s"
-
-#, c-format
-msgid "Warning: file %s not found\n"
-msgstr "√ﬂﬁ◊ﬁ‡’˙’: ‘–‚ﬁ‚’⁄– %s ›ÿ¯’ ›–Ú’›–\n"
-
-#, c-format
-msgid "Cannot translate from %s to %s"
-msgstr "Ω’ ‹ﬁ”„ ‘– ﬂ‡’“’‘’‹ ÿ◊ %s „ %s"
-
-msgid "execute/search by others"
-msgstr "ÿ◊“‡./ﬂ‡’‚‡. ◊– ﬁ·‚–€’"
-
-msgid "write by others"
-msgstr "„ﬂÿ· ◊– ﬁ·‚–€’"
-
-msgid "read by others"
-msgstr "Áÿ‚–˙’ ◊– ﬁ·‚–€’"
-
-msgid "execute/search by group"
-msgstr "ÿ◊“‡./ﬂ‡’‚‡. ◊– ”‡„ﬂ„"
-
-msgid "write by group"
-msgstr "„ﬂÿ· ◊– ”‡„ﬂ„"
-
-msgid "read by group"
-msgstr "Áÿ‚–˙’ ◊– ”‡„ﬂ„"
-
-msgid "execute/search by owner"
-msgstr "ÿ◊“‡./ﬂ‡’‚‡. ◊– “€–·›ÿ⁄–"
-
-msgid "write by owner"
-msgstr "„ﬂÿ· ◊– “€–·›ÿ⁄–"
-
-msgid "read by owner"
-msgstr "Áÿ‚–˙’ ◊– “€–·›ÿ⁄–"
-
-msgid "sticky bit"
-msgstr "€’ﬂ˘ÿ“ÿ —ÿ‚"
-
-msgid "set group ID on execution"
-msgstr "ﬂﬁ·‚–“ÿ ∏± ”‡„ﬂ’ ﬂ‡ÿ ÿ◊“."
-
-msgid "set user ID on execution"
-msgstr "ﬂﬁ·‚–“ÿ ∏± ⁄ﬁ‡ÿ·. ﬂ‡ÿ ÿ◊“."
-
-msgid "C&lear marked"
-msgstr "æ&Áÿ·‚ÿ ﬁ◊›–Á’›’"
-
-msgid "S&et marked"
-msgstr "ø&ﬁ·‚–“ÿ ﬁ◊›–Á’›’"
-
-msgid "&Marked all"
-msgstr "&¡“’ ﬁ◊›–Á’›’"
-
-msgid "Name"
-msgstr "Ω–◊ÿ“"
-
-msgid "Permissions (Octal)"
-msgstr "¥ﬁ◊“ﬁ€’ (ﬁ⁄‚–€›ﬁ)"
-
-msgid "Owner name"
-msgstr "∏‹’ “€–·›ÿ⁄–"
-
-msgid "Group name"
-msgstr "Ω–◊ÿ“ ”‡„ﬂ’"
-
-msgid "Use SPACE to change"
-msgstr "¿–◊‹–⁄›ÿÊ– ◊– ÿ◊‹’›„"
-
-msgid "an option, ARROW KEYS"
-msgstr "ÿ◊—ﬁ‡–, ·‚‡’€ÿÊ’ ◊–"
-
-msgid "to move between options"
-msgstr "⁄‡’‚–˙’ ﬂﬁ ÿ◊—ﬁ‡ÿ‹–"
-
-msgid "and T or INS to mark"
-msgstr "– T ÿ€ÿ INS ◊– ﬁ◊›–Á–“–˙’"
-
-msgid " Permission "
-msgstr " ¥ﬁ◊“ﬁ€– "
-
-msgid "Chmod command"
-msgstr "ø‡ﬁ‹’›– ‘ﬁ◊“ﬁ€–"
-
-msgid "Set &users"
-msgstr "øﬁ·‚–“ÿ &⁄ﬁ‡ÿ·›ÿ⁄’"
-
-msgid "Set &groups"
-msgstr "øﬁ·‚–“ÿ &”‡„ﬂ’"
-
-msgid " Name "
-msgstr " Ω–◊ÿ“ "
-
-msgid " Owner name "
-msgstr " ∏‹’ “€–·›ÿ⁄– "
-
-msgid " Group name "
-msgstr " Ω–◊ÿ“ ”‡„ﬂ’ "
-
-msgid " Size "
-msgstr " ≤’€ÿÁÿ›– "
-
-msgid " User name "
-msgstr " ∏‹’ ⁄ﬁ‡ÿ·›ÿ⁄– "
-
-msgid " Chown command "
-msgstr " ø‡ﬁ‹’›– “€–·›ÿ⁄– "
-
-msgid "<Unknown user>"
-msgstr "<Ω’ﬂﬁ◊›–‚ ⁄ﬁ‡ÿ·›ÿ⁄>"
-
-msgid "<Unknown group>"
-msgstr "<Ω’ﬂﬁ◊›–‚– ”‡„ﬂ–>"
-
-msgid "Files tagged, want to cd?"
-msgstr "¥–‚ﬁ‚’⁄’ ﬁ◊›–Á’›’, ‘– ﬂ‡ﬁ‹.‘ÿ‡.?"
-
-msgid "Cannot change directory"
-msgstr "Ω’ ‹ﬁ”„ ‘– ﬂ‡ﬁ‹’›ÿ‹ ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹"
-
-msgid " View file "
-msgstr " ø‡’”€’‘–¯ ‘–‚ﬁ‚’⁄„ "
-
-msgid " Filename:"
-msgstr " ¥–‚ﬁ‚’⁄–: "
-
-msgid " Filtered view "
-msgstr " ƒÿ€‚‡ÿ‡–›ÿ ﬂ‡ÿ⁄–◊ "
-
-msgid " Filter command and arguments:"
-msgstr " Ω–‡’‘—– ÿ –‡”„‹’›‚ÿ ‰ÿ€‚’‡–: "
-
-msgid "Create a new Directory"
-msgstr "¡‚“ﬁ‡ÿ ›ﬁ“ÿ ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹"
-
-msgid " Enter directory name:"
-msgstr " √›’·ÿ‚’ ›–◊ÿ“ ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹–:"
-
-msgid " Filter "
-msgstr " ƒÿ€‚–‡ "
-
-msgid " Set expression for filtering filenames"
-msgstr " øﬁ·‚–“ÿ ÿ◊‡–◊ ◊– ‰ÿ€‚‡ÿ‡–˙’ ‘–‚ﬁ‚’⁄–"
-
-msgid "  Malformed regular expression  "
-msgstr " Ω’ÿ·ﬂ‡–“›ÿ ‡’”„€–‡›ÿ ÿ◊‡–◊ "
-
-msgid " Select "
-msgstr " ∏◊–—’‡ÿ "
-
-msgid " Unselect "
-msgstr " æ‘ÿ◊–—’‡ÿ "
-
-msgid "Extension file edit"
-msgstr "√‡’Úÿ“–˙’ ‘–‚ﬁ‚’⁄’ ·– “‡·‚–‹–"
-
-msgid " Which extension file you want to edit? "
-msgstr " ∫ﬁ¯„ ‘–‚ﬁ‚’⁄„ ·– “‡·‚–‹– ÷’€ÿ‚’ ‘– „‡’‘ÿ‚’? "
-
-msgid "&User"
-msgstr "&∫ﬁ‡ÿ·›ÿÁ⁄„"
-
-msgid "&System Wide"
-msgstr "&¡ÿ·‚’‹·⁄„"
-
-msgid " Menu edit "
-msgstr " √‡’Úÿ“–˙’ ‹’›ÿ¯– "
-
-msgid " Which menu file do you want to edit? "
-msgstr " ∫ﬁ¯„ ‘–‚ﬁ‚’⁄„ ‹’›ÿ¯– ÷’€ÿ‚’ ‘– „‡’‘ÿ‚’? "
-
-msgid "&Local"
-msgstr "&ªﬁ⁄–€›„"
-
-msgid "&Home"
-msgstr "&¥ﬁ‹–˚„"
+" –ü–æ—Å—Ç–æ—ò–µ—õ–∏ —Ç–µ–∫—Å—Ç —ò–µ –∏–∑–º–µ—ö–µ–Ω –∞ –Ω–∏—ò–µ —Å–∞—á—É–≤–∞–Ω.\n"
+" –î—É–≥–º–µ `–Ω–∞—Å—Ç–∞–≤–∏' –æ–¥–±–∞—Ü—É—ò–µ –æ–≤–µ –∏–∑–º–µ–Ω–µ. "
 
 msgid "Syntax file edit"
-msgstr "√‡’Úÿ“–˙’ ·ÿ›‚–⁄·›’ ‘–‚ﬁ‚’⁄’"
+msgstr "–£—Ä–µ—í–∏–≤–∞—ö–µ —Å–∏–Ω—Ç–∞–∫—Å–Ω–µ –¥–∞—Ç–æ—Ç–µ–∫–µ"
 
-msgid " Which syntax file you want to edit? "
-msgstr " ∫ﬁ¯„ ·ÿ›‚–⁄·›„ ‘–‚ﬁ‚’⁄„ ÷’€ÿ‚’ ‘– „‡’‘ÿ‚’?"
+#, fuzzy
+msgid "Which syntax file you want to edit?"
+msgstr " –ö–æ—ò—É —Å–∏–Ω—Ç–∞–∫—Å–Ω—É –¥–∞—Ç–æ—Ç–µ–∫—É –∂–µ–ª–∏—Ç–µ –¥–∞ —É—Ä–µ–¥–∏—Ç–µ?"
 
-msgid " Compare directories "
-msgstr " √ﬂﬁ‡’‘ÿ ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹’ "
+#, fuzzy
+msgid "Load"
+msgstr " –£—á–∏—Ç–∞—ò "
 
-msgid " Select compare method: "
-msgstr " ∏◊–—’‡ÿ‚’ ›–Áÿ› ﬂﬁ‡’Ú’˙–: "
+#, fuzzy
+msgid "Block is large, you may not be able to undo this action"
+msgstr " –ë–ª–æ–∫ —ò–µ –≤–µ–ª–∏–∫–∏, –º–æ–∂–¥–∞ –Ω–µ—õ–µ—Ç–µ –º–æ—õ–∏ –¥–∞ –æ–ø–æ–∑–æ–≤–µ—Ç–µ –æ–≤—É —Ä–∞–¥—ö—É. "
 
-msgid "&Quick"
-msgstr "&±‡◊"
+#, fuzzy
+msgid "Replace"
+msgstr "–ó–∞&–º–µ–Ω–∏"
 
-msgid "&Size only"
-msgstr "&¡–‹ﬁ “’€ÿÁÿ›–"
+#, fuzzy, c-format
+msgid "%ld replacements made"
+msgstr " –ò–∑–≤—Ä—à–µ–Ω–æ %ld –∑–∞–º–µ–Ω–∞. "
 
-msgid "&Thorough"
-msgstr "&¬’‹’˘–›"
+#, fuzzy
+msgid "&Cancel quit"
+msgstr "–ü–æ–Ω–∏—à—Ç–∏ –∑–∞–≤—Ä—à–µ—Ç–∞–∫"
 
-msgid " Both panels should be in the listing mode to use this command "
-msgstr " æ—– ﬁ⁄›– —ÿ ‚‡’—–€ﬁ ‘– ·„ „ ‡’÷ÿ‹„ ·ﬂÿ·⁄– ◊– „ﬂﬁ‚‡’—„ ﬁ“’ ›–‡’‘—’ "
-
-msgid " The command history is empty "
-msgstr " ∏·‚ﬁ‡ÿ¯– ›–‡’‘—ÿ ¯’ ﬂ‡–◊›– "
-
-msgid " Command history "
-msgstr " ∏·‚ﬁ‡ÿ¯– ›–‡’‘—ÿ "
-
-msgid ""
-" Not an xterm or Linux console; \n"
-" the panels cannot be toggled. "
+msgid "This function is not implemented"
 msgstr ""
-" æ“ﬁ ›ÿ¯’ ∏⁄· ‚’‡‹ÿ›–€ ÿ€ÿ ⁄ﬁ›◊ﬁ€–; \n"
-" ﬁ⁄›– ·’ ›’ ‹ﬁ”„ ·‹’˙ÿ“–‚ÿ. "
 
-#, c-format
-msgid "Link %s to:"
-msgstr "øﬁ“’÷ÿ %s ·–:"
+#, fuzzy
+msgid "Copy to clipboard"
+msgstr " –ö–æ–ø–∏—Ä–∞—ò —É –ø—Ä–∏—Ö–≤–∞—Ç–Ω–∏–∫ "
 
-msgid " Link "
-msgstr " øﬁ“’÷ÿ "
+#, fuzzy
+msgid "Unable to save to file"
+msgstr " –ù–µ –º–æ–≥—É –¥–∞ —Å–∞—á—É–≤–∞–º –¥–∞—Ç–æ—Ç–µ–∫—É. "
 
-#, c-format
-msgid " link: %s "
-msgstr " “’◊–: %s "
+#, fuzzy
+msgid "Cut to clipboard"
+msgstr " –ò—Å–µ—Ü–∏ —É –ø—Ä–∏—Ö–≤–∞—Ç–Ω–∏–∫ "
 
-#, c-format
-msgid " symlink: %s "
-msgstr " ·ÿ‹“’◊–: %s "
+#, fuzzy
+msgid "Goto line"
+msgstr " –ò–¥–∏ –Ω–∞ —Ä–µ–¥ "
 
-#, c-format
-msgid " Symlink `%s' points to: "
-msgstr " ¡ÿ‹“’◊– `%s' „ﬂ„˚„¯’ ›–: "
+#, fuzzy
+msgid "Save block"
+msgstr " –°–∞—á—É–≤–∞—ò –±–ª–æ–∫ "
 
-msgid " Edit symlink "
-msgstr " √‡’‘ÿ ·ÿ‹“’◊„ "
+#, fuzzy
+msgid "Insert file"
+msgstr "&–£–±–∞—Ü–∏ –¥–∞—Ç–æ—Ç–µ–∫—É...      F15"
 
-#, c-format
-msgid " edit symlink, unable to remove %s: %s "
-msgstr " „‡’Úÿ“–˙’ ·ÿ‹“’◊’; ›’ ‹ﬁ”„ ‘– „⁄€ﬁ›ÿ‹ %s: %s "
+#, fuzzy
+msgid "Cannot insert file"
+msgstr " –ù–µ –º–æ–≥—É –¥–∞ —É–º–µ—Ç–Ω–µ–º –¥–∞—Ç–æ—Ç–µ–∫—É. "
 
-#, c-format
-msgid " edit symlink: %s "
-msgstr " „‡’Úÿ“–˙’ ·ÿ‹“’◊’: %s "
+#, fuzzy
+msgid "Sort block"
+msgstr " –ü–æ—Ä–µ—í–∞—ò –±–ª–æ–∫ "
 
-#, c-format
-msgid "`%s' is not a symbolic link"
-msgstr "`%s' ›ÿ¯’ ·ÿ‹—ﬁ€ÿÁ⁄– “’◊–"
+#, fuzzy
+msgid "You must first highlight a block of text"
+msgstr " –ü—Ä–≤–æ –º–æ—Ä–∞—Ç–µ –¥–∞ –æ–∑–Ω–∞—á–∏—Ç–µ –±–ª–æ–∫ —Ç–µ–∫—Å—Ç–∞. "
 
-#, c-format
-msgid " Cannot chdir to %s "
-msgstr " Ω’ ‹ﬁ”„ ‘– ﬂﬁ·‚–“ÿ‹ ‘ÿ‡. ›– %s "
+#, fuzzy
+msgid "Run sort"
+msgstr " –†–µ—í–∞—ò "
 
-msgid " Enter machine name (F1 for details): "
-msgstr " √›’·ÿ‚’ ›–◊ÿ“ ‹–Ëÿ›’ (F1 ◊– ‘’‚–˘’): "
+#, fuzzy
+msgid "Enter sort options (see manpage) separated by whitespace:"
+msgstr " –£–Ω–µ—Å–∏—Ç–µ –∏–∑–±–æ—Ä–µ —Ä–µ—í–∞—ö–∞ (–≤–∏–¥–∏ —É–ø—É—Ç—Å—Ç–≤–æ) —Ä–∞–∑–¥–≤–æ—ò–µ–Ω–µ –±–µ–ª–∏–Ω–∞–º–∞: "
 
-msgid " Link to a remote machine "
-msgstr " øﬁ“’◊ÿ“–˙’ ·– „‘–˘’›ﬁ‹ ‹–Ëÿ›ﬁ‹ "
+#, fuzzy
+msgid "Sort"
+msgstr " –†–µ—í–∞—ò "
 
-msgid " FTP to machine "
-msgstr " FTP ›– ‹–Ëÿ›„ "
+#, fuzzy
+msgid "Cannot execute sort command"
+msgstr " –ù–µ –º–æ–≥—É –¥–∞ –∏–∑–≤—Ä—à–∏–º –Ω–∞—Ä–µ–¥–±—É —Ä–µ—í–∞—ö–∞ "
 
-msgid " Shell link to machine "
-msgstr " øﬁ“’◊ÿ“–˙’ ˘„·⁄’ ·– ‹–Ëÿ›ﬁ‹ "
+#, fuzzy, c-format
+msgid "Sort returned non-zero: %s"
+msgstr " –†–µ—í–∞—ö–µ –Ω–∏—ò–µ —É—Å–ø–µ—à–Ω–æ –∑–∞–≤—Ä—à–µ–Ω–æ: "
 
-msgid " SMB link to machine "
-msgstr " ≤’◊– SMB-ﬁ‹ ·– ‹–Ëÿ›ﬁ‹ "
+msgid "Paste output of external command"
+msgstr "–ó–∞–ª–µ–ø–∏ –∏–∑–ª–∞–∑ —Å–ø–æ—ô–∞—à—ö–µ –Ω–∞—Ä–µ–¥–±–µ"
 
-msgid " Undelete files on an ext2 file system "
-msgstr " æ‘ﬁ—‡ÿËÿ ‘–‚ﬁ‚’⁄’ ›– ·ÿ·‚’‹„ ‘–‚ﬁ‚’⁄– ext2 "
+msgid "Enter shell command(s):"
+msgstr "–£–Ω–µ—Å–∏—Ç–µ –Ω–∞—Ä–µ–¥–±–µ —ô—É—Å–∫–µ:"
 
+msgid "External command"
+msgstr "–°–ø–æ—ô–∞—à—ö–∞ –Ω–∞—Ä–µ–¥–±–∞"
+
+msgid "Cannot execute command"
+msgstr "–ù–µ –º–æ–≥—É –¥–∞ –∏–∑–≤—Ä—à–∏–º –Ω–∞—Ä–µ–¥–±—É"
+
+msgid "Error creating script:"
+msgstr "–ì—Ä–µ—à–∫–∞ –ø—Ä–∏ —Å—Ç–≤–∞—Ä–∞—ö—É —Å–ø–∏—Å–∞:"
+
+msgid "Error reading script:"
+msgstr "–ì—Ä–µ—à–∫–∞ –ø—Ä–∏ —á–∏—Ç–∞—ö—É —Å–ø–∏—Å–∞:"
+
+msgid "Error closing script:"
+msgstr "–ì—Ä–µ—à–∫–∞ –ø—Ä–∏ –∑–∞—Ç–≤–∞—Ä–∞—ö—É —Å–ø–∏—Å–∞:"
+
+msgid "Script created:"
+msgstr "–°–ø–∏—Å —ò–µ —Å—Ç–≤–æ—Ä–µ–Ω:"
+
+msgid "Process block"
+msgstr "–û–±—Ä–∞–¥–∏ –±–ª–æ–∫"
+
+#, fuzzy
+msgid "Error calling program"
+msgstr "–ì—Ä–µ—à–∫–∞ –ø—Ä–∏ –∑–∞—Ç–≤–∞—Ä–∞—ö—É —Å–ø–∏—Å–∞:"
+
+#, fuzzy
+msgid "Copies to"
+msgstr " –ö–æ–ø–∏—ò–µ "
+
+#, fuzzy
+msgid "Subject"
+msgstr " –¢–µ–º–∞ "
+
+#, fuzzy
+msgid "To"
+msgstr " –ö–æ–º–µ"
+
+#, fuzzy
+msgid "mail -s <subject> -c <cc> <to>"
+msgstr " mail -s <—Ç–µ–º–∞> -c <–∫–æ–ø–∏—ò–µ> <–∫–æ–º–µ>"
+
+#, fuzzy
+msgid "Mail"
+msgstr " –ü–æ—à—Ç–∞ "
+
+#, fuzzy
+msgid "Insert literal"
+msgstr "–£–±–∞—Ü–∏ &–ª–∏—Ç–µ—Ä–∞–ª...               C-q"
+
+#, fuzzy
+msgid "Press any key:"
+msgstr " –ü—Ä–∏—Ç–∏—Å–Ω–∏—Ç–µ –±–∏–ª–æ –∫–æ—ò–∏ —Ç–∞—Å—Ç–µ—Ä: "
+
+#, fuzzy
+msgid "Execute macro"
+msgstr "&–ò–∑–≤—Ä—à–∏ –º–∞–∫—Ä–æ...           C-a, KEY"
+
+#, fuzzy
 msgid ""
-" Enter device (without /dev/) to undelete\n"
-"   files on: (F1 for details)"
+"Current text was modified without a file save\n"
+"Continue discards these changes"
 msgstr ""
-" √›’·ÿ‚’ „‡’Ú–¯ (—’◊ /dev/) ◊– ﬁ‘ﬁ—‡ÿ·–˙’\n"
-"   ‘–‚ﬁ‚’⁄– ›–: (F1 ◊– ‘’‚–˘’)"
+" –ü–æ—Å—Ç–æ—ò–µ—õ–∏ —Ç–µ–∫—Å—Ç —ò–µ –∏–∑–º–µ—ö–µ–Ω –∞ –Ω–∏—ò–µ —Å–∞—á—É–≤–∞–Ω.\n"
+" –î—É–≥–º–µ `–Ω–∞—Å—Ç–∞–≤–∏' –æ–¥–±–∞—Ü—É—ò–µ –æ–≤–µ –∏–∑–º–µ–Ω–µ. "
 
-msgid " Setup saved to ~/"
-msgstr " øﬁ‘’Ë–“–˙– ·„ ·–Á„“–›– „ ~/"
+#, fuzzy
+msgid "In se&lection"
+msgstr "–æ–±—Ä–Ω–∏ –∏–∑&–ë–æ—Ä           M-*"
 
-msgid " Setup "
-msgstr " øﬁ‘’Ë–“–˙– "
+#, fuzzy
+msgid "Enter replacement string:"
+msgstr " –£–Ω–µ—Å–∏—Ç–µ –Ω–∏—Å–∫—É –∑–∞–º–µ–Ω–µ:"
 
-#, c-format
+#, fuzzy
+msgid "&Find all"
+msgstr "–ù–∞—í–∏ –¥–∞—Ç–æ—Ç–µ–∫—É"
+
+msgid "Cancel"
+msgstr "–ü–æ–Ω–∏—à—Ç–∏"
+
+#, fuzzy
 msgid ""
-" Cannot chdir to \"%s\" \n"
+"Current text was modified without a file save.\n"
+"Continue discards these changes."
+msgstr ""
+" –ü–æ—Å—Ç–æ—ò–µ—õ–∏ —Ç–µ–∫—Å—Ç —ò–µ –∏–∑–º–µ—ö–µ–Ω –∞ –Ω–∏—ò–µ —Å–∞—á—É–≤–∞–Ω.\n"
+" –î—É–≥–º–µ `–Ω–∞—Å—Ç–∞–≤–∏' –æ–¥–±–∞—Ü—É—ò–µ –æ–≤–µ –∏–∑–º–µ–Ω–µ. "
+
+msgid "&Skip"
+msgstr "–ü—Ä–µ&—Å–∫–æ—á–∏"
+
+msgid "A&ll"
+msgstr "–°&–≤–µ"
+
+msgid "&Replace"
+msgstr "–ó–∞&–º–µ–Ω–∏"
+
+#, fuzzy
+msgid "Replace with:"
+msgstr " –ó–∞–º–µ–Ω–∏ —Å–∞: "
+
+#, fuzzy
+msgid "Confirm replace"
+msgstr " –ü–æ—Ç–≤—Ä–¥–∞ –∑–∞–º–µ–Ω–µ "
+
+msgid "&Open file..."
+msgstr "&–û—Ç–≤–æ—Ä–∏ –¥–∞—Ç–æ—Ç–µ–∫—É..."
+
+#, fuzzy
+msgid "&New"
+msgstr "&–ù–∞–∑–∏–≤"
+
+#, fuzzy
+msgid "Save &as..."
+msgstr "&–°–∞—á—É–≤–∞—ò –ø–æ–¥–µ—à–∞–≤–∞—ö–∞"
+
+#, fuzzy
+msgid "&Insert file..."
+msgstr "&–£–±–∞—Ü–∏ –¥–∞—Ç–æ—Ç–µ–∫—É...      F15"
+
+#, fuzzy
+msgid "Cop&y to file..."
+msgstr "–ö–æ–ø–∏—Ä–∞—ò —É &–¥–∞—Ç–æ—Ç–µ–∫—É...  C-f"
+
+#, fuzzy
+msgid "&User menu..."
+msgstr "–ö–æ—Ä–∏—Å–Ω–∏—á–∫–∏ &–º–µ–Ω–∏...     F11"
+
+#, fuzzy
+msgid "A&bout..."
+msgstr "&–ò–∑–≥–ª–µ–¥..."
+
+msgid "&Quit"
+msgstr "&–ó–∞–≤—Ä—à–∏"
+
+msgid "&Undo"
+msgstr ""
+
+#, fuzzy
+msgid "&Toggle ins/overw"
+msgstr "–°–º–µ–Ω–∏ &—É–±–∞—Ü./–ø—Ä–µ–ø–∏—Å.    Ins"
+
+#, fuzzy
+msgid "To&ggle mark"
+msgstr "–û&—á–∏—Å—Ç–∏ –æ–∑–Ω–∞—á–µ–Ω–µ"
+
+msgid "&Mark columns"
+msgstr ""
+
+#, fuzzy
+msgid "Mark &all"
+msgstr "&–°–≤–µ –æ–∑–Ω–∞—á–µ–Ω–µ"
+
+msgid "Unmar&k"
+msgstr ""
+
+#, fuzzy
+msgid "Cop&y"
+msgstr "–ö–æ–ø–∏—Ä—ò"
+
+#, fuzzy
+msgid "Mo&ve"
+msgstr "–ü—Ä–º—Å—Ç–∏"
+
+msgid "&Delete"
+msgstr "&–û–±—Ä–∏—à–∏"
+
+#, fuzzy
+msgid "Co&py to clipfile"
+msgstr "–ö–æ–ø–∏—Ä–∞—ò —É &–¥–∞—Ç–æ—Ç–µ–∫—É...       "
+
+#, fuzzy
+msgid "&Cut to clipfile"
+msgstr "&–ò–¥–∏ –Ω–∞ —Ä–µ–¥...               M-l"
+
+#, fuzzy
+msgid "Pa&ste from clipfile"
+msgstr "&–ò–¥–∏ –Ω–∞ —Ä–µ–¥...               M-l"
+
+msgid "&Beginning"
+msgstr ""
+
+#, fuzzy
+msgid "&End"
+msgstr "&–ò—á–≤–æ—Ä"
+
+#, fuzzy
+msgid "&Search..."
+msgstr "–¢—Ä–∞–∂–∏"
+
+#, fuzzy
+msgid "Search &again"
+msgstr "–¢—Ä–∞&–∂–∏ –ø–æ–Ω–æ–≤–æ             F17"
+
+#, fuzzy
+msgid "&Replace..."
+msgstr "–ó–∞&–º–µ–Ω–∏"
+
+#, fuzzy
+msgid "&Toggle bookmark"
+msgstr "&–°–º–µ–Ω–∏ –æ–∑–Ω–∞–∫—É            F3"
+
+#, fuzzy
+msgid "&Next bookmark"
+msgstr "–ü&–æ—Å—Ç–∞–≤–∏ –æ–∑–Ω–∞—á–µ–Ω–µ"
+
+#, fuzzy
+msgid "&Prev bookmark"
+msgstr "–ü–æ—Ä–µ&—í–∞—ò...                     M-t"
+
+#, fuzzy
+msgid "&Flush bookmark"
+msgstr "–ü–æ&—à—Ç–∞...                          "
+
+#, fuzzy
+msgid "&Go to line..."
+msgstr " –ò–¥–∏ –Ω–∞ —Ä–µ–¥ "
+
+#, fuzzy
+msgid "&Toggle line state"
+msgstr "&–°–º–µ–Ω–∏ –æ–∑–Ω–∞–∫—É            F3"
+
+#, fuzzy
+msgid "Go to matching &bracket"
+msgstr "–ò–¥–∏ –Ω–∞ –æ–¥–≥–æ–≤–∞—Ä–∞—ò—É—õ—É &–∑–∞–≥—Ä–∞–¥—É    M-b"
+
+#, fuzzy
+msgid "Toggle s&yntax highlighting"
+msgstr "–ò—Å—Ç–∏&—Ü–∞—ö–µ —Å–∏–Ω—Ç–∞–∫—Å–µ"
+
+#, fuzzy
+msgid "&Find declaration"
+msgstr "–ù–∞—í–∏ –æ–¥–±–∏—ò–µ–Ω–µ –∏—Å–ø—Ä–∞–≤–∫–µ –ø–æ—Å–ª–µ –∫—Ä–ø—ô–µ—ö–∞"
+
+#, fuzzy
+msgid "Back from &declaration"
+msgstr "–ù–∞—í–∏ –æ–¥–±–∏—ò–µ–Ω–µ –∏—Å–ø—Ä–∞–≤–∫–µ –ø–æ—Å–ª–µ –∫—Ä–ø—ô–µ—ö–∞"
+
+#, fuzzy
+msgid "For&ward to declaration"
+msgstr "–ù–∞—í–∏ –æ–¥–±–∏—ò–µ–Ω–µ –∏—Å–ø—Ä–∞–≤–∫–µ –ø–æ—Å–ª–µ –∫—Ä–ø—ô–µ—ö–∞"
+
+#, fuzzy
+msgid "Encod&ing..."
+msgstr "–ü–æ—Ä–µ&—í–∞—ò...                     M-t"
+
+#, fuzzy
+msgid "&Refresh screen"
+msgstr "&–û—Å–≤–µ–∂–∏ –µ–∫—Ä–∞–Ω                   C-l"
+
+#, fuzzy
+msgid "&Start record macro"
+msgstr "&–ü–æ—á–Ω–∏ —Å–Ω–∏–º–∞—ö–µ –º–∞–∫—Ä–æ–∞           C-r"
+
+#, fuzzy
+msgid "Finis&h record macro..."
+msgstr "&–ó–∞–≤—Ä—à–∏ —Å–Ω–∏–º–∞—ö–µ –º–∞–∫—Ä–æ–∞...       C-r"
+
+#, fuzzy
+msgid "&Execute macro..."
+msgstr "&–ò–∑–≤—Ä—à–∏ –º–∞–∫—Ä–æ...           C-a, KEY"
+
+#, fuzzy
+msgid "Delete macr&o..."
+msgstr " –ë—Ä–∏—Å–∞—ö–µ –º–∞–∫—Ä–æ–∞ "
+
+#, fuzzy
+msgid "'ispell' s&pell check"
+msgstr "–ü—Ä–æ–≤–µ—Ä–∏ &–ø—Ä–∞–≤–æ–ø–∏—Å `ispell'-–æ–º C-p"
+
+#, fuzzy
+msgid "&Mail..."
+msgstr "&–§–∏–ª—Ç–∞—Ä..."
+
+#, fuzzy
+msgid "Insert &literal..."
+msgstr "–£–±–∞—Ü–∏ &–ª–∏—Ç–µ—Ä–∞–ª...               C-q"
+
+#, fuzzy
+msgid "Insert &date/time"
+msgstr "–£–±–∞—Ü–∏ &–¥–∞—Ç—É–º –∏ –≤—Ä–µ–º–µ               "
+
+#, fuzzy
+msgid "&Format paragraph"
+msgstr "–§–æ—Ä–º–∞—Ç–∏—Ä–∞—ò –ø&–∞—Å—É—Å               M-p"
+
+#, fuzzy
+msgid "&Sort..."
+msgstr "&–ü–æ—Ä–µ–¥–∞–∫ —Ä–µ—í–∞—ö–∞..."
+
+#, fuzzy
+msgid "&Paste output of..."
+msgstr "–ó–∞–ª–µ–ø–∏ &–∏–∑–ª–∞–∑ –Ω–∞—Ä–µ–¥–±–µ...        M-u"
+
+#, fuzzy
+msgid "&External formatter"
+msgstr "–°–ø–æ&—ô–∞—à—ö–∏ —Ñ–æ—Ä–º–∞—Ç–µ—Ä              F19"
+
+#, fuzzy
+msgid "&General..."
+msgstr "&–û–ø—à—Ç–µ...  "
+
+#, fuzzy
+msgid "Save &mode..."
+msgstr "&–†–µ–∂–∏–º —á—É–≤–∞—ö–∞..."
+
+#, fuzzy
+msgid "Learn &keys..."
+msgstr "–ù–∞—É—á–∏ &—Ç–∞—Å—Ç–µ—Ä–µ..."
+
+#, fuzzy
+msgid "Syntax &highlighting..."
+msgstr "–ò—Å—Ç–∏&—Ü–∞—ö–µ —Å–∏–Ω—Ç–∞–∫—Å–µ"
+
+#, fuzzy
+msgid "S&yntax file"
+msgstr "–£—Ä–µ—í–∏–≤–∞—ö–µ —Å–∏–Ω—Ç–∞–∫—Å–Ω–µ –¥–∞—Ç–æ—Ç–µ–∫–µ"
+
+#, fuzzy
+msgid "&Menu file"
+msgstr "–£—Ä–µ–¥–∏ –¥–∞—Ç–æ—Ç–µ–∫—É &–º–µ–Ω–∏—ò–∞"
+
+msgid "&Save setup"
+msgstr "&–°–∞—á—É–≤–∞—ò –ø–æ–¥–µ—à–∞–≤–∞—ö–∞"
+
+#, fuzzy
+msgid "&File"
+msgstr "–î–∞—Ç–æ—Ç–µ–∫–∞"
+
+#, fuzzy
+msgid "&Edit"
+msgstr "–£—Ä–µ–¥–∏"
+
+#, fuzzy
+msgid "&Search"
+msgstr "–¢—Ä–∞–∂–∏"
+
+#, fuzzy
+msgid "&Command"
+msgstr "–ù–∞—Ä–µ–¥–±–∞"
+
+#, fuzzy
+msgid "For&mat"
+msgstr "–§–æ—Ä–º–∞—Ç"
+
+#, fuzzy
+msgid "&Options"
+msgstr " &–ò–∑–±–æ—Ä–∏ "
+
+msgid "None"
+msgstr "–ù–∏—à—Ç–∞"
+
+msgid "Dynamic paragraphing"
+msgstr "–î–∏–Ω–∞–º–∏—á–Ω–∏ –ø–∞—Å—É—Å–∏"
+
+msgid "Type writer wrap"
+msgstr "–ê—É—Ç–æ–º–∞—Ç—Å–∫–∏ –ø—Ä–µ–ª–æ–º"
+
+#, fuzzy
+msgid "Word wrap line length:"
+msgstr "–ü—Ä–µ–ª–æ–º —Ä–µ–¥–∞ –Ω–∞ –¥—É–∂–∏–Ω–∏: "
+
+msgid "Cursor beyond end of line"
+msgstr ""
+
+#, fuzzy
+msgid "Pers&istent selection"
+msgstr "–æ–±—Ä–Ω–∏ –∏–∑&–ë–æ—Ä           M-*"
+
+msgid "Synta&x highlighting"
+msgstr "–ò—Å—Ç–∏&—Ü–∞—ö–µ —Å–∏–Ω—Ç–∞–∫—Å–µ"
+
+msgid "Visible tabs"
+msgstr ""
+
+msgid "Visible trailing spaces"
+msgstr ""
+
+msgid "Save file &position"
+msgstr "–ß—É–≤–∞—ö–µ —Ç–µ–∫—É—õ–µ &–ø–æ–∑–∏—Ü–∏—ò–µ"
+
+msgid "Confir&m before saving"
+msgstr "–ü–æ—Ç–≤—Ä–¥–∞ &—á—É–≤–∞—ö–∞"
+
+msgid "&Return does autoindent"
+msgstr "–¢–∞—Å—Ç–µ—Ä `&Return' –Ω–µ —É–≤–ª–∞—á–∏"
+
+#, fuzzy
+msgid "Tab spacing:"
+msgstr "–†–∞–∑–º–∞–∫ —Ç–∞–±—É–ª–∞—Ç–æ—Ä–∞: "
+
+msgid "Fill tabs with &spaces"
+msgstr "–ü–æ–ø—É–Ω–∏ —Ç–∞–±—É–ª–∞—Ç–æ&—Ä–µ —Ä–∞–∑–º–∞—Ü–∏–º–∞"
+
+msgid "&Backspace through tabs"
+msgstr "–¢–∞—Å—Ç–µ—Ä–æ–º `&Backsp' –∫—Ä–æ–∑ —Ç–∞–±—É–ª."
+
+msgid "&Fake half tabs"
+msgstr "&–õ–∞–∂–Ω–∞ –ø–æ–ª—É—Ç–∞–±—É–ª–∞—Ü–∏—ò–∞"
+
+msgid "Wrap mode"
+msgstr "–ü—Ä–µ–ª–æ–º —Ä–µ–¥–æ–≤–∞"
+
+#, fuzzy
+msgid "Editor options"
+msgstr " –ò–∑–±–æ—Ä–∏ —É—Ä–µ—í–∏–≤–∞—á–∞ "
+
+#, fuzzy
+msgid "Edit: "
+msgstr " –£—Ä–µ—í–∏–≤–∞—ö–µ "
+
+msgid "ButtonBar|Mark"
+msgstr ""
+
+msgid "ButtonBar|Replac"
+msgstr ""
+
+msgid "ButtonBar|Copy"
+msgstr ""
+
+msgid "ButtonBar|Move"
+msgstr ""
+
+msgid "ButtonBar|Delete"
+msgstr ""
+
+msgid "ButtonBar|PullDn"
+msgstr ""
+
+#, fuzzy
+msgid "Load syntax file"
+msgstr " –£—á–∏—Ç–∞—ò –¥–∞—Ç–æ—Ç–µ–∫—É —Å–∏–Ω—Ç–∞–∫—Å–µ "
+
+#, fuzzy, c-format
+msgid ""
+"Cannot open file %s\n"
+"%s"
+msgstr ""
+" –ù–µ –º–æ–≥—É –¥–∞ –æ—Ç–≤–æ—Ä–∏–º –¥–∞—Ç–æ—Ç–µ–∫—É `%s' \n"
 " %s "
+
+#, fuzzy, c-format
+msgid "Error in file %s on line %d"
+msgstr " –ì—Ä–µ—à–∫–∞ —É –¥–∞—Ç–æ—Ç–µ—Ü–∏ `%s' –Ω–∞ —Ä–µ–¥—É %d "
+
+#, fuzzy
+msgid ""
+"The Commander can't change to the directory that\n"
+"the subshell claims you are in. Perhaps you have\n"
+"deleted your working directory, or given yourself\n"
+"extra access permissions with the \"su\" command?"
 msgstr ""
-" Ω’ ‹ﬁ”„ ‘– ﬂﬁ·‚–“ÿ‹ ‘ÿ‡. ›– `%s' \n"
-" %s "
-
-msgid " Cannot execute commands on non-local filesystems"
-msgstr " Ω’ ‹ﬁ”„ ‘– ÿ◊“‡Ë–“–‹ ›–‡’‘—’ ›– ›’-€ﬁ⁄. ·ÿ·‚’‹ÿ‹– ‘–‚o‚’⁄–"
-
-msgid " The shell is already running a command "
-msgstr " ©„·⁄– “’˚ ÿ◊“‡Ë–“– ›–‡’‘—„ "
-
-msgid "&Unsorted"
-msgstr "Ω&’·‡’Ú’›ﬁ"
-
-msgid "&Name"
-msgstr "&Ω–◊ÿ“"
-
-msgid "&Extension"
-msgstr "&≤‡·‚–"
-
-msgid "&Modify time"
-msgstr "¥–‚„‹ &ÿ◊‹’›’"
-
-msgid "&Access time"
-msgstr "¥–‚„‹ &ﬂ‡ÿ·‚„ﬂ–"
-
-msgid "C&Hange time"
-msgstr "¥–‚„‹ &ﬂ‡ﬁ‹’›’"
-
-msgid "&Size"
-msgstr "&≤’€ÿÁÿ›–"
-
-msgid "&Inode"
-msgstr "&∏Á“ﬁ‡"
-
-msgid "Cannot read directory contents"
-msgstr "Ω’ ‹ﬁ”„ ‘– „Áÿ‚–‹ ·–‘‡÷–¯ ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹–"
-
-#, c-format
-msgid "Press any key to continue..."
-msgstr "ø‡ÿ‚ÿ·›ÿ‚’ —ÿ€ﬁ ⁄ﬁ¯ÿ ‚–·‚’‡ ◊– ›–·‚–“–⁄..."
+" –ù–∞—Ä–µ–¥–Ω–∏–∫ –Ω–µ –º–æ–∂–µ –¥–∞ —É—í–µ —É –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º –∑–∞ –∫–æ—ò–∏\n"
+" –ø–æ–¥—ô—É—Å–∫–∞ —Ç–≤—Ä–¥–∏ –¥–∞ —Å–µ —É —ö–µ–º—É –Ω–∞–ª–∞–∑–∏—Ç–µ. –ú–æ–∂–¥–∞ —Å—Ç–µ\n"
+" –æ–±—Ä–∏—Å–∞–ª–∏ –≤–∞—à —Ç–µ–∫—É—õ–∏ –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º, –∏–ª–∏ —Å—Ç–µ –¥–∞–ª–∏\n"
+" —Å–µ–±–∏ –ø—Ä–µ—à–∏—Ä–æ–∫–µ –¥–æ–∑–≤–æ–ª–µ –ø—Ä–µ–∫–æ –Ω–∞—Ä–µ–¥–±–µ `su'? "
 
 #, c-format
 msgid "Type `exit' to return to the Midnight Commander"
-msgstr "√›’·ÿ‚’ `exit' ‘– —ÿ·‚’ ·’ “‡–‚ÿ€ÿ „ øﬁ›ﬁ˚›ﬁ” ›–‡’‘›ÿ⁄–"
+msgstr "–£–Ω–µ—Å–∏—Ç–µ `exit' –¥–∞ –±–∏—Å—Ç–µ —Å–µ –≤—Ä–∞—Ç–∏–ª–∏ —É –ü–æ–Ω–æ—õ–Ω–æ–≥ –Ω–∞—Ä–µ–¥–Ω–∏–∫–∞"
 
-#, c-format
-msgid " Cannot fetch a local copy of %s "
-msgstr " Ω’ ‹ﬁ”„ ‘– ‘ﬁ—–“ÿ‹ €ﬁ⁄–€›ÿ ﬂ‡ÿ‹’‡–⁄ %s "
+#, fuzzy, c-format
+msgid "Cannot fetch a local copy of %s"
+msgstr " –ù–µ –º–æ–≥—É –¥–∞ –¥–æ–±–∞–≤–∏–º –ª–æ–∫–∞–ª–Ω–∏ –ø—Ä–∏–º–µ—Ä–∞–∫ %s "
 
-#, c-format
+#, fuzzy, c-format
 msgid ""
-" Cannot create temporary command file \n"
-" %s "
+"Cannot create temporary command file\n"
+"%s"
 msgstr ""
-" Ω’ ‹ﬁ”„ ‘– ·‚“ﬁ‡ÿ‹ ﬂ‡ÿ“‡’‹’›„ ‘–‚ﬁ‚’⁄„ ›–‡’‘—ÿ \n"
+" –ù–µ –º–æ–≥—É –¥–∞ —Å—Ç–≤–æ—Ä–∏–º –ø—Ä–∏–≤—Ä–µ–º–µ–Ω—É –¥–∞—Ç–æ—Ç–µ–∫—É –Ω–∞—Ä–µ–¥–±–∏ \n"
 " %s "
 
-msgid " Parameter "
-msgstr " ø–‡–‹’‚–‡ "
+#, fuzzy
+msgid "Parameter"
+msgstr " –ü–∞—Ä–∞–º–µ—Ç–∞—Ä "
 
 #, fuzzy, c-format
 msgid " %s%s file error"
-msgstr " ”‡’Ë⁄– ‘–‚ﬁ‚’⁄’ "
+msgstr " –≥—Ä–µ—à–∫–∞ –¥–∞—Ç–æ—Ç–µ–∫–µ "
 
 #, fuzzy, c-format
 msgid ""
-"The format of the %smc.ext file has changed with version 3.0.  It seems that "
-"the installation failed.  Please fetch a fresh copy from the Midnight "
+"The format of the %smc.ext file has changed with version 3.0. It seems that "
+"the installation failed. Please fetch a fresh copy from the Midnight "
 "Commander package."
 msgstr ""
-"¥–‚ﬁ‚’⁄– mc.ext ¯’ ÿ◊‹’˙’›– „ “’‡◊ÿ¯ÿ 3.0.\n"
-"∏◊”€’‘– ‘– ÿ›·‚–€–Êÿ¯– ›ÿ¯’ „·ﬂ’€–.\n"
-"ºﬁ€ÿ‹ ‘– ﬂ‡’„◊‹’‚’ ·“’÷ ﬂ‡ÿ‹’‡–⁄ ÿ◊\n"
-"ﬂ–⁄’‚– øﬁ›ﬁ˚›ﬁ” ›–‡’‘›ÿ⁄–."
+"–î–∞—Ç–æ—Ç–µ–∫–∞ mc.ext —ò–µ –∏–∑–º–µ—ö–µ–Ω–∞ —É –≤–µ—Ä–∑–∏—ò–∏ 3.0.\n"
+"–ò–∑–≥–ª–µ–¥–∞ –¥–∞ –∏–Ω—Å—Ç–∞–ª–∞—Ü–∏—ò–∞ –Ω–∏—ò–µ —É—Å–ø–µ–ª–∞.\n"
+"–ú–æ–ª–∏–º –¥–∞ –ø—Ä–µ—É–∑–º–µ—Ç–µ —Å–≤–µ–∂ –ø—Ä–∏–º–µ—Ä–∞–∫ –∏–∑\n"
+"–ø–∞–∫–µ—Ç–∞ –ü–æ–Ω–æ—õ–Ω–æ–≥ –Ω–∞—Ä–µ–¥–Ω–∏–∫–∞."
 
 #, fuzzy, c-format
-msgid " ~/%s file error "
-msgstr " ”‡’Ë⁄– ‘–‚ﬁ‚’⁄’ "
+msgid "~/%s file error"
+msgstr " –≥—Ä–µ—à–∫–∞ –¥–∞—Ç–æ—Ç–µ–∫–µ "
 
-#, c-format
+#, fuzzy, c-format
 msgid ""
-"The format of the ~/%s file has changed with version 3.0.  You may either "
+"The format of the ~/%s file has changed with version 3.0. You may either "
 "want to copy it from %smc.ext or use that file as an example of how to write "
 "it."
 msgstr ""
+"–î–∞—Ç–æ—Ç–µ–∫–∞ mc.ext —ò–µ –∏–∑–º–µ—ö–µ–Ω–∞ —É –≤–µ—Ä–∑–∏—ò–∏ 3.0.\n"
+"–ò–∑–≥–ª–µ–¥–∞ –¥–∞ –∏–Ω—Å—Ç–∞–ª–∞—Ü–∏—ò–∞ –Ω–∏—ò–µ —É—Å–ø–µ–ª–∞.\n"
+"–ú–æ–ª–∏–º –¥–∞ –ø—Ä–µ—É–∑–º–µ—Ç–µ —Å–≤–µ–∂ –ø—Ä–∏–º–µ—Ä–∞–∫ –∏–∑\n"
+"–ø–∞–∫–µ—Ç–∞ –ü–æ–Ω–æ—õ–Ω–æ–≥ –Ω–∞—Ä–µ–¥–Ω–∏–∫–∞."
 
-msgid " Copy "
-msgstr " ∫ﬁﬂÿ‡–¯ "
-
-msgid " Move "
-msgstr " ø‡’‹’·‚ÿ "
-
-msgid " Delete "
-msgstr " æ—‡ÿËÿ "
-
-msgid " Invalid target mask "
-msgstr " Ω’ÿ·ﬂ‡–“›– ﬁ‘‡’‘ÿË›– ‹–·⁄– "
-
-msgid " Cannot make the hardlink "
-msgstr " Ω’ ‹ﬁ”„ ‘– ›–ﬂ‡–“ÿ‹ ‚“‡‘„ “’◊„ "
-
-#, c-format
-msgid ""
-" Cannot read source link \"%s\" \n"
-" %s "
+msgid "DialogTitle|Copy"
 msgstr ""
-" Ω’ ‹ﬁ”„ ‘– Áÿ‚–‹ ÿ◊“ﬁ‡›„ “’◊„ `%s' \n"
+
+msgid "DialogTitle|Move"
+msgstr ""
+
+msgid "DialogTitle|Delete"
+msgstr ""
+
+#, fuzzy
+msgid "Cannot make the hardlink"
+msgstr " –ù–µ –º–æ–≥—É –¥–∞ –Ω–∞–ø—Ä–∞–≤–∏–º —Ç–≤—Ä–¥—É –≤–µ–∑—É "
+
+#, fuzzy, c-format
+msgid ""
+"Cannot read source link \"%s\"\n"
+"%s"
+msgstr ""
+" –ù–µ –º–æ–≥—É –¥–∞ —á–∏—Ç–∞–º –∏–∑–≤–æ—Ä–Ω—É –≤–µ–∑—É `%s' \n"
 " %s "
 
+#, fuzzy
 msgid ""
-" Cannot make stable symlinks across non-local filesystems: \n"
+"Cannot make stable symlinks acrossnon-local filesystems:\n"
 "\n"
-" Option Stable Symlinks will be disabled "
+"Option Stable Symlinks will be disabled"
 msgstr ""
-" Ω’ ‹ﬁ”„ ‘– ﬂ‡–“ÿ‹ ·‚–—ÿ€›’ ·ÿ‹“’◊’ ﬂ‡’⁄ﬁ ›’-€ﬁ⁄. ·ÿ·‚’‹– ‘–‚ﬁ‚’⁄–: \n"
+" –ù–µ –º–æ–≥—É –¥–∞ –ø—Ä–∞–≤–∏–º —Å—Ç–∞–±–∏–ª–Ω–µ —Å–∏–º–≤–µ–∑–µ –ø—Ä–µ–∫–æ –Ω–µ-–ª–æ–∫. —Å–∏—Å—Ç–µ–º–∞ –¥–∞—Ç–æ—Ç–µ–∫–∞: \n"
 "\n"
-" ∏◊—ﬁ‡ `¡‚–—ÿ€›’ ·ÿ‹“’◊’' ˚’ —ÿ‚ÿ ÿ·⁄˘„Á’› "
+" –ò–∑–±–æ—Ä `–°—Ç–∞–±–∏–ª–Ω–µ —Å–∏–º–≤–µ–∑–µ' —õ–µ –±–∏—Ç–∏ –∏—Å–∫—ô—É—á–µ–Ω "
 
-#, c-format
+#, fuzzy, c-format
 msgid ""
-" Cannot create target symlink \"%s\" \n"
-" %s "
+"Cannot create target symlink \"%s\"\n"
+"%s"
 msgstr ""
-" Ω’ ‹ﬁ”„ ‘– ·‚“ﬁ‡ÿ‹ ﬁ‘‡’‘ÿË›„ ·ÿ‹“’◊„ `%s' \n"
+" –ù–µ –º–æ–≥—É –¥–∞ —Å—Ç–≤–æ—Ä–∏–º –æ–¥—Ä–µ–¥–∏—à–Ω—É —Å–∏–º–≤–µ–∑—É `%s' \n"
 " %s "
 
-#, c-format
+msgid "&Abort"
+msgstr "&–ü—Ä–µ–∫–∏–Ω–∏"
+
+#, fuzzy, c-format
 msgid ""
-" Cannot overwrite directory \"%s\" \n"
-" %s "
+"Cannot overwrite directory\"%s\"\n"
+"%s"
 msgstr ""
-" Ω’ ‹ﬁ”„ ‘– ﬂ‡’ﬂÿË’‹ ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹ `%s' \n"
+" –ù–µ –º–æ–≥—É –¥–∞ –ø—Ä–µ–ø–∏—à–µ–º –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º `%s' \n"
 " %s "
 
-#, c-format
+#, fuzzy, c-format
 msgid ""
-" Cannot stat source file \"%s\" \n"
-" %s "
+"Cannot stat source file \"%s\"\n"
+"%s"
 msgstr ""
-" Ω’ ‹ﬁ”„ ‘– ÿ◊“‡Ëÿ‹ `stat' ›– ÿ◊“ﬁ‡›ﬁ¯ ‘–‚ﬁ‚’Êÿ `%s' \n"
+" –ù–µ –º–æ–≥—É –¥–∞ –∏–∑–≤—Ä—à–∏–º `stat' –Ω–∞ –∏–∑–≤–æ—Ä–Ω–æ—ò –¥–∞—Ç–æ—Ç–µ—Ü–∏ `%s' \n"
 " %s "
 
-#, c-format
-msgid " `%s' and `%s' are the same file "
-msgstr " `%s' ÿ `%s' ·„ ÿ·‚ﬁ“’‚›ÿ "
-
-#, c-format
+#, fuzzy, c-format
 msgid ""
-" Cannot create special file \"%s\" \n"
-" %s "
-msgstr ""
-" Ω’ ‹ﬁ”„ ‘– ·‚“ﬁ‡ÿ‹ ﬂﬁ·’—›„ ‘–‚ﬁ‚’⁄„ `%s' \n"
-" %s "
+"\"%s\"\n"
+"and\n"
+"\"%s\"\n"
+"are the same file"
+msgstr " `%s' –∏ `%s' —Å—É –∏—Å—Ç–æ–≤–µ—Ç–Ω–∏ "
 
-#, c-format
+#, fuzzy, c-format
 msgid ""
-" Cannot chown target file \"%s\" \n"
-" %s "
+"Cannot create special file \"%s\"\n"
+"%s"
 msgstr ""
-" Ω’ ‹ﬁ”„ ‘– ﬂ‡ﬁ‹’›ÿ‹ “€–·›ÿ⁄– ﬁ‘‡’‘ÿË›ﬁ¯ ‘–‚ﬁ‚’Êÿ `%s' \n"
+" –ù–µ –º–æ–≥—É –¥–∞ —Å—Ç–≤–æ—Ä–∏–º –ø–æ—Å–µ–±–Ω—É –¥–∞—Ç–æ—Ç–µ–∫—É `%s' \n"
 " %s "
 
-#, c-format
+#, fuzzy, c-format
 msgid ""
-" Cannot chmod target file \"%s\" \n"
-" %s "
+"Cannot chown target file \"%s\"\n"
+"%s"
 msgstr ""
-" Ω’ ‹ﬁ”„ ‘– ﬂ‡ﬁ‹’›ÿ‹ ‘ﬁ◊“ﬁ€’ ﬁ‘‡’‘ÿË›ﬁ¯ ‘–‚ﬁ‚’Êÿ `%s' \n"
+" –ù–µ –º–æ–≥—É –¥–∞ –ø—Ä–æ–º–µ–Ω–∏–º –≤–ª–∞—Å–Ω–∏–∫–∞ –æ–¥—Ä–µ–¥–∏—à–Ω–æ—ò –¥–∞—Ç–æ—Ç–µ—Ü–∏ `%s' \n"
 " %s "
 
-#, c-format
+#, fuzzy, c-format
 msgid ""
-" Cannot open source file \"%s\" \n"
-" %s "
+"Cannot chmod target file \"%s\"\n"
+"%s"
 msgstr ""
-" Ω’ ‹ﬁ”„ ‘– ﬁ‚“ﬁ‡ÿ‹ ‘–‚ﬁ‚’⁄„ `%s' \n"
+" –ù–µ –º–æ–≥—É –¥–∞ –ø—Ä–æ–º–µ–Ω–∏–º –¥–æ–∑–≤–æ–ª–µ –æ–¥—Ä–µ–¥–∏—à–Ω–æ—ò –¥–∞—Ç–æ—Ç–µ—Ü–∏ `%s' \n"
 " %s "
 
-msgid " Reget failed, about to overwrite file "
-msgstr " øﬁ›ﬁ“›ﬁ ﬂ‡’„◊ÿ‹–˙’ ›ÿ¯’ „·ﬂ’€ﬁ, ﬂ‡’ﬂÿ·–˚„ ‘–‚ﬁ‚’⁄„ "
-
-#, c-format
+#, fuzzy, c-format
 msgid ""
-" Cannot fstat source file \"%s\" \n"
-" %s "
+"Cannot open source file \"%s\"\n"
+"%s"
 msgstr ""
-" Ω’ ‹ﬁ”„ ‘– ÿ◊“‡Ëÿ‹ `fstat' ›– ÿ◊“ﬁ‡›ﬁ¯ ‘–‚ﬁ‚’Êÿ `%s' \n"
+" –ù–µ –º–æ–≥—É –¥–∞ –æ—Ç–≤–æ—Ä–∏–º –¥–∞—Ç–æ—Ç–µ–∫—É `%s' \n"
 " %s "
 
-#, c-format
+#, fuzzy
+msgid "Reget failed, about to overwrite file"
+msgstr " –ü–æ–Ω–æ–≤–Ω–æ –ø—Ä–µ—É–∑–∏–º–∞—ö–µ –Ω–∏—ò–µ —É—Å–ø–µ–ª–æ, –ø—Ä–µ–ø–∏—Å–∞—õ—É –¥–∞—Ç–æ—Ç–µ–∫—É "
+
+#, fuzzy, c-format
 msgid ""
-" Cannot create target file \"%s\" \n"
-" %s "
+"Cannot fstat source file \"%s\"\n"
+"%s"
 msgstr ""
-" Ω’ ‹ﬁ”„ ‘– ·‚“ﬁ‡ÿ‹ ﬁ‘‡’‘ÿË›„ ‘–‚ﬁ‚’⁄„ `%s' \n"
+" –ù–µ –º–æ–≥—É –¥–∞ –∏–∑–≤—Ä—à–∏–º `fstat' –Ω–∞ –∏–∑–≤–æ—Ä–Ω–æ—ò –¥–∞—Ç–æ—Ç–µ—Ü–∏ `%s' \n"
 " %s "
 
-#, c-format
+#, fuzzy, c-format
 msgid ""
-" Cannot fstat target file \"%s\" \n"
-" %s "
+"Cannot create target file \"%s\"\n"
+"%s"
 msgstr ""
-" Ω’ ‹ﬁ”„ ‘– ÿ◊“‡Ëÿ‹ fstat ›– ﬁ‘‡’‘ÿË›ﬁ¯ ‘–‚ﬁ‚’Êÿ `%s' \n"
+" –ù–µ –º–æ–≥—É –¥–∞ —Å—Ç–≤–æ—Ä–∏–º –æ–¥—Ä–µ–¥–∏—à–Ω—É –¥–∞—Ç–æ—Ç–µ–∫—É `%s' \n"
 " %s "
 
-#, c-format
+#, fuzzy, c-format
 msgid ""
-" Cannot read source file \"%s\" \n"
-" %s "
+"Cannot fstat target file \"%s\"\n"
+"%s"
 msgstr ""
-" Ω’ ‹ﬁ”„ ‘– Áÿ‚–‹ ﬁ‘‡’‘ÿË›„ ‘–‚ﬁ‚’⁄„ `%s' \n"
+" –ù–µ –º–æ–≥—É –¥–∞ –∏–∑–≤—Ä—à–∏–º fstat –Ω–∞ –æ–¥—Ä–µ–¥–∏—à–Ω–æ—ò –¥–∞—Ç–æ—Ç–µ—Ü–∏ `%s' \n"
 " %s "
 
-#, c-format
+#, fuzzy, c-format
 msgid ""
-" Cannot write target file \"%s\" \n"
-" %s "
+"Cannot read source file\"%s\"\n"
+"%s"
 msgstr ""
-" Ω’ ‹ﬁ”„ ‘– ﬂÿË’‹ „ ﬁ‘‡’‘ÿË›„ ‘–‚ﬁ‚’⁄„ `%s' \n"
+" –ù–µ –º–æ–≥—É –¥–∞ —á–∏—Ç–∞–º –æ–¥—Ä–µ–¥–∏—à–Ω—É –¥–∞—Ç–æ—Ç–µ–∫—É `%s' \n"
+" %s "
+
+#, fuzzy, c-format
+msgid ""
+"Cannot write target file \"%s\"\n"
+"%s"
+msgstr ""
+" –ù–µ –º–æ–≥—É –¥–∞ –ø–∏—à–µ–º —É –æ–¥—Ä–µ–¥–∏—à–Ω—É –¥–∞—Ç–æ—Ç–µ–∫—É `%s' \n"
 " %s "
 
 msgid "(stalled)"
-msgstr "(◊–·‚ﬁ¯)"
+msgstr "(–∑–∞—Å—Ç–æ—ò)"
 
-#, c-format
+#, fuzzy, c-format
 msgid ""
-" Cannot close source file \"%s\" \n"
-" %s "
+"Cannot close source file \"%s\"\n"
+"%s"
 msgstr ""
-" Ω’ ‹ﬁ”„ ‘– ◊–‚“ﬁ‡ÿ‹ ÿ◊“ﬁ‡›„ ‘–‚ﬁ‚’⁄„ `%s' \n"
+" –ù–µ –º–æ–≥—É –¥–∞ –∑–∞—Ç–≤–æ—Ä–∏–º –∏–∑–≤–æ—Ä–Ω—É –¥–∞—Ç–æ—Ç–µ–∫—É `%s' \n"
 " %s "
 
-#, c-format
+#, fuzzy, c-format
 msgid ""
-" Cannot close target file \"%s\" \n"
-" %s "
+"Cannot close target file \"%s\"\n"
+"%s"
 msgstr ""
-" Ω’ ‹ﬁ”„ ‘– ◊–‚“ﬁ‡ÿ‹ ﬁ‘‡’‘ÿË›„ ‘–‚ﬁ‚’⁄„ `%s' \n"
+" –ù–µ –º–æ–≥—É –¥–∞ –∑–∞—Ç–≤–æ—Ä–∏–º –æ–¥—Ä–µ–¥–∏—à–Ω—É –¥–∞—Ç–æ—Ç–µ–∫—É `%s' \n"
 " %s "
 
 msgid "Incomplete file was retrieved. Keep it?"
-msgstr "¥–‚ﬁ‚’⁄– ›ÿ¯’ „ ﬂﬁ‚ﬂ„›ﬁ·‚ÿ ﬂ‡’„◊’‚–. ¥– ¯’ ◊–‘‡÷ÿ‹?"
-
-msgid "&Delete"
-msgstr "&æ—‡ÿËÿ"
+msgstr "–î–∞—Ç–æ—Ç–µ–∫–∞ –Ω–∏—ò–µ —É –ø–æ—Ç–ø—É–Ω–æ—Å—Ç–∏ –ø—Ä–µ—É–∑–µ—Ç–∞. –î–∞ —ò–µ –∑–∞–¥—Ä–∂–∏–º?"
 
 msgid "&Keep"
-msgstr "&∑–‘‡÷ÿ"
+msgstr "&–ó–∞–¥—Ä–∂–∏"
 
-#, c-format
+#, fuzzy, c-format
 msgid ""
-" Cannot stat source directory \"%s\" \n"
-" %s "
+"Cannot stat source directory \"%s\"\n"
+"%s"
 msgstr ""
-" Ω’ ‹ﬁ”„ ‘– ÿ◊“‡Ëÿ‹ stat ›– ÿ◊“ﬁ‡›ﬁ‹ ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹„ `%s' \n"
+" –ù–µ –º–æ–≥—É –¥–∞ –∏–∑–≤—Ä—à–∏–º stat –Ω–∞ –∏–∑–≤–æ—Ä–Ω–æ–º –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º—É `%s' \n"
 " %s "
 
-#, c-format
+#, fuzzy, c-format
 msgid ""
-" Source \"%s\" is not a directory \n"
-" %s "
+"Source \"%s\" is not a directory\n"
+"%s"
 msgstr ""
-" ∏◊“ﬁ‡›ÿ ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹ `%s' ›ÿ¯’ ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹ \n"
+" –ò–∑–≤–æ—Ä–Ω–∏ –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º `%s' –Ω–∏—ò–µ –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º \n"
 " %s "
 
-#, c-format
+#, fuzzy, c-format
 msgid ""
-" Cannot copy cyclic symbolic link \n"
+"Cannot copy cyclic symbolic link\n"
+"\"%s\""
+msgstr ""
+" –ù–µ –º–æ–≥—É –¥–∞ –∫–æ–ø–∏—Ä–∞–º —Ü–∏–∫–ª–∏—á–Ω—É —Å–∏–º–±–æ–ª–∏—á–∫—É –≤–µ–∑—É \n"
 " `%s' "
-msgstr ""
-" Ω’ ‹ﬁ”„ ‘– ⁄ﬁﬂÿ‡–‹ Êÿ⁄€ÿÁ›„ ·ÿ‹—ﬁ€ÿÁ⁄„ “’◊„ \n"
-" `%s' "
 
-#, c-format
+#, fuzzy, c-format
 msgid ""
-" Destination \"%s\" must be a directory \n"
-" %s "
+"Destination \"%s\" must be a directory\n"
+"%s"
 msgstr ""
-" æ‘‡’‘ÿË‚’ `%s' ‹ﬁ‡– ‘– —„‘’ ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹ \n"
+" –û–¥—Ä–µ–¥–∏—à—Ç–µ `%s' –º–æ—Ä–∞ –¥–∞ –±—É–¥–µ –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º \n"
 " %s "
 
-#, c-format
+#, fuzzy, c-format
 msgid ""
-" Cannot create target directory \"%s\" \n"
-" %s "
+"Cannot create target directory \"%s\"\n"
+"%s"
 msgstr ""
-" Ω’ ‹ﬁ”„ ‘– ·‚“ﬁ‡ÿ‹ ﬁ‘‡’‘ÿË›ÿ ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹ `%s' \n"
+" –ù–µ –º–æ–≥—É –¥–∞ —Å—Ç–≤–æ—Ä–∏–º –æ–¥—Ä–µ–¥–∏—à–Ω–∏ –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º `%s' \n"
 " %s "
 
-#, c-format
+#, fuzzy, c-format
 msgid ""
-" Cannot chown target directory \"%s\" \n"
-" %s "
+"Cannot chown target directory \"%s\"\n"
+"%s"
 msgstr ""
-" Ω’ ‹ﬁ”„ ‘– ﬂ‡ﬁ‹’›ÿ‹ “€–·›ÿ⁄– ﬁ‘‡’‘ÿË›ﬁ‹ ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹„ `%s' \n"
+" –ù–µ –º–æ–≥—É –¥–∞ –ø—Ä–æ–º–µ–Ω–∏–º –≤–ª–∞—Å–Ω–∏–∫–∞ –æ–¥—Ä–µ–¥–∏—à–Ω–æ–º –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º—É `%s' \n"
 " %s "
 
-#, c-format
+#, fuzzy, c-format
 msgid ""
-" Cannot stat file \"%s\" \n"
-" %s "
+"Cannot stat file \"%s\"\n"
+"%s"
 msgstr ""
-" Ω’ ‹ﬁ”„ ‘– ÿ◊“‡Ëÿ‹ stat ›– ‘–‚ﬁ‚’Êÿ `%s' \n"
+" –ù–µ –º–æ–≥—É –¥–∞ –∏–∑–≤—Ä—à–∏–º stat –Ω–∞ –¥–∞—Ç–æ—Ç–µ—Ü–∏ `%s' \n"
 " %s "
 
-#, c-format
-msgid " Cannot overwrite directory `%s' "
-msgstr " Ω’ ‹ﬁ”„ ‘– ﬂ‡’ﬂÿË’‹ ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹ `%s' "
+#, fuzzy, c-format
+msgid "Cannot overwrite directory \"%s\""
+msgstr " –ù–µ –º–æ–≥—É –¥–∞ –ø—Ä–µ–ø–∏—à–µ–º –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º `%s' %s "
 
-#, c-format
+#, fuzzy, c-format
 msgid ""
-" Cannot move file \"%s\" to \"%s\" \n"
-" %s "
+"Cannot move file \"%s\" to \"%s\"\n"
+"%s"
 msgstr ""
-" Ω’ ‹ﬁ”„ ‘– ﬂ‡’‹’·‚ÿ‹ ‘–‚ﬁ‚’⁄„ `%s' „ `%s' \n"
+" –ù–µ –º–æ–≥—É –¥–∞ –ø—Ä–µ–º–µ—Å—Ç–∏–º –¥–∞—Ç–æ—Ç–µ–∫—É `%s' —É `%s' \n"
 " %s "
 
-#, c-format
+#, fuzzy, c-format
 msgid ""
-" Cannot remove file \"%s\" \n"
-" %s "
+"Cannot remove file \"%s\"\n"
+"%s"
 msgstr ""
-" Ω’ ‹ﬁ”„ ‘– „⁄€ﬁ›ÿ‹ ‘–‚ﬁ‚’⁄„ `%s' \n"
+" –ù–µ –º–æ–≥—É –¥–∞ —É–∫–ª–æ–Ω–∏–º –¥–∞—Ç–æ—Ç–µ–∫—É `%s' \n"
 " %s "
 
-#, c-format
-msgid " `%s' and `%s' are the same directory "
-msgstr " `%s' ÿ `%s' ·„ ÿ·‚ﬁ“’‚›ÿ ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹ÿ "
-
-#, c-format
-msgid " Cannot overwrite directory \"%s\" %s "
-msgstr " Ω’ ‹ﬁ”„ ‘– ﬂ‡’ﬂÿË’‹ ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹ `%s' %s "
-
-#, c-format
-msgid " Cannot overwrite file \"%s\" %s "
-msgstr " Ω’ ‹ﬁ”„ ‘– ﬂ‡’ﬂÿË’‹ ‘–‚ﬁ‚’⁄„ `%s' %s "
-
-#, c-format
+#, fuzzy, c-format
 msgid ""
-" Cannot move directory \"%s\" to \"%s\" \n"
-" %s "
-msgstr ""
-" Ω’ ‹ﬁ”„ ‘– ﬂ‡’‹’·‚ÿ‹ ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹ `%s' „ `%s' \n"
-" %s "
+"\"%s\"\n"
+"and\n"
+"\"%s\"\n"
+"are the same directory"
+msgstr " `%s' –∏ `%s' —Å—É –∏—Å—Ç–æ–≤–µ—Ç–Ω–∏ –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º–∏ "
 
-#, c-format
+#, fuzzy, c-format
 msgid ""
-" Cannot delete file \"%s\" \n"
-" %s "
+"Cannot overwrite directory \"%s\"\n"
+"%s"
 msgstr ""
-" Ω’ ‹ﬁ”„ ‘– ﬁ—‡ÿË’‹ ‘–‚ﬁ‚’⁄„ `%s' \n"
+" –ù–µ –º–æ–≥—É –¥–∞ –ø—Ä–µ–ø–∏—à–µ–º –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º `%s' \n"
 " %s "
 
-#, c-format
+#, fuzzy, c-format
 msgid ""
-" Cannot remove directory \"%s\" \n"
-" %s "
+"Cannot overwrite file \"%s\"\n"
+"%s"
+msgstr " –ù–µ –º–æ–≥—É –¥–∞ –ø—Ä–µ–ø–∏—à–µ–º –¥–∞—Ç–æ—Ç–µ–∫—É `%s' %s "
+
+#, fuzzy, c-format
+msgid ""
+"Cannot move directory \"%s\" to \"%s\"\n"
+"%s"
 msgstr ""
-" Ω’ ‹ﬁ”„ ‘– „⁄€ﬁ›ÿ‹ ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹ `%s' \n"
+" –ù–µ –º–æ–≥—É –¥–∞ –ø—Ä–µ–º–µ—Å—Ç–∏–º –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º `%s' —É `%s' \n"
 " %s "
 
-msgid "1Copy"
-msgstr "1∫ﬁﬂÿ‡–¯"
+#, fuzzy, c-format
+msgid ""
+"Cannot delete file \"%s\"\n"
+"%s"
+msgstr ""
+" –ù–µ –º–æ–≥—É –¥–∞ –æ–±—Ä–∏—à–µ–º –¥–∞—Ç–æ—Ç–µ–∫—É `%s' \n"
+" %s "
 
-msgid "1Move"
-msgstr "1ø‡’‹’·‚ÿ"
+#, fuzzy, c-format
+msgid ""
+"Cannot remove directory \"%s\"\n"
+"%s"
+msgstr ""
+" –ù–µ –º–æ–≥—É –¥–∞ —É–∫–ª–æ–Ω–∏–º –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º `%s' \n"
+" %s "
 
-msgid "1Delete"
-msgstr "1æ—‡ÿËÿ"
+#, fuzzy
+msgid "Directory scanning"
+msgstr "–ü—É—Ç–∞—ö–∞ –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º–∞"
+
+msgid "FileOperation|Copy"
+msgstr ""
+
+msgid "FileOperation|Move"
+msgstr ""
+
+msgid "FileOperation|Delete"
+msgstr ""
 
 #, no-c-format
 msgid "%o %f \"%s\"%m"
@@ -1610,398 +2841,455 @@ msgstr "%o %f \"%s\"%m"
 msgid "%o %d %f%m"
 msgstr "%o %d %f%m"
 
-msgid "file"
-msgstr "‘–‚ﬁ‚’⁄„"
-
 msgid "files"
-msgstr "‘–‚ﬁ‚’⁄–"
+msgstr "–¥–∞—Ç–æ—Ç–µ–∫–∞"
 
 msgid "directory"
-msgstr "‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹"
+msgstr "–¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º"
 
 msgid "directories"
-msgstr "‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹–"
+msgstr "–¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º–∞"
 
 msgid "files/directories"
-msgstr "‘–‚ﬁ‚’⁄–/‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹–"
+msgstr "–¥–∞—Ç–æ—Ç–µ–∫–∞/–¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º–∞"
 
+#. TRANSLATORS: keep leading space here to split words in Copy/Move dialog
 msgid " with source mask:"
-msgstr " „◊ ÿ◊“ﬁ‡›„ ‹–·⁄„:"
+msgstr " —É–∑ –∏–∑–≤–æ—Ä–Ω—É –º–∞—Å–∫—É:"
 
-msgid " to:"
-msgstr " „:"
+msgid "to:"
+msgstr "—É:"
 
-msgid " Cannot operate on \"..\"! "
-msgstr " Ω’ ‹ﬁ”„ ‘– ‡–‘ÿ‹ ·– `..'! "
+#, c-format
+msgid "%s?"
+msgstr ""
 
-msgid " Sorry, I could not put the job in background "
-msgstr " ∏◊“ÿ›ÿ‚’, –€ÿ ›ÿ·–‹ ‹ﬁ”–ﬁ ‘– ﬂﬁË–˘’‹ ﬂﬁ·–ﬁ „ ﬂﬁ◊–‘ÿ›„ "
+#, fuzzy
+msgid "Cannot operate on \"..\"!"
+msgstr " –ù–µ –º–æ–≥—É –¥–∞ —Ä–∞–¥–∏–º —Å–∞ `..'! "
+
+#, fuzzy
+msgid "Sorry, I could not put the job in background"
+msgstr " –ò–∑–≤–∏–Ω–∏—Ç–µ, –∞–ª–∏ –Ω–∏—Å–∞–º –º–æ–≥–∞–æ –¥–∞ –ø–æ—à–∞—ô–µ–º –ø–æ—Å–∞–æ —É –ø–æ–∑–∞–¥–∏–Ω—É "
 
 msgid "&Retry"
-msgstr "ø&‡ﬁ—–¯ ﬂﬁ›ﬁ“ﬁ"
+msgstr "–ü&—Ä–æ–±–∞—ò –ø–æ–Ω–æ–≤–æ"
 
-msgid "&Abort"
-msgstr "&ø‡’⁄ÿ›ÿ"
-
+#, fuzzy
 msgid ""
 "\n"
-"   Directory not empty.   \n"
-"   Delete it recursively? "
+"Directory not empty.\n"
+"Delete it recursively?"
 msgstr ""
 "\n"
-"   ¥ÿ‡’⁄‚ﬁ‡ÿ¯„‹ ›ÿ¯’ ﬂ‡–◊–›.   \n"
-"   ∂’€ÿ‚’ €ÿ ‘– ”– ‡’⁄„‡◊ÿ“›ﬁ ﬁ—‡ÿË’‹? "
+"   –î–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º –Ω–∏—ò–µ –ø—Ä–∞–∑–∞–Ω.   \n"
+"   –ñ–µ–ª–∏—Ç–µ –ª–∏ –¥–∞ –≥–∞ —Ä–µ–∫—É—Ä–∑–∏–≤–Ω–æ –æ–±—Ä–∏—à–µ–º? "
 
+#, fuzzy
 msgid ""
 "\n"
-"   Background process: Directory not empty \n"
-"   Delete it recursively? "
+"Background process: Directory not empty.\n"
+"Delete it recursively?"
 msgstr ""
 "\n"
-"   øﬁ◊–‘ÿ›·⁄ÿ ﬂ‡ﬁÊ’·: ¥ÿ‡’⁄‚ﬁ‡ÿ¯„‹ ›ÿ¯’ ﬂ‡–◊–› \n"
-"   ∂’€ÿ‚’ €ÿ ‘– ”– ‡’⁄„‡◊ÿ“›ﬁ ﬁ—‡ÿË’‹? "
+"   –ü–æ–∑–∞–¥–∏–Ω—Å–∫–∏ –ø—Ä–æ—Ü–µ—Å: –î–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º –Ω–∏—ò–µ –ø—Ä–∞–∑–∞–Ω \n"
+"   –ñ–µ–ª–∏—Ç–µ –ª–∏ –¥–∞ –≥–∞ —Ä–µ–∫—É—Ä–∑–∏–≤–Ω–æ –æ–±—Ä–∏—à–µ–º? "
 
-msgid " Delete: "
-msgstr " æ—‡ÿËÿ: "
+#, fuzzy
+msgid "Delete:"
+msgstr "–û–±—Ä–∏—à–∏"
 
 msgid "Non&e"
-msgstr "&ΩÿË‚–"
+msgstr "&–ù–∏—à—Ç–∞"
 
 # Estimated time of arrival
-# ø‡ﬁÊ’˙’›ﬁ “‡’‹’ ‘ﬁ€–·⁄–
+# –ü—Ä–æ—Ü–µ—ö–µ–Ω–æ –≤—Ä–µ–º–µ –¥–æ–ª–∞—Å–∫–∞
+#, fuzzy, c-format
+msgid "%d:%02d.%02d"
+msgstr "–ü–í–î %d:%02d.%02d"
+
 #, c-format
-msgid "ETA %d:%02d.%02d"
-msgstr "ø≤¥ %d:%02d.%02d"
+msgid "ETA %s"
+msgstr ""
 
 #, c-format
 msgid "%.2f MB/s"
-msgstr "%.2f º±/·"
+msgstr "%.2f –ú–ë/—Å"
 
 #, c-format
 msgid "%.2f KB/s"
-msgstr "%.2f ∫±/·"
+msgstr "%.2f –ö–ë/—Å"
 
 #, c-format
 msgid "%ld B/s"
-msgstr "%ld ±/·"
-
-msgid "File"
-msgstr "¥–‚ﬁ‚’⁄–"
-
-msgid "Count"
-msgstr "±‡ﬁ¯"
-
-msgid "Bytes"
-msgstr "±–¯‚ﬁ“–"
-
-msgid "Source"
-msgstr "∏◊“ﬁ‡"
-
-msgid "Target"
-msgstr "æ‘‡’‘ÿË‚’"
-
-msgid "Deleting"
-msgstr "±‡ÿË’‹"
+msgstr "%ld –ë/—Å"
 
 #, c-format
-msgid "Target file \"%s\" already exists!"
-msgstr "æ‘‡’‘ÿË›– ‘–‚ﬁ‚’⁄– `%s' “’˚ ﬂﬁ·‚ﬁ¯ÿ!"
-
-msgid "If &size differs"
-msgstr "∞⁄ﬁ ¯’ &“’€ÿÁÿ›– ‡–◊€ÿÁÿ‚–"
-
-msgid "&Update"
-msgstr "&∞÷„‡ÿ‡–¯"
-
-msgid "Overwrite all targets?"
-msgstr "∂’€ÿ‚’ €ÿ ‘– ﬂ‡’ﬂÿË’‹ ·“– ﬁ‘‡’‘ÿË‚–?"
-
-msgid "&Reget"
-msgstr "&øﬁ›ﬁ“ﬁ ﬂ‡’„◊‹ÿ"
-
-msgid "A&ppend"
-msgstr "&Ω–‘ﬁ“’÷ÿ"
-
-msgid "Overwrite this target?"
-msgstr "∂’€ÿ‚’ €ÿ ‘– ﬂ‡’ﬂÿË’‹ ﬁ“ﬁ ﬁ‘‡’‘ÿË‚’?"
+msgid "Files processed: %llu of %llu"
+msgstr ""
 
 #, fuzzy, c-format
-msgid "Target date: %s, size %llu"
-msgstr "¥–‚„‹ ﬁ‘‡’‘ÿË‚–: %s, “’€ÿÁÿ›– %llu"
+msgid "Time: %s  %s (%s)"
+msgstr "–í–µ–ª–∏—á–∏–Ω–∞:        %s"
+
+#, c-format
+msgid "Total: %s of %s"
+msgstr ""
+
+msgid "Source"
+msgstr "–ò–∑–≤–æ—Ä"
+
+msgid "Target"
+msgstr "–û–¥—Ä–µ–¥–∏—à—Ç–µ"
+
+msgid "Deleting"
+msgstr "–ë—Ä–∏—à–µ–º"
+
+#, fuzzy
+msgid "Target file already exists!"
+msgstr "–û–¥—Ä–µ–¥–∏—à–Ω–∞ –¥–∞—Ç–æ—Ç–µ–∫–∞ `%s' –≤–µ—õ –ø–æ—Å—Ç–æ—ò–∏!"
 
 #, fuzzy, c-format
 msgid "Source date: %s, size %llu"
-msgstr "¥–‚„‹ ÿ◊“ﬁ‡–: %s, “’€ÿÁÿ›– %llu"
+msgstr "–î–∞—Ç—É–º –∏–∑–≤–æ—Ä–∞: %s, –≤–µ–ª–∏—á–∏–Ω–∞ %llu"
 
 #, fuzzy, c-format
-msgid "Target date: %s, size %u"
-msgstr "¥–‚„‹ ﬁ‘‡’‘ÿË‚–: %s, “’€ÿÁÿ›– %u"
+msgid "Target date: %s, size %llu"
+msgstr "–î–∞—Ç—É–º –æ–¥—Ä–µ–¥–∏—à—Ç–∞: %s, –≤–µ–ª–∏—á–∏–Ω–∞ %llu"
 
 #, fuzzy, c-format
 msgid "Source date: %s, size %u"
-msgstr "¥–‚„‹ ÿ◊“ﬁ‡–: %s, “’€ÿÁÿ›– %u"
+msgstr "–î–∞—Ç—É–º –∏–∑–≤–æ—Ä–∞: %s, –≤–µ–ª–∏—á–∏–Ω–∞ %u"
 
-msgid " File exists "
-msgstr " ¥–‚ﬁ‚’⁄– ﬂﬁ·‚ﬁ¯ÿ "
+#, fuzzy, c-format
+msgid "Target date: %s, size %u"
+msgstr "–î–∞—Ç—É–º –æ–¥—Ä–µ–¥–∏—à—Ç–∞: %s, –≤–µ–ª–∏—á–∏–Ω–∞ %u"
 
-msgid " Background process: File exists "
-msgstr " øﬁ◊–‘ÿ›·⁄ÿ ﬂ‡ﬁÊ’·: ‘–‚ﬁ‚’⁄– ﬂﬁ·‚ﬁ¯ÿ "
+msgid "If &size differs"
+msgstr "–ê–∫–æ —ò–µ &–≤–µ–ª–∏—á–∏–Ω–∞ —Ä–∞–∑–ª–∏—á–∏—Ç–∞"
 
-msgid "preserve &Attributes"
-msgstr "ﬁÁ„“–¯ &∞‚‡ÿ—„‚’"
+msgid "&Update"
+msgstr "&–ê–∂—É—Ä–∏—Ä–∞—ò"
 
-msgid "follow &Links"
-msgstr "ﬂ‡–‚ÿ &≤’◊’"
+msgid "Overwrite all targets?"
+msgstr "–ñ–µ–ª–∏—Ç–µ –ª–∏ –¥–∞ –ø—Ä–µ–ø–∏—à–µ–º —Å–≤–∞ –æ–¥—Ä–µ–¥–∏—à—Ç–∞?"
 
-msgid "to:"
-msgstr "„:"
+msgid "&Reget"
+msgstr "&–ü–æ–Ω–æ–≤–æ –ø—Ä–µ—É–∑–º–∏"
 
-msgid "&Using shell patterns"
-msgstr "&∫ﬁ‡ÿ·‚ÿ ﬁ—‡–·Ê’ ˘„·⁄’"
+msgid "A&ppend"
+msgstr "&–ù–∞–¥–æ–≤–µ–∂–∏"
+
+msgid "Overwrite this target?"
+msgstr "–ñ–µ–ª–∏—Ç–µ –ª–∏ –¥–∞ –ø—Ä–µ–ø–∏—à–µ–º –æ–≤–æ –æ–¥—Ä–µ–¥–∏—à—Ç–µ?"
+
+#, fuzzy
+msgid "File exists"
+msgstr " –î–∞—Ç–æ—Ç–µ–∫–∞ –ø–æ—Å—Ç–æ—ò–∏ "
+
+#, fuzzy
+msgid "Background process: File exists"
+msgstr " –ü–æ–∑–∞–¥–∏–Ω—Å–∫–∏ –ø—Ä–æ—Ü–µ—Å: –¥–∞—Ç–æ—Ç–µ–∫–∞ –ø–æ—Å—Ç–æ—ò–∏ "
 
 msgid "&Background"
-msgstr "&øﬁ◊–‘ÿ›–"
+msgstr "&–ü–æ–∑–∞–¥–∏–Ω–∞"
 
 msgid "&Stable Symlinks"
-msgstr "&¡‚–—ÿ€›’ ·ÿ‹“’◊’"
+msgstr "&–°—Ç–∞–±–∏–ª–Ω–µ —Å–∏–º–≤–µ–∑–µ"
 
-msgid "&Dive into subdir if exists"
-msgstr "&∑–‡ﬁ›ÿ „ ﬂﬁ‘‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹’"
+#, fuzzy
+msgid "Di&ve into subdir if exists"
+msgstr "&–ó–∞—Ä–æ–Ω–∏ —É –ø–æ–¥–¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º–µ"
 
-#, c-format
-msgid ""
-"Invalid source pattern `%s' \n"
-" %s "
+#, fuzzy
+msgid "Preserve &attributes"
+msgstr "–æ—á—É–≤–∞—ò &–ê—Ç—Ä–∏–±—É—Ç–µ"
+
+#, fuzzy
+msgid "Follow &links"
+msgstr "–ø—Ä–∞—Ç–∏ &–í–µ–∑–µ"
+
+#, fuzzy, c-format
+msgid "Invalid source pattern `%s'"
 msgstr ""
-"Ω’ÿ·ﬂ‡–“–› ÿ◊“ﬁ‡›ÿ ﬁ—‡–◊–Ê `%s' \n"
+"–ù–µ–∏—Å–ø—Ä–∞–≤–∞–Ω –∏–∑–≤–æ—Ä–Ω–∏ –æ–±—Ä–∞–∑–∞—Ü `%s' \n"
 " %s "
 
 msgid "&Suspend"
-msgstr "&æ—„·‚–“ÿ"
+msgstr "&–û–±—É—Å—Ç–∞–≤–∏"
 
 msgid "Con&tinue"
-msgstr "&Ω–·‚–“ÿ"
+msgstr "&–ù–∞—Å—Ç–∞–≤–∏"
 
 msgid "&Chdir"
-msgstr "&ø‡ﬁ‹.‘ÿ‡."
+msgstr "&–ü—Ä–æ–º.–¥–∏—Ä."
 
 msgid "&Again"
-msgstr "&øﬁ›ﬁ“ﬁ"
-
-msgid "&Quit"
-msgstr "&∑–“‡Ëÿ"
+msgstr "&–ü–æ–Ω–æ–≤–æ"
 
 msgid "Pane&lize"
-msgstr "ø‡’‚“ﬁ‡ÿ &„ ﬁ⁄›ﬁ"
+msgstr "–ü—Ä–µ—Ç–≤–æ—Ä–∏ &—É –æ–∫–Ω–æ"
 
 msgid "&View - F3"
-msgstr "&ø‡’”€’‘–¯ - F3"
+msgstr "&–ü—Ä–µ–≥–ª–µ–¥–∞—ò - F3"
 
 msgid "&Edit - F4"
-msgstr "&√‡’‘ÿ - F4"
+msgstr "&–£—Ä–µ–¥–∏ - F4"
 
-msgid "find Re&cursively"
+#, c-format
+msgid "Found: %ld"
 msgstr ""
 
-msgid "Start at:"
-msgstr "øﬁÁ›ÿ ﬁ‘:"
+#, fuzzy
+msgid "Malformed regular expression"
+msgstr " –ù–µ–∏—Å–ø—Ä–∞–≤–Ω–∏ —Ä–µ–≥—É–ª–∞—Ä–Ω–∏ –∏–∑—Ä–∞–∑ "
 
-msgid "Filename:"
-msgstr "¥–‚ﬁ‚’⁄–:"
+#, fuzzy
+msgid "Cas&e sensitive"
+msgstr "—Ä–∞–∑–ª–∏–∫—É&—ò –≤–µ–ª–∏–∫–∞ –∏ –º–∞–ª–∞ —Å–ª–æ–≤–∞"
 
-msgid "Content: "
-msgstr "¡–‘‡÷–¯: "
+msgid "&Find recursively"
+msgstr ""
+
+msgid "S&kip hidden"
+msgstr ""
+
+msgid "&All charsets"
+msgstr ""
+
+#, fuzzy
+msgid "Case sens&itive"
+msgstr "—Ä–∞–∑–ª–∏–∫—É&—ò –≤–µ–ª–∏–∫–∞ –∏ –º–∞–ª–∞ —Å–ª–æ–≤–∞"
+
+#, fuzzy
+msgid "Re&gular expression"
+msgstr "&–†–µ–≥—É–ª–∞—Ä–Ω–∏ –∏–∑—Ä–∞–∑"
+
+msgid "Fir&st hit"
+msgstr ""
+
+msgid "All cha&rsets"
+msgstr ""
 
 msgid "&Tree"
-msgstr "&¡‚–—€ﬁ"
+msgstr "&–°—Ç–∞–±–ª–æ"
 
 msgid "Find File"
-msgstr "Ω–Úÿ ‘–‚ﬁ‚’⁄„"
+msgstr "–ù–∞—í–∏ –¥–∞—Ç–æ—Ç–µ–∫—É"
+
+#, fuzzy
+msgid "Content:"
+msgstr "–°–∞–¥—Ä–∂–∞—ò: "
+
+#, fuzzy
+msgid "File name:"
+msgstr "–î–∞—Ç–æ—Ç–µ–∫–∞:"
+
+msgid "Start at:"
+msgstr "–ü–æ—á–Ω–∏ –æ–¥:"
 
 #, c-format
 msgid "Grepping in %s"
-msgstr "¬‡–÷ÿ‹ ‚’⁄·‚ „ %s"
+msgstr "–¢—Ä–∞–∂–∏–º —Ç–µ–∫—Å—Ç —É %s"
 
 msgid "Finished"
-msgstr "≥ﬁ‚ﬁ“ﬁ"
+msgstr "–ì–æ—Ç–æ–≤–æ"
 
 #, c-format
 msgid "Searching %s"
-msgstr "¬‡–÷ÿ‹ %s"
+msgstr "–¢—Ä–∞–∂–∏–º %s"
 
 msgid "Searching"
-msgstr "¬‡–÷ÿ‹"
+msgstr "–¢—Ä–∞–∂–∏–º"
 
-msgid " Help file format error\n"
-msgstr " ≥‡’Ë⁄– „ ‰ﬁ‡‹–‚„ ‘–‚ﬁ‚’⁄’ ﬂﬁ‹ﬁ˚ÿ\n"
+#, fuzzy
+msgid "Help file format error\n"
+msgstr " –ì—Ä–µ—à–∫–∞ —É —Ñ–æ—Ä–º–∞—Ç—É –¥–∞—Ç–æ—Ç–µ–∫–µ –ø–æ–º–æ—õ–∏\n"
 
-msgid " Internal bug: Double start of link area "
-msgstr " √›„‚‡–Ë˙– ”‡’Ë⁄–: ¥“ﬁ·‚‡„⁄ÿ ﬂﬁÁ’‚–⁄ ﬁ—€–·‚ÿ “’◊’ "
+#, fuzzy
+msgid "Internal bug: Double start of link area"
+msgstr " –£–Ω—É—Ç—Ä–∞—à—ö–∞ –≥—Ä–µ—à–∫–∞: –î–≤–æ—Å—Ç—Ä—É–∫–∏ –ø–æ—á–µ—Ç–∞–∫ –æ–±–ª–∞—Å—Ç–∏ –≤–µ–∑–µ "
 
-#, c-format
-msgid " Cannot find node %s in help file "
-msgstr " Ω’ ‹ﬁ”„ ‘– ›–Ú’‹ Á“ﬁ‡ %s „ ‘–‚ﬁ‚’Êÿ ﬂﬁ‹ﬁ˚ÿ "
+#, fuzzy, c-format
+msgid "Cannot find node %s in help file"
+msgstr " –ù–µ –º–æ–≥—É –¥–∞ –Ω–∞—í–µ–º —á–≤–æ—Ä %s —É –¥–∞—Ç–æ—Ç–µ—Ü–∏ –ø–æ–º–æ—õ–∏ "
 
-msgid "Index"
-msgstr "∏›‘’⁄·"
+msgid "Help"
+msgstr "–ü–æ–º–æ—õ"
 
-msgid "Prev"
-msgstr "ø‡’‚Â"
+msgid "ButtonBar|Index"
+msgstr ""
+
+msgid "ButtonBar|Prev"
+msgstr ""
 
 msgid "&Move"
-msgstr "&ø‡’‹’·‚ÿ"
+msgstr "&–ü—Ä–µ–º–µ—Å—Ç–∏"
 
 msgid "&Remove"
-msgstr "&√⁄€ﬁ›ÿ"
+msgstr "&–£–∫–ª–æ–Ω–∏"
 
 msgid "&Append"
-msgstr "&Ω–‘ﬁ“’÷ÿ"
+msgstr "&–ù–∞–¥–æ–≤–µ–∂–∏"
 
 msgid "&Insert"
-msgstr "√&‹’‚›ÿ"
+msgstr "–£&–º–µ—Ç–Ω–∏"
 
-msgid "New &Entry"
-msgstr "Ωﬁ“– &·‚–“⁄–"
+#, fuzzy
+msgid "New &entry"
+msgstr "–ù–æ–≤–∞ &—Å—Ç–∞–≤–∫–∞"
 
-msgid "New &Group"
-msgstr "Ωﬁ“– &”‡„ﬂ–"
+#, fuzzy
+msgid "New &group"
+msgstr "–ù–æ–≤–∞ &–≥—Ä—É–ø–∞"
 
 msgid "&Up"
-msgstr "&≥ﬁ‡’"
+msgstr "&–ì–æ—Ä–µ"
 
 msgid "&Add current"
-msgstr "&¥ﬁ‘–¯ ‚’⁄„˚’"
+msgstr "&–î–æ–¥–∞—ò —Ç–µ–∫—É—õ–µ"
 
 msgid "&Refresh"
-msgstr "&æ·“’÷ÿ"
+msgstr "&–û—Å–≤–µ–∂–∏"
 
 # Virtual file system
-# ≤ÿ‡‚„–€›ÿ ·ÿ·‚’‹ ‘–‚ﬁ‚’⁄–
+# –í–∏—Ä—Ç—É–∞–ª–Ω–∏ —Å–∏—Å—Ç–µ–º –¥–∞—Ç–æ—Ç–µ–∫–∞
 msgid "Fr&ee VFSs now"
-msgstr "&æ·€ﬁ—ﬁ‘ÿ ≤¡¥ ·–‘–"
+msgstr "&–û—Å–ª–æ–±–æ–¥–∏ –í–°–î —Å–∞–¥–∞"
 
-msgid "Change &To"
-msgstr "ø&‡ﬁ‹’›ÿ „"
+#, fuzzy
+msgid "Change &to"
+msgstr "–ü&—Ä–æ–º–µ–Ω–∏ —É"
 
 msgid "Subgroup - press ENTER to see list"
-msgstr "øﬁ‘”‡„ﬂ– - ﬂ‡ÿ‚ÿ·›ÿ‚’ `ENTER' ◊– ·ﬂÿ·–⁄"
+msgstr "–ü–æ–¥–≥—Ä—É–ø–∞ - –ø—Ä–∏—Ç–∏—Å–Ω–∏—Ç–µ `ENTER' –∑–∞ —Å–ø–∏—Å–∞–∫"
 
 msgid "Active VFS directories"
-msgstr "∞⁄‚ÿ“›ÿ ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹ÿ ≤¡¥"
+msgstr "–ê–∫—Ç–∏–≤–Ω–∏ –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º–∏ –í–°–î"
 
 msgid "Directory hotlist"
-msgstr "±‡◊ÿ ·ﬂÿ·–⁄ ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹–"
+msgstr "–ë—Ä–∑–∏ —Å–ø–∏—Å–∞–∫ –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º–∞"
 
-msgid " Directory path "
-msgstr " ø„‚–˙– ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹– "
+msgid "Directory path"
+msgstr "–ü—É—Ç–∞—ö–∞ –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º–∞"
 
-msgid " Directory label "
-msgstr " Ω–‚ﬂÿ· ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹– "
+msgid "Directory label"
+msgstr "–ù–∞—Ç–ø–∏—Å –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º–∞"
 
 #, c-format
 msgid "Moving %s"
-msgstr "ø‡’‹’Ë‚–‹ %s"
+msgstr "–ü—Ä–µ–º–µ—à—Ç–∞–º %s"
 
 msgid "New hotlist entry"
-msgstr "Ωﬁ“– ·‚–“⁄– —‡◊ﬁ” ·ﬂÿ·⁄–"
+msgstr "–ù–æ–≤–∞ —Å—Ç–∞–≤–∫–∞ –±—Ä–∑–æ–≥ —Å–ø–∏—Å–∫–∞"
 
-msgid "Directory label"
-msgstr "Ω–‚ﬂÿ· ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹–"
+#, fuzzy
+msgid "Directory label:"
+msgstr "–ù–∞—Ç–ø–∏—Å –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º–∞"
 
-msgid "Directory path"
-msgstr "ø„‚–˙– ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹–"
+#, fuzzy
+msgid "Directory path:"
+msgstr "–ü—É—Ç–∞—ö–∞ –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º–∞"
 
-msgid " New hotlist group "
-msgstr " Ωﬁ“– ”‡„ﬂ– —‡◊ﬁ” ·ﬂÿ·⁄– "
+#, fuzzy
+msgid "New hotlist group"
+msgstr " –ù–æ–≤–∞ –≥—Ä—É–ø–∞ –±—Ä–∑–æ–≥ —Å–ø–∏—Å–∫–∞ "
 
-msgid "Name of new group"
-msgstr "Ω–◊ÿ“ ›ﬁ“’ ”‡„ﬂ’"
+#, fuzzy
+msgid "Name of new group:"
+msgstr "–ù–∞–∑–∏–≤ –Ω–æ–≤–µ –≥—Ä—É–ø–µ"
 
 #, c-format
 msgid "Label for \"%s\":"
-msgstr "Ω–‚ﬂÿ· ◊– `%s':"
+msgstr "–ù–∞—Ç–ø–∏—Å –∑–∞ `%s':"
 
-msgid " Add to hotlist "
-msgstr " ¥ﬁ‘–¯ „ —‡◊ÿ ·ﬂÿ·–⁄ "
+#, fuzzy
+msgid "Add to hotlist"
+msgstr " –î–æ–¥–∞—ò —É –±—Ä–∑–∏ —Å–ø–∏—Å–∞–∫ "
 
-msgid " Remove: "
-msgstr "√⁄€ﬁ›ÿ: "
+#, fuzzy
+msgid "Remove:"
+msgstr "–£–∫–ª–æ–Ω–∏: "
 
-msgid ""
-"\n"
-" Are you sure you want to remove this entry?"
+msgid "Are you sure you want to remove this entry?"
 msgstr ""
 
+#, fuzzy
 msgid ""
-"\n"
-" Group not empty.\n"
-" Remove it?"
+"Group not empty.\n"
+"Remove it?"
 msgstr ""
 "\n"
-" ≥‡„ﬂ– ›ÿ¯’ ﬂ‡–◊›–.\n"
-" ∂’€ÿ‚’ €ÿ ‘– ¯’ „⁄€ﬁ›ÿ‹?"
+" –ì—Ä—É–ø–∞ –Ω–∏—ò–µ –ø—Ä–∞–∑–Ω–∞.\n"
+" –ñ–µ–ª–∏—Ç–µ –ª–∏ –¥–∞ —ò–µ —É–∫–ª–æ–Ω–∏–º?"
 
-msgid " Top level group "
-msgstr " ≤‡Âﬁ“›– ”‡„ﬂ– "
+#, fuzzy
+msgid "Top level group"
+msgstr " –í—Ä—Ö–æ–≤–Ω–∞ –≥—Ä—É–ø–∞ "
 
-msgid "MC was unable to write ~/"
-msgstr "øΩ ›’ ‹ﬁ÷’ ‘– ﬂÿË’ „ ‘–‚ﬁ‚’⁄„ ~/"
+#, fuzzy
+msgid "Hotlist Load"
+msgstr " –£—á–∏—Ç–∞—ò –±—Ä–∑–∏ —Å–ø–∏—Å–∞–∫ "
 
-msgid " file, your old hotlist entries were not deleted"
-msgstr ", “–Ë’ ·‚–‡’ ·‚–“⁄’ —‡◊ﬁ” ·ﬂÿ·⁄– ›ÿ·„ ﬁ—‡ÿ·–›’"
+#, fuzzy, c-format
+msgid ""
+"MC was unable to write ~/%s file,\n"
+"your old hotlist entries were not deleted"
+msgstr ", –≤–∞—à–µ —Å—Ç–∞—Ä–µ —Å—Ç–∞–≤–∫–µ –±—Ä–∑–æ–≥ —Å–ø–∏—Å–∫–∞ –Ω–∏—Å—É –æ–±—Ä–∏—Å–∞–Ω–µ"
 
-msgid " Hotlist Load "
-msgstr " √Áÿ‚–¯ —‡◊ÿ ·ﬂÿ·–⁄ "
+#, fuzzy
+msgid "Information"
+msgstr " –ò–Ω—Ñ–æ—Ä–º–∞—Ü–∏—ò–µ "
 
 #, c-format
 msgid "Midnight Commander %s"
-msgstr "øﬁ›ﬁ˚›ÿ ›–‡’‘›ÿ⁄ %s"
+msgstr "–ü–æ–Ω–æ—õ–Ω–∏ –Ω–∞—Ä–µ–¥–Ω–∏–∫ %s"
 
 #, c-format
-msgid "File:       %s"
-msgstr "¥–‚ﬁ‚’⁄–:        %s"
+msgid "File: %s"
+msgstr "–î–∞—Ç–æ—Ç–µ–∫–∞: %s"
 
-#, c-format
-msgid "Free nodes: %d (%d%%) of %d"
-msgstr "¡€ﬁ—. Á“ﬁ‡ﬁ“–:   %d (%d%%) ﬁ‘ %d"
+#, fuzzy, c-format
+msgid "Free nodes: %ld (%ld%%) of %ld"
+msgstr "–°–ª–æ–±. —á–≤–æ—Ä–æ–≤–∞:   %d (%d%%) –æ–¥ %d"
 
 msgid "No node information"
-msgstr "Ω’‹– ﬂﬁ‘–‚–⁄– ﬁ Á“ﬁ‡ﬁ“ÿ‹–"
+msgstr "–ù–µ–º–∞ –ø–æ–¥–∞—Ç–∞–∫–∞ –æ —á–≤–æ—Ä–æ–≤–∏–º–∞"
 
 #, c-format
 msgid "Free space: %s (%d%%) of %s"
-msgstr "¡€ﬁ—. ﬂ‡ﬁ·‚ﬁ‡–:  %s (%d%%) ﬁ‘ %s"
+msgstr "–°–ª–æ–±. –ø—Ä–æ—Å—Ç–æ—Ä–∞:  %s (%d%%) –æ–¥ %s"
 
 msgid "No space information"
-msgstr "Ω’‹– ﬂﬁ‘–‚–⁄– ﬁ ﬂ‡ﬁ·‚ﬁ‡„"
+msgstr "–ù–µ–º–∞ –ø–æ–¥–∞—Ç–∞–∫–∞ –æ –ø—Ä–æ—Å—Ç–æ—Ä—É"
 
-#, c-format
-msgid "Type:      %s "
-msgstr "≤‡·‚–:           %s "
+#, fuzzy, c-format
+msgid "Type:      %s"
+msgstr "–í—Ä—Å—Ç–∞:           %s "
 
 msgid "non-local vfs"
-msgstr "›’-€ﬁ⁄–€›ÿ “·‘"
+msgstr "–Ω–µ-–ª–æ–∫–∞–ª–Ω–∏ –≤—Å–¥"
 
 #, c-format
 msgid "Device:    %s"
-msgstr "√‡’Ú–¯:          %s"
+msgstr "–£—Ä–µ—í–∞—ò:          %s"
 
 #, c-format
 msgid "Filesystem: %s"
-msgstr "¡ÿ·‚’‹ ‘–‚ﬁ‚.:   %s"
+msgstr "–°–∏—Å—Ç–µ–º –¥–∞—Ç–æ—Ç.:   %s"
 
 #, c-format
 msgid "Accessed:  %s"
-msgstr "øﬁ·€. ﬂ‡ÿ·‚„ﬂ:   %s"
+msgstr "–ü–æ—Å–ª. –ø—Ä–∏—Å—Ç—É–ø:   %s"
 
 #, c-format
 msgid "Modified:  %s"
-msgstr "¥–‚„‹ ÿ◊‹’›’:    %s"
+msgstr "–î–∞—Ç—É–º –∏–∑–º–µ–Ω–µ:    %s"
 
-#. TRANSLATORS: "Status changed", like in the stat(2) man page
+#. TRANSLATORS: Time of last status change as in stat(2) man.
 #, fuzzy, c-format
-msgid "Status:    %s"
-msgstr "¡‚“ﬁ‡’›ﬁ:        %s"
+msgid "Changed:   %s"
+msgstr "–ü&—Ä–æ–º–µ–Ω–∏ —É"
 
 #, c-format
 msgid "Dev. type: major %lu, minor %lu"
@@ -2009,93 +3297,89 @@ msgstr ""
 
 #, c-format
 msgid "Size:      %s"
-msgstr "≤’€ÿÁÿ›–:        %s"
+msgstr "–í–µ–ª–∏—á–∏–Ω–∞:        %s"
 
 #, fuzzy, c-format
 msgid " (%ld block)"
 msgid_plural " (%ld blocks)"
-msgstr[0] " (%ld —€ﬁ⁄)"
-msgstr[1] " (%ld —€ﬁ⁄)"
+msgstr[0] " (%ld –±–ª–æ–∫)"
+msgstr[1] " (%ld –±–ª–æ–∫)"
 
 #, c-format
 msgid "Owner:     %s/%s"
-msgstr "≤€–·›ÿ⁄:         %s/%s"
+msgstr "–í–ª–∞—Å–Ω–∏–∫:         %s/%s"
 
 #, c-format
 msgid "Links:     %d"
-msgstr "≤’◊–:            %d"
+msgstr "–í–µ–∑–∞:            %d"
 
 #, c-format
 msgid "Mode:      %s (%04o)"
-msgstr "¥ﬁ◊“ﬁ€’:         %s (%04o)"
+msgstr "–î–æ–∑–≤–æ–ª–µ:         %s (%04o)"
 
 #, c-format
 msgid "Location:  %Xh:%Xh"
-msgstr "º’·‚ﬁ:           %Xh:%Xh"
-
-msgid "File:       None"
-msgstr "¥–‚ﬁ‚’⁄–:        Ωÿ¯’‘›–"
+msgstr "–ú–µ—Å—Ç–æ:           %Xh:%Xh"
 
 msgid "&Vertical"
-msgstr "&√·ﬂ‡–“›ﬁ"
+msgstr "&–£—Å–ø—Ä–∞–≤–Ω–æ"
 
 msgid "&Horizontal"
-msgstr "&øﬁ€ﬁ÷’›ﬁ"
+msgstr "&–ü–æ–ª–æ–∂–µ–Ω–æ"
 
-msgid "show free sp&Ace"
+msgid "Show free sp&ace"
 msgstr ""
 
-msgid "&Xterm window title"
-msgstr "›–·€ﬁ“ ﬂ‡ﬁ◊ﬁ‡– ÿ&∫· ‚’‡‹ÿ›–€–"
-
-msgid "h&Intbar visible"
-msgstr "&¿’‘ ·– ·–“’‚ÿ‹– ¯’ “ÿ‘˘ÿ“"
-
-msgid "&Keybar visible"
-msgstr "‡’‘ ·– &¬–·‚’‡ÿ‹– ¯’ “ÿ‘˘ÿ“"
-
-msgid "command &Prompt"
-msgstr "›–‡’‘—’›ÿ ﬁ&¥◊ÿ“›ÿ⁄"
-
-msgid "show &Mini status"
-msgstr "ﬂ‡ÿ⁄–÷ÿ &ºÿ›ÿ ·‚–˙’"
-
-msgid "menu&Bar visible"
-msgstr "‡’‘ ‹’›ÿ&®– ¯’ “ÿ‘˘ÿ“"
-
-msgid "&Equal split"
-msgstr "ﬂﬁ‘¯’‘›–⁄– ﬂﬁ&¥’€–"
-
-msgid "pe&Rmissions"
-msgstr "‘ﬁ&∑“ﬁ€’"
-
-msgid "&File types"
-msgstr "&≤‡·‚’ ‘–‚ﬁ‚’⁄–"
+#, fuzzy
+msgid "&XTerm window title"
+msgstr "–Ω–∞—Å–ª–æ–≤ –ø—Ä–æ–∑–æ—Ä–∞ –∏&–ö—Å —Ç–µ—Ä–º–∏–Ω–∞–ª–∞"
 
 #, fuzzy
-msgid "&Hidden files"
-msgstr "ﬂ‡ÿ⁄–÷ÿ &¡–⁄‡ÿ“’›’ ‘–‚ﬁ‚’⁄’"
+msgid "H&intbar visible"
+msgstr "&–†–µ–¥ —Å–∞ —Å–∞–≤–µ—Ç–∏–º–∞ —ò–µ –≤–∏–¥—ô–∏–≤"
 
-msgid " Panel split "
-msgstr " øﬁ‘’€– ﬁ⁄›– "
+msgid "&Keybar visible"
+msgstr "—Ä–µ–¥ —Å–∞ &–¢–∞—Å—Ç–µ—Ä–∏–º–∞ —ò–µ –≤–∏–¥—ô–∏–≤"
 
-msgid " Highlight... "
-msgstr " ∏·‚ÿÊ–˙’... "
+#, fuzzy
+msgid "Command &prompt"
+msgstr "–Ω–∞—Ä–µ–¥–±–µ–Ω–∏ –æ&–î–∑–∏–≤–Ω–∏–∫"
 
-msgid " Other options "
-msgstr " ¥‡„”ÿ ÿ◊—ﬁ‡ÿ "
+#, fuzzy
+msgid "Show &mini status"
+msgstr "–ø—Ä–∏–∫–∞–∂–∏ &–ú–∏–Ω–∏ —Å—Ç–∞—ö–µ"
 
-msgid "output lines"
-msgstr "‡’‘ﬁ“ÿ ÿ◊€–◊–"
+#, fuzzy
+msgid "Menu&bar visible"
+msgstr "—Ä–µ–¥ –º–µ–Ω–∏&–à–∞ —ò–µ –≤–∏–¥—ô–∏–≤"
+
+msgid "&Equal split"
+msgstr "–ø–æ–¥—ò–µ–¥–Ω–∞–∫–∞ –ø–æ&–î–µ–ª–∞"
+
+#, fuzzy
+msgid "Panel split"
+msgstr " –ü–æ–¥–µ–ª–∞ –æ–∫–Ω–∞ "
+
+msgid "Console output"
+msgstr ""
+
+#, fuzzy
+msgid "Other options"
+msgstr " –î—Ä—É–≥–∏ –∏–∑–±–æ—Ä–∏ "
+
+#, fuzzy
+msgid "Output lines:"
+msgstr "—Ä–µ–¥–æ–≤–∏ –∏–∑–ª–∞–∑–∞"
 
 msgid "Layout"
-msgstr "¿–·ﬂﬁ‡’‘"
+msgstr "–†–∞—Å–ø–æ—Ä–µ–¥"
 
 msgid "Learn keys"
-msgstr "Ω–„Áÿ ‚–·‚’‡’"
+msgstr "–ù–∞—É—á–∏ —Ç–∞—Å—Ç–µ—Ä–µ"
 
-msgid " Teach me a key "
-msgstr " Ω–„Áÿ‚’ ‹’ “–Ëÿ‹ ‚–·‚’‡ÿ‹– "
+#, fuzzy
+msgid "Teach me a key"
+msgstr " –ù–∞—É—á–∏—Ç–µ –º–µ –≤–∞—à–∏–º —Ç–∞—Å—Ç–µ—Ä–∏–º–∞ "
 
 #, c-format
 msgid ""
@@ -2108,971 +3392,882 @@ msgid ""
 "If you want to escape, press a single Escape key\n"
 "and wait as well."
 msgstr ""
-"ºﬁ€ÿ‹ ‘– ﬂ‡ÿ‚ÿ·›’‚’ ‚–·‚’‡ %s\n"
-"ÿ ‘– ·–Á’⁄–‚’ ‘– ﬁ“– ﬂﬁ‡„⁄– ›’·‚–›’.\n"
+"–ú–æ–ª–∏–º –¥–∞ –ø—Ä–∏—Ç–∏—Å–Ω–µ—Ç–µ —Ç–∞—Å—Ç–µ—Ä %s\n"
+"–∏ –¥–∞ —Å–∞—á–µ–∫–∞—Ç–µ –¥–∞ –æ–≤–∞ –ø–æ—Ä—É–∫–∞ –Ω–µ—Å—Ç–∞–Ω–µ.\n"
 "\n"
-"æ›‘– ”– ﬂﬁ›ﬁ“ﬁ ﬂ‡ÿ‚ÿ·›ÿ‚’ ÿ “ÿ‘ÿ‚’ ‘– €ÿ ·’ ﬂﬁ¯–“˘„¯’\n"
-"`¥–' ﬂﬁ‡’‘ ˙’”ﬁ“ﬁ” ‘„”‹’‚–.\n"
+"–û–Ω–¥–∞ –≥–∞ –ø–æ–Ω–æ–≤–æ –ø—Ä–∏—Ç–∏—Å–Ω–∏—Ç–µ –∏ –≤–∏–¥–∏—Ç–µ –¥–∞ –ª–∏ —Å–µ –ø–æ—ò–∞–≤—ô—É—ò–µ\n"
+"`–î–∞' –ø–æ—Ä–µ–¥ —ö–µ–≥–æ–≤–æ–≥ –¥—É–≥–º–µ—Ç–∞.\n"
 "\n"
-"∞⁄ﬁ ÷’€ÿ‚’ ‘– ﬁ‘„·‚–›’‚’, ﬂ‡ÿ‚ÿ·›ÿ‚’ ¯’‘›ﬁ‹ ‚–·‚’‡\n"
-"`Escape' ÿ ·–Á’⁄–¯‚’."
+"–ê–∫–æ –∂–µ–ª–∏—Ç–µ –¥–∞ –æ–¥—É—Å—Ç–∞–Ω–µ—Ç–µ, –ø—Ä–∏—Ç–∏—Å–Ω–∏—Ç–µ —ò–µ–¥–Ω–æ–º —Ç–∞—Å—Ç–µ—Ä\n"
+"`Escape' –∏ —Å–∞—á–µ–∫–∞—ò—Ç–µ."
 
-msgid " Cannot accept this key "
-msgstr " Ω’ ‹ﬁ”„ ‘– ﬂ‡ÿÂ“–‚ÿ‹ ﬁ“–¯ ‚–·‚’‡ "
+#, fuzzy
+msgid "Cannot accept this key"
+msgstr " –ù–µ –º–æ–≥—É –¥–∞ –ø—Ä–∏—Ö–≤–∞—Ç–∏–º –æ–≤–∞—ò —Ç–∞—Å—Ç–µ—Ä "
 
-#, c-format
-msgid " You have entered \"%s\""
-msgstr " ø‡ÿ‚ÿ·€ÿ ·‚’ `%s'"
+#, fuzzy, c-format
+msgid "You have entered \"%s\""
+msgstr " –ü—Ä–∏—Ç–∏—Å–ª–∏ —Å—Ç–µ `%s'"
 
 #. TRANSLATORS: This label appears near learned keys.  Keep it short.
 msgid "OK"
-msgstr "¥–"
+msgstr "–î–∞"
 
 msgid ""
 "It seems that all your keys already\n"
 "work fine. That's great."
 msgstr ""
-"∏◊”€’‘– ‘– ·“ÿ “–Ëÿ ‚–·‚’‡ÿ “’˚ ·–‘–\n"
-"€’ﬂﬁ ‡–‘’. ¬ﬁ ¯’ ﬁ‘€ÿÁ›ﬁ."
+"–ò–∑–≥–ª–µ–¥–∞ –¥–∞ —Å–≤–∏ –≤–∞—à–∏ —Ç–∞—Å—Ç–µ—Ä–∏ –≤–µ—õ —Å–∞–¥–∞\n"
+"–ª–µ–ø–æ —Ä–∞–¥–µ. –¢–æ —ò–µ –æ–¥–ª–∏—á–Ω–æ."
 
 msgid "&Discard"
-msgstr "&æ‘—–Êÿ"
+msgstr "&–û–¥–±–∞—Ü–∏"
 
 msgid ""
 "Great! You have a complete terminal database!\n"
 "All your keys work well."
 msgstr ""
-"æ‘€ÿÁ›ﬁ! ∏‹–‚’ ﬂﬁ‚ﬂ„›„ ‚’‡‹ÿ›–€·⁄„ —–◊„!\n"
-"¡“ÿ “–Ëÿ ‚–·‚’‡ÿ ‘ﬁ—‡ﬁ ‡–‘’."
+"–û–¥–ª–∏—á–Ω–æ! –ò–º–∞—Ç–µ –ø–æ—Ç–ø—É–Ω—É —Ç–µ—Ä–º–∏–Ω–∞–ª—Å–∫—É –±–∞–∑—É!\n"
+"–°–≤–∏ –≤–∞—à–∏ —Ç–∞—Å—Ç–µ—Ä–∏ –¥–æ–±—Ä–æ —Ä–∞–¥–µ."
 
 msgid "Press all the keys mentioned here. After you have done it, check"
-msgstr "ø‡ÿ‚ÿ·›ÿ‚’ ·“–⁄ÿ ﬁ‘ ﬁ“ÿÂ ‚–·‚’‡–. øﬁË‚ﬁ ·‚’ ‚ﬁ „‡–‘ÿ€ÿ, ﬂ‡ﬁ“’‡ÿ‚’"
+msgstr "–ü—Ä–∏—Ç–∏—Å–Ω–∏—Ç–µ —Å–≤–∞–∫–∏ –æ–¥ –æ–≤–∏—Ö —Ç–∞—Å—Ç–µ—Ä–∞. –ü–æ—à—Ç–æ —Å—Ç–µ —Ç–æ —É—Ä–∞–¥–∏–ª–∏, –ø—Ä–æ–≤–µ—Ä–∏—Ç–µ"
 
 msgid "which keys are not marked with OK.  Press space on the missing"
-msgstr "ﬂﬁ‡’‘ ⁄ﬁ¯ÿÂ ›’ ·‚ﬁ¯ÿ ﬁ◊›–⁄– `¥–'. ø‡ÿ‚ÿ·›ÿ‚’ ‡–◊‹–⁄›ÿÊ„ ›–"
+msgstr "–ø–æ—Ä–µ–¥ –∫–æ—ò–∏—Ö –Ω–µ —Å—Ç–æ—ò–∏ –æ–∑–Ω–∞–∫–∞ `–î–∞'. –ü—Ä–∏—Ç–∏—Å–Ω–∏—Ç–µ —Ä–∞–∑–º–∞–∫–Ω–∏—Ü—É –Ω–∞"
 
 msgid "key, or click with the mouse to define it. Move around with Tab."
-msgstr "›’‘ﬁ·‚–¯„˚ÿ‹– ÿ€ÿ ﬂ‡ÿ‚. ‹ÿË’‹ ◊– ◊–‘–“–˙’. ∫‡’˚’ ·’ ﬂ‡’⁄ﬁ `Tab'-–."
+msgstr "–Ω–µ–¥–æ—Å—Ç–∞—ò—É—õ–∏–º–∞ –∏–ª–∏ –ø—Ä–∏—Ç. –º–∏—à–µ–º –∑–∞ –∑–∞–¥–∞–≤–∞—ö–µ. –ö—Ä–µ—õ–µ —Å–µ –ø—Ä–µ–∫–æ `Tab'-–∞."
 
-msgid ""
-" The Commander can't change to the directory that \n"
-" the subshell claims you are in.  Perhaps you have \n"
-" deleted your working directory, or given yourself \n"
-" extra access permissions with the \"su\" command? "
-msgstr ""
-" Ω–‡’‘›ÿ⁄ ›’ ‹ﬁ÷’ ‘– „Ú’ „ ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹ ◊– ⁄ﬁ¯ÿ\n"
-" ﬂﬁ‘˘„·⁄– ‚“‡‘ÿ ‘– ·’ „ ˙’‹„ ›–€–◊ÿ‚’. ºﬁ÷‘– ·‚’\n"
-" ﬁ—‡ÿ·–€ÿ “–Ë ‚’⁄„˚ÿ ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹, ÿ€ÿ ·‚’ ‘–€ÿ\n"
-" ·’—ÿ ﬂ‡’Ëÿ‡ﬁ⁄’ ‘ﬁ◊“ﬁ€’ ﬂ‡’⁄ﬁ ›–‡’‘—’ `su'? "
+#, c-format
+msgid "You have %zd opened screen. Quit anyway?"
+msgid_plural "You have %zd opened screens. Quit anyway?"
+msgstr[0] ""
+msgstr[1] ""
 
-#, fuzzy, c-format
-msgid "%s (%d%%) of %s"
-msgstr "¡€ﬁ—. ﬂ‡ﬁ·‚ﬁ‡–:  %s (%d%%) ﬁ‘ %s"
+#, fuzzy
+msgid "The Midnight Commander"
+msgstr " –ü–æ–Ω–æ—õ–Ω–∏ –Ω–∞—Ä–µ–¥–Ω–∏–∫ "
 
-msgid " The Midnight Commander "
-msgstr " øﬁ›ﬁ˚›ÿ ›–‡’‘›ÿ⁄ "
+#, fuzzy
+msgid "Do you really want to quit the Midnight Commander?"
+msgstr " –î–∞ –ª–∏ –∑–∞–∏—Å—Ç–µ –∂–µ–ª–∏—Ç–µ –¥–∞ –∑–∞–≤—Ä—à–∏—Ç–µ —Ä–∞–¥ —É –ü–æ–Ω–æ—õ–Ω–æ–º –Ω–∞—Ä–µ–¥–Ω–∏–∫—É? "
 
-msgid " Do you really want to quit the Midnight Commander? "
-msgstr " ¥– €ÿ ◊–ÿ·‚’ ÷’€ÿ‚’ ‘– ◊–“‡Ëÿ‚’ ‡–‘ „ øﬁ›ﬁ˚›ﬁ‹ ›–‡’‘›ÿ⁄„? "
+#, fuzzy
+msgid "File listin&g"
+msgstr "&–ü—É–Ω —Å–ø–∏—Å–∞–∫ –¥–∞—Ç–æ—Ç–µ–∫–∞"
+
+#, fuzzy
+msgid "&Quick view"
+msgstr "–ë—Ä–∑–æ —á—É–≤–∞—ö–µ "
+
+#, fuzzy
+msgid "&Info"
+msgstr "&–ò—á–≤–æ—Ä"
 
 msgid "&Listing mode..."
-msgstr "&¿’÷ÿ‹ ·ﬂÿ·⁄–..."
-
-msgid "&Quick view     C-x q"
-msgstr "&±‡◊ÿ ﬂ‡’”€’‘     C-x q"
-
-msgid "&Info           C-x i"
-msgstr "&øﬁ‘–Êÿ           C-x i"
+msgstr "&–†–µ–∂–∏–º —Å–ø–∏—Å–∫–∞..."
 
 msgid "&Sort order..."
-msgstr "&øﬁ‡’‘–⁄ ‡’Ú–˙–..."
+msgstr "&–ü–æ—Ä–µ–¥–∞–∫ —Ä–µ—í–∞—ö–∞..."
 
 msgid "&Filter..."
-msgstr "&ƒÿ€‚–‡..."
+msgstr "&–§–∏–ª—Ç–∞—Ä..."
 
-msgid "&Network link..."
-msgstr "&º‡’÷›ﬁ ﬂﬁ“’◊ÿ“–˙’..."
+#, fuzzy
+msgid "&Encoding..."
+msgstr "–ü–æ—Ä–µ&—í–∞—ò...                     M-t"
 
 msgid "FT&P link..."
-msgstr "øﬁ“’◊ÿ“–˙’ FT&P-ﬁ‹..."
+msgstr "–ü–æ–≤–µ–∑–∏–≤–∞—ö–µ FT&P-–æ–º..."
 
 msgid "S&hell link..."
-msgstr "øﬁ“’◊ÿ“–˙’ &˘„·⁄ﬁ‹..."
+msgstr "–ü–æ–≤–µ–∑–∏–≤–∞—ö–µ &—ô—É—Å–∫–æ–º..."
 
 msgid "SM&B link..."
-msgstr "øﬁ“’◊ÿ“–˙’ SM&B-ﬁ‹..."
+msgstr "–ü–æ–≤–µ–∑–∏–≤–∞—ö–µ SM&B-–æ–º..."
 
-msgid "&Rescan         C-r"
-msgstr "æ·“’&÷ÿ             C-r"
+#, fuzzy
+msgid "&Rescan"
+msgstr "–û—Å–≤–µ–∂–∏"
 
-msgid "&User menu          F2"
-msgstr "&∫ﬁ‡ÿ·›ÿÁ⁄ÿ ‹’›ÿ        F2"
+#, fuzzy
+msgid "&View"
+msgstr "–ü—Ä–µ–≥–ª–¥"
 
-msgid "&View               F3"
-msgstr "&ø‡’”€’‘–¯              F3"
+#, fuzzy
+msgid "Vie&w file..."
+msgstr " –ü—Ä–µ–≥–ª–µ–¥–∞—ò –¥–∞—Ç–æ—Ç–µ–∫—É "
 
-msgid "Vie&w file...         "
-msgstr "ø‡’”€’‘–¯ ‘–&‚ﬁ‚’⁄„...    "
+#, fuzzy
+msgid "&Filtered view"
+msgstr " –§–∏–ª—Ç—Ä–∏—Ä–∞–Ω–∏ –ø—Ä–∏–∫–∞–∑ "
 
-msgid "&Filtered view     M-!"
-msgstr "&ƒÿ€‚‡ÿ‡–›ﬁ ﬂ‡’”€’‘–˙’ M-!"
+#, fuzzy
+msgid "&Copy"
+msgstr "–ö–æ–ø–∏—Ä—ò"
 
-msgid "&Edit               F4"
-msgstr "&√‡’‘ÿ                  F4"
+msgid "C&hmod"
+msgstr ""
 
-msgid "&Copy               F5"
-msgstr "&∫ﬁﬂÿ‡–¯                F5"
+#, fuzzy
+msgid "&Link"
+msgstr "–í–µ&–∑–µ"
 
-msgid "c&Hmod           C-x c"
-msgstr "ﬂ‡ﬁ‹’›ÿ ‘ﬁ&∑“ﬁ€’     C-x c"
+#, fuzzy
+msgid "&Symlink"
+msgstr "–í–µ&–∑–µ"
 
-msgid "&Link            C-x l"
-msgstr "›–ﬂ‡–“ÿ &≤’◊„        C-x l"
+#, fuzzy
+msgid "Relative symlin&k"
+msgstr "–†–∞–∑—Ä–µ—à–∞–≤–∞–º —Å–∏–º–≤–µ–∑–µ..."
 
-msgid "&SymLink         C-x s"
-msgstr "›–ﬂ‡–“ÿ &¡ÿ‹≤’◊„     C-x s"
+#, fuzzy
+msgid "Edit s&ymlink"
+msgstr " –£—Ä–µ–¥–∏ —Å–∏–º–≤–µ–∑—É "
 
-msgid "edit s&Ymlink  C-x C-s"
-msgstr "„‡’‘ÿ ·ÿ&º“’◊„     C-x C-s"
+msgid "Ch&own"
+msgstr ""
 
-msgid "ch&Own           C-x o"
-msgstr "ﬂ‡ﬁ‹’›ÿ “&ª–·›ÿ⁄–    C-x o"
+#, fuzzy
+msgid "&Advanced chown"
+msgstr "&–ù–∞–ø—Ä. –ø—Ä–æ–º–µ–Ω–∞ –≤–ª–∞—Å–Ω–∏–∫–∞   "
 
-msgid "&Advanced chown       "
-msgstr "&Ω–ﬂ‡. ﬂ‡ﬁ‹’›– “€–·›ÿ⁄–   "
+#, fuzzy
+msgid "&Rename/Move"
+msgstr "&–£–∫–ª–æ–Ω–∏"
 
-msgid "&Rename/Move        F6"
-msgstr "ﬂ‡&µÿ‹’›„¯/ﬂ‡’‹’·‚ÿ     F6"
+#, fuzzy
+msgid "&Mkdir"
+msgstr "–ù–∞–ø–î–∏—Ä"
 
-msgid "&Mkdir              F7"
-msgstr "›&∞ﬂ‡–“ÿ ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹   F7"
+#, fuzzy
+msgid "&Quick cd"
+msgstr "–ë—Ä–∑–∞ –ø—Ä–æ–º.–¥–∏—Ä."
 
-msgid "&Delete             F8"
-msgstr "&æ—‡ÿËÿ                 F8"
+#, fuzzy
+msgid "Select &group"
+msgstr "–ü–æ—Å—Ç–∞–≤–∏ &–≥—Ä—É–ø–µ"
 
-msgid "&Quick cd          M-c"
-msgstr "&±‡◊– ﬂ‡ﬁ‹.‘ÿ‡.        M-c"
+#, fuzzy
+msgid "U&nselect group"
+msgstr " –û–¥–∏–∑–∞–±–µ—Ä–∏ "
 
-msgid "select &Group      M-+"
-msgstr "ÿ◊–—’‡ÿ &≥‡„ﬂ„         M-+"
+#, fuzzy
+msgid "Reverse selec&tion"
+msgstr "–æ–±—Ä–Ω–∏ –∏–∑&–ë–æ—Ä           M-*"
 
-msgid "u&Nselect group    M-\\"
-msgstr "ﬁ&¥ÿ◊–—’‡ÿ ”‡„ﬂ„       M-\\"
+#, fuzzy
+msgid "E&xit"
+msgstr "–£—Ä–µ–¥–∏"
 
-msgid "reverse selec&Tion M-*"
-msgstr "ﬁ—‡›ÿ ÿ◊&±ﬁ‡           M-*"
-
-msgid "e&Xit              F10"
-msgstr "ÿ&∑€–◊                 F10"
+#, fuzzy
+msgid "&User menu"
+msgstr " –ö–æ—Ä–∏—Å–Ω–∏—á–∫–∏ –º–µ–Ω–∏ "
 
 msgid "&Directory tree"
-msgstr "&¡‚–—€ﬁ ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹–"
+msgstr "&–°—Ç–∞–±–ª–æ –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º–∞"
 
-msgid "&Find file            M-?"
-msgstr "&Ω–Úÿ ‘–‚ﬁ‚’⁄„              M-?"
+#, fuzzy
+msgid "&Find file"
+msgstr "–ù–∞—í–∏ –¥–∞—Ç–æ—Ç–µ–∫—É"
 
-msgid "s&Wap panels          C-u"
-msgstr "‡–◊‹&µ›ÿ ﬁ⁄›–               C-u"
+msgid "S&wap panels"
+msgstr ""
 
-msgid "switch &Panels on/off C-o"
-msgstr "ÿ·⁄˘„Áÿ/„⁄˘„Áÿ &æ⁄›–        C-o"
+#, fuzzy
+msgid "Switch &panels on/off"
+msgstr "–∏—Å–∫—ô—É—á–∏/—É–∫—ô—É—á–∏ &–û–∫–Ω–∞        C-o"
 
-msgid "&Compare directories  C-x d"
-msgstr "„&øﬁ‡’‘ÿ ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹’     C-x d"
+#, fuzzy
+msgid "&Compare directories"
+msgstr " –£–ø–æ—Ä–µ–¥–∏ –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º–µ "
 
-msgid "e&Xternal panelize    C-x !"
-msgstr "⁄‡ÿ‚’‡ÿ&®„‹ ﬂﬁﬂ„›’ ﬁ⁄›–   C-x !"
+#, fuzzy
+msgid "&View diff files"
+msgstr " –ü—Ä–µ–≥–ª–µ–¥–∞—ò –¥–∞—Ç–æ—Ç–µ–∫—É "
 
-msgid "show directory s&Izes"
-msgstr "ﬂ‡ÿ⁄–÷ÿ “’€ÿ&«ÿ›’ ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹–"
+#, fuzzy
+msgid "E&xternal panelize"
+msgstr "–ö—Ä–∏—Ç–µ—Ä–∏—ò—É–º –ø–æ–ø—É–Ω–µ –æ–∫–Ω–∞"
 
-msgid "command &History"
-msgstr "&∏·‚ﬁ‡ÿ¯– ›–‡’‘—ÿ"
+#, fuzzy
+msgid "Show directory s&izes"
+msgstr "–ø—Ä–∏–∫–∞–∂–∏ –≤–µ–ª–∏&–ß–∏–Ω–µ –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º–∞"
 
-msgid "di&Rectory hotlist    C-\\"
-msgstr "—‡◊ÿ ·&øÿ·–⁄ ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹–  C-\\"
+#, fuzzy
+msgid "Command &history"
+msgstr "&–ò—Å—Ç–æ—Ä–∏—ò–∞ –Ω–∞—Ä–µ–¥–±–∏"
 
-msgid "&Active VFS list      C-x a"
-msgstr "·ﬂÿ·–⁄ &∞⁄‚ÿ“›ÿÂ ≤¡¥      C-x a"
+#, fuzzy
+msgid "Di&rectory hotlist"
+msgstr "–ë—Ä–∑–∏ —Å–ø–∏—Å–∞–∫ –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º–∞"
 
-msgid "&Background jobs      C-x j"
-msgstr "&øﬁ◊–‘ÿ›·⁄ÿ ﬂﬁ·€ﬁ“ÿ       C-x j"
+#, fuzzy
+msgid "&Active VFS list"
+msgstr "—Å–ø–∏—Å–∞–∫ &–ê–∫—Ç–∏–≤–Ω–∏—Ö –í–°–î      C-x a"
+
+#, fuzzy
+msgid "&Background jobs"
+msgstr "–ü–æ–∑–∞–¥–∏–Ω—Å–∫–∏ –ø–æ—Å–ª–æ–≤–∏"
+
+msgid "Screen lis&t"
+msgstr ""
 
 msgid "&Undelete files (ext2fs only)"
-msgstr "&æ‘ﬁ—‡ÿËÿ ‘–‚ﬁ‚’⁄’ (·–‹ﬁ ›– ext2fs)"
+msgstr "&–û–¥–æ–±—Ä–∏—à–∏ –¥–∞—Ç–æ—Ç–µ–∫–µ (—Å–∞–º–æ –Ω–∞ ext2fs)"
 
 msgid "&Listing format edit"
-msgstr "&√‡’‘ÿ ‰ﬁ‡‹–‚ ·ﬂÿ·⁄–"
+msgstr "&–£—Ä–µ–¥–∏ —Ñ–æ—Ä–º–∞—Ç —Å–ø–∏—Å–∫–∞"
 
 msgid "Edit &extension file"
-msgstr "√‡’‘ÿ ‘–‚ﬁ‚’⁄„ &“‡·‚–"
+msgstr "–£—Ä–µ–¥–∏ –¥–∞—Ç–æ—Ç–µ–∫—É &–≤—Ä—Å—Ç–∞"
 
 msgid "Edit &menu file"
-msgstr "√‡’‘ÿ ‘–‚ﬁ‚’⁄„ &‹’›ÿ¯–"
+msgstr "–£—Ä–µ–¥–∏ –¥–∞—Ç–æ—Ç–µ–∫—É &–º–µ–Ω–∏—ò–∞"
 
-msgid "Edit edi&tor menu file"
-msgstr "√‡’‘ÿ ‘–‚ﬁ‚’⁄„ ‹’›ÿ¯– &„‡’Úÿ“–Á–"
-
-msgid "Edit &syntax file"
-msgstr "√‡’‘ÿ ‘–‚ﬁ‚’⁄„ &·ÿ›‚–⁄·’"
+msgid "Edit hi&ghlighting group file"
+msgstr ""
 
 msgid "&Configuration..."
-msgstr "&øﬁ‘’Ë–“–˙–..."
+msgstr "&–ü–æ–¥–µ—à–∞–≤–∞—ö–∞..."
 
 msgid "&Layout..."
-msgstr "&∏◊”€’‘..."
+msgstr "&–ò–∑–≥–ª–µ–¥..."
 
-msgid "c&Onfirmation..."
-msgstr "ﬂ&æ‚“‡‘’..."
+#, fuzzy
+msgid "&Panel options..."
+msgstr " –ò–∑–±–æ—Ä–∏ –æ–∫–Ω–∞ "
+
+#, fuzzy
+msgid "C&onfirmation..."
+msgstr "–ø&–û—Ç–≤—Ä–¥–µ..."
 
 msgid "&Display bits..."
-msgstr "&±ÿ‚ﬁ“– „ ﬂ‡ÿ⁄–◊„..."
-
-msgid "learn &Keys..."
-msgstr "Ω–„Áÿ &‚–·‚’‡’..."
-
-#, fuzzy
-msgid "file &Highlighting..."
-msgstr "∏·‚ÿ&Ê–˙’ ·ÿ›‚–⁄·’"
+msgstr "&–ë–∏—Ç–æ–≤–∞ —É –ø—Ä–∏–∫–∞–∑—É..."
 
 msgid "&Virtual FS..."
-msgstr "&≤ÿ‡‚„–€›ÿ ¡¥..."
+msgstr "&–í–∏—Ä—Ç—É–∞–ª–Ω–∏ –°–î..."
 
-msgid "&Save setup"
-msgstr "&¡–Á„“–¯ ﬂﬁ‘’Ë–“–˙–"
+#, fuzzy
+msgid "&Above"
+msgstr " &–ò–∑–Ω–∞–¥ "
 
-msgid " &Above "
-msgstr " &∏◊›–‘ "
+#, fuzzy
+msgid "&Left"
+msgstr " &–õ–µ–≤–æ "
 
-msgid " &Left "
-msgstr " &ª’“ﬁ "
+#, fuzzy
+msgid "&Below"
+msgstr " –∏&–°–ø–æ–¥ "
 
-msgid " &File "
-msgstr " &¥–‚ﬁ‚’⁄– "
+#, fuzzy
+msgid "&Right"
+msgstr " &–î–µ—Å–Ω–æ "
 
-msgid " &Command "
-msgstr " &Ω–‡’‘—– "
+#, fuzzy
+msgid "Panels:"
+msgstr " –ü–æ–¥–µ–ª–∞ –æ–∫–Ω–∞ "
 
-msgid " &Options "
-msgstr " &∏◊—ﬁ‡ÿ "
-
-msgid " &Below "
-msgstr " ÿ&¡ﬂﬁ‘ "
-
-msgid " &Right "
-msgstr " &¥’·›ﬁ "
-
-msgid " Information "
-msgstr " ∏›‰ﬁ‡‹–Êÿ¯’ "
-
-msgid ""
-" Using the fast reload option may not reflect the exact \n"
-" directory contents. In this case you'll need to do a   \n"
-" manual reload of the directory. See the man page for   \n"
-" the details.                                           "
+msgid "ButtonBar|Menu"
 msgstr ""
-" ¡– „⁄˘„Á’›ÿ‹ ÿ◊—ﬁ‡ﬁ‹ ◊– —‡◊ﬁ „Áÿ‚–“–˙’ ‹ﬁ÷‘– ·’ ›’˚’    \n"
-" ﬂ‡ÿ⁄–◊ÿ“–‚ÿ ‚–Á–› ·–‘‡÷–¯ ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹–. æ›‘– ˚’‚’ ‹ﬁ÷‘–\n"
-" ‹ﬁ‡–‚ÿ ‘– ‡„Á›ﬁ ﬁ·“’÷–“–‚’ ﬂ‡ÿ⁄–◊. øﬁ”€’‘–¯‚’ „ﬂ„‚·‚“ﬁ  \n"
-" ◊– ‘’‚–˘’.                                              "
 
-msgid "Menu"
-msgstr "º’›ÿ"
+msgid "ButtonBar|View"
+msgstr ""
+
+msgid "ButtonBar|RenMov"
+msgstr ""
+
+msgid "ButtonBar|Mkdir"
+msgstr ""
 
 msgid "The TERM environment variable is unset!\n"
-msgstr "ø‡ﬁ‹’›˘ÿ“– ˘„·⁄’ `TERM' ›ÿ¯’ ﬂﬁ·‚–“˘’›–!\n"
+msgstr "–ü—Ä–æ–º–µ–Ω—ô–∏–≤–∞ —ô—É—Å–∫–µ `TERM' –Ω–∏—ò–µ –ø–æ—Å—Ç–∞–≤—ô–µ–Ω–∞!\n"
 
-#, c-format
-msgid "GNU Midnight Commander %s\n"
-msgstr "≥Ω√-ﬁ“ ﬂﬁ›ﬁ˚›ÿ ›–‡’‘›ÿ⁄ %s\n"
+#, fuzzy, c-format
+msgid "Cannot create %s directory"
+msgstr "–ù–µ –º–æ–≥—É –¥–∞ –ø—Ä–æ–º–µ–Ω–∏–º –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º"
 
-msgid "[flags] [this_dir] [other_panel_dir]\n"
-msgstr "[ﬂ‡’⁄ÿ‘–Áÿ] [ﬁ“–¯_‘ÿ‡] [‘ÿ‡_‘‡„”ﬁ”_ﬁ⁄›–]\n"
+msgid "&Never"
+msgstr "&–ù–∏–∫–∞–¥"
 
-msgid "+number"
-msgstr "+—‡ﬁ¯"
+#, fuzzy
+msgid "On dum&b terminals"
+msgstr "–Ω–∞ –≥–ª—É–ø–∏–º &–¢–µ—Ä–º–∏–Ω–∞–ª–∏–º–∞"
 
-msgid "Set initial line number for the internal editor"
-msgstr "øﬁ·‚–“ÿ‚’ —‡ﬁ¯ ﬂﬁÁ’‚›ﬁ” ‡’‘– ◊– „”‡–Ú’›ÿ „‡’Úÿ“–Á"
+msgid "Alwa&ys"
+msgstr "&–£–≤–µ–∫"
 
-msgid ""
-"\n"
-"Please send any bug reports (including the output of `mc -V')\n"
-"to mc-devel@gnome.org\n"
+#, fuzzy
+msgid "A&uto save setup"
+msgstr "&–ê—É—Ç–æ–º–∞—Ç—Å–∫–æ —á—É–≤–∞—ö–µ –ø–æ–¥–µ—à–∞–≤–∞—ö–∞"
+
+#, fuzzy
+msgid "Sa&fe delete"
+msgstr "–±–µ–∑–±–µ–¥–Ω–æ –±&–†–∏—Å–∞—ö–µ"
+
+#, fuzzy
+msgid "Cd follows lin&ks"
+msgstr "–ø—Ä–æ–º.–¥–∏—Ä. –ø—Ä–∞—Ç–∏ &–í–µ–∑–µ"
+
+#, fuzzy
+msgid "Rotating d&ash"
+msgstr "—Ä–æ—Ç–∏—Ä–∞—ò—É—õ–∞ &–¶—Ä—Ç–∞"
+
+#, fuzzy
+msgid "Co&mplete: show all"
+msgstr "–¥–æ&–ü—É–Ω–∞: –ø—Ä–∏–∫–∞–∂–∏ —Å–≤–µ"
+
+#, fuzzy
+msgid "Shell &patterns"
+msgstr "&–û–±—Ä–∞—Å—Ü–∏ —ô—É—Å–∫–µ"
+
+msgid "&Drop down menus"
+msgstr "&–ü–∞–¥–∞—ò—É—õ–∏ –º–µ–Ω–∏—ò–∏"
+
+#, fuzzy
+msgid "Auto m&enus"
+msgstr "–∞—É—Ç–æ–º–∞—Ç—Å–∫–∏ &–ú–µ–Ω–∏—ò–∏"
+
+#, fuzzy
+msgid "Use internal vie&w"
+msgstr "&–ö–æ—Ä–∏—Å—Ç–∏ —É–≥—Ä–∞—í–µ–Ω–∏ –ø—Ä–µ–≥–ª–µ–¥–∞—á"
+
+#, fuzzy
+msgid "Use internal edi&t"
+msgstr "–∫–æ—Ä–∏—Å—Ç–∏ —É–≥—Ä–∞—í–µ–Ω–∏ —É—Ä–µ—í&–ò–≤–∞—á"
+
+#, fuzzy
+msgid "Pause after run"
+msgstr " –ü–∞—É–∑–∞ –ø–æ—Å–ª–µ –ø–æ–∫—Ä–µ—Ç–∞—ö–∞... "
+
+#, fuzzy
+msgid "Timeout:"
+msgstr "–î–∞—Ç–ò–∑–º"
+
+#, fuzzy
+msgid "S&ingle press"
+msgstr "&–í—Ä—Å—Ç–µ –¥–∞—Ç–æ—Ç–µ–∫–∞"
+
+#, fuzzy
+msgid "Esc key mode"
+msgstr "–°–∏–≤–∏ /"
+
+msgid "Mkdi&r autoname"
 msgstr ""
-"\n"
-"ºﬁ€ÿ‹ ‘– ﬂﬁË–˘’‚’ ﬂ‡ÿ¯–“’ ”‡’Ë–⁄– („⁄˘„Áÿ“Ëÿ ÿ◊€–◊ ›–‡’‘—’ `mc -V')\n"
-"›– –‘‡’·„ mc-devel@gnome.org\n"
+
+msgid "Classic pro&gressbar"
+msgstr ""
+
+#, fuzzy
+msgid "Compute tota&ls"
+msgstr "–†–∞—á—É–Ω–∞—ò &–£–∫—É–ø–Ω–µ –∑–±–∏—Ä–æ–≤–µ"
+
+msgid "&Verbose operation"
+msgstr "&–ë—Ä–±—ô–∏–≤–∏ —Ä–∞–¥"
+
+#, fuzzy
+msgid "File operation options"
+msgstr " –î—Ä—É–≥–∏ –∏–∑–±–æ—Ä–∏ "
+
+msgid "Configure options"
+msgstr "–ü–æ–¥–µ—Å–∏ –∏–∑–±–æ—Ä–µ"
+
+#, fuzzy
+msgid "Case &insensitive"
+msgstr "—Ä–∞–∑–ª–∏–∫—É&—ò –≤–µ–ª–∏–∫–∞ –∏ –º–∞–ª–∞ —Å–ª–æ–≤–∞"
+
+#, fuzzy
+msgid "Case s&ensitive"
+msgstr "—Ä–∞–∑–ª–∏–∫—É&—ò –≤–µ–ª–∏–∫–∞ –∏ –º–∞–ª–∞ —Å–ª–æ–≤–∞"
+
+#, fuzzy
+msgid "Use panel sort mo&de"
+msgstr "–ö–æ—Ä–∏—Å—Ç–∏ &–ø–∞—Å–∏–≤–Ω–∏ —Ä–µ–∂–∏–º"
+
+#, fuzzy
+msgid "Quick search"
+msgstr "–ë—Ä–∑–∞ –ø—Ä–æ–º.–¥–∏—Ä."
+
+#, fuzzy
+msgid "&Permissions"
+msgstr "–î–æ–∑–≤–æ–ª–µ"
+
+#, fuzzy
+msgid "File &types"
+msgstr "&–í—Ä—Å—Ç–µ –¥–∞—Ç–æ—Ç–µ–∫–∞"
+
+#, fuzzy
+msgid "File highlight"
+msgstr " –ò—Å—Ç–∏—Ü–∞—ö–µ... "
+
+msgid "&Mouse page scrolling"
+msgstr ""
+
+msgid "Pa&ge scrolling"
+msgstr ""
+
+msgid "L&ynx-like motion"
+msgstr "L&ynx-–æ–ª–∏–∫–æ –∫—Ä–µ—Ç–∞—ö–µ"
+
+msgid "Navigation"
+msgstr ""
+
+#, fuzzy
+msgid "A&uto save panels setup"
+msgstr "&–ê—É—Ç–æ–º–∞—Ç—Å–∫–æ —á—É–≤–∞—ö–µ –ø–æ–¥–µ—à–∞–≤–∞—ö–∞"
+
+#, fuzzy
+msgid "Re&verse files only"
+msgstr "&–°–∞–º–æ –≤–µ–ª–∏—á–∏–Ω–∞"
+
+#, fuzzy
+msgid "Ma&rk moves down"
+msgstr "–ø–æ—Å–ª–µ –æ&–ó–Ω–∞–∫–µ –∏–¥–∏ –¥–æ–ª–µ"
+
+msgid "&Fast dir reload"
+msgstr "&–ë—Ä–∑–æ —É—á–∏—Ç–∞–≤–∞—ö–µ –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º–∞"
+
+#, fuzzy
+msgid "Show &hidden files"
+msgstr "–ø—Ä–∏–∫–∞–∂–∏ &–°–∞–∫—Ä–∏–≤–µ–Ω–µ –¥–∞—Ç–æ—Ç–µ–∫–µ"
+
+#, fuzzy
+msgid "Show &backup files"
+msgstr "–ø—Ä–∏–∫–∞–∂–∏ &–†–µ–∑–µ—Ä–≤–Ω–µ –¥–∞—Ç–æ—Ç–µ–∫–µ"
+
+#, fuzzy
+msgid "Mi&x all files"
+msgstr "&–ú–µ—à–∞–Ω–∏ –ø—Ä–∏–∫–∞–∑"
+
+msgid "Use SI si&ze units"
+msgstr ""
+
+#, fuzzy
+msgid "Main panel options"
+msgstr " –ò–∑–±–æ—Ä–∏ –æ–∫–Ω–∞ "
+
+#, fuzzy
+msgid "Panel options"
+msgstr " –ò–∑–±–æ—Ä–∏ –æ–∫–Ω–∞ "
 
 #, fuzzy
 msgid ""
-"--colors KEYWORD={FORE},{BACK}\n"
-"\n"
-"{FORE} and {BACK} can be omitted, and the default will be used\n"
-"\n"
-"Keywords:\n"
-"   Global:       errors, reverse, gauge, input, viewunderline\n"
-"   File display: normal, selected, marked, markselect\n"
-"   Dialog boxes: dnormal, dfocus, dhotnormal, dhotfocus, errdhotnormal,\n"
-"                 errdhotfocus\n"
-"   Menus:        menu, menuhot, menusel, menuhotsel\n"
-"   Editor:       editnormal, editbold, editmarked\n"
-"   Help:         helpnormal, helpitalic, helpbold, helplink, helpslink\n"
-"   File types:   directory, executable, link, stalelink, device, special,\n"
-"                 core, hidden, temp, doc, archive, source, media, graph,\n"
-"                 database\n"
-"\n"
-"Colors:\n"
-"   black, gray, red, brightred, green, brightgreen, brown,\n"
-"   yellow, blue, brightblue, magenta, brightmagenta, cyan,\n"
-"   brightcyan, lightgray and white\n"
-"\n"
+"Using the fast reload option may not reflect the exact\n"
+"directory contents. In this case you'll need to do a\n"
+"manual reload of the directory. See the man page for\n"
+"the details."
 msgstr ""
-"--colors ∫©√«Ω∞ ¿µ«={∏¡ø∏¡},{øæ∑∞¥}\n"
-"\n"
-"{∏¡ø∏¡} ÿ {øæ∑∞¥} ·’ ‹ﬁ”„ ÿ◊ﬁ·‚–“ÿ‚ÿ ÿ ⁄ﬁ‡ÿ·‚ÿ˚’ ·’ ﬂﬁ‘‡–◊. “‡’‘›ﬁ·‚ÿ\n"
-"\n"
-"∫˘„Á›’ ‡’Áÿ:\n"
-"   æﬂË‚’:       errors, reverse, gauge, input\n"
-"   ø‡ÿ⁄–◊ ‘–‚.: normal, selected, marked, markselect\n"
-"   ¥ÿ¯–€ﬁ◊ÿ:    dnormal, dfocus, dhotnormal, dhotfocus\n"
-"   º’›ÿ¯ÿ:      menu, menuhot, menusel, menuhotsel\n"
-"   øﬁ‹ﬁ˚:       helpnormal, helpitalic, helplink, helpslink\n"
-"   ≤‡·‚’ ‘–‚.:  directory, executable, link, stalelink, device, special, "
-"core\n"
-"\n"
-"±ﬁ¯’:\n"
-"   black, gray, red, brightred, green, brightgreen, brown,\n"
-"   yellow, blue, brightblue, magenta, brightmagenta, cyan,\n"
-"   brightcyan, lightgray ÿ white\n"
-"\n"
-
-msgid "Displays this help message"
-msgstr "ø‡ÿ⁄–◊„¯’ ﬁ“„ ﬂﬁ‡„⁄„ ﬂﬁ‹ﬁ˚ÿ"
-
-msgid "Displays the current version"
-msgstr "ø‡ÿ⁄–◊„¯’ ‚’⁄„˚„ “’‡◊ÿ¯„"
-
-msgid "Forces xterm features"
-msgstr "∑–Â‚’“– ﬁ‘€ÿ⁄’ ∏⁄· ‚’‡‹ÿ›–€–"
-
-msgid "Disable mouse support in text version"
-msgstr "∏·⁄˘„Áÿ ﬂﬁ‘‡Ë⁄„ ◊– ‹ÿË– „ ‚’⁄·‚„–€›ﬁ¯ “’‡◊ÿ¯ÿ"
-
-msgid "Tries to use termcap instead of terminfo"
-msgstr "øﬁ⁄„Ë–“– ‘– ⁄ﬁ‡ÿ·‚ÿ termcap „‹’·‚ﬁ terminfo-–"
-
-msgid "Resets soft keys on HP terminals"
-msgstr "øﬁ·‚–“˘– ‹’⁄’ ‚–·‚’‡’ ›– ≈ø-ﬁ“ÿ‹ ‚’‡‹ÿ›–€ÿ‹–"
-
-msgid "To run on slow terminals"
-msgstr "øﬁ⁄‡’‚–˙’ ›– ·ﬂﬁ‡ﬁ‹ ‚’‡‹ÿ›–€„"
-
-msgid "Use stickchars to draw"
-msgstr "∫ﬁ‡ÿ·‚ÿ ⁄“–◊ÿ”‡–‰ÿÁ⁄’ ·ÿ‹—ﬁ€’ ◊– Ê‡‚–˙’"
-
-msgid "Requests to run in black and white"
-msgstr "∑–Â‚’“– ﬂﬁ⁄‡’‚–˙’ „ ‡’÷ÿ‹„ —’◊ —ﬁ¯–"
-
-msgid "Request to run in color mode"
-msgstr "∑–Â‚’“–˙’ ﬁ—ﬁ¯’›ﬁ” ‡’÷ÿ‹–"
-
-msgid "Specifies a color configuration"
-msgstr "øﬁ·‚–“˘– ﬂﬁ‘’Ë–“–˙– —ﬁ¯–"
-
-msgid "Displays a help screen on how to change the color scheme"
-msgstr "ø‡ÿ⁄–◊„¯’ ’⁄‡–› ﬂﬁ‹ﬁ˚ÿ ﬁ⁄ﬁ ﬂ‡ﬁ‹’›’ Ë’‹’ —ﬁ¯–"
-
-msgid "Log ftp dialog to specified file"
-msgstr "±’€’÷ÿ ·–‘‡÷–¯ ‘ÿ¯–€ﬁ”– FTP-– „ ◊–‘–›„ ‘–‚ﬁ‚’⁄„"
-
-msgid "Set debug level"
-msgstr "øﬁ·‚–“˘–˙’ ›ÿ“ﬁ– ﬂﬁﬂ‡–“˘–˙–"
-
-msgid "Print data directory"
-msgstr "»‚–‹ﬂ–¯ ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹ ·– ﬂﬁ‘–Êÿ‹–"
-
-msgid "Print last working directory to specified file"
-msgstr "»‚–‹ﬂ–¯ ﬂﬁ·€’‘˙ÿ ‡–‘›ÿ ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹ „ ◊–‘–›„ ‘–‚ﬁ‚’⁄„"
-
-msgid "Enables subshell support (default)"
-msgstr "√⁄˘„Á„¯’ ﬂﬁ‘‡Ë⁄„ ◊– ﬂﬁ‘˘„·⁄’ (ﬂﬁ‘‡–◊.)"
-
-msgid "Disables subshell support"
-msgstr "∏·⁄˘„Á„¯’ ﬂﬁ‘‡Ë⁄„ ◊– ﬂﬁ‘˘„·⁄’"
-
-msgid "Launches the file viewer on a file"
-msgstr "øﬁ⁄‡’˚’ ﬂ‡’”€’‘–Á ‘–‚ﬁ‚’⁄– ›–‘ ‘–‚ﬁ‚’⁄ﬁ‹"
-
-msgid "Edits one file"
-msgstr "√‡’Ú„¯’ ¯’‘›„ ‘–‚ﬁ‚’⁄„"
-
-msgid " Notice "
-msgstr " æ—¯–“– "
-
-msgid ""
-" The Midnight Commander configuration files \n"
-" are now stored in the ~/.mc directory, the \n"
-" files have been moved now\n"
-msgstr ""
-" ¥–‚ﬁ‚’⁄’ ·– ﬂﬁ‘’Ë–“–˙ÿ‹– øﬁ›ﬁ˚›ﬁ” ›–‡’‘›ÿ⁄– \n"
-" ·’ ·–‘– ·‹’Ë‚–¯„ „ ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹ `~/.mc';\n"
-" ‘–‚ﬁ‚’⁄’ ·„ ·–‘– ﬂ‡’‹’Ë‚’›’\n"
-
-msgid "safe de&Lete"
-msgstr "—’◊—’‘›ﬁ —&¿ÿ·–˙’"
-
-msgid "cd follows lin&Ks"
-msgstr "ﬂ‡ﬁ‹.‘ÿ‡. ﬂ‡–‚ÿ &≤’◊’"
-
-msgid "L&ynx-like motion"
-msgstr "L&ynx-ﬁ€ÿ⁄ﬁ ⁄‡’‚–˙’"
-
-msgid "rotatin&G dash"
-msgstr "‡ﬁ‚ÿ‡–¯„˚– &∆‡‚–"
-
-msgid "co&Mplete: show all"
-msgstr "‘ﬁ&ø„›–: ﬂ‡ÿ⁄–÷ÿ ·“’"
-
-msgid "&Use internal view"
-msgstr "&∫ﬁ‡ÿ·‚ÿ „”‡–Ú’›ÿ ﬂ‡’”€’‘–Á"
-
-msgid "use internal ed&It"
-msgstr "⁄ﬁ‡ÿ·‚ÿ „”‡–Ú’›ÿ „‡’Ú&∏“–Á"
-
-msgid "auto m&Enus"
-msgstr "–„‚ﬁ‹–‚·⁄ÿ &º’›ÿ¯ÿ"
-
-msgid "&Auto save setup"
-msgstr "&∞„‚ﬁ‹–‚·⁄ﬁ Á„“–˙’ ﬂﬁ‘’Ë–“–˙–"
-
-msgid "shell &Patterns"
-msgstr "&æ—‡–·Êÿ ˘„·⁄’"
-
-msgid "Compute &Totals"
-msgstr "¿–Á„›–¯ &√⁄„ﬂ›’ ◊—ÿ‡ﬁ“’"
-
-msgid "&Verbose operation"
-msgstr "&±‡—˘ÿ“ÿ ‡–‘"
-
-msgid "&Fast dir reload"
-msgstr "&±‡◊ﬁ „Áÿ‚–“–˙’ ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹–"
-
-msgid "mi&X all files"
-msgstr "&º’Ë–›ÿ ﬂ‡ÿ⁄–◊"
-
-msgid "&Drop down menus"
-msgstr "&ø–‘–¯„˚ÿ ‹’›ÿ¯ÿ"
-
-msgid "ma&Rk moves down"
-msgstr "ﬂﬁ·€’ ﬁ&∑›–⁄’ ÿ‘ÿ ‘ﬁ€’"
-
-msgid "show &Hidden files"
-msgstr "ﬂ‡ÿ⁄–÷ÿ &¡–⁄‡ÿ“’›’ ‘–‚ﬁ‚’⁄’"
-
-msgid "show &Backup files"
-msgstr "ﬂ‡ÿ⁄–÷ÿ &¿’◊’‡“›’ ‘–‚ﬁ‚’⁄’"
-
-msgid "&Never"
-msgstr "&Ωÿ⁄–‘"
-
-msgid "on dumb &Terminals"
-msgstr "›– ”€„ﬂÿ‹ &¬’‡‹ÿ›–€ÿ‹–"
-
-msgid "Alwa&ys"
-msgstr "&√“’⁄"
-
-msgid " Panel options "
-msgstr " ∏◊—ﬁ‡ÿ ﬁ⁄›– "
-
-msgid " Pause after run... "
-msgstr " ø–„◊– ﬂﬁ·€’ ﬂﬁ⁄‡’‚–˙–... "
-
-msgid "Configure options"
-msgstr "øﬁ‘’·ÿ ÿ◊—ﬁ‡’"
+" –°–∞ —É–∫—ô—É—á–µ–Ω–∏–º –∏–∑–±–æ—Ä–æ–º –∑–∞ –±—Ä–∑–æ —É—á–∏—Ç–∞–≤–∞—ö–µ –º–æ–∂–¥–∞ —Å–µ –Ω–µ—õ–µ    \n"
+" –ø—Ä–∏–∫–∞–∑–∏–≤–∞—Ç–∏ —Ç–∞—á–∞–Ω —Å–∞–¥—Ä–∂–∞—ò –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º–∞. –û–Ω–¥–∞ —õ–µ—Ç–µ –º–æ–∂–¥–∞\n"
+" –º–æ—Ä–∞—Ç–∏ –¥–∞ —Ä—É—á–Ω–æ –æ—Å–≤–µ–∂–∞–≤–∞—Ç–µ –ø—Ä–∏–∫–∞–∑. –ü–æ–≥–ª–µ–¥–∞—ò—Ç–µ —É–ø—É—Ç—Å—Ç–≤–æ  \n"
+" –∑–∞ –¥–µ—Ç–∞—ô–µ.                                              "
 
 msgid "&Add new"
-msgstr "&¥ﬁ‘–¯ ›ﬁ“ﬁ"
+msgstr "&–î–æ–¥–∞—ò –Ω–æ–≤–æ"
 
 msgid "External panelize"
-msgstr "∫‡ÿ‚’‡ÿ¯„‹ ﬂﬁﬂ„›’ ﬁ⁄›–"
+msgstr "–ö—Ä–∏—Ç–µ—Ä–∏—ò—É–º –ø–æ–ø—É–Ω–µ –æ–∫–Ω–∞"
 
 msgid "Command"
-msgstr "Ω–‡’‘—–"
+msgstr "–ù–∞—Ä–µ–¥–±–∞"
 
 msgid "Other command"
-msgstr "¥‡„”– ›–‡’‘—–"
+msgstr "–î—Ä—É–≥–∞ –Ω–∞—Ä–µ–¥–±–∞"
 
-msgid " Add to external panelize "
-msgstr " ¥ﬁ‘–¯ „ ⁄‡ÿ‚’‡ÿ¯„‹’ ﬂﬁﬂ„›’ "
+#, fuzzy
+msgid "Add to external panelize"
+msgstr " –î–æ–¥–∞—ò —É –∫—Ä–∏—Ç–µ—Ä–∏—ò—É–º–µ –ø–æ–ø—É–Ω–µ "
 
-msgid " Enter command label: "
-msgstr " √›’·ÿ‚’ ›–‚ﬂÿ· ›–‡’‘—’: "
+#, fuzzy
+msgid "Enter command label:"
+msgstr " –£–Ω–µ—Å–∏—Ç–µ –Ω–∞—Ç–ø–∏—Å –Ω–∞—Ä–µ–¥–±–µ: "
 
-msgid " Cannot run external panelize in a non-local directory "
-msgstr " Ω’ ‹ﬁ”„ ‘– ÿ◊“‡Ëÿ‹ ⁄‡ÿ‚’‡ÿ¯„‹’ ﬂﬁﬂ„›’ „ ›’-€ﬁ⁄–€›ÿ‹ ‘ÿ‡. "
+#, fuzzy
+msgid "Cannot run external panelize in a non-local directory"
+msgstr " –ù–µ –º–æ–≥—É –¥–∞ –∏–∑–≤—Ä—à–∏–º –∫—Ä–∏—Ç–µ—Ä–∏—ò—É–º–µ –ø–æ–ø—É–Ω–µ —É –Ω–µ-–ª–æ–∫–∞–ª–Ω–∏–º –¥–∏—Ä. "
 
 msgid "Find rejects after patching"
-msgstr "Ω–Úÿ ﬁ‘—ÿ¯’›’ ÿ·ﬂ‡–“⁄’ ﬂﬁ·€’ ⁄‡ﬂ˘’˙–"
+msgstr "–ù–∞—í–∏ –æ–¥–±–∏—ò–µ–Ω–µ –∏—Å–ø—Ä–∞–≤–∫–µ –ø–æ—Å–ª–µ –∫—Ä–ø—ô–µ—ö–∞"
 
 msgid "Find *.orig after patching"
-msgstr "Ω–Úÿ *.orig ﬂﬁ·€’ ⁄‡ﬂ˘’˙–"
+msgstr "–ù–∞—í–∏ *.orig –ø–æ—Å–ª–µ –∫—Ä–ø—ô–µ—ö–∞"
 
 msgid "Find SUID and SGID programs"
-msgstr "Ω–Úÿ ﬂ‡ﬁ”‡–‹’ ·– ﬂﬁ·‚–“˘’›ÿ‹ ø∫∏± (SUID) ÿ ø≥∏± (SGID)"
+msgstr "–ù–∞—í–∏ –ø—Ä–æ–≥—Ä–∞–º–µ —Å–∞ –ø–æ—Å—Ç–∞–≤—ô–µ–Ω–∏–º –ü–ö–ò–ë (SUID) –∏ –ü–ì–ò–ë (SGID)"
 
 msgid "Cannot invoke command."
-msgstr "Ω’ ‹ﬁ”„ ‘– ﬂﬁ⁄‡’›’‹ ›–‡’‘—„."
+msgstr "–ù–µ –º–æ–≥—É –¥–∞ –ø–æ–∫—Ä–µ–Ω–µ–º –Ω–∞—Ä–µ–¥–±—É."
 
 msgid "Pipe close failed"
-msgstr "∑–‚“–‡–˙’ Ê’“ÿ ›ÿ¯’ „·ﬂ’€ﬁ"
-
-msgid "missing argument"
-msgstr "›’‘ﬁ·‚–¯’ –‡”„‹’›‚"
-
-msgid "unknown option"
-msgstr "›’ﬂﬁ◊›–‚ ÿ◊—ﬁ‡"
-
-msgid "invalid numeric value"
-msgstr "›’ÿ·ﬂ‡–“›– —‡ﬁ¯’“›– “‡’‘›ﬁ·‚"
-
-msgid "Show this help message"
-msgstr "ø‡ÿ⁄–÷ÿ ﬁ“„ ﬂﬁ‡„⁄„ ﬂﬁ‹ﬁ˚ÿ"
-
-msgid "Display brief usage message"
-msgstr "ø‡ÿ⁄–÷ÿ ⁄‡–‚⁄„ ﬂﬁ‡„⁄„ ﬁ „ﬂﬁ‚‡’—ÿ"
-
-msgid "ARG"
-msgstr "∞¿≥"
-
-#, c-format
-msgid "Usage:"
-msgstr "√ﬂﬁ‚‡’—–:"
+msgstr "–ó–∞—Ç–≤–∞—Ä–∞—ö–µ —Ü–µ–≤–∏ –Ω–∏—ò–µ —É—Å–ø–µ–ª–æ"
 
 msgid "[dev]"
 msgstr ""
 
 msgid "UP--DIR"
-msgstr "Ω∞¥-¥∏¿"
+msgstr "–ù–ê–î-–î–ò–†"
 
 msgid "SYMLINK"
-msgstr "¡∏º≤µ∑∞"
+msgstr "–°–ò–ú–í–ï–ó–ê"
 
 msgid "SUB-DIR"
-msgstr "øæ¥-¥∏¿"
+msgstr "–ü–û–î-–î–ò–†"
 
-msgid "Size"
-msgstr "≤’€ÿÁÿ›–"
+#. TRANSLATORS: one single character to represent 'unsorted' sort mode
+#. TRANSLATORS: no need to translate 'sort', it's just a context prefix
+msgid "sort|u"
+msgstr ""
 
-msgid "MTime"
-msgstr "¥–‚∏◊‹"
+msgid "&Unsorted"
+msgstr "–ù&–µ—Å—Ä–µ—í–µ–Ω–æ"
 
-msgid "ATime"
-msgstr "¥–‚ø‡·"
+#. TRANSLATORS: one single character to represent 'name' sort mode
+#. TRANSLATORS: no need to translate 'sort', it's just a context prefix
+msgid "sort|n"
+msgstr ""
 
-msgid "CTime"
-msgstr "¥–‚ø‡‹"
+msgid "&Name"
+msgstr "&–ù–∞–∑–∏–≤"
 
-msgid "Permission"
-msgstr "¥ﬁ◊“ﬁ€’"
+#. TRANSLATORS: one single character to represent 'version' sort mode
+#. TRANSLATORS: no need to translate 'sort', it's just a context prefix
+#, fuzzy
+msgid "sort|v"
+msgstr "–ù&–µ—Å—Ä–µ—í–µ–Ω–æ"
+
+#, fuzzy
+msgid "&Version"
+msgstr "–î–æ–∑–≤–æ–ª–µ"
+
+#. TRANSLATORS: one single character to represent 'extension' sort mode
+#. TRANSLATORS: no need to translate 'sort', it's just a context prefix
+#, fuzzy
+msgid "sort|e"
+msgstr "–ù&–µ—Å—Ä–µ—í–µ–Ω–æ"
+
+msgid "&Extension"
+msgstr "&–í—Ä—Å—Ç–∞"
+
+#. TRANSLATORS: one single character to represent 'size' sort mode
+#. TRANSLATORS: no need to translate 'sort', it's just a context prefix
+msgid "sort|s"
+msgstr ""
+
+msgid "&Size"
+msgstr "&–í–µ–ª–∏—á–∏–Ω–∞"
+
+#, fuzzy
+msgid "Block Size"
+msgstr " –í–µ–ª–∏—á–∏–Ω–∞ "
+
+#. TRANSLATORS: one single character to represent 'Modify time' sort mode
+#. TRANSLATORS: no need to translate 'sort', it's just a context prefix
+msgid "sort|m"
+msgstr ""
+
+msgid "&Modify time"
+msgstr "–î–∞—Ç—É–º &–∏–∑–º–µ–Ω–µ"
+
+#. TRANSLATORS: one single character to represent 'Access time' sort mode
+#. TRANSLATORS: no need to translate 'sort', it's just a context prefix
+msgid "sort|a"
+msgstr ""
+
+msgid "&Access time"
+msgstr "–î–∞—Ç—É–º &–ø—Ä–∏—Å—Ç—É–ø–∞"
+
+#. TRANSLATORS: one single character to represent 'Change time' sort mode
+#. TRANSLATORS: no need to translate 'sort', it's just a context prefix
+msgid "sort|h"
+msgstr ""
+
+#, fuzzy
+msgid "C&hange time"
+msgstr "–î–∞—Ç—É–º &–ø—Ä–æ–º–µ–Ω–µ"
 
 msgid "Perm"
-msgstr "¥ﬁ◊“"
+msgstr "–î–æ–∑–≤"
 
-# ±‡ﬁ¯ “’◊–
+# –ë—Ä–æ—ò –≤–µ–∑–∞
 msgid "Nl"
-msgstr "±“"
+msgstr "–ë–≤"
 
-msgid "Inode"
-msgstr "∏Á“ﬁ‡"
+#. TRANSLATORS: one single character to represent 'inode' sort mode
+#. TRANSLATORS: no need to translate 'sort', it's just a context prefix
+msgid "sort|i"
+msgstr ""
+
+msgid "&Inode"
+msgstr "&–ò—á–≤–æ—Ä"
 
 msgid "UID"
-msgstr "∫∏±"
+msgstr "–ö–ò–ë"
 
 msgid "GID"
-msgstr "∏±≥"
+msgstr "–ò–ë–ì"
 
 msgid "Owner"
-msgstr "≤€–·›ÿ⁄"
+msgstr "–í–ª–∞—Å–Ω–∏–∫"
 
 msgid "Group"
-msgstr "≥‡„ﬂ–"
+msgstr "–ì—Ä—É–ø–∞"
 
-#, fuzzy, c-format
-msgid "Invalid file coloring pattern `%s'\n"
-msgstr ""
-"Ω’ÿ·ﬂ‡–“–› ÿ◊“ﬁ‡›ÿ ﬁ—‡–◊–Ê `%s' \n"
-" %s "
+msgid "<readlink failed>"
+msgstr "<–Ω–µ—É—Å–ø–µ—à–Ω–æ —á–∏—Ç–∞—ö–µ –≤–µ–∑–µ>"
 
 #, fuzzy, c-format
 msgid "%s byte"
 msgid_plural "%s bytes"
-msgstr[0] "%s —–¯‚ﬁ“–"
-msgstr[1] "%s —–¯‚ﬁ“–"
+msgstr[0] "%s –±–∞—ò—Ç–æ–≤–∞"
+msgstr[1] "%s –±–∞—ò—Ç–æ–≤–∞"
 
 #, fuzzy, c-format
 msgid "%s in %d file"
 msgid_plural "%s in %d files"
-msgstr[0] "%s —–¯‚ﬁ“– „ %d ‘–‚ﬁ‚’Êÿ"
-msgstr[1] "%s —–¯‚ﬁ“– „ %d ‘–‚ﬁ‚’Êÿ"
+msgstr[0] "%s –±–∞—ò—Ç–æ–≤–∞ —É %d –¥–∞—Ç–æ—Ç–µ—Ü–∏"
+msgstr[1] "%s –±–∞—ò—Ç–æ–≤–∞ —É %d –¥–∞—Ç–æ—Ç–µ—Ü–∏"
 
-msgid "<readlink failed>"
-msgstr "<›’„·ﬂ’Ë›ﬁ Áÿ‚–˙’ “’◊’>"
-
-msgid "Unknown tag on display format: "
-msgstr "Ω’ﬂﬁ◊›–‚– ﬁ◊›–⁄– „ ‰ﬁ‡‹–‚„ ﬂ‡ÿ⁄–◊–: "
+#, fuzzy
+msgid "Unknown tag on display format:"
+msgstr "–ù–µ–ø–æ–∑–Ω–∞—Ç–∞ –æ–∑–Ω–∞–∫–∞ —É —Ñ–æ—Ä–º–∞—Ç—É –ø—Ä–∏–∫–∞–∑–∞: "
 
 msgid "User supplied format looks invalid, reverting to default."
-msgstr "∫ﬁ‡ÿ·›ÿÁ⁄ÿ ‰ﬁ‡‹–‚ ›’ ÿ◊”€’‘– ÿ·ﬂ‡–“›ﬁ, “‡–˚–‹ ›– ﬂﬁ‘‡–◊."
+msgstr "–ö–æ—Ä–∏—Å–Ω–∏—á–∫–∏ —Ñ–æ—Ä–º–∞—Ç –Ω–µ –∏–∑–≥–ª–µ–¥–∞ –∏—Å–ø—Ä–∞–≤–Ω–æ, –≤—Ä–∞—õ–∞–º –Ω–∞ –ø–æ–¥—Ä–∞–∑."
 
-msgid " Do you really want to execute? "
-msgstr " ¥– €ÿ ◊–ÿ·‚– ÷’€ÿ‚’ ‘– ÿ◊“‡Ëÿ‹? "
+#, fuzzy
+msgid "Do you really want to execute?"
+msgstr " –î–∞ –ª–∏ –∑–∞–∏—Å—Ç–∞ –∂–µ–ª–∏—Ç–µ –¥–∞ –∏–∑–≤—Ä—à–∏–º? "
 
-msgid "View"
-msgstr "ø‡’”€‘"
+#, fuzzy, c-format
+msgid "Cannot chdir to \"%s\""
+msgstr " –ù–µ –º–æ–≥—É –¥–∞ –ø–æ—Å—Ç–∞–≤–∏–º –¥–∏—Ä. –Ω–∞ %s "
 
-msgid "Edit"
-msgstr "√‡’‘ÿ"
-
-msgid "RenMov"
-msgstr "øÿ‹ø‡‹"
-
-msgid "Mkdir"
-msgstr "Ω–ﬂ¥ÿ‡"
-
-msgid " Choose input codepage "
-msgstr " ∏◊–—’‡ÿ‚’ ⁄ﬁ‘›„ ·‚‡–›„ „€–◊– "
+#, fuzzy
+msgid "Choose codepage"
+msgstr " –ò–∑–∞–±–µ—Ä–∏—Ç–µ –∫–æ–¥–Ω—É —Å—Ç—Ä–∞–Ω—É —É–ª–∞–∑–∞ "
 
 msgid "-  < No translation >"
-msgstr "-  < ±’◊ ﬂ‡’‚“–‡–˙– >"
+msgstr "-  < –ë–µ–∑ –ø—Ä–µ—Ç–≤–∞—Ä–∞—ö–∞ >"
 
-msgid ""
-"To use this feature select your codepage in\n"
-"Setup / Display Bits dialog!\n"
-"Do not forget to save options."
-msgstr ""
-"¥– —ÿ·‚’ ⁄ﬁ‡ÿ·‚ÿ€ÿ ﬁ“„ ﬁ‘€ÿ⁄„ ÿ◊–—’‡ÿ‚’\n"
-"⁄ﬁ‘›„ ·‚‡–›„ „ ‘ÿ¯–€ﬁ”„ øﬁ‘’Ë–“–˙– / ±ÿ‚– „\n"
-"ﬂ‡ÿ⁄–◊„! Ω’ ◊–—ﬁ‡–“ÿ‚’ ‘– ·–Á„“–‚’ ÿ◊—ﬁ‡’."
+msgid "%b %e  %Y"
+msgstr "%b %e  %Y"
 
-#, c-format
+msgid "%b %e %H:%M"
+msgstr "%b %e %H:%M"
+
+#, fuzzy, c-format
 msgid ""
-"Screen size %dx%d is not supported.\n"
-"Check the TERM environment variable.\n"
-msgstr ""
-"≤’€ÿÁÿ›– ’⁄‡–›– %dx%d ›ÿ¯’ ﬂﬁ‘‡÷–›–.\n"
-"ø‡ﬁ“’‡ÿ‚’ ﬂ‡ﬁ‹’›˘ÿ“„ ˘„·⁄’ `TERM'.\n"
+"Cannot save file %s:\n"
+"%s"
+msgstr " –ù–µ –º–æ–≥—É –¥–∞ —Å–∞—á—É–≤–∞–º –¥–∞—Ç–æ—Ç–µ–∫—É. "
 
 msgid ""
 "GNU Midnight Commander is already\n"
 "running on this terminal.\n"
 "Subshell support will be disabled."
 msgstr ""
-"≥Ω√-ﬁ“ ﬂﬁ›ﬁ˚›ÿ ›–‡’‘›ÿ⁄ ¯’ “’˚\n"
-"ﬂﬁ⁄‡’›„‚ ›– ﬁ“ﬁ‹ ‚’‡‹ÿ›–€„.\n"
-"øﬁ‘‡Ë⁄– ◊– ﬂﬁ‘˘„·⁄’ ˚’ —ÿ‚ÿ ÿ·⁄˘„Á’›–."
+"–ì–ù–£-–æ–≤ –ø–æ–Ω–æ—õ–Ω–∏ –Ω–∞—Ä–µ–¥–Ω–∏–∫ —ò–µ –≤–µ—õ\n"
+"–ø–æ–∫—Ä–µ–Ω—É—Ç –Ω–∞ –æ–≤–æ–º —Ç–µ—Ä–º–∏–Ω–∞–ª—É.\n"
+"–ü–æ–¥—Ä—à–∫–∞ –∑–∞ –ø–æ–¥—ô—É—Å–∫–µ —õ–µ –±–∏—Ç–∏ –∏—Å–∫—ô—É—á–µ–Ω–∞."
 
 #, c-format
 msgid "Cannot open named pipe %s\n"
-msgstr "Ω’ ‹ﬁ”„ ‘– ﬁ‚“ﬁ‡ÿ‹ ÿ‹’›ﬁ“–›„ Ê’“ %s\n"
+msgstr "–ù–µ –º–æ–≥—É –¥–∞ –æ—Ç–≤–æ—Ä–∏–º –∏–º–µ–Ω–æ–≤–∞–Ω—É —Ü–µ–≤ %s\n"
 
-msgid " The shell is still active. Quit anyway? "
-msgstr " ©„·⁄– ¯’ ¯ﬁË –⁄‚ÿ“›–. ∂’€ÿ‚’ €ÿ ‘– ÿﬂ–⁄ ◊–“‡Ëÿ‹ ‡–‘? "
+#, fuzzy
+msgid "The shell is still active. Quit anyway?"
+msgstr " –â—É—Å–∫–∞ —ò–µ —ò–æ—à –∞–∫—Ç–∏–≤–Ω–∞. –ñ–µ–ª–∏—Ç–µ –ª–∏ –¥–∞ –∏–ø–∞–∫ –∑–∞–≤—Ä—à–∏–º —Ä–∞–¥? "
 
 #, c-format
 msgid "Warning: Cannot change to %s.\n"
-msgstr "√ﬂﬁ◊ﬁ‡’˙’: Ω’ ‹ﬁ”„ ‘– ÿ‘’‹ ›– %s.\n"
+msgstr "–£–ø–æ–∑–æ—Ä–µ—ö–µ: –ù–µ –º–æ–≥—É –¥–∞ –∏–¥–µ–º –Ω–∞ %s.\n"
 
 msgid "With builtin Editor\n"
-msgstr "¡– „”‡–Ú’›ÿ‹ „‡’Úÿ“–Á’‹\n"
+msgstr "–°–∞ —É–≥—Ä–∞—í–µ–Ω–∏–º —É—Ä–µ—í–∏–≤–∞—á–µ–º\n"
 
 msgid "Using system-installed S-Lang library"
-msgstr "∫ﬁ‡ÿ·‚ÿ‹ ·ÿ·‚’‹·⁄„ —ÿ—€ÿﬁ‚’⁄„ S-Lang"
-
-msgid "Using included S-Lang library"
-msgstr "∫ﬁ‡ÿ·‚ÿ‹ „⁄˘„Á’›„ —ÿ—€ÿﬁ‚’⁄„ S-Lang"
-
-msgid "with termcap database"
-msgstr "·– —–◊ﬁ‹ termcap"
+msgstr "–ö–æ—Ä–∏—Å—Ç–∏–º —Å–∏—Å—Ç–µ–º—Å–∫—É –±–∏–±–ª–∏–æ—Ç–µ–∫—É S-Lang"
 
 msgid "with terminfo database"
-msgstr "·– —–◊ﬁ‹ terminfo"
+msgstr "—Å–∞ –±–∞–∑–æ–º terminfo"
 
 msgid "Using the ncurses library"
-msgstr "∫ﬁ‡ÿ·‚ÿ‹ —ÿ—€ÿﬁ‚’⁄„ ncurses"
+msgstr "–ö–æ—Ä–∏—Å—Ç–∏–º –±–∏–±–ª–∏–æ—Ç–µ–∫—É ncurses"
+
+#, fuzzy
+msgid "Using the ncursesw library"
+msgstr "–ö–æ—Ä–∏—Å—Ç–∏–º –±–∏–±–ª–∏–æ—Ç–µ–∫—É ncurses"
 
 msgid "With optional subshell support"
-msgstr "¡– ›’ﬁ—–“’◊›ﬁ‹ ﬂﬁ‘‡Ë⁄ﬁ‹ ◊– ﬂﬁ‘˘„·⁄’"
+msgstr "–°–∞ –Ω–µ–æ–±–∞–≤–µ–∑–Ω–æ–º –ø–æ–¥—Ä—à–∫–æ–º –∑–∞ –ø–æ–¥—ô—É—Å–∫–µ"
 
 msgid "With subshell support as default"
-msgstr "¡– ﬂﬁ‘‡–◊„‹’“–›ﬁ‹ ﬂﬁ‘‡Ë⁄ﬁ‹ ◊– ﬂﬁ‘˘„·⁄’"
+msgstr "–°–∞ –ø–æ–¥—Ä–∞–∑—É–º–µ–≤–∞–Ω–æ–º –ø–æ–¥—Ä—à–∫–æ–º –∑–∞ –ø–æ–¥—ô—É—Å–∫–µ"
 
 msgid "With support for background operations\n"
-msgstr "¡– ﬂﬁ‘‡Ë⁄ﬁ‹ ◊– ﬂﬁ◊–‘ÿ›·⁄’ ‡–‘˙’\n"
+msgstr "–°–∞ –ø–æ–¥—Ä—à–∫–æ–º –∑–∞ –ø–æ–∑–∞–¥–∏–Ω—Å–∫–µ —Ä–∞–¥—ö–µ\n"
 
 msgid "With mouse support on xterm and Linux console\n"
-msgstr "¡– ﬂﬁ‘‡Ë⁄ﬁ‹ ◊– ‹ÿË– „ ∏⁄· ‚’‡‹ÿ›–€„ ÿ ⁄ﬁ›◊ﬁ€ÿ\n"
+msgstr "–°–∞ –ø–æ–¥—Ä—à–∫–æ–º –∑–∞ –º–∏—à–∞ —É –ò–∫—Å —Ç–µ—Ä–º–∏–Ω–∞–ª—É –∏ –∫–æ–Ω–∑–æ–ª–∏\n"
 
 msgid "With mouse support on xterm\n"
-msgstr "¡– ﬂﬁ‘‡Ë⁄ﬁ‹ ◊– ‹ÿË– „ ∏⁄· ‚’‡‹ÿ›–€„\n"
+msgstr "–°–∞ –ø–æ–¥—Ä—à–∫–æ–º –∑–∞ –º–∏—à–∞ —É –ò–∫—Å —Ç–µ—Ä–º–∏–Ω–∞–ª—É\n"
 
 msgid "With support for X11 events\n"
-msgstr "¡– ﬂﬁ‘‡Ë⁄ﬁ‹ ◊– ‘ﬁ”–Ú–¯’ ∏⁄·– 11\n"
+msgstr "–°–∞ –ø–æ–¥—Ä—à–∫–æ–º –∑–∞ –¥–æ–≥–∞—í–∞—ò–µ –ò–∫—Å–∞ 11\n"
 
 msgid "With internationalization support\n"
-msgstr "¡– ﬂﬁ‘‡Ë⁄ﬁ‹ ◊– ÿ›‚’‡›–Êÿﬁ›–€ÿ◊–Êÿ¯„\n"
+msgstr "–°–∞ –ø–æ–¥—Ä—à–∫–æ–º –∑–∞ –∏–Ω—Ç–µ—Ä–Ω–∞—Ü–∏–æ–Ω–∞–ª–∏–∑–∞—Ü–∏—ò—É\n"
 
 msgid "With multiple codepages support\n"
-msgstr "¡– ﬂﬁ‘‡Ë⁄ﬁ‹ ◊– “ÿË’ ⁄ﬁ‘›ÿÂ ·‚‡–›–\n"
+msgstr "–°–∞ –ø–æ–¥—Ä—à–∫–æ–º –∑–∞ –≤–∏—à–µ –∫–æ–¥–Ω–∏—Ö —Å—Ç—Ä–∞–Ω–∞\n"
+
+#, fuzzy, c-format
+msgid "Virtual File Systems:"
+msgstr "–í–∏—Ä—Ç—É–∞–ª–Ω–∏ —Å–∏—Å—Ç–µ–º –¥–∞—Ç–æ—Ç–µ–∫–∞:"
 
 #, c-format
-msgid "Virtual File System:"
-msgstr "≤ÿ‡‚„–€›ÿ ·ÿ·‚’‹ ‘–‚ﬁ‚’⁄–:"
+msgid "Data types:"
+msgstr ""
 
 #, c-format
 msgid ""
 "Cannot open the %s file for writing:\n"
 "%s\n"
 msgstr ""
-"Ω’ ‹ﬁ”„ ‘– ﬁ‚“ﬁ‡ÿ‹ ‘–‚ﬁ‚’⁄„ %s ◊– „ﬂÿ·:\n"
+"–ù–µ –º–æ–≥—É –¥–∞ –æ—Ç–≤–æ—Ä–∏–º –¥–∞—Ç–æ—Ç–µ–∫—É %s –∑–∞ —É–ø–∏—Å:\n"
 "%s\n"
 
 #, c-format
 msgid "Copy \"%s\" directory to:"
-msgstr "∫ﬁﬂÿ‡–¯ ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹ `%s' „:"
+msgstr "–ö–æ–ø–∏—Ä–∞—ò –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º `%s' —É:"
 
 #, c-format
 msgid "Move \"%s\" directory to:"
-msgstr "ø‡’‹’·‚ÿ ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹ `%s' „:"
+msgstr "–ü—Ä–µ–º–µ—Å—Ç–∏ –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º `%s' —É:"
 
-#, c-format
+#, fuzzy, c-format
 msgid ""
-" Cannot stat the destination \n"
-" %s "
+"Cannot stat the destination\n"
+"%s"
 msgstr ""
-" Ω’ ‹ﬁ”„ ‘– ÿ◊“‡Ëÿ‹ `stat' ›–‘ ﬁ‘‡’‘ÿË‚’‹ \n"
+" –ù–µ –º–æ–≥—É –¥–∞ –∏–∑–≤—Ä—à–∏–º `stat' –Ω–∞–¥ –æ–¥—Ä–µ–¥–∏—à—Ç–µ–º \n"
 " %s "
 
-#, c-format
-msgid "  Delete %s?  "
-msgstr "  ∂’€ÿ‚’ €ÿ ‘– ﬁ—‡ÿË’‹ `%s'?  "
+#, fuzzy, c-format
+msgid "Delete %s?"
+msgstr "  –ñ–µ–ª–∏—Ç–µ –ª–∏ –¥–∞ –æ–±—Ä–∏—à–µ–º `%s'?  "
 
-msgid "Static"
-msgstr "¡‚–‚Á."
+msgid "ButtonBar|Static"
+msgstr ""
 
-msgid "Dynamc"
-msgstr "¥ÿ›‹Á."
+msgid "ButtonBar|Dynamc"
+msgstr ""
 
-msgid "Rescan"
-msgstr "æ·“’÷ÿ"
+msgid "ButtonBar|Rescan"
+msgstr ""
 
-msgid "Forget"
-msgstr "∑–—ﬁ‡."
+msgid "ButtonBar|Forget"
+msgstr ""
 
-msgid "Rmdir"
-msgstr "±‡¥ÿ‡"
+msgid "ButtonBar|Rmdir"
+msgstr ""
 
 #, c-format
 msgid ""
 "Cannot write to the %s file:\n"
 "%s\n"
 msgstr ""
-"Ω’ ‹ﬁ”„ ‘– ﬂÿË’‹ „ ‘–‚ﬁ‚’⁄„ %s:\n"
+"–ù–µ –º–æ–≥—É –¥–∞ –ø–∏—à–µ–º —É –¥–∞—Ç–æ—Ç–µ–∫—É %s:\n"
 "%s\n"
 
-msgid " Format error on file Extensions File "
-msgstr " ≥‡’Ë⁄– „ ‰ﬁ‡‹–‚„ ‘–‚ﬁ‚’⁄’ ¥–‚ﬁ‚’⁄– “‡·‚– "
+#, fuzzy
+msgid "Format error on file Extensions File"
+msgstr " –ì—Ä–µ—à–∫–∞ —É —Ñ–æ—Ä–º–∞—Ç—É –¥–∞—Ç–æ—Ç–µ–∫–µ –î–∞—Ç–æ—Ç–µ–∫–∞ –≤—Ä—Å—Ç–∞ "
 
-#, c-format
-msgid " The %%var macro has no default "
-msgstr " º–⁄‡ﬁ %%var ›’‹– ﬂﬁ‘‡–◊„‹’“–›„ “‡’‘›ﬁ·‚ "
+#, fuzzy, c-format
+msgid "The %%var macro has no default"
+msgstr " –ú–∞–∫—Ä–æ %%var –Ω–µ–º–∞ –ø–æ–¥—Ä–∞–∑—É–º–µ–≤–∞–Ω—É –≤—Ä–µ–¥–Ω–æ—Å—Ç "
 
-#, c-format
-msgid " The %%var macro has no variable "
-msgstr " º–⁄‡ﬁ %%var ›’‹– ﬂ‡ﬁ‹’›˘ÿ“„ "
+#, fuzzy, c-format
+msgid "The %%var macro has no variable"
+msgstr " –ú–∞–∫—Ä–æ %%var –Ω–µ–º–∞ –ø—Ä–æ–º–µ–Ω—ô–∏–≤—É "
 
-msgid " Debug "
-msgstr " øﬁﬂ‡–“˘–˙’ "
+#, fuzzy
+msgid "Debug"
+msgstr " –ü–æ–ø—Ä–∞–≤—ô–∞—ö–µ "
 
-msgid " ERROR: "
-msgstr " ≥¿µ»∫∞: "
+#, fuzzy
+msgid "ERROR:"
+msgstr " –ì–†–ï–®–ö–ê: "
 
-msgid " True:  "
-msgstr " ¬–Á›ﬁ:    "
+#, fuzzy
+msgid "True:"
+msgstr " –¢–∞—á–Ω–æ:    "
 
-msgid " False: "
-msgstr " øﬁ”‡’Ë›ﬁ: "
+#, fuzzy
+msgid "False:"
+msgstr " –ü–æ–≥—Ä–µ—à–Ω–æ: "
 
-msgid " Warning -- ignoring file "
-msgstr " √ﬂﬁ◊ﬁ‡’˙’ - ◊–ﬁ—ÿ€–◊ÿ‹ ‘–‚ﬁ‚’⁄„ "
+#, fuzzy
+msgid "Warning -- ignoring file"
+msgstr " –£–ø–æ–∑–æ—Ä–µ—ö–µ - –∑–∞–æ–±–∏–ª–∞–∑–∏–º –¥–∞—Ç–æ—Ç–µ–∫—É "
 
 #, c-format
 msgid ""
 "File %s is not owned by root or you or is world writable.\n"
 "Using it may compromise your security"
 msgstr ""
-"¥–‚ﬁ‚’⁄„ %s ›’ ﬂﬁ·’‘„¯’ ›ÿ –‘‹ÿ›ÿ·‚‡–‚ﬁ‡ ›ÿ “ÿ, – ›ÿ¯’ ›ÿ\n"
-"Áÿ‚˘ÿ“– ◊– ·“’‚. ™’›– „ﬂﬁ‚‡’—– ‹ﬁ÷’ ‘– „”‡ﬁ◊ÿ “–Ë„ —’◊—’‘›ﬁ·‚"
+"–î–∞—Ç–æ—Ç–µ–∫—É %s –Ω–µ –ø–æ—Å–µ–¥—É—ò–µ –Ω–∏ –∞–¥–º–∏–Ω–∏—Å—Ç—Ä–∞—Ç–æ—Ä –Ω–∏ –≤–∏, –∞ –Ω–∏—ò–µ –Ω–∏\n"
+"—á–∏—Ç—ô–∏–≤–∞ –∑–∞ —Å–≤–µ—Ç. –ä–µ–Ω–∞ —É–ø–æ—Ç—Ä–µ–±–∞ –º–æ–∂–µ –¥–∞ —É–≥—Ä–æ–∑–∏ –≤–∞—à—É –±–µ–∑–±–µ–¥–Ω–æ—Å—Ç"
 
-#, c-format
-msgid " No suitable entries found in %s "
-msgstr " ø‡ÿ⁄€–‘›’ ·‚–“⁄’ ›ÿ·„ ›–Ú’›’ „ %s "
+#, fuzzy, c-format
+msgid ""
+"Cannot open file%s\n"
+"%s"
+msgstr ""
+" –ù–µ –º–æ–≥—É –¥–∞ –æ—Ç–≤–æ—Ä–∏–º –¥–∞—Ç–æ—Ç–µ–∫—É `%s' \n"
+" %s "
 
-msgid " User menu "
-msgstr " ∫ﬁ‡ÿ·›ÿÁ⁄ÿ ‹’›ÿ "
-
-msgid "%b %e %H:%M"
-msgstr "%b %e %H:%M"
-
-msgid "%b %e  %Y"
-msgstr "%b %e  %Y"
-
-#, c-format
-msgid "%s is not a directory\n"
-msgstr "%s ›ÿ¯’ ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹\n"
-
-#, c-format
-msgid "Directory %s is not owned by you\n"
-msgstr "Ω’ ﬂﬁ·’‘„¯’‚’ ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹ %s\n"
-
-#, c-format
-msgid "Cannot set correct permissions for directory %s\n"
-msgstr "Ω’ ‹ﬁ”„ ‘– ﬂﬁ·‚–“ÿ‹ ÿ·ﬂ‡–“›’ ‘ﬁ◊“ﬁ€’ ◊– ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹ %s\n"
-
-#, c-format
-msgid "Cannot create temporary directory %s: %s\n"
-msgstr "Ω’ ‹ﬁ”„ ‘– ·‚“ﬁ‡ÿ‹ ﬂ‡ÿ“‡’‹’›ÿ ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹ %s: %s\n"
-
-#, c-format
-msgid "Temporary files will be created in %s\n"
-msgstr "ø‡ÿ“‡’‹’›’ ‘–‚ﬁ‚’⁄’ ˚’ —ÿ‚ÿ ·‚“–‡–›’ „ %s\n"
-
-#, c-format
-msgid "Temporary files will not be created\n"
-msgstr "ø‡ÿ“‡’‹’›’ ‘–‚ﬁ‚’⁄’ ›’˚’ —ÿ‚ÿ ·‚“–‡–›’\n"
-
-msgid " Pipe failed "
-msgstr " ∆’“ ›ÿ¯’ „·ﬂ’€– "
-
-msgid " Dup failed "
-msgstr " øﬁ◊ÿ“ `dup' ›ÿ¯’ „·ﬂ’ﬁ "
+#, fuzzy, c-format
+msgid "No suitable entries found in %s"
+msgstr " –ü—Ä–∏–∫–ª–∞–¥–Ω–µ —Å—Ç–∞–≤–∫–µ –Ω–∏—Å—É –Ω–∞—í–µ–Ω–µ —É %s "
 
 #, fuzzy
-msgid " Cannot spawn child process "
-msgstr " Ω’ ‹ﬁ”„ ‘– ·‚“ﬁ‡ÿ‹ ‘’‚’-ﬂ‡ﬁ”‡–‹ "
+msgid "User menu"
+msgstr " –ö–æ—Ä–∏—Å–Ω–∏—á–∫–∏ –º–µ–Ω–∏ "
+
+#, fuzzy
+msgid "Invalid value"
+msgstr "–Ω–µ–∏—Å–ø—Ä–∞–≤–Ω–∞ –±—Ä–æ—ò–µ–≤–Ω–∞ –≤—Ä–µ–¥–Ω–æ—Å—Ç"
+
+#, fuzzy
+msgid "Cannot spawn child process"
+msgstr " –ù–µ –º–æ–≥—É –¥–∞ —Å—Ç–≤–æ—Ä–∏–º –¥–µ—Ç–µ-–ø—Ä–æ–≥—Ä–∞–º "
 
 msgid "Empty output from child filter"
-msgstr "¥’‚’-‰ÿ€‚–‡ ›ÿ¯’ ÿ·ﬂÿ·–€ﬁ ›ÿË‚–"
+msgstr "–î–µ—Ç–µ-—Ñ–∏–ª—Ç–∞—Ä –Ω–∏—ò–µ –∏—Å–ø–∏—Å–∞–ª–æ –Ω–∏—à—Ç–∞"
 
-#, c-format
-msgid ""
-" Cannot open \"%s\"\n"
-" %s "
-msgstr ""
-" Ω’ ‹ﬁ”„ ‘– ﬁ‚“ﬁ‡ÿ‹ `%s'\n"
-" %s "
-
-#, c-format
-msgid ""
-" Cannot stat \"%s\"\n"
-" %s "
-msgstr ""
-" Ω’ ‹ﬁ”„ ‘– ÿ◊“‡Ëÿ‹ `stat' ›–‘ \"%s\"\n"
-" %s "
-
-msgid " Cannot view: not a regular file "
-msgstr " Ω’ ‹ﬁ”„ ‘– ﬂ‡’”€’‘–‹: ‘–‚ﬁ‚’⁄– ›ÿ¯’ ﬁ—ÿÁ›– "
-
-#, c-format
-msgid "File: %s"
-msgstr "¥–‚ﬁ‚’⁄–: %s"
-
-#, c-format
-msgid "Offset 0x%08lx"
-msgstr "øﬁ‹’‡–¯ 0x%08lx"
-
-#, c-format
-msgid "Line %lu Col %lu"
+msgid "&Line number (decimal)"
 msgstr ""
 
-#, c-format
-msgid "%s bytes"
-msgstr "%s —–¯‚ﬁ“–"
-
-#, fuzzy, c-format
-msgid ">= %s bytes"
-msgstr "%s —–¯‚ﬁ“–"
-
-#, c-format
-msgid ""
-" Error while closing the file: \n"
-" %s \n"
-" Data may have been written or not. "
+msgid "Pe&rcents"
 msgstr ""
 
-#, fuzzy, c-format
-msgid ""
-" Cannot save file: \n"
-" %s "
-msgstr " Ω’ ‹ﬁ”„ ‘– ·–Á„“–‹ ‘–‚ﬁ‚’⁄„. "
-
-msgid "Invalid hex search expression"
-msgstr "Ω’ÿ·ﬂ‡–“–› ÿ◊‡–◊ Â’⁄· ﬂ‡’‚‡–”’"
-
-msgid " Invalid regular expression "
-msgstr " Ω’ÿ·ﬂ‡–“–› ‡’”„€–‡›ÿ ÿ◊‡–◊ "
-
-#, c-format
-msgid ""
-" The current line number is %d.\n"
-" Enter the new line number:"
-msgstr ""
-" ±‡ﬁ¯ ‚’⁄„˚’” ‡’‘– ¯’ %d.\n"
-" √›’·ÿ‚’ ›ﬁ“ÿ —‡ﬁ¯ ‡’‘–:"
-
-#, c-format
-msgid ""
-" The current address is 0x%lx.\n"
-" Enter the new address:"
-msgstr ""
-" ¬’⁄„˚– –‘‡’·– ¯’ 0x%lx.\n"
-" √›’·ÿ‚’ ›ﬁ“„ –‘‡’·„:"
-
-msgid " Goto Address "
-msgstr " ∏‘ÿ ›– –‘‡’·„ "
-
-#, fuzzy
-msgid " Invalid address "
-msgstr " Ω’ÿ·ﬂ‡–“›– €ﬁ◊ÿ›⁄– "
-
-msgid " Enter regexp:"
-msgstr " √›’·ÿ‚’ ‡’”ÿ◊‡–◊:"
-
-msgid "ButtonBar|Help"
+msgid "&Decimal offset"
 msgstr ""
 
-msgid "ButtonBar|Quit"
+msgid "He&xadecimal offset"
 msgstr ""
+
+msgid "Goto"
+msgstr "–ò–¥–∏–ù–∞"
 
 msgid "ButtonBar|Ascii"
 msgstr ""
 
-msgid "ButtonBar|Hex"
-msgstr ""
-
-msgid "ButtonBar|Goto"
-msgstr ""
-
-msgid "ButtonBar|Line"
-msgstr ""
-
-msgid "ButtonBar|View"
-msgstr ""
-
-msgid "ButtonBar|Edit"
-msgstr ""
-
-msgid "ButtonBar|Save"
+msgid "ButtonBar|HxSrch"
 msgstr ""
 
 msgid "ButtonBar|UnWrap"
@@ -3081,13 +4276,10 @@ msgstr ""
 msgid "ButtonBar|Wrap"
 msgstr ""
 
-msgid "ButtonBar|RxSrch"
+msgid "ButtonBar|Hex"
 msgstr ""
 
-msgid "ButtonBar|HxSrch"
-msgstr ""
-
-msgid "ButtonBar|Search"
+msgid "ButtonBar|Goto"
 msgstr ""
 
 msgid "ButtonBar|Raw"
@@ -3102,602 +4294,697 @@ msgstr ""
 msgid "ButtonBar|Format"
 msgstr ""
 
-msgid " History "
-msgstr " ∏·‚ﬁ‡ÿ¯– "
-
-msgid "Function key 1"
-msgstr "ƒ„›⁄Ê. ‚–·‚’‡ 1"
-
-msgid "Function key 2"
-msgstr "ƒ„›⁄Ê. ‚–·‚’‡ 2"
-
-msgid "Function key 3"
-msgstr "ƒ„›⁄Ê. ‚–·‚’‡ 3"
-
-msgid "Function key 4"
-msgstr "ƒ„›⁄Ê. ‚–·‚’‡ 4"
-
-msgid "Function key 5"
-msgstr "ƒ„›⁄Ê. ‚–·‚’‡ 5"
-
-msgid "Function key 6"
-msgstr "ƒ„›⁄Ê. ‚–·‚’‡ 6"
-
-msgid "Function key 7"
-msgstr "ƒ„›⁄Ê. ‚–·‚’‡ 7"
-
-msgid "Function key 8"
-msgstr "ƒ„›⁄Ê. ‚–·‚’‡ 8"
-
-msgid "Function key 9"
-msgstr "ƒ„›⁄Ê. ‚–·‚’‡ 9"
-
-msgid "Function key 10"
-msgstr "ƒ„›⁄Ê. ‚–·‚’‡ 10"
-
-msgid "Function key 11"
-msgstr "ƒ„›⁄Ê. ‚–·‚’‡ 11"
-
-msgid "Function key 12"
-msgstr "ƒ„›⁄Ê. ‚–·‚’‡ 12"
-
-msgid "Function key 13"
-msgstr "ƒ„›⁄Ê. ‚–·‚’‡ 13"
-
-msgid "Function key 14"
-msgstr "ƒ„›⁄Ê. ‚–·‚’‡ 14"
-
-msgid "Function key 15"
-msgstr "ƒ„›⁄Ê. ‚–·‚’‡ 15"
-
-msgid "Function key 16"
-msgstr "ƒ„›⁄Ê. ‚–·‚’‡ 16"
-
-msgid "Function key 17"
-msgstr "ƒ„›⁄Ê. ‚–·‚’‡ 17"
-
-msgid "Function key 18"
-msgstr "ƒ„›⁄Ê. ‚–·‚’‡ 18"
-
-msgid "Function key 19"
-msgstr "ƒ„›⁄Ê. ‚–·‚’‡ 19"
-
-msgid "Function key 20"
-msgstr "ƒ„›⁄Ê. ‚–·‚’‡ 20"
-
-msgid "Backspace key"
-msgstr "¬–·‚. `Backspace'"
-
-msgid "End key"
-msgstr "¬–·‚. `End'"
-
-msgid "Up arrow key"
-msgstr "¡‚‡’€ÿÊ– ›–”ﬁ‡’"
-
-msgid "Down arrow key"
-msgstr "¡‚‡’€ÿÊ– ›–‘ﬁ€’"
-
-msgid "Left arrow key"
-msgstr "¡‚‡’€ÿÊ– ›–€’“ﬁ"
-
-msgid "Right arrow key"
-msgstr "¡‚‡’€ÿÊ– ›–‘’·›ﬁ"
-
-msgid "Home key"
-msgstr "¬–·‚. `Home'"
-
-msgid "Page Down key"
-msgstr "¬–·‚. `Page Up'"
-
-msgid "Page Up key"
-msgstr "¬–·‚. `Page Down'"
-
-msgid "Insert key"
-msgstr "¬–·‚. `Insert'"
-
-msgid "Delete key"
-msgstr "¬–·‚. `Delete'"
-
-msgid "Completion/M-tab"
-msgstr "¥ﬁﬂ„›–/M-tab"
-
-msgid "+ on keypad"
-msgstr "¡ÿ“ÿ +"
-
-msgid "- on keypad"
-msgstr "¡ÿ“ÿ -"
-
-msgid "* on keypad"
-msgstr "¡ÿ“ÿ *"
-
-msgid "Left arrow keypad"
-msgstr "¡ÿ“– ·‚‡’€. ›–€’“ﬁ"
-
-msgid "Right arrow keypad"
-msgstr "¡ÿ“– ·‚‡’€. ›–‘’·›ﬁ"
-
-msgid "Up arrow keypad"
-msgstr "¡ÿ“– ·‚‡’€. ›–”ﬁ‡’"
-
-msgid "Down arrow keypad"
-msgstr "¡ÿ“– ·‚‡’€. ›–‘ﬁ€’"
-
-msgid "Home on keypad"
-msgstr "¡ÿ“ÿ `Home'"
-
-msgid "End on keypad"
-msgstr "¡ÿ“ÿ `End'"
-
-msgid "Page Down keypad"
-msgstr "¡ÿ“ÿ `Page Down'"
-
-msgid "Page Up keypad"
-msgstr "¡ÿ“ÿ `Page Up'"
-
-msgid "Insert on keypad"
-msgstr "¡ÿ“ÿ `Insert'"
-
-msgid "Delete on keypad"
-msgstr "¡ÿ“ÿ `Delete'"
-
-msgid "Enter on keypad"
-msgstr "¡ÿ“ÿ `Enter'"
-
-msgid "Slash on keypad"
-msgstr "¡ÿ“ÿ /"
-
-msgid "NumLock on keypad"
-msgstr "¡ÿ“ÿ `NumLock'"
-
-msgid "Background process:"
-msgstr "øﬁ◊–‘ÿ›·⁄ÿ ﬂ‡ﬁÊ’·:"
-
 #, c-format
 msgid ""
-"Cannot open cpio archive\n"
-"%s"
-msgstr ""
-"Ω’ ‹ﬁ”„ ‘– ﬁ‚“ﬁ‡ÿ‹ –‡Âÿ“„ “‡·‚’ `cpio'\n"
-"%s"
-
-#, c-format
-msgid ""
-"Premature end of cpio archive\n"
-"%s"
-msgstr ""
-"ø‡’‡–›ÿ ◊–“‡Ë’‚–⁄ –‡Âÿ“’ “‡·‚’ `cpio'\n"
-"%s"
-
-#, c-format
-msgid ""
-"Corrupted cpio header encountered in\n"
-"%s"
-msgstr ""
-"øﬁ⁄“–‡’›ﬁ ◊–”€–“˘’ –‡Âÿ“’ “‡·‚’ `cpio' „\n"
-"%s"
-
-#, c-format
-msgid ""
-"Inconsistent hardlinks of\n"
+"Error while closing the file:\n"
 "%s\n"
-"in cpio archive\n"
-"%s"
+"Data may have been written or not"
 msgstr ""
-"Ω’‘ﬁ·€’‘›’ ‚“‡‘’ “’◊’\n"
-"%s\n"
-"„ –‡Âÿ“ÿ “‡·‚’ `cpio'\n"
-"%s"
 
-#, c-format
-msgid "%s contains duplicate entries! Skipping!"
-msgstr "%s ·–‘‡÷ÿ ‘“ﬁ·‚‡„⁄’ ·‚–“⁄’! ∑–ﬁ—ÿ€–◊ÿ‹!"
-
-#, c-format
+#, fuzzy, c-format
 msgid ""
-"Unexpected end of file\n"
+"Cannot save file:\n"
 "%s"
-msgstr ""
-"Ω’ﬁÁ’⁄ÿ“–›ÿ ◊–“‡Ë’‚–⁄ ‘–‚ﬁ‚’⁄’\n"
-"%s"
-
-#, c-format
-msgid "Directory cache expired for %s"
-msgstr "æ·‚–“– ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹– ¯’ ÿ·‚’⁄€– ◊– %s"
-
-msgid "Starting linear transfer..."
-msgstr "øﬁ⁄‡’˚’‹ €ÿ›’–‡›ÿ ﬂ‡’›ﬁ·..."
-
-#, c-format
-msgid "%s: %s: %s %3d%% (%lu bytes transferred)"
-msgstr "%s: %s: %s %3d%% (ﬂ‡’›’·’›ﬁ %lu —–¯‚ﬁ“–)"
-
-#, c-format
-msgid "%s: %s: %s %lu bytes transferred"
-msgstr "%s: %s: %s ﬂ‡’›’·’›ﬁ %lu —–¯‚ﬁ“–"
-
-msgid "Getting file"
-msgstr "¥ﬁ—–“˘–‹ ‘–‚ﬁ‚’⁄„"
-
-#, c-format
-msgid ""
-"Cannot open %s archive\n"
-"%s"
-msgstr ""
-"Ω’ ‹ﬁ”„ ‘– ﬁ‚“ﬁ‡ÿ‹ –‡Âÿ“„ “‡·‚’ `%s'\n"
-"%s"
-
-msgid "Inconsistent extfs archive"
-msgstr "Ω’‘ﬁ·€’‘›– –‡Âÿ“– extfs"
-
-#, c-format
-msgid "fish: Disconnecting from %s"
-msgstr "fish: ø‡’⁄ÿ‘–‹ ﬂﬁ“’◊ÿ“–˙’ ·– %s"
-
-msgid "fish: Waiting for initial line..."
-msgstr "fish: «’⁄–‹ ﬂﬁÁ’‚›ÿ ‡’‘..."
-
-msgid "Sorry, we cannot do password authenticated connections for now."
-msgstr "∏◊“ÿ›ÿ‚’, –€ÿ ◊– ·–‘ ›’ ‹ﬁ÷’‹ﬁ ‘– ·’ ﬂﬁ“’◊„¯’‹ﬁ „◊ ﬂﬁ‚“‡‘„ €ﬁ◊ÿ›⁄’."
-
-msgid " fish: Password required for "
-msgstr " fish: Ω’ﬁﬂÂﬁ‘›– ¯’ €ﬁ◊ÿ›⁄– ◊– "
-
-msgid "fish: Sending password..."
-msgstr "fish: »–˘’‹ €ﬁ◊ÿ›⁄„..."
-
-msgid "fish: Sending initial line..."
-msgstr "fish: »–˘’‹ ﬂﬁÁ’‚›ÿ ‡’‘..."
-
-msgid "fish: Handshaking version..."
-msgstr "fish: ø‡’”ﬁ“–‡–‹ ﬁ “’‡◊ÿ¯ÿ..."
-
-msgid "fish: Setting up current directory..."
-msgstr "fish: øﬁ·‚–“˘–‹ ‚’⁄„˚ÿ ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹..."
-
-#, c-format
-msgid "fish: Connected, home %s."
-msgstr "fish: øﬁ“’◊–›, ‘ﬁ‹ %s."
-
-#, c-format
-msgid "fish: Reading directory %s..."
-msgstr "fish: √Áÿ‚–“–‹ ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹ %s..."
-
-#, c-format
-msgid "%s: done."
-msgstr "%s: ”ﬁ‚ﬁ“ﬁ."
-
-#, c-format
-msgid "%s: failure"
-msgstr "%s: ›’„·ﬂ’Â"
-
-#, c-format
-msgid "fish: store %s: sending command..."
-msgstr "fish: ·⁄€–‘ÿË‚’˙’ %s: Ë–˘’‹ ›–‡’‘—„..."
-
-msgid "fish: Local read failed, sending zeros"
-msgstr "fish: ªﬁ⁄–€›ﬁ Áÿ‚–˙’ ›ÿ¯’ „·ﬂ’€ﬁ, Ë–˘’‹ ›„€’"
-
-#, c-format
-msgid "fish: storing %s %d (%lu)"
-msgstr "fish: ·⁄€–‘ÿË‚ÿ‹ %s %d (%lu)"
-
-msgid "zeros"
-msgstr "›„€’"
-
-msgid "Aborting transfer..."
-msgstr "ø‡’⁄ÿ‘–‹ ﬂ‡’›ﬁ·..."
-
-msgid "Error reported after abort."
-msgstr "ø‡ÿ¯–“˘’›– ¯’ ”‡’Ë⁄– ﬂﬁ·€’ ﬂ‡’⁄ÿ‘–."
-
-msgid "Aborted transfer would be successful."
-msgstr "ø‡’⁄ÿ›„‚ÿ ﬂ‡’›ﬁ· —ÿ —ÿﬁ „·ﬂ’Ë–›."
-
-#, c-format
-msgid "ftpfs: Disconnecting from %s"
-msgstr "ftpfs: ø‡’⁄ÿ‘–‹ ﬂﬁ“’◊ÿ“–˙’ ·– %s"
-
-msgid " FTP: Password required for "
-msgstr " FTP: Ω’ﬁﬂÂﬁ‘›– ¯’ €ﬁ◊ÿ›⁄– ◊– "
-
-msgid "ftpfs: sending login name"
-msgstr "ftpfs: Ë–˘’‹ ⁄ﬁ‡ÿ·›ÿÁ⁄ﬁ ÿ‹’"
-
-msgid "ftpfs: sending user password"
-msgstr "ftpfs: Ë–˘’‹ €ﬁ◊ÿ›⁄„"
-
-#, c-format
-msgid "FTP: Account required for user %s"
-msgstr "FTP: Ω’ﬁﬂÂﬁ‘–› ¯’ ›–€ﬁ” ◊– ⁄ﬁ‡ÿ·›ÿ⁄– %s"
-
-msgid "Account:"
-msgstr "Ω–€ﬁ”:"
-
-msgid "ftpfs: sending user account"
-msgstr "ftpfs: Ë–˘’‹ ⁄ﬁ‡ÿ·›ÿÁ⁄ÿ ›–€ﬁ”"
-
-msgid "ftpfs: logged in"
-msgstr "ftpfs: ﬂ‡ÿ¯–“ÿﬁ ·–‹ ·’"
-
-#, c-format
-msgid "ftpfs: Login incorrect for user %s "
-msgstr "ftpfs: Ω’„·ﬂ’Ë›– ﬂ‡ÿ¯–“– ⁄ﬁ‡ÿ·›ÿ⁄– %s "
-
-msgid "ftpfs: Invalid host name."
-msgstr "ftpfs: Ω’ÿ·ﬂ‡–“›ÿ ›–◊ÿ“ ‘ﬁ‹–˚ÿ›–."
-
-#, c-format
-msgid "ftpfs: %s"
-msgstr ""
-
-#, c-format
-msgid "ftpfs: making connection to %s"
-msgstr "ftpfs: ﬂﬁ“’◊„¯’‹ ·’ ·– %s"
-
-msgid "ftpfs: connection interrupted by user"
-msgstr "ftpfs: ﬂﬁ“’◊ÿ“–˙’ ¯’ ﬂ‡’⁄ÿ›„ﬁ ⁄ﬁ‡ÿ·›ÿ⁄"
-
-#, c-format
-msgid "ftpfs: connection to server failed: %s"
-msgstr "ftpfs: ﬂﬁ“’◊ÿ“–˙’ ·– ·’‡“’‡ﬁ‹ ›ÿ¯’ „·ﬂ’€ﬁ: %s"
-
-#, c-format
-msgid "Waiting to retry... %d (Control-C to cancel)"
-msgstr "«’⁄–‹ ›– ﬂﬁ›ﬁ“›ﬁ ﬂﬁ“’◊ÿ“–˙’... %d (Control-C ﬂﬁ›ÿË‚–“–)"
+msgstr " –ù–µ –º–æ–≥—É –¥–∞ —Å–∞—á—É–≤–∞–º –¥–∞—Ç–æ—Ç–µ–∫—É. "
 
 #, fuzzy
-msgid "ftpfs: invalid address family"
-msgstr "ftpfs: Ω’ÿ·ﬂ‡–“›– –‘‡’·– ‘ﬁ‹–˚ÿ›–."
+msgid "View: "
+msgstr "–ü—Ä–µ–≥–ª–¥"
 
 #, fuzzy, c-format
-msgid "ftpfs: could not setup passive mode: %s"
-msgstr "ftpfs: ›ÿ·–‹ ‹ﬁ”–ﬁ ‘– ﬂﬁ‘’·ÿ‹ ﬂ–·ÿ“›ÿ ‡’÷ÿ‹"
+msgid ""
+"Cannot open \"%s\"\n"
+"%s"
+msgstr ""
+" –ù–µ –º–æ–≥—É –¥–∞ –æ—Ç–≤–æ—Ä–∏–º `%s'\n"
+" %s "
 
 #, fuzzy, c-format
-msgid "ftpfs: could not create socket: %s"
-msgstr " Ω’ ‹ﬁ”„ ‘– ·‚“ﬁ‡ÿ‹ „‚ÿÁ›ÿÊ„: %s "
-
-msgid "ftpfs: could not setup passive mode"
-msgstr "ftpfs: ›ÿ·–‹ ‹ﬁ”–ﬁ ‘– ﬂﬁ‘’·ÿ‹ ﬂ–·ÿ“›ÿ ‡’÷ÿ‹"
-
-msgid "ftpfs: aborting transfer."
-msgstr "ftpfs: ﬂ‡’⁄ÿ‘–‹ ﬂ‡’›ﬁ·."
-
-#, c-format
-msgid "ftpfs: abort error: %s"
-msgstr "ftpfs: ”‡’Ë⁄– ﬂ‡ÿ ﬂ‡’⁄ÿ‘–˙„: %s"
-
-msgid "ftpfs: abort failed"
-msgstr "ftpfs: ﬂ‡’⁄ÿ‘–˙’ ›ÿ¯’ „·ﬂ’€ﬁ"
-
-msgid "ftpfs: CWD failed."
-msgstr "ftpfs: ›–‡’‘—– `CWD' ›ÿ¯’ „·ﬂ’€–."
-
-msgid "ftpfs: couldn't resolve symlink"
-msgstr "ftpfs: ›ÿ·–‹ ‹ﬁ”–ﬁ ‘– ‡–◊‡’Ëÿ‹ ·ÿ‹“’◊„"
-
-msgid "Resolving symlink..."
-msgstr "¿–◊‡’Ë–“–‹ ·ÿ‹“’◊’..."
-
-#, c-format
-msgid "ftpfs: Reading FTP directory %s... %s%s"
-msgstr "ftpfs: √Áÿ‚–“–‹ ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹ FTP-– %s... %s%s"
-
-msgid "(strict rfc959)"
-msgstr "(·‚‡ﬁ”ﬁ ﬂ‡’‹– rfc959)"
-
-msgid "(chdir first)"
-msgstr "(ﬂ‡“ﬁ ﬂﬁ·‚–“ÿ ‘ÿ‡.)"
-
-msgid "ftpfs: failed; nowhere to fallback to"
-msgstr "ftpfs: ›ÿ·–‹ „·ﬂ’ﬁ; ›’‹–‹ ‡’Ë’˙–"
-
-#, c-format
-msgid "ftpfs: storing file %lu (%lu)"
-msgstr "ftpfs: ·⁄€–‘ÿË‚ÿ‹ ‘–‚ﬁ‚’⁄„ %lu (%lu)"
-
 msgid ""
-"~/.netrc file has incorrect mode.\n"
-"Remove password or correct mode."
-msgstr ""
-"¥–‚ﬁ‚’⁄– ~/.netrc ›’‹– ÿ·ﬂ‡–“›’ ‘ﬁ◊“ﬁ€’.\n"
-"√⁄€ﬁ›ÿ‚’ €ﬁ◊ÿ›⁄„ ÿ€ÿ ÿ·ﬂ‡–“ÿ‚’ ‘ﬁ◊“ﬁ€’."
-
-# ¡ÿ·‚’‹ ‘–‚ﬁ‚’⁄– øﬁ›ﬁ˚›ﬁ” ›–‡’‘›ÿ⁄–
-msgid " MCFS "
-msgstr " ¡¥øΩ "
-
-msgid " The server does not support this version "
-msgstr " ¡’‡“’‡ ›’ ﬂﬁ‘‡÷–“– ﬁ“„ “’‡◊ÿ¯„ "
-
-msgid ""
-" The remote server is not running on a system port \n"
-" you need a password to log in, but the information may \n"
-" not be safe on the remote side.  Continue? \n"
-msgstr ""
-" √‘–˘’›ÿ ·’‡“’‡ ›ÿ¯’ ﬂﬁ⁄‡’›„‚ ›– ·ÿ·‚’‹·⁄ﬁ‹ ﬂﬁ‡‚„. \n"
-" Ω’ﬁﬂÂﬁ‘›– “–‹ ¯’ €ﬁ◊ÿ›⁄– ◊– ﬂ‡ÿ¯–“„, –€ÿ ﬂﬁ‘–Êÿ ‹ﬁ÷‘– ›’˚’\n"
-" —ÿ‚ÿ —’◊—’‘›ÿ ›– „‘–˘’›ﬁ¯ ·‚‡–›ÿ. ∂’€ÿ‚’ €ÿ ‘– ›–·‚–“ÿ‹? \n"
-
-msgid " MCFS Password required "
-msgstr " Ω’ﬁﬂÂﬁ‘›– ¯’ €ﬁ◊ÿ›⁄– ◊– ¡¥øΩ "
-
-msgid " Invalid password "
-msgstr " Ω’ÿ·ﬂ‡–“›– €ﬁ◊ÿ›⁄– "
-
-#, c-format
-msgid " Cannot locate hostname: %s "
-msgstr " Ω’ ‹ﬁ”„ ‘– ﬂ‡ﬁ›–Ú’‹ ‘ﬁ‹–˚ÿ›–: %s "
-
-#, c-format
-msgid " Cannot create socket: %s "
-msgstr " Ω’ ‹ﬁ”„ ‘– ·‚“ﬁ‡ÿ‹ „‚ÿÁ›ÿÊ„: %s "
-
-#, c-format
-msgid " Cannot connect to server: %s "
-msgstr " Ω’ ‹ﬁ”„ ‘– ·’ ﬂﬁ“’÷’‹ ·– ·’‡“’‡ﬁ‹: %s "
-
-msgid " Too many open connections "
-msgstr " ø‡’“ÿË’ ﬁ‚“ﬁ‡’›ÿÂ ﬂﬁ“’◊ÿ“–˙– "
-
-#, c-format
-msgid ""
-"Warning: Invalid line in %s:\n"
-"%s\n"
-msgstr ""
-"√ﬂﬁ◊ﬁ‡’˙’: Ω’ÿ·ﬂ‡–“–› ‡’‘ „ %s:\n"
-"%s\n"
-
-#, c-format
-msgid ""
-"Warning: Invalid flag %c in %s:\n"
-"%s\n"
-msgstr ""
-"√ﬂﬁ◊ﬁ‡’˙’: Ω’ÿ·ﬂ‡–“–› ﬂ‡’⁄ÿ‘–Á %c „ %s:\n"
-"%s\n"
-
-#, c-format
-msgid ""
-" reconnect to %s failed\n"
-" "
-msgstr ""
-" ﬂﬁ›ﬁ“›ﬁ ﬂﬁ“’◊ÿ“–˙’ ·– %s ›ÿ¯’ „·ﬂ’€ﬁ\n"
-" "
-
-msgid " Authentication failed "
-msgstr " øﬁ‚“‡‘– ÿ·ﬂ‡–“›ﬁ·‚ÿ ›ÿ¯’ „·ﬂ’€– "
-
-#, c-format
-msgid " Error %s creating directory %s "
-msgstr " ≥‡’Ë⁄– %s ﬂ‡ÿ€ÿ⁄ﬁ‹ ·‚“–‡–˙– ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹– %s "
-
-#, c-format
-msgid " Error %s removing directory %s "
-msgstr " ≥‡’Ë⁄– %s ﬂ‡ÿ€ÿ⁄ﬁ‹ „⁄€–˙–˙– ‘ÿ‡’⁄‚ﬁ‡ÿ¯„‹– %s "
-
-#, c-format
-msgid " %s opening remote file %s "
-msgstr " %s ﬂ‡ÿ ﬁ‚“–‡–˙„ „‘–˘’›’ ‘–‚ﬁ‚’⁄’ %s "
-
-#, c-format
-msgid " %s removing remote file %s "
-msgstr " %s ﬂ‡ÿ „⁄€–˙–˙„ „‘–˘’›’ ‘–‚ﬁ‚’⁄’ %s "
-
-#, c-format
-msgid " %s renaming files\n"
-msgstr " %s ﬂ‡ÿ ﬂ‡’ÿ‹’›ﬁ“–˙„ ‘–‚ﬁ‚’⁄–\n"
-
-#, c-format
-msgid ""
-"Cannot open tar archive\n"
+"Cannot stat \"%s\"\n"
 "%s"
 msgstr ""
-"Ω’ ‹ﬁ”„ ‘– ﬁ‚“ﬁ‡ÿ‹ –‡Âÿ“„ “‡·‚’ `tar'\n"
-"%s"
+" –ù–µ –º–æ–≥—É –¥–∞ –∏–∑–≤—Ä—à–∏–º `stat' –Ω–∞–¥ \"%s\"\n"
+" %s "
 
-msgid "Inconsistent tar archive"
-msgstr "Ω’‘ﬁ·€’‘›– –‡Âÿ“– “‡·‚’ `tar'"
+#, fuzzy
+msgid "Cannot view: not a regular file"
+msgstr " –ù–µ –º–æ–≥—É –¥–∞ –ø—Ä–µ–≥–ª–µ–¥–∞–º: –¥–∞—Ç–æ—Ç–µ–∫–∞ –Ω–∏—ò–µ –æ–±–∏—á–Ω–∞ "
 
-msgid "Unexpected EOF on archive file"
-msgstr "Ω’ﬁÁ’⁄ÿ“–›ÿ ◊–“‡Ë’‚–⁄ ‘–‚ﬁ‚’⁄’ „ –‡Âÿ“ÿ"
-
-#, c-format
-msgid ""
-"Hmm,...\n"
-"%s\n"
-"doesn't look like a tar archive."
+msgid "Seeking to search result"
 msgstr ""
-"≈‹‹,...\n"
-"%s\n"
-"›’ €ÿÁÿ ›– –‡Âÿ“„ “‡·‚’ `tar'."
 
-msgid " undelfs: error "
-msgstr " undelfs: ”‡’Ë⁄– "
+#, fuzzy
+msgid "Search done"
+msgstr "–¢—Ä–∞–∂–∏"
 
-msgid " not enough memory "
-msgstr " ›’‘ﬁ“ﬁ˘›ﬁ ‹’‹ﬁ‡ÿ¯’ "
-
-msgid " while allocating block buffer "
-msgstr " ﬂ‡ÿ –€ﬁÊÿ‡–˙„ —€ﬁ⁄– ﬂ‡ÿÂ“–‚›ÿ⁄– "
-
-#, c-format
-msgid " open_inode_scan: %d "
-msgstr " open_inode_scan: %d "
-
-#, c-format
-msgid " while starting inode scan %d "
-msgstr " ﬂ‡ÿ ﬂﬁÁ’‚⁄„ ﬂ‡’‚‡–÷ÿ“–˙– ÿÁ“ﬁ‡ﬁ“– %d "
-
-#, c-format
-msgid "undelfs: loading deleted files information %d inodes"
-msgstr "undelfs: „Áÿ‚–“–‹ ﬂﬁ‘–‚⁄’ ﬁ ﬁ—‡ÿ·–›ÿ‹ ÿÁ“ﬁ‡ﬁ“ÿ‹–: %d ÿÁ“ﬁ‡ﬁ“–"
-
-#, c-format
-msgid " while calling ext2_block_iterate %d "
-msgstr " ﬂ‡ÿ ﬂﬁ◊ÿ“„ ext2_block_iterate %d "
-
-msgid " no more memory while reallocating array "
-msgstr " ›’‹– “ÿË’ ‹’‹ﬁ‡ÿ¯’ ﬂ‡ÿ ﬂﬁ›ﬁ“›ﬁ¯ –€ﬁ⁄. ›ÿ◊– "
-
-#, c-format
-msgid " while doing inode scan %d "
-msgstr " ﬂ‡ÿ ﬂ‡’‚‡–÷ÿ“–˙„ ÿÁ“ﬁ‡ﬁ“– %d "
-
-msgid " Ext2lib error "
-msgstr " ≥‡’Ë⁄– —ÿ—€ÿﬁ‚’⁄’ ext2lib "
-
-#, c-format
-msgid " Cannot open file %s "
-msgstr " Ω’ ‹ﬁ”„ ‘– ﬁ‚“ﬁ‡ÿ‹ ‘–‚ﬁ‚’⁄„ %s "
-
-msgid "undelfs: reading inode bitmap..."
-msgstr "undelfs: Áÿ‚–‹ ‹–ﬂ„ —ÿ‚ﬁ“– ◊– ÿÁ“ﬁ‡ﬁ“’..."
-
-#, c-format
-msgid ""
-" Cannot load inode bitmap from: \n"
-" %s \n"
+msgid "Continue from begining?"
 msgstr ""
-" Ω’ ‹ﬁ”„ ‘– „Áÿ‚–‹ ‹–ﬂ„ —ÿ‚ﬁ“– ◊– ÿÁ“ﬁ‡ﬁ“’ ÿ◊: \n"
-" %s \n"
 
-msgid "undelfs: reading block bitmap..."
-msgstr "undelfs: „Áÿ‚–“–‹ ‹–ﬂ„ —ÿ‚ﬁ“– ◊– ÿÁ“ﬁ‡ﬁ“’..."
+#, fuzzy
+msgid "History"
+msgstr " –ò—Å—Ç–æ—Ä–∏—ò–∞ "
 
-#, c-format
-msgid ""
-" Cannot load block bitmap from: \n"
-" %s \n"
+#. TRANSLATORS: no need to translate 'DialogTitle', it's just a context prefix
+msgid "DialogTitle|History cleanup"
 msgstr ""
-" Ω’ ‹ﬁ”„ ‘– „Áÿ‚–‹ ‹–ﬂ„ —ÿ‚ﬁ“– ◊– —€ﬁ⁄ﬁ“’ ÿ◊: \n"
-" %s \n"
 
-msgid " vfs_info is not fs! "
-msgstr " vfs_info - ›ÿ¯’ ·ÿ·‚’‹ ‘–‚ﬁ‚’⁄–! "
+msgid "Do you want clean this history?"
+msgstr ""
 
-msgid " You have to chdir to extract files first "
-msgstr " ºﬁ‡–‚’ ‘– ﬂﬁ·‚–“ÿ‚’ ‘ÿ‡. „ ⁄ﬁ¯ÿ ÷’€ÿ‚’ ‘– ÿ◊‘“–¯–‚’ "
+msgid "Background process:"
+msgstr "–ü–æ–∑–∞–¥–∏–Ω—Å–∫–∏ –ø—Ä–æ—Ü–µ—Å:"
 
-msgid " while iterating over blocks "
-msgstr " ﬂ‡ÿ ÿ‚’‡–Êÿ¯ÿ —€ﬁ⁄ﬁ“– "
+# –°–∏—Å—Ç–µ–º –¥–∞—Ç–æ—Ç–µ–∫–∞ –ü–æ–Ω–æ—õ–Ω–æ–≥ –Ω–∞—Ä–µ–¥–Ω–∏–∫–∞
+#, fuzzy
+#~ msgid "MCFS"
+#~ msgstr " –°–î–ü–ù "
 
-msgid "Cannot parse:"
-msgstr "Ω’ ‹ﬁ”„ ‘– ‡–ËÁ€–›ÿ‹:"
+#, fuzzy
+#~ msgid "The server does not support this version"
+#~ msgstr " –°–µ—Ä–≤–µ—Ä –Ω–µ –ø–æ–¥—Ä–∂–∞–≤–∞ –æ–≤—É –≤–µ—Ä–∑–∏—ò—É "
 
-msgid "More parsing errors will be ignored."
-msgstr "¥–˘’ ”‡’Ë⁄’ ˚’ —ÿ‚ÿ ◊–›’‹–‡’›’."
+#, fuzzy
+#~ msgid ""
+#~ "The remote server is not running on a system port\n"
+#~ "you need a password to log in, but the information may\n"
+#~ "not be safe on the remote side.  Continue?\n"
+#~ msgstr ""
+#~ " –£–¥–∞—ô–µ–Ω–∏ —Å–µ—Ä–≤–µ—Ä –Ω–∏—ò–µ –ø–æ–∫—Ä–µ–Ω—É—Ç –Ω–∞ —Å–∏—Å—Ç–µ–º—Å–∫–æ–º –ø–æ—Ä—Ç—É. \n"
+#~ " –ù–µ–æ–ø—Ö–æ–¥–Ω–∞ –≤–∞–º —ò–µ –ª–æ–∑–∏–Ω–∫–∞ –∑–∞ –ø—Ä–∏—ò–∞–≤—É, –∞–ª–∏ –ø–æ–¥–∞—Ü–∏ –º–æ–∂–¥–∞ –Ω–µ—õ–µ\n"
+#~ " –±–∏—Ç–∏ –±–µ–∑–±–µ–¥–Ω–∏ –Ω–∞ —É–¥–∞—ô–µ–Ω–æ—ò —Å—Ç—Ä–∞–Ω–∏. –ñ–µ–ª–∏—Ç–µ –ª–∏ –¥–∞ –Ω–∞—Å—Ç–∞–≤–∏–º? \n"
 
-msgid "Internal error:"
-msgstr "√›„‚‡–Ë˙– ”‡’Ë⁄–:"
+#, fuzzy
+#~ msgid "MCFS Password required"
+#~ msgstr " –ù–µ–æ–ø—Ö–æ–¥–Ω–∞ —ò–µ –ª–æ–∑–∏–Ω–∫–∞ –∑–∞ –°–î–ü–ù "
 
-msgid "Changes to file lost"
-msgstr "∏◊‹’›’ „ ‘–‚ﬁ‚’Êÿ ·„ ÿ◊”„—˘’›’"
+#, fuzzy
+#~ msgid "Invalid password"
+#~ msgstr " –ù–µ–∏—Å–ø—Ä–∞–≤–Ω–∞ –ª–æ–∑–∏–Ω–∫–∞ "
+
+#, fuzzy
+#~ msgid "Cannot locate hostname: %s"
+#~ msgstr " –ù–µ –º–æ–≥—É –¥–∞ –ø—Ä–æ–Ω–∞—í–µ–º –¥–æ–º–∞—õ–∏–Ω–∞: %s "
+
+#, fuzzy
+#~ msgid "Cannot create socket: %s"
+#~ msgstr " –ù–µ –º–æ–≥—É –¥–∞ —Å—Ç–≤–æ—Ä–∏–º —É—Ç–∏—á–Ω–∏—Ü—É: %s "
+
+#, fuzzy
+#~ msgid "Cannot connect to server: %s"
+#~ msgstr " –ù–µ –º–æ–≥—É –¥–∞ —Å–µ –ø–æ–≤–µ–∂–µ–º —Å–∞ —Å–µ—Ä–≤–µ—Ä–æ–º: %s "
+
+#, fuzzy
+#~ msgid "Too many open connections"
+#~ msgstr " –ü—Ä–µ–≤–∏—à–µ –æ—Ç–≤–æ—Ä–µ–Ω–∏—Ö –ø–æ–≤–µ–∑–∏–≤–∞—ö–∞ "
+
+#, fuzzy
+#~ msgid "Link to a remote machine"
+#~ msgstr " –ü–æ–≤–µ–∑–∏–≤–∞—ö–µ —Å–∞ —É–¥–∞—ô–µ–Ω–æ–º –º–∞—à–∏–Ω–æ–º "
+
+#~ msgid "&Network link..."
+#~ msgstr "&–ú—Ä–µ–∂–Ω–æ –ø–æ–≤–µ–∑–∏–≤–∞—ö–µ..."
+
+#, fuzzy
+#~ msgid "File was modified, save with exit?"
+#~ msgstr " –î–∞—Ç–æ—Ç–µ–∫–∞ —ò–µ –∏–∑–º–µ—ö–µ–Ω–∞, –¥–∞ —Å–∞—á—É–≤–∞–º –ø—Ä–∏ –∏–∑–ª–∞–∑—É? "
+
+#~ msgid " Permission "
+#~ msgstr " –î–æ–∑–≤–æ–ª–∞ "
+
+#~ msgid " File "
+#~ msgstr " –î–∞—Ç–æ—Ç–µ–∫–∞ "
+
+#~ msgid " Name "
+#~ msgstr " –ù–∞–∑–∏–≤ "
+
+#~ msgid " Owner name "
+#~ msgstr " –ò–º–µ –≤–ª–∞—Å–Ω–∏–∫–∞ "
+
+#~ msgid " Group name "
+#~ msgstr " –ù–∞–∑–∏–≤ –≥—Ä—É–ø–µ "
+
+#~ msgid " Size "
+#~ msgstr " –í–µ–ª–∏—á–∏–Ω–∞ "
+
+#~ msgid " Confirmation "
+#~ msgstr " –ü–æ—Ç–≤—Ä–¥–µ "
+
+#~ msgid " Filtered view "
+#~ msgstr " –§–∏–ª—Ç—Ä–∏—Ä–∞–Ω–∏ –ø—Ä–∏–∫–∞–∑ "
+
+#~ msgid " Select "
+#~ msgstr " –ò–∑–∞–±–µ—Ä–∏ "
+
+#~ msgid " Compare directories "
+#~ msgstr " –£–ø–æ—Ä–µ–¥–∏ –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º–µ "
+
+#~ msgid " Link "
+#~ msgstr " –ü–æ–≤–µ–∂–∏ "
+
+#~ msgid " Edit symlink "
+#~ msgstr " –£—Ä–µ–¥–∏ —Å–∏–º–≤–µ–∑—É "
+
+#~ msgid "case &Sensitive"
+#~ msgstr "—Ä–∞–∑–ª. &–í–µ–ª./–º–∞–ª–∞ —Å–ª–æ–≤–∞"
+
+#~ msgid " Replace "
+#~ msgstr " –ó–∞–º–µ–Ω–∞ "
+
+#, fuzzy
+#~ msgid " Error "
+#~ msgstr "–ì—Ä–µ—à–∫–∞"
+
+#~ msgid " Insert File "
+#~ msgstr " –£–º–µ—Ç–Ω–∏ –¥–∞—Ç–æ—Ç–µ–∫—É "
+
+#~ msgid " Insert Literal "
+#~ msgstr " –£–±–∞—Ü–∏ –ª–∏—Ç–µ—Ä–∞–ª "
+
+#~ msgid " Execute Macro "
+#~ msgstr " –ò–∑–≤—Ä—à–∏ –º–∞–∫—Ä–æ "
+
+#~ msgid " Cannot overwrite directory `%s' "
+#~ msgstr " –ù–µ –º–æ–≥—É –¥–∞ –ø—Ä–µ–ø–∏—à–µ–º –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º `%s' "
+
+#~ msgid " to:"
+#~ msgstr " —É:"
+
+#~ msgid " Delete: "
+#~ msgstr " –û–±—Ä–∏—à–∏: "
+
+#~ msgid " Directory path "
+#~ msgstr " –ü—É—Ç–∞—ö–∞ –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º–∞ "
+
+#~ msgid " Directory label "
+#~ msgstr " –ù–∞—Ç–ø–∏—Å –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º–∞ "
+
+#~ msgid "File:       %s"
+#~ msgstr "–î–∞—Ç–æ—Ç–µ–∫–∞:        %s"
+
+#~ msgid "pe&Rmissions"
+#~ msgstr "–¥–æ&–ó–≤–æ–ª–µ"
+
+#~ msgid " User menu "
+#~ msgstr " –ö–æ—Ä–∏—Å–Ω–∏—á–∫–∏ –º–µ–Ω–∏ "
+
+#, fuzzy
+#~ msgid ""
+#~ " Cannot save file: \n"
+#~ " %s "
+#~ msgstr " –ù–µ –º–æ–≥—É –¥–∞ —Å–∞—á—É–≤–∞–º –¥–∞—Ç–æ—Ç–µ–∫—É. "
+
+#, fuzzy
+#~ msgid "Status:    %s"
+#~ msgstr "–°—Ç–≤–æ—Ä–µ–Ω–æ:        %s"
+
+#~ msgid "Count"
+#~ msgstr "–ë—Ä–æ—ò"
+
+#~ msgid "Bytes"
+#~ msgstr "–ë–∞—ò—Ç–æ–≤–∞"
+
+#~ msgid " confirm &Exit "
+#~ msgstr " –ø–æ—Ç–≤—Ä–¥–∞ &–ò–∑–ª–∞–∑–∞ "
+
+#~ msgid " confirm e&Xecute "
+#~ msgstr " –ø–æ—Ç–≤—Ä–¥–∞ –∏&–ó–≤—Ä—à–∞–≤–∞—ö–∞ "
+
+#~ msgid " confirm &Delete "
+#~ msgstr " –ø–æ—Ç–≤—Ä–¥–∞ &–ë—Ä–∏—Å–∞—ö–∞ "
+
+#, fuzzy
+#~ msgid ""
+#~ " The current line number is %lld.\n"
+#~ " Enter the new line number:"
+#~ msgstr ""
+#~ " –ë—Ä–æ—ò —Ç–µ–∫—É—õ–µ–≥ —Ä–µ–¥–∞ —ò–µ %d.\n"
+#~ " –£–Ω–µ—Å–∏—Ç–µ –Ω–æ–≤–∏ –±—Ä–æ—ò —Ä–µ–¥–∞:"
+
+#, fuzzy
+#~ msgid ""
+#~ " The current address is %s.\n"
+#~ " Enter the new address:"
+#~ msgstr ""
+#~ " –ë—Ä–æ—ò —Ç–µ–∫—É—õ–µ–≥ —Ä–µ–¥–∞ —ò–µ %d.\n"
+#~ " –£–Ω–µ—Å–∏—Ç–µ –Ω–æ–≤–∏ –±—Ä–æ—ò —Ä–µ–¥–∞:"
+
+#~ msgid " Goto Address "
+#~ msgstr " –ò–¥–∏ –Ω–∞ –∞–¥—Ä–µ—Å—É "
+
+#, fuzzy
+#~ msgid " Invalid address "
+#~ msgstr " –ù–µ–∏—Å–ø—Ä–∞–≤–Ω–∞ –ª–æ–∑–∏–Ω–∫–∞ "
+
+#~ msgid "Offset 0x%08lx"
+#~ msgstr "–ü–æ–º–µ—Ä–∞—ò 0x%08lx"
+
+#~ msgid "%s bytes"
+#~ msgstr "%s –±–∞—ò—Ç–æ–≤–∞"
+
+#, fuzzy
+#~ msgid ">= %s bytes"
+#~ msgstr "%s –±–∞—ò—Ç–æ–≤–∞"
+
+#~ msgid "File:       None"
+#~ msgstr "–î–∞—Ç–æ—Ç–µ–∫–∞:        –ù–∏—ò–µ–¥–Ω–∞"
+
+#~ msgid "Do backups -->"
+#~ msgstr "–ü—Ä–∞–≤–∏ —Ä–µ–∑–µ—Ä–≤—É -->"
+
+#~ msgid "Extension:"
+#~ msgstr "–í—Ä—Å—Ç–∞:"
+
+#~ msgid "&New              C-n"
+#~ msgstr "&–ù–æ–≤–æ                   C-n"
+
+#~ msgid "&Save              F2"
+#~ msgstr "&–°–∞—á—É–≤–∞—ò                 F2"
+
+#~ msgid "Save &as...       F12"
+#~ msgstr "–°–∞—á—É–≤–∞—ò &–∫–∞–æ...         F12"
+
+#~ msgid "A&bout...            "
+#~ msgstr "&–û –ø—Ä–æ–≥—Ä–∞–º—É...             "
+
+#~ msgid "&Quit             F10"
+#~ msgstr "&–ó–∞–≤—Ä—à–∏                 F10"
+
+#~ msgid "&New            C-x k"
+#~ msgstr "&–ù–æ–≤–æ                   C-x k"
+
+#~ msgid "Copy to &file...     "
+#~ msgstr "–ö–æ–ø–∏—Ä–∞—ò —É &–¥–∞—Ç–æ—Ç–µ–∫—É...       "
+
+#, fuzzy
+#~ msgid "&Toggle mark                 F3"
+#~ msgstr "&–°–º–µ–Ω–∏ –æ–∑–Ω–∞–∫—É            F3"
+
+#, fuzzy
+#~ msgid "Mar&k columns              S-F3"
+#~ msgstr "&–û–∑–Ω–∞—á–∏ –∫–æ–ª–æ–Ω–µ           S-F3"
+
+#, fuzzy
+#~ msgid "&Copy                        F5"
+#~ msgstr "&–ö–æ–ø–∏—Ä–∞—ò                F5"
+
+#, fuzzy
+#~ msgid "&Move                        F6"
+#~ msgstr "&–ü—Ä–µ–º–µ—Å—Ç–∏                  F6"
+
+#, fuzzy
+#~ msgid "&Delete                      F8"
+#~ msgstr "&–û–±—Ä–∏—à–∏                 F8"
+
+#, fuzzy
+#~ msgid "&Next bookmark              M-j"
+#~ msgstr "&–ù–æ–≤–æ                   C-n"
+
+#, fuzzy
+#~ msgid "&Undo                       C-u"
+#~ msgstr "&–û–ø–æ–∑–æ–≤–∏                  C-u"
+
+#, fuzzy
+#~ msgid "&Beginning               C-PgUp"
+#~ msgstr "&–ü–æ—á–µ—Ç–∞–∫               C-PgUp"
+
+#, fuzzy
+#~ msgid "&End                     C-PgDn"
+#~ msgstr "&–ö—Ä–∞—ò                  C-PgDn"
+
+#, fuzzy
+#~ msgid "C&opy to clipfile           M-w"
+#~ msgstr "&–ò–¥–∏ –Ω–∞ —Ä–µ–¥...               M-l"
+
+#, fuzzy
+#~ msgid "C&ut to clipfile            C-w"
+#~ msgstr "&–ò–¥–∏ –Ω–∞ —Ä–µ–¥...               M-l"
+
+#, fuzzy
+#~ msgid "Toggle bookmar&k               "
+#~ msgstr "&–°–º–µ–Ω–∏ –æ–∑–Ω–∞–∫—É            F3"
+
+#, fuzzy
+#~ msgid "&Next bookmark                 "
+#~ msgstr "&–ù–æ–≤–æ                   C-n"
+
+#, fuzzy
+#~ msgid "Pre&v bookmark                 "
+#~ msgstr "–ü–æ—Ä–µ&—í–∞—ò...                     M-t"
+
+#, fuzzy
+#~ msgid "&Flush bookmark                "
+#~ msgstr "–ü–æ&—à—Ç–∞...                          "
+
+#~ msgid "&Search...         F7"
+#~ msgstr "&–¢—Ä–∞–∂–∏                     F7"
+
+#~ msgid "&Replace...        F4"
+#~ msgstr "&–ó–∞–º–µ–Ω–∏...                 F4"
+
+#~ msgid "&Go to line...            M-l"
+#~ msgstr "&–ò–¥–∏ –Ω–∞ —Ä–µ–¥...               M-l"
+
+#, fuzzy
+#~ msgid "Encod&ing...             M-e"
+#~ msgstr "–ü–æ—Ä–µ&—í–∞—ò...                     M-t"
+
+#~ msgid "Delete macr&o...            "
+#~ msgstr "–û–±—Ä–∏—à–∏ –º–∞–∫—Ä&–æ...                   "
+
+#~ msgid "Sor&t...                 M-t"
+#~ msgstr "–ü–æ—Ä–µ&—í–∞—ò...                     M-t"
+
+#~ msgid "&Mail...                    "
+#~ msgstr "–ü–æ&—à—Ç–∞...                          "
+
+#~ msgid "&Execute macro... C-x e, KEY"
+#~ msgstr "&–ò–∑–≤—Ä—à–∏ –º–∞–∫—Ä–æ...         C-x e, KEY"
+
+#~ msgid "'ispell' s&pell check    M-$"
+#~ msgstr "–ü—Ä–æ–≤–µ—Ä–∏ &–ø—Ä–∞–≤–æ–ø–∏—Å `ispell'-–æ–º M-$"
+
+#, fuzzy
+#~ msgid "Save setu&p"
+#~ msgstr "&–°–∞—á—É–≤–∞—ò –ø–æ–¥–µ—à–∞–≤–∞—ö–∞"
+
+#~ msgid " Sear/Repl "
+#~ msgstr " –ü—Ä–µ—Ç—Ä–∞–∂–∏/–∑–∞–º–µ–Ω–∏ "
+
+#~ msgid " Command "
+#~ msgstr " –ù–∞—Ä–µ–¥–±–∞ "
+
+#~ msgid "Intuitive"
+#~ msgstr "–ò–Ω—Ç—É–∏—Ç–∏–≤–Ω–æ"
+
+#~ msgid "Emacs"
+#~ msgstr "–ï–º–∞–∫—Å"
+
+#, fuzzy
+#~ msgid "User-defined"
+#~ msgstr "&–ö–æ—Ä–∏—Å–Ω–∏—á–∫–∏ –∑–∞–¥–∞–Ω–æ:"
+
+#~ msgid "Key emulation"
+#~ msgstr "–ò–º–∏—Ç–∞—Ü–∏—ò–∞ –ø—Ä–µ—á–∏—Ü–∞"
+
+#~ msgid "Save"
+#~ msgstr "–°–∞—á—É–≤–∞—ò"
+
+#~ msgid "Mark"
+#~ msgstr "–û–∑–Ω–∞—á–∏"
+
+#~ msgid "Replac"
+#~ msgstr "–ó–∞–º–µ–Ω–∏"
+
+#~ msgid "PullDn"
+#~ msgstr "–ü–∞–¥–ú–Ω–∏"
+
+#~ msgid " Copy "
+#~ msgstr " –ö–æ–ø–∏—Ä–∞—ò "
+
+#~ msgid " Move "
+#~ msgstr " –ü—Ä–µ–º–µ—Å—Ç–∏ "
+
+#~ msgid " Delete "
+#~ msgstr " –û–±—Ä–∏—à–∏ "
+
+#~ msgid "1Copy"
+#~ msgstr "1–ö–æ–ø–∏—Ä–∞—ò"
+
+#~ msgid "1Move"
+#~ msgstr "1–ü—Ä–µ–º–µ—Å—Ç–∏"
+
+#~ msgid "1Delete"
+#~ msgstr "1–û–±—Ä–∏—à–∏"
+
+#~ msgid "Index"
+#~ msgstr "–ò–Ω–¥–µ–∫—Å"
+
+#~ msgid "Prev"
+#~ msgstr "–ü—Ä–µ—Ç—Ö"
+
+#~ msgid "&Quick view     C-x q"
+#~ msgstr "&–ë—Ä–∑–∏ –ø—Ä–µ–≥–ª–µ–¥     C-x q"
+
+#~ msgid "&Info           C-x i"
+#~ msgstr "&–ü–æ–¥–∞—Ü–∏           C-x i"
+
+#~ msgid "&Rescan         C-r"
+#~ msgstr "–û—Å–≤–µ&–∂–∏             C-r"
+
+#~ msgid "&View               F3"
+#~ msgstr "&–ü—Ä–µ–≥–ª–µ–¥–∞—ò              F3"
+
+#~ msgid "Vie&w file...         "
+#~ msgstr "–ü—Ä–µ–≥–ª–µ–¥–∞—ò –¥–∞&—Ç–æ—Ç–µ–∫—É...    "
+
+#~ msgid "&Filtered view     M-!"
+#~ msgstr "&–§–∏–ª—Ç—Ä–∏—Ä–∞–Ω–æ –ø—Ä–µ–≥–ª–µ–¥–∞—ö–µ M-!"
+
+#~ msgid "&Edit               F4"
+#~ msgstr "&–£—Ä–µ–¥–∏                  F4"
+
+#~ msgid "&Copy               F5"
+#~ msgstr "&–ö–æ–ø–∏—Ä–∞—ò                F5"
+
+#~ msgid "c&Hmod           C-x c"
+#~ msgstr "–ø—Ä–æ–º–µ–Ω–∏ –¥–æ&–ó–≤–æ–ª–µ     C-x c"
+
+#~ msgid "&Link            C-x l"
+#~ msgstr "–Ω–∞–ø—Ä–∞–≤–∏ &–í–µ–∑—É        C-x l"
+
+#~ msgid "&SymLink         C-x s"
+#~ msgstr "–Ω–∞–ø—Ä–∞–≤–∏ &–°–∏–º–í–µ–∑—É     C-x s"
+
+#~ msgid "edit s&Ymlink  C-x C-s"
+#~ msgstr "—É—Ä–µ–¥–∏ —Å–∏&–ú–≤–µ–∑—É     C-x C-s"
+
+#~ msgid "ch&Own           C-x o"
+#~ msgstr "–ø—Ä–æ–º–µ–Ω–∏ –≤&–õ–∞—Å–Ω–∏–∫–∞    C-x o"
+
+#~ msgid "&Rename/Move        F6"
+#~ msgstr "–ø—Ä&–ï–∏–º–µ–Ω—É—ò/–ø—Ä–µ–º–µ—Å—Ç–∏     F6"
+
+#~ msgid "&Mkdir              F7"
+#~ msgstr "–Ω&–ê–ø—Ä–∞–≤–∏ –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º   F7"
+
+#~ msgid "&Delete             F8"
+#~ msgstr "&–û–±—Ä–∏—à–∏                 F8"
+
+#~ msgid "&Quick cd          M-c"
+#~ msgstr "&–ë—Ä–∑–∞ –ø—Ä–æ–º.–¥–∏—Ä.        M-c"
+
+#~ msgid "select &Group      M-+"
+#~ msgstr "–∏–∑–∞–±–µ—Ä–∏ &–ì—Ä—É–ø—É         M-+"
+
+#~ msgid "u&Nselect group    M-\\"
+#~ msgstr "–æ&–î–∏–∑–∞–±–µ—Ä–∏ –≥—Ä—É–ø—É       M-\\"
+
+#~ msgid "e&Xit              F10"
+#~ msgstr "–∏&–ó–ª–∞–∑                 F10"
+
+#~ msgid "&User menu          F2"
+#~ msgstr "&–ö–æ—Ä–∏—Å–Ω–∏—á–∫–∏ –º–µ–Ω–∏        F2"
+
+#~ msgid "&Find file            M-?"
+#~ msgstr "&–ù–∞—í–∏ –¥–∞—Ç–æ—Ç–µ–∫—É              M-?"
+
+#~ msgid "s&Wap panels          C-u"
+#~ msgstr "—Ä–∞–∑–º&–ï–Ω–∏ –æ–∫–Ω–∞               C-u"
+
+#~ msgid "&Compare directories  C-x d"
+#~ msgstr "—É&–ü–æ—Ä–µ–¥–∏ –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º–µ     C-x d"
+
+#~ msgid "e&Xternal panelize    C-x !"
+#~ msgstr "–∫—Ä–∏—Ç–µ—Ä–∏&–à—É–º –ø–æ–ø—É–Ω–µ –æ–∫–Ω–∞   C-x !"
+
+#, fuzzy
+#~ msgid "Command &history      M-h"
+#~ msgstr " –ò—Å—Ç–æ—Ä–∏—ò–∞ –Ω–∞—Ä–µ–¥–±–∏ "
+
+#~ msgid "di&Rectory hotlist    C-\\"
+#~ msgstr "–±—Ä–∑–∏ —Å&–ü–∏—Å–∞–∫ –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º–∞  C-\\"
+
+#~ msgid "&Background jobs      C-x j"
+#~ msgstr "&–ü–æ–∑–∞–¥–∏–Ω—Å–∫–∏ –ø–æ—Å–ª–æ–≤–∏       C-x j"
+
+#~ msgid "learn &Keys..."
+#~ msgstr "–ù–∞—É—á–∏ &—Ç–∞—Å—Ç–µ—Ä–µ..."
+
+#~ msgid " &File "
+#~ msgstr " &–î–∞—Ç–æ—Ç–µ–∫–∞ "
+
+#~ msgid " &Command "
+#~ msgstr " &–ù–∞—Ä–µ–¥–±–∞ "
+
+#~ msgid "Menu"
+#~ msgstr "–ú–µ–Ω–∏"
+
+#, fuzzy
+#~ msgid "n"
+#~ msgstr "–ó–∞"
+
+#, fuzzy
+#~ msgid "Extension"
+#~ msgstr "–í—Ä—Å—Ç–∞:"
+
+#~ msgid "ATime"
+#~ msgstr "–î–∞—Ç–ü—Ä—Å"
+
+#~ msgid "CTime"
+#~ msgstr "–î–∞—Ç–ü—Ä–º"
+
+#~ msgid "Inode"
+#~ msgstr "–ò—á–≤–æ—Ä"
+
+#~ msgid "RenMov"
+#~ msgstr "–ü–∏–º–ü—Ä–º"
+
+#~ msgid "Static"
+#~ msgstr "–°—Ç–∞—Ç—á."
+
+#~ msgid "Dynamc"
+#~ msgstr "–î–∏–Ω–º—á."
+
+#~ msgid "Forget"
+#~ msgstr "–ó–∞–±–æ—Ä."
+
+#~ msgid "Rmdir"
+#~ msgstr "–ë—Ä–î–∏—Ä"
+
+#, fuzzy
+#~ msgid "bind: Unknown command: `%s'"
+#~ msgstr " –ü—Ä–æ–º–µ–Ω–∞ –≤–ª–∞—Å–Ω–∏–∫–∞ "
+
+#, fuzzy
+#~ msgid "%s: Unknown command: `%s'"
+#~ msgstr " –ü—Ä–æ–º–µ–Ω–∞ –≤–ª–∞—Å–Ω–∏–∫–∞ "
+
+#, fuzzy
+#~ msgid "%s:%d: unknown command `%s'"
+#~ msgstr " –ü—Ä–æ–º–µ–Ω–∞ –≤–ª–∞—Å–Ω–∏–∫–∞ "
+
+#, fuzzy
+#~ msgid "%s not found!"
+#~ msgstr "–£–ø–æ–∑–æ—Ä–µ—ö–µ: –¥–∞—Ç–æ—Ç–µ–∫–∞ %s –Ω–∏—ò–µ –Ω–∞—í–µ–Ω–∞\n"
+
+#~ msgid "NumLock on keypad"
+#~ msgstr "–°–∏–≤–∏ `NumLock'"
+
+#~ msgid " Emacs key: "
+#~ msgstr " –ü—Ä–µ—á–∏—Ü–∞ –ï–º–∞–∫—Å–∞: "
+
+#~ msgid " %d items found, %d bookmarks added "
+#~ msgstr " –ù–∞—í–µ–Ω–æ %d, –¥–æ–¥–∞–Ω–æ %d –æ–±–µ–ª–µ–∂–∏–≤–∞—á–∞ "
+
+#~ msgid "Displays this help message"
+#~ msgstr "–ü—Ä–∏–∫–∞–∑—É—ò–µ –æ–≤—É –ø–æ—Ä—É–∫—É –ø–æ–º–æ—õ–∏"
+
+#~ msgid "Displays a help screen on how to change the color scheme"
+#~ msgstr "–ü—Ä–∏–∫–∞–∑—É—ò–µ –µ–∫—Ä–∞–Ω –ø–æ–º–æ—õ–∏ –æ–∫–æ –ø—Ä–æ–º–µ–Ω–µ —à–µ–º–µ –±–æ—ò–∞"
+
+#~ msgid "missing argument"
+#~ msgstr "–Ω–µ–¥–æ—Å—Ç–∞—ò–µ –∞—Ä–≥—É–º–µ–Ω—Ç"
+
+#~ msgid "unknown option"
+#~ msgstr "–Ω–µ–ø–æ–∑–Ω–∞—Ç –∏–∑–±–æ—Ä"
+
+#~ msgid "Show this help message"
+#~ msgstr "–ü—Ä–∏–∫–∞–∂–∏ –æ–≤—É –ø–æ—Ä—É–∫—É –ø–æ–º–æ—õ–∏"
+
+#~ msgid "Display brief usage message"
+#~ msgstr "–ü—Ä–∏–∫–∞–∂–∏ –∫—Ä–∞—Ç–∫—É –ø–æ—Ä—É–∫—É –æ —É–ø–æ—Ç—Ä–µ–±–∏"
+
+#~ msgid "ARG"
+#~ msgstr "–ê–†–ì"
+
+#~ msgid "Usage:"
+#~ msgstr "–£–ø–æ—Ç—Ä–µ–±–∞:"
+
+#~ msgid "pro&Mpt on replace"
+#~ msgstr "–ø&–û—Ç–≤—Ä–¥–∞ –∑–∞–º–µ–Ω–µ"
+
+#~ msgid "replace &All"
+#~ msgstr "–∑–∞–º–µ–Ω–∏ &–°–≤–µ"
+
+#~ msgid "O&ne"
+#~ msgstr "–à–µ–¥–∞&–Ω"
+
+#, fuzzy
+#~ msgid "%b %d %H:%M"
+#~ msgstr "%b %e %H:%M"
+
+#, fuzzy
+#~ msgid "%b %d %Y"
+#~ msgstr "%b %e  %Y"
+
+#, fuzzy
+#~ msgid " The current address is 0x%08"
+#~ msgstr ""
+#~ " –¢–µ–∫—É—õ–∞ –∞–¥—Ä–µ—Å–∞ —ò–µ 0x%lx.\n"
+#~ " –£–Ω–µ—Å–∏—Ç–µ –Ω–æ–≤—É –∞–¥—Ä–µ—Å—É:"
+
+#~ msgid "scanf &Expression"
+#~ msgstr "–ò–∑—Ä&–∞–∑ –∑–∞ scanf"
+
+#~ msgid " Enter replacement argument order eg. 3,2,1,4 "
+#~ msgstr " –£–Ω–µ—Å–∏—Ç–µ —Ä–µ–¥–æ—Å–ª–µ–¥ –∑–∞–º–µ–Ω–µ –∞—Ä–≥—É–º–µ–Ω–∞—Ç–∞, –Ω–ø—Ä. 3,2,1,4 "
+
+#~ msgid ""
+#~ " Invalid regular expression, or scanf expression with too many "
+#~ "conversions "
+#~ msgstr ""
+#~ " –†–µ–≥—É–ª–∞—Ä–Ω–∏ –∏–∑—Ä–∞–∑ —ò–µ –Ω–µ–∏—Å–ø—Ä–∞–≤–∞–Ω –∏–ª–∏ —ò–µ –∏–∑—Ä–∞–∑ –∑–∞ `scanf' —Å–∞ –ø—Ä–µ–≤–∏—à–µ "
+#~ "–ø—Ä–µ—Ç–≤–∞—Ä–∞—ö–∞ "
+
+#~ msgid " Error in replacement format string. "
+#~ msgstr " –ì—Ä–µ—à–∫–∞ —É —Ñ–æ—Ä–º–∞—Ç–∏—Ä–∞—ò—É—õ–æ—ò –Ω–∏—Å—Ü–∏ –∑–∞–º–µ–Ω–µ. "
+
+#, fuzzy
+#~ msgid " Replacement too long. "
+#~ msgstr " –£–Ω–µ—Å–∏—Ç–µ –Ω–∏—Å–∫—É –∑–∞–º–µ–Ω–µ:"
+
+#~ msgid "&Copy              F5"
+#~ msgstr "&–ö–æ–ø–∏—Ä–∞—ò                   F5"
+
+#~ msgid "&Delete            F8"
+#~ msgstr "&–û–±—Ä–∏—à–∏                    F8"
+
+#~ msgid " The command history is empty "
+#~ msgstr " –ò—Å—Ç–æ—Ä–∏—ò–∞ –Ω–∞—Ä–µ–¥–±–∏ —ò–µ –ø—Ä–∞–∑–Ω–∞ "
+
+#~ msgid "Edit edi&tor menu file"
+#~ msgstr "–£—Ä–µ–¥–∏ –¥–∞—Ç–æ—Ç–µ–∫—É –º–µ–Ω–∏—ò–∞ &—É—Ä–µ—í–∏–≤–∞—á–∞"
+
+#~ msgid ""
+#~ "To use this feature select your codepage in\n"
+#~ "Setup / Display Bits dialog!\n"
+#~ "Do not forget to save options."
+#~ msgstr ""
+#~ "–î–∞ –±–∏—Å—Ç–µ –∫–æ—Ä–∏—Å—Ç–∏–ª–∏ –æ–≤—É –æ–¥–ª–∏–∫—É –∏–∑–∞–±–µ—Ä–∏—Ç–µ\n"
+#~ "–∫–æ–¥–Ω—É —Å—Ç—Ä–∞–Ω—É —É –¥–∏—ò–∞–ª–æ–≥—É –ü–æ–¥–µ—à–∞–≤–∞—ö–∞ / –ë–∏—Ç–∞ —É\n"
+#~ "–ø—Ä–∏–∫–∞–∑—É! –ù–µ –∑–∞–±–æ—Ä–∞–≤–∏—Ç–µ –¥–∞ —Å–∞—á—É–≤–∞—Ç–µ –∏–∑–±–æ—Ä–µ."
+
+#~ msgid "Invalid hex search expression"
+#~ msgstr "–ù–µ–∏—Å–ø—Ä–∞–≤–∞–Ω –∏–∑—Ä–∞–∑ —Ö–µ–∫—Å –ø—Ä–µ—Ç—Ä–∞–≥–µ"
+
+#~ msgid " Invalid regular expression "
+#~ msgstr " –ù–µ–∏—Å–ø—Ä–∞–≤–∞–Ω —Ä–µ–≥—É–ª–∞—Ä–Ω–∏ –∏–∑—Ä–∞–∑ "
+
+#~ msgid " Enter regexp:"
+#~ msgstr " –£–Ω–µ—Å–∏—Ç–µ —Ä–µ–≥–∏–∑—Ä–∞–∑:"
+
+#~ msgid "Using included S-Lang library"
+#~ msgstr "–ö–æ—Ä–∏—Å—Ç–∏–º —É–∫—ô—É—á–µ–Ω—É –±–∏–±–ª–∏–æ—Ç–µ–∫—É S-Lang"
+
+#~ msgid "with termcap database"
+#~ msgstr "—Å–∞ –±–∞–∑–æ–º termcap"
+
+#~ msgid "&Home"
+#~ msgstr "&–î–æ–º–∞—õ—É"
 
 #~ msgid "&Type"
-#~ msgstr "≤&‡·‚–"
-
-#~ msgid "&Links"
-#~ msgstr "≤’&◊’"
+#~ msgstr "–í&—Ä—Å—Ç–∞"
 
 #~ msgid "N&GID"
 #~ msgstr "N&GID"
@@ -3706,107 +4993,116 @@ msgstr "∏◊‹’›’ „ ‘–‚ﬁ‚’Êÿ ·„ ÿ◊”„—˘’›’"
 #~ msgstr "N&UID"
 
 #~ msgid "&Owner"
-#~ msgstr "≤&€–·›ÿ⁄"
+#~ msgstr "–í&–ª–∞—Å–Ω–∏–∫"
 
 #~ msgid "&Group"
-#~ msgstr "&≥‡„ﬂ–"
+#~ msgstr "&–ì—Ä—É–ø–∞"
+
+#~ msgid "MC was unable to write ~/"
+#~ msgstr "–ü–ù –Ω–µ –º–æ–∂–µ –¥–∞ –ø–∏—à–µ —É –¥–∞—Ç–æ—Ç–µ–∫—É ~/"
 
 #~ msgid " (%ld blocks)"
-#~ msgstr " (%ld —€ﬁ⁄ﬁ“–)"
+#~ msgstr " (%ld –±–ª–æ–∫–æ–≤–∞)"
+
+#~ msgid " Notice "
+#~ msgstr " –û–±—ò–∞–≤–∞ "
+
+#~ msgid ""
+#~ " The Midnight Commander configuration files \n"
+#~ " are now stored in the ~/.mc directory, the \n"
+#~ " files have been moved now\n"
+#~ msgstr ""
+#~ " –î–∞—Ç–æ—Ç–µ–∫–µ —Å–∞ –ø–æ–¥–µ—à–∞–≤–∞—ö–∏–º–∞ –ü–æ–Ω–æ—õ–Ω–æ–≥ –Ω–∞—Ä–µ–¥–Ω–∏–∫–∞ \n"
+#~ " —Å–µ —Å–∞–¥–∞ —Å–º–µ—à—Ç–∞—ò—É —É –¥–∏—Ä–µ–∫—Ç–æ—Ä–∏—ò—É–º `~/.mc';\n"
+#~ " –¥–∞—Ç–æ—Ç–µ–∫–µ —Å—É —Å–∞–¥–∞ –ø—Ä–µ–º–µ—à—Ç–µ–Ω–µ\n"
 
 #~ msgid "%s bytes in %d files"
-#~ msgstr "%s —–¯‚ﬁ“– „ %d ‘–‚ﬁ‚’⁄–"
+#~ msgstr "%s –±–∞—ò—Ç–æ–≤–∞ —É %d –¥–∞—Ç–æ—Ç–µ–∫–∞"
 
 #~ msgid " Cannot open file for reading: "
-#~ msgstr " Ω’ ‹ﬁ”„ ‘– ﬁ‚“ﬁ‡ÿ‹ ‘–‚ﬁ‚’⁄„ ◊– Áÿ‚–˙’: "
+#~ msgstr " –ù–µ –º–æ–≥—É –¥–∞ –æ—Ç–≤–æ—Ä–∏–º –¥–∞—Ç–æ—Ç–µ–∫—É –∑–∞ —á–∏—Ç–∞—ö–µ: "
 
 #~ msgid " Not an ordinary file: "
-#~ msgstr " ¥–‚ﬁ‚’⁄– ›ÿ¯’ ﬁ—ÿÁ›–: "
+#~ msgstr " –î–∞—Ç–æ—Ç–µ–∫–∞ –Ω–∏—ò–µ –æ–±–∏—á–Ω–∞: "
 
 #~ msgid "Format of the "
-#~ msgstr "ƒﬁ‡‹–‚ "
+#~ msgstr "–§–æ—Ä–º–∞—Ç "
 
 #~ msgid ""
 #~ " file has changed\n"
 #~ "with version 3.0. You may want either to\n"
 #~ "copy it from "
 #~ msgstr ""
-#~ " ‘–‚ﬁ‚’⁄– ¯’ ÿ◊‹’˙’›–\n"
-#~ "„ “’‡◊ÿ¯ÿ 3.0. ≤’‡ﬁ“–‚›ﬁ ˚’‚’ ﬂﬁ÷’€’‚ÿ\n"
-#~ "‘– ¯’ ⁄ﬁﬂÿ‡–‚’ ÿ◊ "
+#~ " –¥–∞—Ç–æ—Ç–µ–∫–∞ —ò–µ –∏–∑–º–µ—ö–µ–Ω–∞\n"
+#~ "—É –≤–µ—Ä–∑–∏—ò–∏ 3.0. –í–µ—Ä–æ–≤–∞—Ç–Ω–æ —õ–µ—Ç–µ –ø–æ–∂–µ–ª–µ—Ç–∏\n"
+#~ "–¥–∞ —ò–µ –∫–æ–ø–∏—Ä–∞—Ç–µ –∏–∑ "
 
 #~ msgid ""
 #~ "mc.ext or use that\n"
 #~ "file as an example of how to write it.\n"
 #~ msgstr ""
-#~ "mc.ext ÿ€ÿ ‘– ⁄ﬁ‡ÿ·‚ÿ‚’\n"
-#~ "‚„ ‘–‚ﬁ‚’⁄„ ⁄–ﬁ „◊ﬁ‡.\n"
+#~ "mc.ext –∏–ª–∏ –¥–∞ –∫–æ—Ä–∏—Å—Ç–∏—Ç–µ\n"
+#~ "—Ç—É –¥–∞—Ç–æ—Ç–µ–∫—É –∫–∞–æ —É–∑–æ—Ä.\n"
 
 #~ msgid "mc.ext will be used for this moment."
-#~ msgstr "mc.ext ˚’ ·’ ◊– ·–‘– ⁄ﬁ‡ÿ·‚ÿ‚ÿ."
+#~ msgstr "mc.ext —õ–µ —Å–µ –∑–∞ —Å–∞–¥–∞ –∫–æ—Ä–∏—Å—Ç–∏—Ç–∏."
 
 #~ msgid " Cannot open file "
-#~ msgstr " Ω’ ‹ﬁ”„ ‘– ﬁ‚“ﬁ‡ÿ‹ ‘–‚ﬁ‚’⁄„ "
+#~ msgstr " –ù–µ –º–æ–≥—É –¥–∞ –æ—Ç–≤–æ—Ä–∏–º –¥–∞—Ç–æ—Ç–µ–∫—É "
 
 #~ msgid "Col %d"
-#~ msgstr "∫ﬁ€ %d"
+#~ msgstr "–ö–æ–ª %d"
 
 #~ msgid "  [grow]"
-#~ msgstr "  [‡–·‚’]"
+#~ msgstr "  [—Ä–∞—Å—Ç–µ]"
 
 #~ msgid "Ascii"
-#~ msgstr "∞·⁄ÿ"
+#~ msgstr "–ê—Å–∫–∏"
 
 #~ msgid "Hex"
-#~ msgstr "≈’⁄·"
-
-#~ msgid "Goto"
-#~ msgstr "∏‘ÿΩ–"
+#~ msgstr "–•–µ–∫—Å"
 
 #~ msgid "Line"
-#~ msgstr "¿’‘"
+#~ msgstr "–†–µ–¥"
 
 #~ msgid "RxSrch"
-#~ msgstr "¿”ø‡‚‡"
+#~ msgstr "–†–≥–ü—Ä—Ç—Ä"
 
 #~ msgid "EdHex"
-#~ msgstr "√‡≈’⁄·"
+#~ msgstr "–£—Ä–•–µ–∫—Å"
 
 #~ msgid "EdText"
-#~ msgstr "√‡¬⁄·‚"
+#~ msgstr "–£—Ä–¢–∫—Å—Ç"
 
 #~ msgid "UnWrap"
-#~ msgstr "æ‘ø‡€‹"
+#~ msgstr "–û–¥–ü—Ä–ª–º"
 
 #~ msgid "Wrap"
-#~ msgstr "ø‡’€ﬁ‹"
+#~ msgstr "–ü—Ä–µ–ª–æ–º"
 
 #~ msgid "HxSrch"
-#~ msgstr "≈⁄ø‡‚‡"
+#~ msgstr "–•–∫–ü—Ä—Ç—Ä"
 
 #~ msgid "Raw"
-#~ msgstr "¡ÿ‡ﬁ“ﬁ"
+#~ msgstr "–°–∏—Ä–æ–≤–æ"
 
 #~ msgid "Parse"
-#~ msgstr "¿–ËÁ€"
+#~ msgstr "–†–∞—à—á–ª"
 
 #~ msgid "Unform"
-#~ msgstr "Ω’‰ﬁ‡‹"
-
-#~ msgid "Format"
-#~ msgstr "ƒﬁ‡‹–‚"
+#~ msgstr "–ù–µ—Ñ–æ—Ä–º"
 
 #~ msgid " Socket source routing setup "
-#~ msgstr " øﬁ‘’Ë–“–˙’ „·‹’‡–“–˙– ÿ◊“ﬁ‡– „‚ÿÁ›ÿÊ’ "
+#~ msgstr " –ü–æ–¥–µ—à–∞–≤–∞—ö–µ —É—Å–º–µ—Ä–∞–≤–∞—ö–∞ –∏–∑–≤–æ—Ä–∞ —É—Ç–∏—á–Ω–∏—Ü–µ "
 
 #~ msgid " Enter host name to use as a source routing hop: "
-#~ msgstr " √›’·ÿ‚’ ›–◊ÿ“ ‘ﬁ‹–˚ÿ›– ◊– ·⁄ﬁ⁄ „·‹’‡–“–˙– ÿ◊“ﬁ‡–: "
+#~ msgstr " –£–Ω–µ—Å–∏—Ç–µ –Ω–∞–∑–∏–≤ –¥–æ–º–∞—õ–∏–Ω–∞ –∑–∞ —Å–∫–æ–∫ —É—Å–º–µ—Ä–∞–≤–∞—ö–∞ –∏–∑–≤–æ—Ä–∞: "
 
 #~ msgid " Host name "
-#~ msgstr " Ω–◊ÿ“ ‘ﬁ‹–˚ÿ›– "
+#~ msgstr " –ù–∞–∑–∏–≤ –¥–æ–º–∞—õ–∏–Ω–∞ "
 
 #~ msgid " Error while looking up IP address "
-#~ msgstr " ≥‡’Ë⁄– ﬂ‡ÿ ‚‡–÷’˙„ –‘‡’·’ ∏ø "
+#~ msgstr " –ì—Ä–µ—à–∫–∞ –ø—Ä–∏ —Ç—Ä–∞–∂–µ—ö—É –∞–¥—Ä–µ—Å–µ –ò–ü "
 
 #~ msgid ""
 #~ "\n"
@@ -3819,12 +5115,12 @@ msgstr "∏◊‹’›’ „ ‘–‚ﬁ‚’Êÿ ·„ ÿ◊”„—˘’›’"
 #~ "\n"
 #~ "\n"
 #~ "\n"
-#~ "·‚ﬁ” ﬁ·“’÷–“–˙– ¯’ ÿ·ﬂ‡–÷˙’›!\n"
+#~ "—Å—Ç–æ–≥ –æ—Å–≤–µ–∂–∞–≤–∞—ö–∞ —ò–µ –∏—Å–ø—Ä–∞–∂—ö–µ–Ω!\n"
 #~ "\n"
 #~ "\n"
 
 #~ msgid " No action taken "
-#~ msgstr " ΩÿË‚– ›ÿ¯’ „‡–Ú’›ﬁ "
+#~ msgstr " –ù–∏—à—Ç–∞ –Ω–∏—ò–µ —É—Ä–∞—í–µ–Ω–æ "
 
 #~ msgid " Cannot set source routing (%s)"
-#~ msgstr " Ω’ ‹ﬁ”„ ‘– ﬂﬁ·‚–“ÿ‹ ÿ◊“ﬁ‡›ﬁ „·‹’‡–“–˙’ (%s)"
+#~ msgstr " –ù–µ –º–æ–≥—É –¥–∞ –ø–æ—Å—Ç–∞–≤–∏–º –∏–∑–≤–æ—Ä–Ω–æ —É—Å–º–µ—Ä–∞–≤–∞—ö–µ (%s)"

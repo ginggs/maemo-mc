@@ -1,44 +1,47 @@
-suppbindir = $(pkgdatadir)/bin
+SUBDIRS = filehighlight mcconfig search skin tty vfs strutil
 
-if CHARSET
-LIBFILES_ADD = mc.charsets
-else
-LIBFILES_ADD =
+noinst_LTLIBRARIES = libmc.la
+
+SUBLIB_includes = \
+	filehighlight.h \
+	mcconfig.h \
+	search.h \
+	skin.h \
+	strescape.h \
+	strutil.h
+
+SRC_mc_utils = \
+	utilunix.c \
+	unixcompat.h \
+	util.c util.h
+
+
+libmc_la_SOURCES = \
+	$(SUBLIB_includes) \
+	$(SRC_mc_utils) \
+	fileloc.h \
+	fs.h \
+	glibcompat.c glibcompat.h \
+	global.h \
+	lock.c lock.h \
+	timefmt.h
+
+if USE_MAINTAINER_MODE
+libmc_la_SOURCES += logging.c logging.h
 endif
 
-LIBFILES_OUT = mc.ext
-LIBFILES_CONST = mc.hint mc.hint.cs mc.hint.es mc.hint.hu mc.hint.it	\
-	mc.hint.nl mc.hint.pl mc.hint.ru mc.hint.sr mc.hint.uk		\
-	mc.hint.zh mc.lib mc.menu mc.menu.sr cedit.menu edit.indent.rc	\
-	edit.spell.rc
 
-noinst_DATA = README.xterm mcserv.init mcserv.pamd xterm.ad
+libmc_la_CFLAGS= $(GLIB_CFLAGS) -I$(top_srcdir) $(PCRE_CFLAGS)
 
-SCRIPTS_IN = mc.csh.in mc.sh.in mc-wrapper.csh.in mc-wrapper.sh.in
-SCRIPTS_OUT = mc.csh mc.sh mc-wrapper.csh mc-wrapper.sh
+libmc_la_LIBADD = \
+	filehighlight/libmcfilehighlight.la \
+	mcconfig/libmcconfig.la \
+	search/libsearch.la \
+	strutil/libmcstrutil.la \
+	skin/libmcskin.la \
+	tty/libmctty.la
 
-suppbin_SCRIPTS = $(SCRIPTS_OUT)
-
-pkgdata_DATA = $(LIBFILES_CONST) $(LIBFILES_ADD) $(LIBFILES_OUT)
-
-CLEANFILES = $(SCRIPTS_OUT)
-
-# Files processed by configure don't need to be here
-EXTRA_DIST = \
-	$(LIBFILES_CONST) \
-	$(SCRIPTS_IN) \
-	$(noinst_DATA) \
-	mc.charsets
-
-mc.csh: $(srcdir)/mc.csh.in
-	sed "s%@""suppbindir@%$(suppbindir)%" $(srcdir)/mc.csh.in > mc.csh
-
-mc.sh: $(srcdir)/mc.sh.in
-	sed "s%@""suppbindir@%$(suppbindir)%" $(srcdir)/mc.sh.in > mc.sh
-
-mc-wrapper.csh: $(srcdir)/mc-wrapper.csh.in
-	sed "s%@""bindir@%$(bindir)%" $(srcdir)/mc-wrapper.csh.in > mc-wrapper.csh
-
-mc-wrapper.sh: $(srcdir)/mc-wrapper.sh.in
-	sed "s%@""bindir@%$(bindir)%" $(srcdir)/mc-wrapper.sh.in > mc-wrapper.sh
+if ENABLE_VFS
+libmc_la_LIBADD += vfs/mc-vfs/libvfs-mc.la
+endif
 

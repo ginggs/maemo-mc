@@ -1,14 +1,14 @@
 Source: mc
 Section: user/utilities
 Priority: optional
-Maintainer: Mohammad Abu-Garbeyyeh <mohammad7410@gmail.com>
-XSBC-Bugtracker: mailto:mohammad7410@gmail.com
-Build-Depends: debhelper (>> 4.0.0), libglib2.0-dev, gettext, sharutils, python
+Maintainer: Andrew Zabolotny <zap@homelink.ru>
+XSBC-Bugtracker: mailto:zap@homelink.ru
+Build-Depends: debhelper (>> 4.0.0), libncurses5-dev, libglib2.0-dev, gettext, coreutils-gnu, python
 Standards-Version: 3.7.3
 
 Package: mc
 Architecture: any
-Depends: file, libglib2.0-0 (>= 2.0), libc6 (>= 2.3.0), ncurses-base
+Depends: file, libglib2.0-0 (>= 2.0), libc6 (>= 2.3.0), libncursesw5
 Suggests: perl, mime-support, zip, unzip, bzip2, links | w3m | lynx, arj, bash
 Conflicts: mc-common, suidmanager (<< 0.52)
 Replaces: mc-common, manpages-pl (<= 20030210)
@@ -21,8 +21,49 @@ Description: midnight commander - a powerful file manager
  SMB servers) and files inside archives to be manipulated like real files.
 XB-Maemo-Display-Name: Midnight Commander
 XB-Maemo-Icon-26:
- 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
+ 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

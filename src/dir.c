@@ -1,5 +1,6 @@
 /* Directory routines
-   Copyright (C) 1994 Miguel de Icaza.
+   Copyright (C) 1994, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005,
+   2006, 2007 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -15,29 +16,28 @@
    along with this program; if not, write to the Free Software
    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  */
 
+/** \file dir.c
+ *  \brief Source: directory routines
+ */
+
 #include <config.h>
 
-#include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
 #include <sys/stat.h>
 
-#include "global.h"
-#include "tty.h"
-#include "dir.h"
+#include "lib/global.h"
+#include "lib/tty/tty.h"
+#include "lib/search.h"
+#include "lib/vfs/mc-vfs/vfs.h"
+#include "lib/fs.h"
+#include "lib/strutil.h"
+
 #include "wtools.h"
 #include "treestore.h"
-
-/* If true show files starting with a dot */
-int show_dot_files = 1;
-
-/* If true show files ending in ~ */
-int show_backups = 1;
-
-/* If false then directories are shown separately from files */
-int mix_all_files = 0;
+#include "dir.h"
+#include "setup.h"              /* panels_options */
 
 /* Reverse flag */
 static int reverse = 1;
@@ -45,8 +45,11 @@ static int reverse = 1;
 /* Are the files sorted case sensitively? */
 static int case_sensitive = OS_SORT_CASE_SENSITIVE_DEFAULT;
 
-#define MY_ISDIR(x) ( (S_ISDIR (x->st.st_mode) || x->f.link_to_dir) ? 1 : 0)
+/* Are the exec_bit files top in list*/
+static int exec_first = 1;
 
+#define MY_ISDIR(x) ( (is_exe (x->st.st_mode) && !(S_ISDIR (x->st.st_mode) || x->f.link_to_dir) && (exec_first == 1)) ? 1 : ( (S_ISDIR (x->st.st_mode) || x->f.link_to_dir) ? 2 : 0) )
+/*
 sort_orders_t sort_orders [SORT_TYPES_TOTAL] = {
     { N_("&Unsorted"),    unsorted },
     { N_("&Name"),        sort_name },
@@ -57,51 +60,10 @@ sort_orders_t sort_orders [SORT_TYPES_TOTAL] = {
     { N_("&Size"),        sort_size },
     { N_("&Inode"),       sort_inode },
 };
-
-#ifdef HAVE_STRCOLL
-/*
- * g_strcasecmp() doesn't work well in some locales because it relies on
- * the locale-specific toupper().  On the other hand, strcoll() is case
- * sensitive in the "C" and "POSIX" locales, unlike other locales.
- * Solution: always use strcmp() for case sensitive sort.  For case
- * insensitive sort use strcoll() if it's case insensitive for ASCII and
- * g_strcasecmp() otherwise.
- */
-typedef enum {
-    STRCOLL_NO,
-    STRCOLL_YES,
-    STRCOLL_TEST	
-} strcoll_status;
-
-static int string_sortcomp (const char *str1, const char *str2)
-{
-    static strcoll_status use_strcoll = STRCOLL_TEST;
-
-    if (case_sensitive) {
-	return strcmp (str1, str2);
-    }
-
-    /* Initialize use_strcoll once.  */
-    if (use_strcoll == STRCOLL_TEST) {
-	/* Only use strcoll() if it considers "B" between "a" and "c".  */
-	if (strcoll ("a", "B") * strcoll ("B", "c") > 0) {
-	    use_strcoll = STRCOLL_YES;
-	} else {
-	    use_strcoll = STRCOLL_NO;
-	}
-    }
-
-    if (use_strcoll == STRCOLL_NO)
-	return g_strcasecmp (str1, str2);
-    else
-	return strcoll (str1, str2);
-}
-#else
-#define string_sortcomp(a,b) (case_sensitive ? strcmp (a,b) : g_strcasecmp (a,b))
-#endif
+*/
 
 int
-unsorted (const file_entry *a, const file_entry *b)
+unsorted (file_entry *a, file_entry *b)
 {
     (void) a;
     (void) b;
@@ -109,28 +71,51 @@ unsorted (const file_entry *a, const file_entry *b)
 }
 
 int
-sort_name (const file_entry *a, const file_entry *b)
+sort_name (file_entry *a, file_entry *b)
 {
     int ad = MY_ISDIR (a);
     int bd = MY_ISDIR (b);
 
-    if (ad == bd || mix_all_files)
-	return string_sortcomp (a->fname, b->fname) * reverse;
-    return bd-ad;
+    if (ad == bd || panels_options.mix_all_files) {
+        /* create key if does not exist, key will be freed after sorting */
+        if (a->sort_key == NULL)
+            a->sort_key = str_create_key_for_filename (a->fname, case_sensitive);
+        if (b->sort_key == NULL)
+            b->sort_key = str_create_key_for_filename (b->fname, case_sensitive);
+
+	return str_key_collate (a->sort_key, b->sort_key, case_sensitive) 
+                * reverse;
+    }
+    return bd - ad;
 }
 
 int
-sort_ext (const file_entry *a, const file_entry *b)
+sort_vers (file_entry *a, file_entry *b)
 {
-    const char *exta, *extb;
+    int ad = MY_ISDIR (a);
+    int bd = MY_ISDIR (b);
+
+    if (ad == bd || panels_options.mix_all_files) {
+        return str_verscmp(a->fname, b->fname) * reverse;
+    } else {
+        return bd - ad;
+    }
+}
+
+int
+sort_ext (file_entry *a, file_entry *b)
+{
     int r;
     int ad = MY_ISDIR (a);
     int bd = MY_ISDIR (b);
 
-    if (ad == bd || mix_all_files){
-	exta = extension (a->fname);
-	extb = extension (b->fname);
-	r = string_sortcomp (exta, extb);
+    if (ad == bd || panels_options.mix_all_files) {
+        if (a->second_sort_key == NULL)
+            a->second_sort_key = str_create_key (extension (a->fname), case_sensitive);
+        if (b->second_sort_key == NULL)
+            b->second_sort_key = str_create_key (extension (b->fname), case_sensitive);
+	
+        r = str_key_collate (a->second_sort_key, b->second_sort_key, case_sensitive);
 	if (r)
 	    return r * reverse;
 	else
@@ -140,12 +125,12 @@ sort_ext (const file_entry *a, const file_entry *b)
 }
 
 int
-sort_time (const file_entry *a, const file_entry *b)
+sort_time (file_entry *a, file_entry *b)
 {
     int ad = MY_ISDIR (a);
     int bd = MY_ISDIR (b);
 
-    if (ad == bd || mix_all_files) {
+    if (ad == bd || panels_options.mix_all_files) {
 	int result = a->st.st_mtime < b->st.st_mtime ? -1 :
 		     a->st.st_mtime > b->st.st_mtime;
 	if (result != 0)
@@ -158,12 +143,12 @@ sort_time (const file_entry *a, const file_entry *b)
 }
 
 int
-sort_ctime (const file_entry *a, const file_entry *b)
+sort_ctime (file_entry *a, file_entry *b)
 {
     int ad = MY_ISDIR (a);
     int bd = MY_ISDIR (b);
 
-    if (ad == bd || mix_all_files) {
+    if (ad == bd || panels_options.mix_all_files) {
 	int result = a->st.st_ctime < b->st.st_ctime ? -1 :
 		     a->st.st_ctime > b->st.st_ctime;
 	if (result != 0)
@@ -176,12 +161,12 @@ sort_ctime (const file_entry *a, const file_entry *b)
 }
 
 int
-sort_atime (const file_entry *a, const file_entry *b)
+sort_atime (file_entry *a, file_entry *b)
 {
     int ad = MY_ISDIR (a);
     int bd = MY_ISDIR (b);
 
-    if (ad == bd || mix_all_files) {
+    if (ad == bd || panels_options.mix_all_files) {
 	int result = a->st.st_atime < b->st.st_atime ? -1 :
 		     a->st.st_atime > b->st.st_atime;
 	if (result != 0)
@@ -194,25 +179,25 @@ sort_atime (const file_entry *a, const file_entry *b)
 }
 
 int
-sort_inode (const file_entry *a, const file_entry *b)
+sort_inode (file_entry *a, file_entry *b)
 {
     int ad = MY_ISDIR (a);
     int bd = MY_ISDIR (b);
 
-    if (ad == bd || mix_all_files)
+    if (ad == bd || panels_options.mix_all_files)
 	return (a->st.st_ino - b->st.st_ino) * reverse;
     else
 	return bd-ad;
 }
 
 int
-sort_size (const file_entry *a, const file_entry *b)
+sort_size (file_entry *a, file_entry *b)
 {
     int ad = MY_ISDIR (a);
     int bd = MY_ISDIR (b);
     int result = 0;
 
-    if (ad != bd && !mix_all_files)
+    if (ad != bd && !panels_options.mix_all_files)
 	return bd - ad;
 
     result = a->st.st_size < b->st.st_size ? -1 :
@@ -223,9 +208,23 @@ sort_size (const file_entry *a, const file_entry *b)
 	return sort_name (a, b);
 }
 
+/* clear keys, should be call after sorting is finished */
+static void
+clean_sort_keys (dir_list *list, int start, int count)
+{
+    int i;
+
+    for (i = 0; i < count; i++){
+        str_release_key (list->list [i + start].sort_key, case_sensitive);
+        list->list [i + start].sort_key = NULL;
+        str_release_key (list->list [i + start].second_sort_key, case_sensitive);
+        list->list [i + start].second_sort_key = NULL;
+    }
+}
+
 
 void
-do_sort (dir_list *list, sortfn *sort, int top, int reverse_f, int case_sensitive_f)
+do_sort (dir_list *list, sortfn *sort, int top, int reverse_f, int case_sensitive_f, int exec_first_f)
 {
     int dot_dot_found = 0;
 
@@ -239,8 +238,11 @@ do_sort (dir_list *list, sortfn *sort, int top, int reverse_f, int case_sensitiv
 
     reverse = reverse_f ? -1 : 1;
     case_sensitive = case_sensitive_f;
+    exec_first = exec_first_f;
     qsort (&(list->list) [dot_dot_found],
 	   top + 1 - dot_dot_found, sizeof (file_entry), sort);
+    
+    clean_sort_keys (list, dot_dot_found, top + 1 - dot_dot_found);
 }
 
 void
@@ -250,44 +252,39 @@ clean_dir (dir_list *list, int count)
 
     for (i = 0; i < count; i++){
 	g_free (list->list [i].fname);
-	list->list [i].fname = 0;
+	list->list [i].fname = NULL;
     }
-}
-
-static int
-add_dotdot_to_list (dir_list *list, int index)
-{
-    /* Need to grow the *list? */
-    if (index == list->size) {
-	list->list = g_realloc (list->list, sizeof (file_entry) *
-			      (list->size + RESIZE_STEPS));
-	if (!list->list)
-	    return 0;
-	list->size += RESIZE_STEPS;
-    }
-
-    memset (&(list->list) [index], 0, sizeof(file_entry));
-    (list->list) [index].fnamelen = 2;
-    (list->list) [index].fname = g_strdup ("..");
-    (list->list) [index].f.link_to_dir = 0;
-    (list->list) [index].f.stale_link = 0;
-    (list->list) [index].f.dir_size_computed = 0;
-    (list->list) [index].f.marked = 0;
-    (list->list) [index].st.st_mode = 040755;
-    return 1;
 }
 
 /* Used to set up a directory list when there is no access to a directory */
-int
+gboolean
 set_zero_dir (dir_list *list)
 {
-    return (add_dotdot_to_list (list, 0));
+    /* Need to grow the *list? */
+    if (list->size == 0) {
+	list->list = g_try_realloc (list->list, sizeof (file_entry) *
+						(list->size + RESIZE_STEPS));
+	if (list->list == NULL)
+	    return FALSE;
+
+	list->size += RESIZE_STEPS;
+    }
+
+    memset (&(list->list) [0], 0, sizeof(file_entry));
+    list->list[0].fnamelen = 2;
+    list->list[0].fname = g_strdup ("..");
+    list->list[0].f.link_to_dir = 0;
+    list->list[0].f.stale_link = 0;
+    list->list[0].f.dir_size_computed = 0;
+    list->list[0].f.marked = 0;
+    list->list[0].st.st_mode = 040755;
+    return TRUE;
 }
 
 /* If you change handle_dirent then check also handle_path. */
 /* Return values: -1 = failure, 0 = don't add, 1 = add to the list */
 static int
-handle_dirent (dir_list *list, const char *filter, struct dirent *dp,
+handle_dirent (dir_list *list, const char *fltr, struct dirent *dp,
 	       struct stat *buf1, int next_free, int *link_to_dir,
 	       int *stale_link)
 {
@@ -295,10 +292,11 @@ handle_dirent (dir_list *list, const char *filter, struct dirent *dp,
 	return 0;
     if (dp->d_name[0] == '.' && dp->d_name[1] == '.' && dp->d_name[2] == 0)
 	return 0;
-    if (!show_dot_files && (dp->d_name[0] == '.'))
+    if (!panels_options.show_dot_files && (dp->d_name[0] == '.'))
 	return 0;
-    if (!show_backups && dp->d_name[NLENGTH (dp) - 1] == '~')
+    if (!panels_options.show_backups && dp->d_name[NLENGTH (dp) - 1] == '~')
 	return 0;
+
     if (mc_lstat (dp->d_name, buf1) == -1) {
 	/*
 	 * lstat() fails - such entries should be identified by
@@ -321,24 +319,44 @@ handle_dirent (dir_list *list, const char *filter, struct dirent *dp,
 	else
 	    *stale_link = 1;
     }
-    if (!(S_ISDIR (buf1->st_mode) || *link_to_dir) && filter
-	&& !regexp_match (filter, dp->d_name, match_file))
-	return 0;
+    if (!(S_ISDIR (buf1->st_mode) || *link_to_dir) && (fltr != NULL)
+	&& !mc_search (fltr, dp->d_name, MC_SEARCH_T_GLOB))
+	    return 0;
 
     /* Need to grow the *list? */
     if (next_free == list->size) {
-	list->list =
-	    g_realloc (list->list,
-		       sizeof (file_entry) * (list->size + RESIZE_STEPS));
-	if (!list->list)
+	list->list = g_try_realloc (list->list, sizeof (file_entry) *
+						(list->size + RESIZE_STEPS));
+	if (list->list == NULL)
 	    return -1;
 	list->size += RESIZE_STEPS;
     }
     return 1;
 }
 
+/* get info about ".." */
+static gboolean
+get_dotdot_dir_stat (const char *path, struct stat *st)
+{
+    gboolean ret = FALSE;
+
+    if ((path != NULL) && (path[0] != '\0') && (st != NULL)) {
+	char *dotdot_dir;
+	struct stat s;
+
+	dotdot_dir = g_strdup_printf ("%s/../", path);
+	canonicalize_pathname (dotdot_dir);
+	ret = mc_stat (dotdot_dir, &s) == 0;
+	g_free (dotdot_dir);
+	*st = s;
+    }
+
+    return ret;
+}
+
 /* handle_path is a simplified handle_dirent. The difference is that
-   handle_path doesn't pay attention to show_dot_files and show_backups.
+   handle_path doesn't pay attention to panels_options.show_dot_files
+   and panels_options.show_backups.
    Moreover handle_path can't be used with a filemask.
    If you change handle_path then check also handle_dirent. */
 /* Return values: -1 = failure, 0 = don't add, 1 = add to the list */
@@ -370,9 +388,9 @@ handle_path (dir_list *list, const char *path,
 
     /* Need to grow the *list? */
     if (next_free == list->size){
-	list->list = g_realloc (list->list, sizeof (file_entry) *
-			      (list->size + RESIZE_STEPS));
-	if (!list->list)
+	list->list = g_try_realloc (list->list, sizeof (file_entry) *
+						(list->size + RESIZE_STEPS));
+	if (list->list == NULL)
 	    return -1;
 	list->size += RESIZE_STEPS;
     }
@@ -380,8 +398,8 @@ handle_path (dir_list *list, const char *path,
 }
 
 int
-do_load_dir (const char *path, dir_list *list, sortfn *sort, int reverse,
-	     int case_sensitive, const char *filter)
+do_load_dir (const char *path, dir_list *list, sortfn *sort, int lc_reverse,
+	     int lc_case_sensitive, int exec_ff, const char *fltr)
 {
     DIR *dirp;
     struct dirent *dp;
@@ -390,22 +408,28 @@ do_load_dir (const char *path, dir_list *list, sortfn *sort, int reverse,
     struct stat st;
 
     /* ".." (if any) must be the first entry in the list */
-    if (set_zero_dir (list) == 0)
+    if (!set_zero_dir (list))
 	return next_free;
+
+    if (get_dotdot_dir_stat (path, &st))
+	list->list[next_free].st = st;
     next_free++;
 
     dirp = mc_opendir (path);
     if (!dirp) {
-	message (1, MSG_ERROR, _("Cannot read directory contents"));
+	message (D_ERROR, MSG_ERROR, _("Cannot read directory contents"));
 	return next_free;
     }
+
     tree_store_start_check (path);
+
     /* Do not add a ".." entry to the root directory */
-    if (!strcmp (path, "/"))
+    if ((path[0] == PATH_SEP) && (path[1] == '\0'))
 	next_free--;
+
     while ((dp = mc_readdir (dirp))) {
 	status =
-	    handle_dirent (list, filter, dp, &st, next_free, &link_to_dir,
+	    handle_dirent (list, fltr, dp, &st, next_free, &link_to_dir,
 			   &stale_link);
 	if (status == 0)
 	    continue;
@@ -421,14 +445,16 @@ do_load_dir (const char *path, dir_list *list, sortfn *sort, int reverse,
 	list->list[next_free].f.stale_link = stale_link;
 	list->list[next_free].f.dir_size_computed = 0;
 	list->list[next_free].st = st;
+        list->list[next_free].sort_key = NULL;
+        list->list[next_free].second_sort_key = NULL;
 	next_free++;
-	if (!(next_free % 32))
+
+	if ((next_free & 31) == 0)
 	    rotate_dash ();
     }
 
-    if (next_free) {
-	do_sort (list, sort, next_free - 1, reverse, case_sensitive);
-    }
+    if (next_free != 0)
+	do_sort (list, sort, next_free - 1, lc_reverse, lc_case_sensitive, exec_ff);
 
     mc_closedir (dirp);
     tree_store_end_check ();
@@ -460,30 +486,23 @@ static dir_list dir_copy = { 0, 0 };
 static void
 alloc_dir_copy (int size)
 {
-    int i;
-
-    if (dir_copy.size < size){
-	if (dir_copy.list){
-
-	    for (i = 0; i < dir_copy.size; i++) {
+    if (dir_copy.size < size) {
+	if (dir_copy.list) {
+	    int i;
+	    for (i = 0; i < dir_copy.size; i++)
 		g_free (dir_copy.list [i].fname);
-	    }
 	    g_free (dir_copy.list);
-	    dir_copy.list = 0;
 	}
 
-	dir_copy.list = g_new (file_entry, size);
-	for (i = 0; i < size; i++)
-	    dir_copy.list [i].fname = 0;
-
+	dir_copy.list = g_new0 (file_entry, size);
 	dir_copy.size = size;
     }
 }
 
-/* If filter is null, then it is a match */
+/* If fltr is null, then it is a match */
 int
 do_reload_dir (const char *path, dir_list *list, sortfn *sort, int count,
-	       int rev, int case_sensitive, const char *filter)
+	       int rev, int lc_case_sensitive, int exec_ff, const char *fltr)
 {
     DIR *dirp;
     struct dirent *dp;
@@ -495,9 +514,9 @@ do_reload_dir (const char *path, dir_list *list, sortfn *sort, int count,
 
     dirp = mc_opendir (path);
     if (!dirp) {
-	message (1, MSG_ERROR, _("Cannot read directory contents"));
+	message (D_ERROR, MSG_ERROR, _("Cannot read directory contents"));
 	clean_dir (list, count);
-	return set_zero_dir (list);
+	return set_zero_dir (list) ? 1 : 0;
     }
 
     tree_store_start_check (path);
@@ -511,6 +530,8 @@ do_reload_dir (const char *path, dir_list *list, sortfn *sort, int count,
 	    list->list[i].f.dir_size_computed;
 	dir_copy.list[i].f.link_to_dir = list->list[i].f.link_to_dir;
 	dir_copy.list[i].f.stale_link = list->list[i].f.stale_link;
+        dir_copy.list[i].sort_key = NULL;
+        dir_copy.list[i].second_sort_key = NULL;
 	if (list->list[i].f.marked) {
 	    g_hash_table_insert (marked_files, dir_copy.list[i].fname,
 				 &dir_copy.list[i]);
@@ -520,18 +541,22 @@ do_reload_dir (const char *path, dir_list *list, sortfn *sort, int count,
 
     /* Add ".." except to the root directory. The ".." entry
        (if any) must be the first in the list. */
-    if (strcmp (path, "/") != 0) {
-	if (set_zero_dir (list) == 0) {
+    if (!((path[0] == PATH_SEP) && (path[1] == '\0'))) {
+	if (!set_zero_dir (list)) {
 	    clean_dir (list, count);
 	    clean_dir (&dir_copy, count);
 	    return next_free;
 	}
+
+	if (get_dotdot_dir_stat (path, &st))
+	    list->list[next_free].st = st;
+
 	next_free++;
     }
 
     while ((dp = mc_readdir (dirp))) {
 	status =
-	    handle_dirent (list, filter, dp, &st, next_free, &link_to_dir,
+	    handle_dirent (list, fltr, dp, &st, next_free, &link_to_dir,
 			   &stale_link);
 	if (status == 0)
 	    continue;
@@ -572,6 +597,8 @@ do_reload_dir (const char *path, dir_list *list, sortfn *sort, int count,
 	list->list[next_free].f.stale_link = stale_link;
 	list->list[next_free].f.dir_size_computed = 0;
 	list->list[next_free].st = st;
+	list->list[next_free].sort_key = NULL;
+	list->list[next_free].second_sort_key = NULL;
 	next_free++;
 	if (!(next_free % 16))
 	    rotate_dash ();
@@ -580,7 +607,7 @@ do_reload_dir (const char *path, dir_list *list, sortfn *sort, int count,
     tree_store_end_check ();
     g_hash_table_destroy (marked_files);
     if (next_free) {
-	do_sort (list, sort, next_free - 1, rev, case_sensitive);
+	do_sort (list, sort, next_free - 1, rev, lc_case_sensitive, exec_ff);
     }
     clean_dir (&dir_copy, count);
     return next_free;
