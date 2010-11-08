@@ -1,3 +1,17 @@
+mc (1:4.7.4-maemo3) fremantle; urgency=low
+
+  * Added libncurses5-dev dependency too, it won't compile without it.
+
+ -- Andrew Zabolotny <zap@homelink.ru>  Mon,  8 Nov 2010 06:09:59 +0300
+
+mc (1:4.7.4-maemo2) fremantle; urgency=low
+
+  * Replaced icon with the one from mc home page
+  * Replaced build-dependency of libncurses5 with libncursesw5.
+    Small change, big difference!
+
+ -- Andrew Zabolotny <zap@homelink.ru>  Sun,  7 Nov 2010 04:48:15 +0300
+
 mc (1:4.7.4-maemo1) fremantle; urgency=low
 
   * Upgraded to latest Midnight Commander version

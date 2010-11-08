@@ -3,7 +3,7 @@ Section: user/utilities
 Priority: optional
 Maintainer: Andrew Zabolotny <zap@homelink.ru>
 XSBC-Bugtracker: mailto:zap@homelink.ru
-Build-Depends: debhelper (>> 4.0.0), libncurses5-dev, libglib2.0-dev, gettext, coreutils-gnu, python
+Build-Depends: debhelper (>> 4.0.0), libncurses5-dev, libncursesw5-dev, libglib2.0-dev, gettext, coreutils-gnu
 Standards-Version: 3.7.3
 
 Package: mc

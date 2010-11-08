@@ -19,3 +19,7 @@ install/mc::
 	gbase64 -d debian/icon.b64 > debian/mc/usr/share/icons/hicolor/64x64/apps/mc.png
 	cp debian/mc.desktop debian/mc/usr/share/applications/hildon
 	rm -rf debian/mc/opt/mc/share/man
+	# Append additional extensions to highlighting rules
+	sed -e 's/tbz2;$$/tbz2;deb;pkg/' -e 's/;cdr$$/;cdr;svg/' -e 's/;chm$$/;chm;ini;rc;cfg;conf/' \
+		debian/mc/opt/mc/etc/mc/filehighlight.ini >debian/mc/opt/mc/etc/mc/filehighlight.new && \
+	mv -f debian/mc/opt/mc/etc/mc/filehighlight.new debian/mc/opt/mc/etc/mc/filehighlight.ini
