@@ -1,14 +1,14 @@
 Source: mc
 Section: user/utilities
 Priority: optional
-Maintainer: Andrew Zabolotny <zap@homelink.ru>
-XSBC-Bugtracker: mailto:zap@homelink.ru
-Build-Depends: debhelper (>> 4.0.0), libncurses5-dev, libncursesw5-dev, libglib2.0-dev, gettext, coreutils-gnu
+Maintainer: Graham Inggs <graham@nerve.org.za>
+XSBC-Original-Maintainer: Andrew Zabolotny <zap@homelink.ru>
+Build-Depends: debhelper (>= 7), libslang2-dev, libglib2.0-dev, gettext, coreutils-gnu
 Standards-Version: 3.7.3
 
 Package: mc
 Architecture: any
-Depends: file, libglib2.0-0 (>= 2.0), libc6 (>= 2.3.0), libncursesw5
+Depends: ${misc:Depends}, ${shlibs:Depends}, file
 Suggests: perl, mime-support, zip, unzip, bzip2, links | w3m | lynx, arj, bash
 Conflicts: mc-common, suidmanager (<< 0.52)
 Replaces: mc-common, manpages-pl (<= 20030210)

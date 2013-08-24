@@ -13,7 +13,7 @@ DEB_CONFIGURE_USER_FLAGS = \
 	--with-x --without-gpm-mouse \
 	--with-search-engine=glib \
 	--with-subshell \
-	--with-screen=ncurses
+	--with-screen=slang
 
 install/mc::
 	gbase64 -d debian/icon.b64 > debian/mc/usr/share/icons/hicolor/64x64/apps/mc.png

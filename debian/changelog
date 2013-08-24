@@ -1,3 +1,12 @@
+mc (1:4.8.10-0maemo1) fremantle; urgency=low
+
+  * Update to debhelper 7, source format 3.0 (quilt).
+  * Revert to slang instead of ncurses (upstream ticket #2244).
+  * New upstream version 4.8.10.
+  * Update d/conffiles.
+
+ -- Graham Inggs <graham@nerve.org.za>  Sat, 24 Aug 2013 22:07:18 +0200
+
 mc (1:4.7.4-maemo3) fremantle; urgency=low
 
   * Added libncurses5-dev dependency too, it won't compile without it.
