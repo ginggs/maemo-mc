@@ -23,3 +23,7 @@ install/mc::
 	sed -e 's/tbz2;$$/tbz2;deb;pkg/' -e 's/;cdr$$/;cdr;svg/' -e 's/;chm$$/;chm;ini;rc;cfg;conf/' \
 		debian/mc/opt/mc/etc/mc/filehighlight.ini >debian/mc/opt/mc/etc/mc/filehighlight.new && \
 	mv -f debian/mc/opt/mc/etc/mc/filehighlight.new debian/mc/opt/mc/etc/mc/filehighlight.ini
+	# Fix scratchbox paths for Virtual File System programs
+	find debian/mc/opt/mc -type f -exec sed -i 's/\/scratchbox\/tools\//\/usr\//g' {} \;
+	find debian/mc/opt/mc -type f -exec sed -i 's/\/scratchbox\/devkits\//\/usr\//g' {} \;
+
