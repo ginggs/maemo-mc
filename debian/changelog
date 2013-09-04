@@ -1,6 +1,13 @@
+mc (1:4.8.10-0maemo3) fremantle; urgency=low
+
+  * Revert to debhelper 5 (debhelper 7 was not needed).
+  * Add bugtracker link.
+
+ -- Graham Inggs <graham@nerve.org.za>  Wed, 04 Sep 2013 08:23:36 +0200
+
 mc (1:4.8.10-0maemo2) fremantle; urgency=low
 
-  * Fix scratchbox paths for Virtual Files System programs.
+  * Fix scratchbox paths for Virtual File System programs.
 
  -- Graham Inggs <graham@nerve.org.za>  Thu, 29 Aug 2013 00:42:14 +0200
 

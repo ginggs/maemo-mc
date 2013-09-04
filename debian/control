@@ -3,7 +3,7 @@ Section: user/utilities
 Priority: optional
 Maintainer: Graham Inggs <graham@nerve.org.za>
 XSBC-Original-Maintainer: Andrew Zabolotny <zap@homelink.ru>
-Build-Depends: debhelper (>= 7), libslang2-dev, libglib2.0-dev, gettext, coreutils-gnu
+Build-Depends: debhelper (>= 5), libslang2-dev, libglib2.0-dev, gettext, coreutils-gnu
 Standards-Version: 3.7.3
 
 Package: mc
@@ -19,6 +19,7 @@ Description: midnight commander - a powerful file manager
  viewer with support for binary files. Also included is Virtual
  Filesystem (VFS), that allows files on remote systems (e.g. FTP, SSH, 
  SMB servers) and files inside archives to be manipulated like real files.
+XSBC-Bugtracker: https://garage.maemo.org/tracker/?group_id=2376
 XB-Maemo-Display-Name: Midnight Commander
 XB-Maemo-Icon-26:
  iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A
