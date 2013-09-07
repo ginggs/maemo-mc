@@ -1,3 +1,10 @@
+mc (1:4.8.10-0maemo4) fremantle; urgency=low
+
+  * Apply "Compute totals" option to Move operation
+    (upstream ticket #2075).
+
+ -- Graham Inggs <graham@nerve.org.za>  Sat, 07 Sep 2013 21:30:32 +0200
+
 mc (1:4.8.10-0maemo3) fremantle; urgency=low
 
   * Revert to debhelper 5 (debhelper 7 was not needed).

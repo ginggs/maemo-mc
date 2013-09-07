@@ -1,0 +1,58 @@
+Description: Apply "Compute totals" option to Move operation
+Origin: http://www.midnight-commander.org/changeset/1ae697368c933a5967416acdc7834102d6ac484d
+Bug-Vendor: http://www.midnight-commander.org/ticket/2075
+Author: Andrew Borodin <aborodin@vmail.ru>
+Last-Update: 2013-08-05
+--- a/src/filemanager/file.c
++++ b/src/filemanager/file.c
+@@ -1273,6 +1273,6 @@
+ /** Initialize variables for progress bars */
+ static FileProgressStatus
+-panel_operate_init_totals (FileOperation operation, const WPanel * panel, const char *source,
+-                           FileOpContext * ctx, filegui_dialog_type_t dialog_type)
++panel_operate_init_totals (const WPanel * panel, const char *source, FileOpContext * ctx,
++                           filegui_dialog_type_t dialog_type)
+ {
+     FileProgressStatus status;
+@@ -1283,5 +1283,5 @@
+ #endif
+ 
+-    if (operation != OP_MOVE && verbose && file_op_compute_totals)
++    if (verbose && file_op_compute_totals)
+     {
+         ComputeDirSizeUI *ui;
+@@ -2793,12 +2793,10 @@
+         if (operation == OP_DELETE)
+             dialog_type = FILEGUI_DIALOG_DELETE_ITEM;
++        else if (single_entry && S_ISDIR (selection (panel)->st.st_mode))
++            dialog_type = FILEGUI_DIALOG_MULTI_ITEM;
++        else if (single_entry || force_single)
++            dialog_type = FILEGUI_DIALOG_ONE_ITEM;
+         else
+-        {
+-            dialog_type = ((operation != OP_COPY) || single_entry || force_single)
+-                ? FILEGUI_DIALOG_ONE_ITEM : FILEGUI_DIALOG_MULTI_ITEM;
+-
+-            if (single_entry && (operation == OP_COPY) && S_ISDIR (selection (panel)->st.st_mode))
+-                dialog_type = FILEGUI_DIALOG_MULTI_ITEM;
+-        }
++            dialog_type = FILEGUI_DIALOG_MULTI_ITEM;
+     }
+ 
+@@ -2845,6 +2843,6 @@
+             source_with_vpath = vfs_path_append_new (panel->cwd_vpath, source, (char *) NULL);
+ #endif /* WITH_FULL_PATHS */
+-        if (panel_operate_init_totals
+-            (operation, panel, vfs_path_as_str (source_with_vpath), ctx, dialog_type) == FILE_CONT)
++        if (panel_operate_init_totals (panel, vfs_path_as_str (source_with_vpath), ctx, dialog_type)
++            == FILE_CONT)
+         {
+             if (operation == OP_DELETE)
+@@ -2937,5 +2935,5 @@
+         }
+ 
+-        if (panel_operate_init_totals (operation, panel, NULL, ctx, dialog_type) == FILE_CONT)
++        if (panel_operate_init_totals (panel, NULL, ctx, dialog_type) == FILE_CONT)
+         {
+             /* Loop for every file, perform the actual copy operation */
+
