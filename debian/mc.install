@@ -1,0 +1,2 @@
+debian/mc.desktop usr/share/applications/hildon
+debian/mc.png usr/share/icons/hicolor/64x64/apps

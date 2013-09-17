@@ -3,21 +3,21 @@ Section: user/utilities
 Priority: optional
 Maintainer: Graham Inggs <graham@nerve.org.za>
 XSBC-Original-Maintainer: Andrew Zabolotny <zap@homelink.ru>
-Build-Depends: debhelper (>= 5), libslang2-dev, libglib2.0-dev, gettext, coreutils-gnu
+Build-Depends: debhelper (>= 5), gettext, libglib2.0-dev, libslang2-dev
 Standards-Version: 3.7.3
 
 Package: mc
 Architecture: any
-Depends: ${misc:Depends}, ${shlibs:Depends}, file
-Suggests: perl, mime-support, zip, unzip, bzip2, links | w3m | lynx, arj, bash
+Depends: file, ${misc:Depends}, ${shlibs:Depends}
+Suggests: arj, bash, bzip2, links | w3m | lynx, mime-support, perl, unzip, zip
 Conflicts: mc-common, suidmanager (<< 0.52)
-Replaces: mc-common, manpages-pl (<= 20030210)
+Replaces: manpages-pl (<= 20030210), mc-common
 Description: midnight commander - a powerful file manager
  GNU Midnight Commander is a text-mode full-screen file manager. It
  uses a two panel interface and a subshell for command execution. It
  includes an internal editor with syntax highlighting and an internal
  viewer with support for binary files. Also included is Virtual
- Filesystem (VFS), that allows files on remote systems (e.g. FTP, SSH, 
+ Filesystem (VFS), that allows files on remote systems (e.g. FTP, SSH,
  SMB servers) and files inside archives to be manipulated like real files.
 XSBC-Bugtracker: https://garage.maemo.org/tracker/?group_id=2376
 XB-Maemo-Display-Name: Midnight Commander

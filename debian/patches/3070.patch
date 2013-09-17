@@ -1,0 +1,20 @@
+Last-Update: 2013-09-08
+Forwarded: not-needed
+Author: Dmitry Smirnov <onlyjob@member.fsf.org>
+Bug-Debian: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=721961
+Bug-MC: https://www.midnight-commander.org/ticket/3070
+Description: fix saving changes to nested archives
+
+--- a/src/vfs/extfs/extfs.c
++++ b/src/vfs/extfs/extfs.c
+@@ -376,9 +376,9 @@
+         struct stat my;
+         vfs_path_t *local_name_vpath, *name_vpath;
+ 
+         local_name_vpath = vfs_path_from_str (archive->local_name);
+-        name_vpath = vfs_path_from_str (archive->local_name);
++        name_vpath = vfs_path_from_str (archive->name);
+         mc_stat (local_name_vpath, &my);
+         mc_ungetlocalcopy (name_vpath, local_name_vpath,
+                            archive->local_stat.st_mtime != my.st_mtime);
+         vfs_path_free (local_name_vpath);

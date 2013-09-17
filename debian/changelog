@@ -1,3 +1,15 @@
+mc (1:4.8.10-0maemo5) fremantle; urgency=low
+
+  * Update apply "Compute totals" option to Move operation patch
+    (upstream tickets #2075, #3059).
+  * Fix mc arguments handling (upstream ticket #3047).
+  * Fix saving changes to nested archives (upstream ticket #3070).
+  * Switch from using d/dirs to d/mc.install.
+  * Include mc.png in source instead of icon.b64 and
+    drop build-dep on coreutils-gnu.
+
+ -- Graham Inggs <graham@nerve.org.za>  Tue, 17 Sep 2013 20:32:35 +0200
+
 mc (1:4.8.10-0maemo4) fremantle; urgency=low
 
   * Apply "Compute totals" option to Move operation
