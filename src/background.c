@@ -1,15 +1,16 @@
 /* {{{ Copyright */
 
 /* Background support.
-   Copyright (C) 1996 The Free Software Foundation
-   
+   Copyright (C) 1996, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2007
+   Free Software Foundation, Inc.
+
    Written by: 1996 Miguel de Icaza
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
    the Free Software Foundation; either version 2 of the License, or
    (at your option) any later version.
-   
+
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -21,10 +22,15 @@
 
 /* }}} */
 
+/** \file background.c
+ *  \brief Source: Background support
+ */
+
 #include <config.h>
 
 #ifdef WITH_BACKGROUND
 
+#include <stdlib.h>
 #include <errno.h>
 #include <signal.h>
 #include <stdarg.h>
@@ -33,17 +39,19 @@
 
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/wait.h>           /* waitpid() */
 #include <unistd.h>
+#include <fcntl.h>
 
-#include "global.h"
+#include "lib/global.h"
 #include "background.h"
-#include "tty.h"	/* doupdate() */
-#include "dialog.h"	/* do_refresh() */
 #include "wtools.h"
-#include "fileopctx.h"	/* FileOpContext */
-#include "key.h"	/* add_select_channel(), delete_select_channel() */
+#include "layout.h"             /* repaint_screen() */
+#include "fileopctx.h"          /* FileOpContext */
+#include "lib/tty/key.h"        /* add_select_channel(), delete_select_channel() */
 
-enum ReturnType {
+enum ReturnType
+{
     Return_String,
     Return_Integer
 };
@@ -54,48 +62,71 @@ int we_are_background = 0;
 /* File descriptor for talking to our parent */
 static int parent_fd;
 
-#define MAXCALLARGS 4		/* Number of arguments supported */
+/* File descriptor for messages from our parent */
+static int from_parent_fd;
+
+#define MAXCALLARGS 4           /* Number of arguments supported */
 
 struct TaskList *task_list = NULL;
 
 static int background_attention (int fd, void *closure);
-    
+
 static void
-register_task_running (FileOpContext *ctx, pid_t pid, int fd, char *info)
+register_task_running (FileOpContext * ctx, pid_t pid, int fd, int to_child, char *info)
 {
     TaskList *new;
 
     new = g_new (TaskList, 1);
-    new->pid   = pid;
-    new->info  = info;
+    new->pid = pid;
+    new->info = info;
     new->state = Task_Running;
-    new->next  = task_list;
-    new->fd    = fd;
-    task_list  = new;
+    new->next = task_list;
+    new->fd = fd;
+    new->to_child_fd = to_child;
+    task_list = new;
 
     add_select_channel (fd, background_attention, ctx);
+}
+
+static int
+destroy_task_and_return_fd (pid_t pid)
+{
+    TaskList *p = task_list;
+    TaskList *prev = 0;
+
+    while (p)
+    {
+        if (p->pid == pid)
+        {
+            if (prev)
+                prev->next = p->next;
+            else
+                task_list = p->next;
+            g_free (p->info);
+            g_free (p);
+            return p->fd;
+        }
+        prev = p;
+        p = p->next;
+    }
+
+    /* pid not found */
+    return -1;
 }
 
 void
 unregister_task_running (pid_t pid, int fd)
 {
-    TaskList *p = task_list;
-    TaskList *prev = 0;
-
-    while (p){
-	if (p->pid == pid){
-	    if (prev)
-		prev->next = p->next;
-	    else
-		task_list = p->next;
-	    g_free (p->info);
-	    g_free (p);
-	    break;
-	}
-	prev = p;
-	p = p->next;
-    }
+    destroy_task_and_return_fd (pid);
     delete_select_channel (fd);
+}
+
+void
+unregister_task_with_pid (pid_t pid)
+{
+    int fd = destroy_task_and_return_fd (pid);
+    if (fd != -1)
+        delete_select_channel (fd);
 }
 
 /*
@@ -109,45 +140,62 @@ unregister_task_running (pid_t pid, int fd)
 int
 do_background (struct FileOpContext *ctx, char *info)
 {
-    int comm[2];		/* control connection stream */
+    int comm[2];                /* control connection stream */
+    int back_comm[2];           /* back connection */
     pid_t pid;
 
     if (pipe (comm) == -1)
-	return -1;
+        return -1;
 
-    if ((pid = fork ()) == -1) {
-    	int saved_errno = errno;
-    	(void) close (comm[0]);
-    	(void) close (comm[1]);
-    	errno = saved_errno;
-	return -1;
+    if (pipe (back_comm) == -1)
+        return -1;
+
+    pid = fork ();
+    if (pid == -1)
+    {
+        int saved_errno = errno;
+
+        (void) close (comm[0]);
+        (void) close (comm[1]);
+        (void) close (back_comm[0]);
+        (void) close (back_comm[1]);
+        errno = saved_errno;
+        return -1;
     }
 
-    if (pid == 0) {
-	int nullfd;
+    if (pid == 0)
+    {
+        int nullfd;
 
-	close (comm[0]);
-	parent_fd = comm[1];
-	we_are_background = 1;
-	current_dlg = NULL;
+        parent_fd = comm[1];
+        from_parent_fd = back_comm[0];
 
-	/* Make stdin/stdout/stderr point somewhere */
-	close (0);
-	close (1);
-	close (2);
+        we_are_background = 1;
+        top_dlg = NULL;
 
-	if ((nullfd = open ("/dev/null", O_RDWR)) != -1) {
-	    while (dup2 (nullfd, 0) == -1 && errno == EINTR);
-	    while (dup2 (nullfd, 1) == -1 && errno == EINTR);
-	    while (dup2 (nullfd, 2) == -1 && errno == EINTR);
-	}
+        /* Make stdin/stdout/stderr point somewhere */
+        close (0);
+        close (1);
+        close (2);
 
-	return 0;
-    } else {
-	close (comm[1]);
-	ctx->pid = pid;
-	register_task_running (ctx, pid, comm[0], info);
-	return 1;
+        nullfd = open ("/dev/null", O_RDWR);
+        if (nullfd != -1)
+        {
+            while (dup2 (nullfd, 0) == -1 && errno == EINTR)
+                ;
+            while (dup2 (nullfd, 1) == -1 && errno == EINTR)
+                ;
+            while (dup2 (nullfd, 2) == -1 && errno == EINTR)
+                ;
+        }
+
+        return 0;
+    }
+    else
+    {
+        ctx->pid = pid;
+        register_task_running (ctx, pid, comm[0], back_comm[1], info);
+        return 1;
     }
 }
 
@@ -196,143 +244,211 @@ background_attention (int fd, void *closure)
 {
     FileOpContext *ctx;
     int have_ctx;
-    void *routine;
-    int  argc, i, result, status;
-    char *data [MAXCALLARGS];
-    ssize_t bytes;
+    union
+    {
+        int (*have_ctx0) (int);
+        int (*have_ctx1) (int, char *);
+        int (*have_ctx2) (int, char *, char *);
+        int (*have_ctx3) (int, char *, char *, char *);
+        int (*have_ctx4) (int, char *, char *, char *, char *);
+
+        int (*non_have_ctx0) (FileOpContext *, int);
+        int (*non_have_ctx1) (FileOpContext *, int, char *);
+        int (*non_have_ctx2) (FileOpContext *, int, char *, char *);
+        int (*non_have_ctx3) (FileOpContext *, int, char *, char *, char *);
+        int (*non_have_ctx4) (FileOpContext *, int, char *, char *, char *, char *);
+
+        char *(*ret_str0) ();
+        char *(*ret_str1) (char *);
+        char *(*ret_str2) (char *, char *);
+        char *(*ret_str3) (char *, char *, char *);
+        char *(*ret_str4) (char *, char *, char *, char *);
+
+        void *pointer;
+    } routine;
+    /*    void *routine; */
+    int argc, i, result, status;
+    char *data[MAXCALLARGS];
+    ssize_t bytes, ret;
+    struct TaskList *p;
+    int to_child_fd = -1;
     enum ReturnType type;
 
     ctx = closure;
 
-    bytes = read (fd, &routine, sizeof (routine));
-    if (bytes == -1 || (size_t) bytes < (sizeof (routine))) {
-	const char *background_process_error = _(" Background process error ");
+    bytes = read (fd, &routine.pointer, sizeof (routine));
+    if (bytes == -1 || (size_t) bytes < (sizeof (routine)))
+    {
+        const char *background_process_error = _("Background process error");
 
-	unregister_task_running (ctx->pid, fd);
-	if (!waitpid (ctx->pid, &status, WNOHANG)) {
-	    /* the process is still running, but it misbehaves - kill it */
-	    kill (ctx->pid, SIGTERM);
-	    message (1, background_process_error, _(" Unknown error in child "));
-	    return 0;
-	}
+        unregister_task_running (ctx->pid, fd);
+        if (!waitpid (ctx->pid, &status, WNOHANG))
+        {
+            /* the process is still running, but it misbehaves - kill it */
+            kill (ctx->pid, SIGTERM);
+            message (D_ERROR, background_process_error, _("Unknown error in child"));
+            return 0;
+        }
 
-	/* 0 means happy end */
-	if (WIFEXITED (status) && (WEXITSTATUS (status) == 0))
-	    return 0;
+        /* 0 means happy end */
+        if (WIFEXITED (status) && (WEXITSTATUS (status) == 0))
+            return 0;
 
-	message (1, background_process_error, _(" Child died unexpectedly "));
+        message (D_ERROR, background_process_error, _("Child died unexpectedly"));
 
-	return 0;
+        return 0;
     }
 
-    read (fd, &argc, sizeof (argc));
-    if (argc > MAXCALLARGS){
-	message (1, _(" Background protocol error "),
-		 _(" Background process sent us a request for more arguments \n"
-		 " than we can handle. \n"));
+    if ((read (fd, &argc, sizeof (argc)) != sizeof (argc)) ||
+        (read (fd, &type, sizeof (type)) != sizeof (type)) ||
+        (read (fd, &have_ctx, sizeof (have_ctx)) != sizeof (have_ctx)))
+    {
+        message (D_ERROR, _("Background protocol error"), _("Reading failed"));
+        return 0;
     }
-    read (fd, &type, sizeof (type));
-    read (fd, &have_ctx, sizeof (have_ctx));
+
+    if (argc > MAXCALLARGS)
+    {
+        message (D_ERROR, _("Background protocol error"),
+                 _("Background process sent us a request for more arguments\n"
+                   "than we can handle."));
+    }
+
     if (have_ctx)
-	    read (fd, ctx, sizeof (FileOpContext));
-
-    for (i = 0; i < argc; i++){
-	int size;
-
-	read (fd, &size, sizeof (size));
-	data [i] = g_malloc (size+1);
-	read (fd, data [i], size);
-
-	data [i][size] = 0;	/* NULL terminate the blocks (they could be strings) */
+    {
+        if (read (fd, ctx, sizeof (FileOpContext)) != sizeof (FileOpContext))
+        {
+            message (D_ERROR, _("Background protocol error"), _("Reading failed"));
+            return 0;
+        }
     }
+
+    for (i = 0; i < argc; i++)
+    {
+        int size;
+
+        if (read (fd, &size, sizeof (size)) != sizeof (size))
+        {
+            message (D_ERROR, _("Background protocol error"), _("Reading failed"));
+            return 0;
+        }
+        data[i] = g_malloc (size + 1);
+        if (read (fd, data[i], size) != size)
+        {
+            message (D_ERROR, _("Background protocol error"), _("Reading failed"));
+            return 0;
+        }
+        data[i][size] = 0;      /* NULL terminate the blocks (they could be strings) */
+    }
+
+    /* Find child task info by descriptor */
+    /* Find before call, because process can destroy self after */
+    for (p = task_list; p; p = p->next)
+    {
+        if (p->fd == fd)
+            break;
+    }
+
+    if (p)
+        to_child_fd = p->to_child_fd;
+
+    if (to_child_fd == -1)
+        message (D_ERROR, _("Background process error"), _("Unknown error in child"));
 
     /* Handle the call */
-    if (type == Return_Integer){
-	if (!have_ctx)
-	    switch (argc){
-	    case 1:
-		result = (*(int (*)(int, char *))routine)(Background, data [0]);
-		break;
-	    case 2:
-		result = (*(int (*)(int, char *, char *))routine)
-		    (Background, data [0], data [1]);
-		break;
-	    case 3:
-		result = (*(int (*)(int, char *, char *, char *))routine)
-		    (Background, data [0], data [1], data [2]);
-		break;
-	    case 4:
-		result = (*(int (*)(int, char *, char *, char *, char *))routine)
-		    (Background, data [0], data [1], data [2], data [3]);
-		break;
-	    }
-	else
-	    switch (argc){
-	    case 1:
-		result = (*(int (*)(FileOpContext *, int, char *))routine)
-		    (ctx, Background, data [0]);
-		break;
-	    case 2:
-		result = (*(int (*)(FileOpContext *, int, char *, char *))routine)
-		    (ctx, Background, data [0], data [1]);
-		break;
-	    case 3:
-		result = (*(int (*)(FileOpContext *, int, char *, char *, char *))routine)
-		    (ctx, Background, data [0], data [1], data [2]);
-		break;
-	    case 4:
-		result = (*(int (*)(FileOpContext *, int, char *, char *, char *, char *))routine)
-		    (ctx, Background, data [0], data [1], data [2], data [3]);
-		break;
-	    }
+    if (type == Return_Integer)
+    {
+        if (!have_ctx)
+            switch (argc)
+            {
+            case 0:
+                result = routine.have_ctx0 (Background);
+                break;
+            case 1:
+                result = routine.have_ctx1 (Background, data[0]);
+                break;
+            case 2:
+                result = routine.have_ctx2 (Background, data[0], data[1]);
+                break;
+            case 3:
+                result = routine.have_ctx3 (Background, data[0], data[1], data[2]);
+                break;
+            case 4:
+                result = routine.have_ctx4 (Background, data[0], data[1], data[2], data[3]);
+                break;
+            }
+        else
+            switch (argc)
+            {
+            case 0:
+                result = routine.non_have_ctx0 (ctx, Background);
+                break;
+            case 1:
+                result = routine.non_have_ctx1 (ctx, Background, data[0]);
+                break;
+            case 2:
+                result = routine.non_have_ctx2 (ctx, Background, data[0], data[1]);
+                break;
+            case 3:
+                result = routine.non_have_ctx3 (ctx, Background, data[0], data[1], data[2]);
+                break;
+            case 4:
+                result =
+                    routine.non_have_ctx4 (ctx, Background, data[0], data[1], data[2], data[3]);
+                break;
+            }
 
-	/* Send the result code and the value for shared variables */
-	write (fd, &result, sizeof (int));
-	if (have_ctx)
-	    write (fd, ctx, sizeof (FileOpContext));
-    } else if (type == Return_String) {
-	int len;
-	char *resstr = NULL;
+        /* Send the result code and the value for shared variables */
+        ret = write (to_child_fd, &result, sizeof (int));
+        if (have_ctx && to_child_fd != -1)
+            ret = write (to_child_fd, ctx, sizeof (FileOpContext));
+    }
+    else if (type == Return_String)
+    {
+        int len;
+        char *resstr = NULL;
 
-	/* FIXME: string routines should also use the Foreground/Background
-	 * parameter.  Currently, this is not used here
-	 */
-	switch (argc){
-	case 1:
-	    resstr = (*(char * (*)(char *))routine)(data [0]);
-	    break;
-	case 2:
-	    resstr = (*(char * (*)(char *, char *))routine)
-		(data [0], data [1]);
-	    break;
-	case 3:
-	    resstr = (*(char * (*)(char *, char *, char *))routine)
-		(data [0], data [1], data [2]);
-	    break;
-	case 4:
-	    resstr = (*(char * (*)(char *, char *, char *, char *))routine)
-		(data [0], data [1], data [2], data [3]);
-	    break;
-	default: g_assert_not_reached();
-	}
-	if (resstr){
-	    len = strlen (resstr);
-	    write (fd, &len, sizeof (len));
-	    if (len){
-		write (fd, resstr, len);
-		g_free (resstr);
-	    }
-	} else {
-	    len = 0;
-	    write (fd, &len, sizeof (len));
-	}
+        /* FIXME: string routines should also use the Foreground/Background
+         * parameter.  Currently, this is not used here
+         */
+        switch (argc)
+        {
+        case 0:
+            resstr = routine.ret_str0 ();
+            break;
+        case 1:
+            resstr = routine.ret_str1 (data[0]);
+            break;
+        case 2:
+            resstr = routine.ret_str2 (data[0], data[1]);
+            break;
+        case 3:
+            resstr = routine.ret_str3 (data[0], data[1], data[2]);
+            break;
+        case 4:
+            resstr = routine.ret_str4 (data[0], data[1], data[2], data[3]);
+            break;
+        default:
+            g_assert_not_reached ();
+        }
+        if (resstr)
+        {
+            len = strlen (resstr);
+            ret = write (to_child_fd, &len, sizeof (len));
+            if (len != 0)
+                ret = write (to_child_fd, resstr, len);
+            g_free (resstr);
+        }
+        else
+        {
+            len = 0;
+            ret = write (to_child_fd, &len, sizeof (len));
+        }
     }
     for (i = 0; i < argc; i++)
-	g_free (data [i]);
+        g_free (data[i]);
 
-    do_refresh ();
-    mc_refresh ();
-    doupdate ();
+    repaint_screen ();
     return 0;
 }
 
@@ -346,19 +462,20 @@ background_attention (int fd, void *closure)
  * the call be a file operation context.
  */
 static void
-parent_call_header (void *routine, int argc, enum ReturnType type, FileOpContext *ctx)
+parent_call_header (void *routine, int argc, enum ReturnType type, FileOpContext * ctx)
 {
     int have_ctx;
+    ssize_t ret;
 
     have_ctx = (ctx != NULL);
 
-    write (parent_fd, &routine, sizeof (routine));
-    write (parent_fd, &argc, sizeof (int));
-    write (parent_fd, &type, sizeof (type));
-    write (parent_fd, &have_ctx, sizeof (have_ctx));
+    ret = write (parent_fd, &routine, sizeof (routine));
+    ret = write (parent_fd, &argc, sizeof (int));
+    ret = write (parent_fd, &type, sizeof (type));
+    ret = write (parent_fd, &have_ctx, sizeof (have_ctx));
 
     if (have_ctx)
-	write (parent_fd, ctx, sizeof (FileOpContext));
+        ret = write (parent_fd, ctx, sizeof (FileOpContext));
 }
 
 int
@@ -366,21 +483,24 @@ parent_call (void *routine, struct FileOpContext *ctx, int argc, ...)
 {
     va_list ap;
     int i;
+    ssize_t ret;
 
     va_start (ap, argc);
     parent_call_header (routine, argc, Return_Integer, ctx);
-    for (i = 0; i < argc; i++) {
-	int  len;
-	void *value;
+    for (i = 0; i < argc; i++)
+    {
+        int len;
+        void *value;
 
-	len   = va_arg (ap, int);
-	value = va_arg (ap, void *);
-	write (parent_fd, &len, sizeof (int));
-	write (parent_fd, value, len);
+        len = va_arg (ap, int);
+        value = va_arg (ap, void *);
+        ret = write (parent_fd, &len, sizeof (int));
+        ret = write (parent_fd, value, len);
     }
-    read (parent_fd, &i, sizeof (int));
+
+    ret = read (from_parent_fd, &i, sizeof (int));
     if (ctx)
-	read (parent_fd, ctx, sizeof (FileOpContext));
+        ret = read (from_parent_fd, ctx, sizeof (FileOpContext));
 
     return i;
 }
@@ -391,25 +511,32 @@ parent_call_string (void *routine, int argc, ...)
     va_list ap;
     char *str;
     int i;
-    
+
     va_start (ap, argc);
     parent_call_header (routine, argc, Return_String, NULL);
-    for (i = 0; i < argc; i++){
-	int  len;
-	void *value;
+    for (i = 0; i < argc; i++)
+    {
+        int len;
+        void *value;
 
-	len   = va_arg (ap, int);
-	value = va_arg (ap, void *);
-	write (parent_fd, &len, sizeof (int));
-	write (parent_fd, value, len);
+        len = va_arg (ap, int);
+        value = va_arg (ap, void *);
+        if ((write (parent_fd, &len, sizeof (int)) != sizeof (int)) ||
+            (write (parent_fd, value, len) != len))
+            return NULL;
     }
-    read (parent_fd, &i, sizeof (int));
+    if (read (from_parent_fd, &i, sizeof (int)) != sizeof (int))
+        return NULL;
     if (!i)
-	return NULL;
+        return NULL;
     str = g_malloc (i + 1);
-    read (parent_fd, str, i);
-    str [i] = 0;
+    if (read (from_parent_fd, str, i) != i)
+    {
+        g_free (str);
+        return NULL;
+    }
+    str[i] = 0;
     return str;
 }
 
-#endif				/* WITH_BACKGROUND */
+#endif /* WITH_BACKGROUND */

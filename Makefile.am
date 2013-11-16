@@ -1,13 +1,25 @@
 ## Process this file with automake to create Makefile.in.
-
 AUTOMAKE_OPTIONS = 1.5
 
-SUBDIRS = intl po m4 vfs slang edit src lib doc syntax
+SUBDIRS = intl po lib src doc contrib misc
 
-EXTRA_DIST = FAQ HACKING INSTALL.FAST MAINTAINERS README.QNX TODO pkginfo.in prototype.in mc.qpg mc.spec
+EXTRA_DIST = 
 
-noinst_DATA = mc.spec mc.qpg pkginfo prototype
-dist_noinst_SCRIPTS = build-glib1.sh build-glib2.sh
+dist_noinst_SCRIPTS = build-glib2.sh
+
+dist_noinst_HEADERS = $(top_srcdir)/version.h
 
 ACLOCAL_AMFLAGS = -I m4
 
+CONFIG_STATUS_DEPENDENCIES = $(top_srcdir)/version.h
+
+.PHONY: update-version
+
+update-version:
+	@if test -x $(top_srcdir)/maint/version.sh; then \
+	    $(top_srcdir)/maint/version.sh "$(top_srcdir)" 2>&1 >/dev/null; \
+	else \
+	    echo "File not found: $(top_srcdir)/maint/version.sh"; \
+	fi
+
+$(top_srcdir)/version.h: update-version

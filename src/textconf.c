@@ -1,6 +1,7 @@
 /* Print features specific for this build
 
-   Copyright (C) 2001-2002 Free Software Foundation
+   Copyright (C) 2000, 2001, 2002, 2004, 2005, 2007
+   Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -17,37 +18,48 @@
    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
+/** \file textconf.c
+ *  \brief Source: prints features specific for this build
+ */
+
 #include <config.h>
 
 #include <limits.h>
 #include <stdio.h>
-
 #include <sys/types.h>
 
-#include "global.h"
-#include "ecs.h"
+#include "lib/global.h"
+#include "src/textconf.h"
 
-#ifdef USE_VFS
+#ifdef ENABLE_VFS
 static const char *const vfs_supported[] = {
-    "tarfs",
-    "extfs",
+#ifdef ENABLE_VFS_CPIO
     "cpiofs",
-#ifdef USE_NETCODE
-    "ftpfs",
-    "fish",
-#   ifdef WITH_MCFS
-    "mcfs",
-#   endif
-#   ifdef WITH_SMBFS
-    "smbfs",
-#   endif
-#endif				/* USE_NETCODE */
-#ifdef USE_EXT2FSLIB
+#endif
+#ifdef ENABLE_VFS_TAR
+    "tarfs",
+#endif
+#ifdef ENABLE_VFS_SFS
+    "sfs",
+#endif
+#ifdef ENABLE_VFS_EXTFS
+    "extfs",
+#endif
+#ifdef ENABLE_VFS_UNDELFS
     "undelfs",
 #endif
+#ifdef ENABLE_VFS_FTP
+    "ftpfs",
+#endif
+#ifdef ENABLE_VFS_FISH
+    "fish",
+#endif
+#ifdef ENABLE_VFS_SMB
+    "smbfs",
+#endif /* ENABLE_VFS_SMB */
     NULL
 };
-#endif				/* USE_VFS */
+#endif				/* ENABLE_VFS */
 
 
 static const char *const features[] = {
@@ -57,22 +69,16 @@ static const char *const features[] = {
 
 #ifdef HAVE_SLANG
 
-#   ifdef HAVE_SYSTEM_SLANG
     N_("Using system-installed S-Lang library"),
-#   else
-    N_("Using included S-Lang library"),
-#   endif
 
     " ",
 
-#ifdef USE_TERMCAP
-    N_("with termcap database"),
-#else
     N_("with terminfo database"),
-#endif
 
 #elif defined(USE_NCURSES)
     N_("Using the ncurses library"),
+#elif defined(USE_NCURSESW)
+    N_("Using the ncursesw library"),
 #else
 #error "Cannot compile mc without S-Lang or ncurses"
 #endif				/* !HAVE_SLANG && !USE_NCURSES */
@@ -114,39 +120,32 @@ static const char *const features[] = {
 };
 
 void
-show_version (int verbose)
+show_version (void)
 {
-    int i;
+    size_t i;
 
     printf (_("GNU Midnight Commander %s\n"), VERSION);
-    if (!verbose)
-	return;
 
-#ifdef USE_VFS
-    printf (_("Virtual File System:"));
-    for (i = 0; vfs_supported[i]; i++) {
-	if (i == 0)
-	    printf (" ");
-	else
-	    printf (", ");
+#ifdef ENABLE_VFS
+    printf (_("Virtual File Systems:"));
+    for (i = 0; vfs_supported[i] != NULL; i++)
+	printf ("%s %s", i == 0 ? "" : ",", _(vfs_supported[i]));
 
-	printf ("%s", _(vfs_supported[i]));
-    }
     printf ("\n");
-#endif				/* USE_VFS */
+#endif				/* ENABLE_VFS */
 
-    for (i = 0; features[i]; i++)
+    for (i = 0; features[i] != NULL; i++)
 	printf ("%s", _(features[i]));
 
-    (void)printf("Data types:");
+    (void)printf(_("Data types:"));
 #define TYPE_INFO(T) \
-    (void)printf(" %s %d", #T, (int) (CHAR_BIT * sizeof(T)))
+    (void)printf(" %s: %d;", #T, (int) (CHAR_BIT * sizeof(T)))
     TYPE_INFO(char);
     TYPE_INFO(int);
     TYPE_INFO(long);
     TYPE_INFO(void *);
+    TYPE_INFO(size_t);
     TYPE_INFO(off_t);
-    TYPE_INFO(ecs_char);
 #undef TYPE_INFO
     (void)printf("\n");
 }

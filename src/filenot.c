@@ -22,12 +22,24 @@
    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
+
+/** \file  filenot.c
+ *  \brief Source: wrapper for routines to notify the
+ *  tree about the changes made to the directory
+ *  structure.
+ */
+
 #include <config.h>
 
 #include <errno.h>
 #include <string.h>
 
-#include "global.h"
+#include "lib/global.h"
+#include "lib/fs.h"
+
+#include "lib/vfs/mc-vfs/vfs.h"
+
+
 
 static char *
 get_absolute_name (const char *file)
@@ -64,7 +76,8 @@ my_mkdir_rec (char *s, mode_t mode)
     q = vfs_canon (p);
     g_free (p);
 
-    if (!(result = my_mkdir_rec (q, mode)))
+    result = my_mkdir_rec (q, mode);
+    if (result == 0)
 	result = mc_mkdir (s, mode);
 
     g_free (q);

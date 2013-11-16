@@ -17,6 +17,10 @@
    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
+/** \file selcodepage.c
+ *  \brief Source: user %interface for charset %selection
+ */
+
 #include <config.h>
 
 #ifdef HAVE_CHARSET
@@ -24,7 +28,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "global.h"
+#include "lib/global.h"
 #include "dialog.h"
 #include "widget.h"
 #include "wtools.h"
@@ -32,11 +36,14 @@
 #include "selcodepage.h"
 #include "main.h"
 
-#define ENTRY_LEN 35
+#define ENTRY_LEN 30
 
 /* Numbers of (file I/O) and (input/display) codepages. -1 if not selected */
 int source_codepage = -1;
+int default_source_codepage = -1;
 int display_codepage = -1;
+char* autodetect_codeset = NULL;
+gboolean is_autodetect_codeset_enabled = FALSE;
 
 static unsigned char
 get_hotkey (int n)
@@ -44,15 +51,22 @@ get_hotkey (int n)
     return (n <= 9) ? '0' + n : 'a' + n - 10;
 }
 
+/* Return value:
+ *   -2 (SELECT_CHARSET_CANCEL)       : Cancel
+ *   -1 (SELECT_CHARSET_OTHER_8BIT)   : "Other 8 bit"    if seldisplay == TRUE
+ *   -1 (SELECT_CHARSET_NO_TRANSLATE) : "No translation" if seldisplay == FALSE
+ *   >= 0                             : charset number
+ */
 int
-select_charset (int current_charset, int seldisplay)
+select_charset (int center_y, int center_x, int current_charset, gboolean seldisplay)
 {
-    int i, menu_lines = n_codepages + 1;
+    int i;
     char buffer[255];
 
     /* Create listbox */
-    Listbox *listbox = create_listbox_window (ENTRY_LEN + 2, menu_lines,
-					      _(" Choose input codepage "),
+    Listbox *listbox = create_listbox_window_centered (center_y, center_x,
+					      n_codepages + 1, ENTRY_LEN + 2,
+					      _("Choose codepage"),
 					      "[Codepages Translation]");
 
     if (!seldisplay)
@@ -78,38 +92,59 @@ select_charset (int current_charset, int seldisplay)
 	? ((current_charset < 0) ? n_codepages : current_charset)
 	: (current_charset + 1);
 
-    listbox_select_by_number (listbox->list, i);
+    listbox_select_entry (listbox->list, i);
 
     i = run_listbox (listbox);
 
-    return (seldisplay) ? ((i >= n_codepages) ? -1 : i)
-	: (i - 1);
+    if (i < 0) {
+	/* Cancel dialog */
+	return SELECT_CHARSET_CANCEL;
+    } else {
+	/* some charset has been selected */
+	if (seldisplay) {
+	    /* charset list is finished with "Other 8 bit" item */
+	    return (i >= n_codepages) ? SELECT_CHARSET_OTHER_8BIT : i;
+	} else {
+	    /* charset list is began with "-  < No translation >" item */
+	    return (i - 1);
+	}
+    }
 }
 
-/* Helper functions for codepages support */
+/* Set codepage */
+gboolean
+do_set_codepage (int codepage)
+{
+    char *errmsg;
+    gboolean ret;
 
+    source_codepage = codepage;
+    errmsg = init_translation_table (codepage == SELECT_CHARSET_NO_TRANSLATE ?
+					display_codepage : source_codepage,
+					display_codepage);
+    ret = errmsg == NULL;
 
-int
+    if (!ret) {
+	message (D_ERROR, MSG_ERROR, "%s", errmsg);
+	g_free (errmsg);
+    }
+
+    return ret;
+}
+
+/* Show menu selecting codepage */
+
+gboolean
 do_select_codepage (void)
 {
-    const char *errmsg;
+    int r;
 
-    if (display_codepage > 0) {
-	source_codepage = select_charset (source_codepage, 0);
-	errmsg =
-	    init_translation_table (source_codepage, display_codepage);
-	if (errmsg) {
-	    message (1, MSG_ERROR, "%s", errmsg);
-	    return -1;
-	}
-    } else {
-	message (1, _("Warning"),
-		 _("To use this feature select your codepage in\n"
-		   "Setup / Display Bits dialog!\n"
-		   "Do not forget to save options."));
-	return -1;
-    }
-    return 0;
+    r = select_charset (-1, -1, default_source_codepage, FALSE);
+    if (r == SELECT_CHARSET_CANCEL)
+	return FALSE;
+
+    default_source_codepage = r;
+    return do_set_codepage (default_source_codepage);
 }
 
 #endif				/* HAVE_CHARSET */

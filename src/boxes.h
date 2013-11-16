@@ -1,3 +1,8 @@
+
+/** \file boxes.h
+ *  \brief Header: Some misc dialog boxes for the program
+ */
+
 #ifndef MC_BOXES_H
 #define MC_BOXES_H
 
@@ -6,8 +11,8 @@
 
 int     display_box      (WPanel *p, char **user, char **mini,
 			  int *use_msformat, int num);
-sortfn *sort_box         (sortfn *sort_fn, int *reverse,
-			  int *case_sensitive);
+const panel_field_t *sort_box (const panel_field_t *, int *reverse,
+			  int *case_sensitive, int *exec_first);
 void    confirm_box      (void);
 void    display_bits_box (void);
 void    configure_vfs    (void);

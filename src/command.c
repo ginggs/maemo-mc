@@ -1,5 +1,6 @@
 /* Command line widget.
-   Copyright (C) 1995 Miguel de Icaza
+   Copyright (C) 1995, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005,
+   2007 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -21,16 +22,23 @@
 
 */
 
+/** \file command.c
+ *  \brief Source: command line widget
+ */
+
 #include <config.h>
 
+#include <stdlib.h>
 #include <errno.h>
 #include <string.h>
 
-#include "global.h"		/* home_dir */
-#include "tty.h"
+#include "lib/global.h"		/* home_dir */
+#include "lib/tty/tty.h"
+#include "lib/vfs/mc-vfs/vfs.h"
+#include "lib/strescape.h"
+
 #include "widget.h"		/* WInput */
 #include "command.h"
-#include "complete.h"		/* completion constants */
 #include "wtools.h"		/* message () */
 #include "panel.h"		/* view_tree enum. Also, needed by main.h */
 #include "main.h"		/* do_cd */
@@ -38,7 +46,7 @@
 #include "user.h"		/* expand_format */
 #include "subshell.h"		/* SUBSHELL_EXIT */
 #include "tree.h"		/* for tree_chdir */
-#include "color.h"		/* DEFAULT_COLOR */
+#include "lib/skin.h"		/* DEFAULT_COLOR */
 #include "execute.h"		/* shell_execute */
 
 /* This holds the command line */
@@ -55,14 +63,15 @@ WInput *cmdline;
  * they want the behavior they are used to in the shell.
  */
 static int
-examine_cd (char *path)
+examine_cd (const char *_path)
 {
     int result, qlen;
-    char *path_tilde;
+    char *path_tilde, *path;
     char *p, *q, *r, *s, c;
     const char *t;
 
     /* Tilde expansion */
+    path = strutils_shell_unescape(_path);
     path_tilde = tilde_expand (path);
 
     /* Leave space for further expansion */
@@ -111,7 +120,7 @@ examine_cd (char *path)
     /* CDPATH handling */
     if (*q != PATH_SEP && !result) {
 	char * const cdpath = g_strdup (getenv ("CDPATH"));
-	char *p = cdpath;
+	p = cdpath;
 	if (p == NULL)
 	    c = 0;
 	else
@@ -134,13 +143,15 @@ examine_cd (char *path)
     }
     g_free (q);
     g_free (path_tilde);
+    g_free (path);
     return result;
 }
 
 /* Execute the cd command on the command line */
-void do_cd_command (char *cmd)
+void do_cd_command (char * orig_cmd)
 {
     int len;
+    const char * cmd;
 
     /* Any final whitespace should be removed here
        (to see why, try "cd fred "). */
@@ -148,13 +159,14 @@ void do_cd_command (char *cmd)
        that way, we can cd into hidden directories */
     /* FIXME: what about interpreting quoted strings like the shell.
        so one could type "cd <tab> M-a <enter>" and it would work. */
-    len = strlen (cmd) - 1;
+    len = strlen (orig_cmd) - 1;
     while (len >= 0 &&
-	   (cmd [len] == ' ' || cmd [len] == '\t' || cmd [len] == '\n')){
-	cmd [len] = 0;
+	   (orig_cmd [len] == ' ' || orig_cmd [len] == '\t' || orig_cmd [len] == '\n')){
+	orig_cmd [len] = 0;
 	len --;
     }
-    
+
+    cmd = orig_cmd;
     if (cmd [2] == 0)
 	cmd = "cd ";
 
@@ -163,7 +175,7 @@ void do_cd_command (char *cmd)
 	    sync_tree (home_dir);
 	} else if (strcmp (cmd+3, "..") == 0){
 	    char *dir = current_panel->cwd;
-	    int len = strlen (dir);
+	    len = strlen (dir);
 	    while (len && dir [--len] != PATH_SEP);
 	    dir [len] = 0;
 	    if (len)
@@ -182,7 +194,7 @@ void do_cd_command (char *cmd)
     } else
 	if (!examine_cd (&cmd [3])) {
 	    char *d = strip_password (g_strdup (&cmd [3]), 1);
-	    message (1, MSG_ERROR, _(" Cannot chdir to \"%s\" \n %s "),
+	    message (D_ERROR, MSG_ERROR, _("Cannot chdir to \"%s\"\n%s"),
 		     d, unix_error_string (errno));
 	    g_free (d);
 	    return;
@@ -191,9 +203,9 @@ void do_cd_command (char *cmd)
 
 /* Handle Enter on the command line */
 static cb_ret_t
-enter (WInput *cmdline)
+enter (WInput *lc_cmdline)
 {
-    char *cmd = cmdline->buffer;
+    char *cmd = lc_cmdline->buffer;
 
     if (!command_prompt)
 	return MSG_HANDLED;
@@ -207,25 +219,27 @@ enter (WInput *cmdline)
 
     if (strncmp (cmd, "cd ", 3) == 0 || strcmp (cmd, "cd") == 0) {
 	do_cd_command (cmd);
-	new_input (cmdline);
+	new_input (lc_cmdline);
 	return MSG_HANDLED;
+    } else if (strcmp (cmd, "exit") == 0) {
+	assign_text (lc_cmdline, "");
+	if (!quiet_quit_cmd ())
+	    return MSG_NOT_HANDLED;
     } else {
 	char *command, *s;
 	size_t i, j, cmd_len;
 
 	if (!vfs_current_is_local ()) {
-	    message (1, MSG_ERROR,
-		     _
-		     (" Cannot execute commands on non-local filesystems"));
-
+	    message (D_ERROR, MSG_ERROR,
+		     _("Cannot execute commands on non-local filesystems"));
 	    return MSG_NOT_HANDLED;
 	}
 #ifdef HAVE_SUBSHELL_SUPPORT
 	/* Check this early before we clean command line
 	 * (will be checked again by shell_execute) */
 	if (use_subshell && subshell_state != INACTIVE) {
-	    message (1, MSG_ERROR,
-		     _(" The shell is already running a command "));
+	    message (D_ERROR, MSG_ERROR,
+		     _("The shell is already running a command"));
 	    return MSG_NOT_HANDLED;
 	}
 #endif
@@ -235,7 +249,7 @@ enter (WInput *cmdline)
 	for (i = j = 0; i < cmd_len; i++) {
 	    if (cmd[i] == '%') {
 		i++;
-		s = expand_format (NULL, cmd[i], 1);
+		s = expand_format (NULL, cmd[i], TRUE);
 		command = g_realloc (command, j + strlen (s) + cmd_len - i + 1);
 		strcpy (command + j, s);
 		g_free (s);
@@ -246,15 +260,21 @@ enter (WInput *cmdline)
 	    }
 	    command[j] = 0;
 	}
-	new_input (cmdline);
+	new_input (lc_cmdline);
 	shell_execute (command, 0);
 	g_free (command);
 
 #ifdef HAVE_SUBSHELL_SUPPORT
-	if (quit & SUBSHELL_EXIT) {
-	    quiet_quit_cmd ();
-	    return MSG_HANDLED;
+	if ((quit & SUBSHELL_EXIT) != 0) {
+	    if (quiet_quit_cmd ())
+		return MSG_HANDLED;
+
+	    quit = 0;
+	    /* restart subshell */
+	    if (use_subshell)
+		init_subshell ();
 	}
+
 	if (use_subshell)
 	    load_prompt (0, 0);
 #endif
@@ -288,12 +308,18 @@ WInput *
 command_new (int y, int x, int cols)
 {
     WInput *cmd;
+    const int command_colors[3] =
+    {
+        DEFAULT_COLOR,
+        DEFAULT_COLOR,
+        COMMAND_MARK_COLOR
+    };
 
-    cmd = input_new (y, x, DEFAULT_COLOR, cols, "", "cmdline");
+    cmd = input_new (y, x, (int *) command_colors, cols, "", "cmdline",
+	INPUT_COMPLETE_DEFAULT | INPUT_COMPLETE_CD | INPUT_COMPLETE_COMMANDS | INPUT_COMPLETE_SHELL_ESC);
 
     /* Add our hooks */
     cmd->widget.callback = command_callback;
-    cmd->completion_flags |= INPUT_COMPLETE_COMMANDS;
 
     return cmd;
 }

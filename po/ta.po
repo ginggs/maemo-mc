@@ -5,365 +5,19 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: mc\n"
-"Report-Msgid-Bugs-To: mc-devel@gnome.org\n"
-"POT-Creation-Date: 2007-09-11 17:35+0300\n"
+"Report-Msgid-Bugs-To: http://www.midnight-commander.org/\n"
+"POT-Creation-Date: 2010-09-07 10:18+0300\n"
 "PO-Revision-Date: 2000-10-26 11:00 CST\n"
 "Last-Translator: Dinesh Nadarajah <n_dinesh@yahoo.com>\n"
-"Language-Team: Tamil\n"
+"Language-Team: Tamil <ubuntu-l10n-tam@lists.ubuntu.com>\n"
+"Language: ta\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=TSCII\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid " Choose syntax highlighting "
-msgstr ""
-
-#, fuzzy
-msgid "< Auto >"
-msgstr " ��Ȣ "
-
-msgid "< Reload Current Syntax >"
-msgstr ""
-
-#, fuzzy, c-format
-msgid " Cannot open %s for reading "
-msgstr "������ š������� ���� ���Ţ���: "
-
-msgid "Error"
-msgstr "����"
-
-#, c-format
-msgid " Error reading from pipe: %s "
-msgstr ""
-
-#, fuzzy, c-format
-msgid " Cannot open pipe for reading: %s "
-msgstr "������ š������� ���� ���Ţ���: "
-
-#, fuzzy, c-format
-msgid " Cannot get size/permissions for %s "
-msgstr " �� ������� ���/����� ���� ����� ��¡�: "
-
-#, fuzzy, c-format
-msgid " %s is not a regular file "
-msgstr "Ҿ�� Ө��� �ɨ�� ������"
-
-#, fuzzy, c-format
-msgid " File %s is too large "
-msgstr " �� ����� ���� ��â��: "
-
-msgid "Macro recursion is too deep"
-msgstr ""
-
-msgid " Enter file name: "
-msgstr ""
-
-msgid "Warning"
-msgstr "��쨸"
-
-msgid " File has hard-links. Detach before saving? "
-msgstr ""
-
-msgid "&Yes"
-msgstr "&��"
-
-msgid "&No"
-msgstr "&����"
-
-msgid "&Cancel"
-msgstr "&���"
-
-msgid "The file has been modified in the meantime. Save anyway?"
-msgstr ""
-
-msgid " Error writing to pipe: "
-msgstr ""
-
-msgid " Cannot open pipe for writing: "
-msgstr ""
-
-msgid "Quick save "
-msgstr "Ţ��š� ������ "
-
-msgid "Safe save "
-msgstr "������ ������ "
-
-msgid "Do backups -->"
-msgstr "���� ��� -->"
-
-msgid "&OK"
-msgstr "&�â"
-
-msgid "Extension:"
-msgstr "������:"
-
-msgid " Edit Save Mode "
-msgstr " ������ ӨȨ��� ��� "
-
-msgid " Save As "
-msgstr " ��� ���â� ���� "
-
-msgid " A file already exists with this name. "
-msgstr " �� ���â� ����� ��� ��츢���. "
-
-#, fuzzy
-msgid "&Overwrite"
-msgstr "��� ���"
-
-msgid " Cannot save file. "
-msgstr " ������ ������� ���� ����. "
-
-msgid "Cancel"
-msgstr "���"
-
-msgid " Delete macro "
-msgstr " ����-��è� ����"
-
-msgid " Cannot open temp file "
-msgstr " temp ������ ������ ���� ����. "
-
-msgid " Cannot open macro file "
-msgstr " ����-���� ������ ������ ���� ����. "
-
-msgid " Cannot overwrite macro file "
-msgstr " ����-���� ������ ��� ���� ���� ����. "
-
-msgid " Save macro "
-msgstr " ����-��è� ���� "
-
-msgid " Press the macro's new hotkey: "
-msgstr ""
-
-msgid " Press macro hotkey: "
-msgstr "��� ���� ����� Ţ���� ����: "
-
-msgid " Load macro "
-msgstr " ����-��è� ��� "
-
-msgid " Confirm save file? : "
-msgstr " ����� ������� �ھ������? : "
-
-msgid " Save file "
-msgstr " ������ ���� "
-
-msgid "&Save"
-msgstr ""
-
-msgid ""
-" Current text was modified without a file save. \n"
-" Continue discards these changes. "
-msgstr ""
-" ������ ����측�� �� ��� ��������. \n"
-" �������, ������� ţ�����. "
-
-#, fuzzy
-msgid "C&ontinue"
-msgstr "������� ���"
-
-msgid " Load "
-msgstr " ��� "
-
-msgid " Block is large, you may not be able to undo this action. "
-msgstr " ���̾� ���� ��â��, �� ��¨� �Ţ� ��¡�� ���ġ�. "
-
-msgid "O&ne"
-msgstr "�&��"
-
-msgid "A&ll"
-msgstr "����&��"
-
-msgid "&Skip"
-msgstr "&�Ţ�"
-
-msgid "&Replace"
-msgstr "&����"
-
-msgid " Replace with: "
-msgstr " ��� ���� ����: "
-
-msgid " Confirm replace "
-msgstr " ���ھ�� �ھ������ "
-
-msgid "scanf &Expression"
-msgstr "scanf &�����"
-
-msgid "replace &All"
-msgstr "������ &����"
-
-msgid "pro&Mpt on replace"
-msgstr "��������� �&��"
-
-msgid "&Backwards"
-msgstr "&����ɡ��"
-
-msgid "&Regular expression"
-msgstr "&����ý �����"
-
-msgid "&Whole words only"
-msgstr "&�� š����� ����"
-
-msgid "case &Sensitive"
-msgstr ""
-
-msgid " Enter replacement argument order eg. 3,2,1,4 "
-msgstr " ��Ȣ¢� ����� š����� Ѩ�Ţ�. ���ý�: 3,2,1,4 "
-
-msgid " Enter replacement string:"
-msgstr " ����� ��� Ѩ�Ţ�:"
-
-msgid " Enter search string:"
-msgstr " ���ž��� ��� Ѩ�Ţ�:"
-
-msgid " Replace "
-msgstr " ���� "
-
-msgid "Search"
-msgstr "���"
-
-msgid ""
-" Invalid regular expression, or scanf expression with too many conversions "
-msgstr " ����ý ����� ����¡��, ���� scanf �����¢� ������� ������� "
-
-msgid " Error in replacement format string. "
-msgstr " ���� ���� ����� ����. "
-
-#, fuzzy
-msgid " Replacement too long. "
-msgstr " ����� ��� Ѩ�Ţ�:"
-
-#, c-format
-msgid " %ld replacements made. "
-msgstr " %ld ������� ��������. "
-
-msgid " Search string not found "
-msgstr ""
-
-#, c-format
-msgid " %d items found, %d bookmarks added "
-msgstr " %d �������� ���, %d ���Ȣ�� �������� "
-
-msgid "Quit"
-msgstr ""
-
-msgid " File was modified, Save with exit? "
-msgstr " ����� ��������, ������ ��Ǣ���? "
-
-#, fuzzy
-msgid "&Cancel quit"
-msgstr "��Ǣ���Ȩ� ��� ���"
-
-#, fuzzy
-msgid " Error "
-msgstr "����"
-
-msgid " This function is not implemented. "
-msgstr ""
-
-msgid " Copy to clipboard "
-msgstr " ������ �Ĩ��� ��� "
-
-msgid " Unable to save to file. "
-msgstr " ������� ����� ���Ţ���. "
-
-msgid " Cut to clipboard "
-msgstr " ������ �Ĩ��� ����"
-
-msgid " Goto line "
-msgstr " š������ ��� "
-
-msgid " Enter line: "
-msgstr " š����� ��ǣ�: "
-
-msgid " Save Block "
-msgstr " ���̾��� ���� "
-
-msgid " Insert File "
-msgstr " ������ ���� "
-
-msgid " Cannot insert file. "
-msgstr " ������ ����� ���� ����. "
-
-msgid " Sort block "
-msgstr " ���̾��� š���¡�� "
-
-msgid " You must first highlight a block of text. "
-msgstr " ����� Ӿ� ��� ���̾��� ���� ���� �����. "
-
-msgid " Run Sort "
-msgstr " š���¡�̾�� ���� "
-
-msgid " Enter sort options (see manpage) separated by whitespace: "
-msgstr " ��񽢨���Ǣ¡� ��â� š���¡��� Ţ�����׸�� ��ǣ� (��Ţ ���� ���): "
-
-msgid " Sort "
-msgstr " š���¡�� "
-
-msgid " Cannot execute sort command "
-msgstr " š���¡��� ��Ǩ� ����� ���� ���� "
-
-msgid " Sort returned non-zero: "
-msgstr ""
-
-msgid "Paste output of external command"
-msgstr ""
-
-msgid "Enter shell command(s):"
-msgstr ""
-
-msgid "External command"
-msgstr ""
-
-#, fuzzy
-msgid "Cannot execute command"
-msgstr " š���¡��� ��Ǩ� ����� ���� ���� "
-
-msgid "Error creating script:"
-msgstr ""
-
-msgid "Error reading script:"
-msgstr ""
-
-msgid "Error closing script:"
-msgstr ""
-
-msgid "Script created:"
-msgstr ""
-
-msgid "Process block"
-msgstr ""
-
-msgid " Mail "
-msgstr " ��� "
-
-msgid " Copies to"
-msgstr " ���� ���"
-
-msgid " Subject"
-msgstr " Ţ���"
-
-msgid " To"
-msgstr " ���츢"
-
-msgid " mail -s <subject> -c <cc> <to>"
-msgstr " ��� -s <Ţ���> -c <cc> <���츢>"
-
-msgid " Insert Literal "
-msgstr "���į�� ���� "
-
-msgid " Press any key: "
-msgstr "����� �� Ţ���� ����: "
-
-msgid " Execute Macro "
-msgstr " ��� ��è� �������� "
-
-msgid "&Dismiss"
-msgstr ""
-
-msgid " Emacs key: "
-msgstr "  Emacs Ţ��:"
-
 #, c-format
 msgid ""
-"File \"%s\" is already being edited\n"
+"File \"%s\" is already being edited.\n"
 "User: %s\n"
 "Process ID: %d"
 msgstr ""
@@ -377,2513 +31,41 @@ msgstr ""
 msgid "&Ignore lock"
 msgstr ""
 
-msgid " About "
-msgstr " ��Ȣ "
-
-msgid ""
-"\n"
-"                Cooledit  v3.11.5\n"
-"\n"
-" Copyright (C) 1996 the Free Software Foundation\n"
-"\n"
-"       A user friendly text editor written\n"
-"           for the Midnight Commander.\n"
-msgstr ""
-"\n"
-"                Cooledit  v3.11.5\n"
-"\n"
-"��� ���� (C) 1996 ��ź� �������� ������\n"
-"\n"
-"    Midnight Commander측� �ؾ��� ��\n"
-"        ���� ���ƨ�¡� ��� �������.\n"
-
-#, fuzzy
-msgid "&Open file..."
-msgstr "��� ���� ���..."
-
-msgid "&New              C-n"
-msgstr "&Ҿ���            C-n"
-
-msgid "&Save              F2"
-msgstr "&����              F2"
-
-msgid "Save &as...       F12"
-msgstr "��� &���â� ����...  F12"
-
-msgid "&Insert file...   F15"
-msgstr "&������ ����... F15"
-
-msgid "Copy to &file...  C-f"
-msgstr "������� &���... C-f"
-
-msgid "&User menu...     F11"
-msgstr "&���� ���...       F11"
-
-msgid "A&bout...            "
-msgstr "�&�Ȣ...              "
-
-msgid "&Quit             F10"
-msgstr "&��Ǣ���         F10"
-
-msgid "&New            C-x k"
-msgstr "&Ҿ���           C-x k"
-
-msgid "Copy to &file...     "
-msgstr "������� &���...    "
-
-msgid "&Toggle Mark       F3"
-msgstr "�Ȣ �տ��� &����� F3"
-
-msgid "&Mark Columns    S-F3"
-msgstr "���š������ �Ȣ¢� S-F3"
-
-msgid "Toggle &ins/overw Ins"
-msgstr "&Ins/overw �տ��� &����"
-
-msgid "&Copy              F5"
-msgstr "&���               F5"
-
-msgid "&Move              F6"
-msgstr "�&��               F6"
-
-msgid "&Delete            F8"
-msgstr "&����             F8"
-
-msgid "&Undo             C-u"
-msgstr "&�Ţ�              C-u"
-
-msgid "&Beginning     C-PgUp"
-msgstr "&�������      C-PgUp"
-
-msgid "&End           C-PgDn"
-msgstr "&�����          C-PgDn"
-
-msgid "&Search...         F7"
-msgstr "&���...            F7"
-
-msgid "Search &again     F17"
-msgstr "&������ ���       F17"
-
-msgid "&Replace...        F4"
-msgstr "&����...           F4"
-
-msgid "&Go to line...            M-l"
-msgstr "&š������ ���...       M-l"
-
-msgid "Go to matching &bracket   M-b"
-msgstr ""
-
-msgid "Insert &literal...       C-q"
-msgstr "���į� &���̾�...    C-q"
-
-msgid "&Refresh screen          C-l"
-msgstr "���è� &����            C-l"
-
-msgid "&Start record macro      C-r"
-msgstr ""
-
-msgid "&Finish record macro...  C-r"
-msgstr ""
-
-msgid "&Execute macro...   C-a, KEY"
-msgstr ""
-
-msgid "Delete macr&o...            "
-msgstr ""
-
-msgid "Insert &date/time           "
-msgstr "&�����/���� ����           "
-
-msgid "Format p&aragraph        M-p"
-msgstr "&�� ����                   M-p"
-
-msgid "'ispell' s&pell check    C-p"
-msgstr "'ispell' �&��� �������� C-p"
-
-msgid "Sor&t...                 M-t"
-msgstr "š���&¡��...          M-t"
-
-msgid "Paste o&utput of...      M-u"
-msgstr ""
-
-msgid "E&xternal Formatter      F19"
-msgstr "�&� �����                  F19"
-
-msgid "&Mail...                    "
-msgstr "&���...                  "
-
-msgid "&Execute macro... C-x e, KEY"
-msgstr ""
-
-msgid "'ispell' s&pell check    M-$"
-msgstr "'ispell' �&��� ��������  M-$"
-
-msgid "&General...  "
-msgstr "&����š��... "
-
-msgid "&Save mode..."
-msgstr "������ ӨȨ�..."
-
-msgid "Learn &Keys..."
-msgstr ""
-
-msgid "Syntax &Highlighting..."
-msgstr ""
-
-#, fuzzy
-msgid "Save setu&p..."
-msgstr "������ ӨȨ�..."
-
-msgid " File "
-msgstr " ����� "
-
-msgid " Edit "
-msgstr " ����� "
-
-msgid " Sear/Repl "
-msgstr ""
-
-msgid " Command "
-msgstr " ��� "
-
-msgid " Options "
-msgstr " Ţ������ "
-
-msgid "Intuitive"
-msgstr ""
-
-msgid "Emacs"
-msgstr ""
-
-msgid "User-defined"
-msgstr ""
-
-msgid "None"
-msgstr ""
-
-msgid "Dynamic paragraphing"
-msgstr ""
-
-msgid "Type writer wrap"
-msgstr ""
-
-msgid "Word wrap line length: "
-msgstr ""
-
-msgid "Tab spacing: "
-msgstr ""
-
-msgid "Synta&x highlighting"
-msgstr ""
-
-#, fuzzy
-msgid "Save file &position"
-msgstr " ������ ���� "
-
-msgid "Confir&m before saving"
-msgstr ""
-
-msgid "Fill tabs with &spaces"
-msgstr ""
-
-msgid "&Return does autoindent"
-msgstr ""
-
-msgid "&Backspace through tabs"
-msgstr ""
-
-msgid "&Fake half tabs"
-msgstr ""
-
-msgid "Wrap mode"
-msgstr ""
-
-msgid "Key emulation"
-msgstr ""
-
-msgid " Editor options "
-msgstr ""
-
-msgid "Help"
-msgstr ""
-
-msgid "Save"
-msgstr "����"
-
-msgid "Mark"
-msgstr ""
-
-msgid "Replac"
-msgstr ""
-
-msgid "Copy"
-msgstr "���"
-
-msgid "Move"
-msgstr "����"
-
-msgid "Delete"
-msgstr "����"
-
-msgid "PullDn"
-msgstr ""
-
-msgid " Load syntax file "
-msgstr ""
-
-#, c-format
-msgid ""
-" Cannot open file %s \n"
-" %s "
-msgstr ""
-
-#, c-format
-msgid " Error in file %s on line %d "
-msgstr ""
-
-#, c-format
-msgid "bind: Wrong argument number, bind <key> <command>"
-msgstr ""
-
-#, c-format
-msgid "bind: Bad key value `%s'"
-msgstr ""
-
-#, c-format
-msgid "bind: Ehh...no key?"
-msgstr ""
-
-#, c-format
-msgid "bind: Unknown key: `%s'"
-msgstr ""
-
-#, c-format
-msgid "bind: Unknown command: `%s'"
-msgstr ""
-
-#, c-format
-msgid "%s: Syntax: %s <n> <command> <label>"
-msgstr ""
-
-#, c-format
-msgid "%s: Unknown command: `%s'"
-msgstr ""
-
-#, c-format
-msgid "%s: fn should be 1-10"
-msgstr ""
-
-#, c-format
-msgid "%s: fopen(): %s"
-msgstr ""
-
-#, c-format
-msgid "%s:%d: unknown command `%s'"
-msgstr ""
-
-#, c-format
-msgid "%s:%d: %s"
-msgstr ""
-
-#, c-format
-msgid "%s not found!"
-msgstr ""
-
-msgid "&Set"
-msgstr ""
-
-msgid "S&kip"
-msgstr ""
-
-msgid "Set &all"
-msgstr ""
-
-msgid "owner"
-msgstr ""
-
-msgid "group"
-msgstr ""
-
-msgid "other"
-msgstr ""
-
-msgid "On"
-msgstr ""
-
-msgid "Flag"
-msgstr ""
-
-msgid "Mode"
-msgstr "ӨȨ�"
-
-#, c-format
-msgid "%6d of %d"
-msgstr ""
-
-msgid " Chown advanced command "
-msgstr ""
-
-#, c-format
-msgid ""
-" Cannot chmod \"%s\" \n"
-" %s "
-msgstr ""
-
-#, c-format
-msgid ""
-" Cannot chown \"%s\" \n"
-" %s "
-msgstr ""
-
-msgid " Background process error "
-msgstr ""
-
-msgid " Unknown error in child "
-msgstr ""
-
-msgid " Child died unexpectedly "
-msgstr ""
-
-msgid " Background protocol error "
-msgstr ""
-
-msgid ""
-" Background process sent us a request for more arguments \n"
-" than we can handle. \n"
-msgstr ""
-
-msgid "&Full file list"
-msgstr ""
-
-msgid "&Brief file list"
-msgstr ""
-
-msgid "&Long file list"
-msgstr ""
-
-msgid "&User defined:"
-msgstr ""
-
-msgid "Listing mode"
-msgstr ""
-
-msgid "user &Mini status"
-msgstr ""
-
-msgid "&Reverse"
-msgstr ""
-
-msgid "case sensi&tive"
-msgstr ""
-
-msgid "Sort order"
-msgstr ""
-
-msgid " confirm di&Rectory hotlist delete "
-msgstr ""
-
-msgid " confirm &Exit "
-msgstr ""
-
-msgid " confirm e&Xecute "
-msgstr ""
-
-msgid " confirm o&Verwrite "
-msgstr ""
-
-msgid " confirm &Delete "
-msgstr ""
-
-msgid " Confirmation "
-msgstr ""
-
-msgid "Full 8 bits output"
-msgstr ""
-
-msgid "ISO 8859-1"
-msgstr ""
-
-msgid "7 bits"
-msgstr ""
-
-msgid "F&ull 8 bits input"
-msgstr ""
-
-msgid " Display bits "
-msgstr ""
-
-#, fuzzy
-msgid "Other 8 bit"
-msgstr "���"
-
-msgid "Input / display codepage:"
-msgstr ""
-
-#, fuzzy
-msgid "&Select"
-msgstr "������ �����"
-
-#, fuzzy
-msgid "Use passive mode over pro&xy"
-msgstr "������ ӨȨ�..."
-
-#, fuzzy
-msgid "Use &passive mode"
-msgstr "������ ӨȨ�..."
-
-msgid "&Use ~/.netrc"
-msgstr ""
-
-msgid "&Always use ftp proxy"
-msgstr ""
-
-msgid "sec"
-msgstr ""
-
-msgid "ftpfs directory cache timeout:"
-msgstr ""
-
-msgid "ftp anonymous password:"
-msgstr ""
-
-msgid "Timeout for freeing VFSs:"
-msgstr ""
-
-msgid " Virtual File System Setting "
-msgstr ""
-
-msgid "Quick cd"
-msgstr ""
-
-msgid "cd"
-msgstr ""
-
-msgid "Symbolic link filename:"
-msgstr "�Ȣ£�� ����� ����������:"
-
-msgid "Existing filename (filename symlink will point to):"
-msgstr "����� ���������� (�Ȣ£�� ����� �������� ������� ����):"
-
-msgid "Symbolic link"
-msgstr ""
-
-msgid "Running "
-msgstr ""
-
-msgid "Stopped"
-msgstr ""
-
-msgid "&Stop"
-msgstr ""
-
-msgid "&Resume"
-msgstr ""
-
-msgid "&Kill"
-msgstr ""
-
-msgid "Background Jobs"
-msgstr ""
-
-msgid "Domain:"
-msgstr ""
-
-msgid "Username:"
-msgstr ""
-
-msgid "Password:"
-msgstr "�����:"
-
-#, c-format
-msgid "Password for \\\\%s\\%s"
-msgstr ""
-
-#, c-format
-msgid "Warning: file %s not found\n"
-msgstr ""
-
-#, c-format
-msgid "Cannot translate from %s to %s"
-msgstr ""
-
-msgid "execute/search by others"
-msgstr ""
-
-msgid "write by others"
-msgstr ""
-
-msgid "read by others"
-msgstr ""
-
-msgid "execute/search by group"
-msgstr ""
-
-msgid "write by group"
-msgstr ""
-
-msgid "read by group"
-msgstr ""
-
-msgid "execute/search by owner"
-msgstr ""
-
-msgid "write by owner"
-msgstr ""
-
-msgid "read by owner"
-msgstr ""
-
-msgid "sticky bit"
-msgstr ""
-
-msgid "set group ID on execution"
-msgstr ""
-
-msgid "set user ID on execution"
-msgstr ""
-
-msgid "C&lear marked"
-msgstr ""
-
-msgid "S&et marked"
-msgstr ""
-
-msgid "&Marked all"
-msgstr ""
-
-msgid "Name"
-msgstr "����"
-
-msgid "Permissions (Octal)"
-msgstr ""
-
-msgid "Owner name"
-msgstr ""
-
-msgid "Group name"
-msgstr ""
-
-msgid "Use SPACE to change"
-msgstr ""
-
-msgid "an option, ARROW KEYS"
-msgstr ""
-
-msgid "to move between options"
-msgstr ""
-
-msgid "and T or INS to mark"
-msgstr ""
-
-msgid " Permission "
-msgstr ""
-
-msgid "Chmod command"
-msgstr ""
-
-msgid "Set &users"
-msgstr ""
-
-msgid "Set &groups"
-msgstr ""
-
-msgid " Name "
-msgstr ""
-
-msgid " Owner name "
-msgstr ""
-
-msgid " Group name "
-msgstr ""
-
-msgid " Size "
-msgstr ""
-
-msgid " User name "
-msgstr ""
-
-msgid " Chown command "
-msgstr ""
-
-msgid "<Unknown user>"
-msgstr ""
-
-msgid "<Unknown group>"
-msgstr ""
-
-msgid "Files tagged, want to cd?"
-msgstr ""
-
-msgid "Cannot change directory"
-msgstr ""
-
-msgid " View file "
-msgstr ""
-
-msgid " Filename:"
-msgstr ""
-
-msgid " Filtered view "
-msgstr ""
-
-msgid " Filter command and arguments:"
-msgstr ""
-
-msgid "Create a new Directory"
-msgstr ""
-
-msgid " Enter directory name:"
-msgstr ""
-
-msgid " Filter "
-msgstr ""
-
-msgid " Set expression for filtering filenames"
-msgstr ""
-
-msgid "  Malformed regular expression  "
-msgstr "  ������� regular expression  "
-
-msgid " Select "
-msgstr ""
-
-msgid " Unselect "
-msgstr ""
-
-msgid "Extension file edit"
-msgstr ""
-
-msgid " Which extension file you want to edit? "
-msgstr ""
-
-msgid "&User"
-msgstr ""
-
-msgid "&System Wide"
-msgstr ""
-
-msgid " Menu edit "
-msgstr ""
-
-msgid " Which menu file do you want to edit? "
-msgstr ""
-
-msgid "&Local"
-msgstr ""
-
-msgid "&Home"
-msgstr ""
-
-msgid "Syntax file edit"
-msgstr ""
-
-msgid " Which syntax file you want to edit? "
-msgstr ""
-
-msgid " Compare directories "
-msgstr ""
-
-msgid " Select compare method: "
-msgstr ""
-
-msgid "&Quick"
-msgstr ""
-
-msgid "&Size only"
-msgstr ""
-
-msgid "&Thorough"
-msgstr ""
-
-msgid " Both panels should be in the listing mode to use this command "
-msgstr ""
-
-msgid " The command history is empty "
-msgstr ""
-
-msgid " Command history "
-msgstr ""
-
-msgid ""
-" Not an xterm or Linux console; \n"
-" the panels cannot be toggled. "
-msgstr ""
-
-#, c-format
-msgid "Link %s to:"
-msgstr ""
-
-msgid " Link "
-msgstr ""
-
-#, c-format
-msgid " link: %s "
-msgstr ""
-
-#, c-format
-msgid " symlink: %s "
-msgstr ""
-
-#, c-format
-msgid " Symlink `%s' points to: "
-msgstr ""
-
-msgid " Edit symlink "
-msgstr ""
-
-#, c-format
-msgid " edit symlink, unable to remove %s: %s "
-msgstr ""
-
-#, c-format
-msgid " edit symlink: %s "
-msgstr ""
-
-#, c-format
-msgid "`%s' is not a symbolic link"
-msgstr ""
-
-#, c-format
-msgid " Cannot chdir to %s "
-msgstr ""
-
-msgid " Enter machine name (F1 for details): "
-msgstr ""
-
-msgid " Link to a remote machine "
-msgstr ""
-
-msgid " FTP to machine "
-msgstr ""
-
-msgid " Shell link to machine "
-msgstr ""
-
-msgid " SMB link to machine "
-msgstr ""
-
-msgid " Undelete files on an ext2 file system "
-msgstr ""
-
-msgid ""
-" Enter device (without /dev/) to undelete\n"
-"   files on: (F1 for details)"
-msgstr ""
-
-msgid " Setup saved to ~/"
-msgstr ""
-
-msgid " Setup "
-msgstr ""
-
-#, c-format
-msgid ""
-" Cannot chdir to \"%s\" \n"
-" %s "
-msgstr ""
-
-msgid " Cannot execute commands on non-local filesystems"
-msgstr ""
-
-msgid " The shell is already running a command "
-msgstr ""
-
-msgid "&Unsorted"
-msgstr ""
-
-msgid "&Name"
-msgstr ""
-
-msgid "&Extension"
-msgstr ""
-
-msgid "&Modify time"
-msgstr ""
-
-msgid "&Access time"
-msgstr ""
-
-msgid "C&Hange time"
-msgstr ""
-
-msgid "&Size"
-msgstr ""
-
-msgid "&Inode"
-msgstr ""
-
-msgid "Cannot read directory contents"
-msgstr ""
-
-#, c-format
-msgid "Press any key to continue..."
-msgstr ""
-
-#, c-format
-msgid "Type `exit' to return to the Midnight Commander"
-msgstr ""
-
-#, c-format
-msgid " Cannot fetch a local copy of %s "
-msgstr ""
-
-#, c-format
-msgid ""
-" Cannot create temporary command file \n"
-" %s "
-msgstr ""
-
-msgid " Parameter "
-msgstr ""
-
-#, c-format
-msgid " %s%s file error"
-msgstr ""
-
-#, c-format
-msgid ""
-"The format of the %smc.ext file has changed with version 3.0.  It seems that "
-"the installation failed.  Please fetch a fresh copy from the Midnight "
-"Commander package."
-msgstr ""
-
-#, c-format
-msgid " ~/%s file error "
-msgstr ""
-
-#, c-format
-msgid ""
-"The format of the ~/%s file has changed with version 3.0.  You may either "
-"want to copy it from %smc.ext or use that file as an example of how to write "
-"it."
-msgstr ""
-
-msgid " Copy "
-msgstr ""
-
-msgid " Move "
-msgstr ""
-
-msgid " Delete "
-msgstr ""
-
-msgid " Invalid target mask "
-msgstr ""
-
-msgid " Cannot make the hardlink "
-msgstr ""
-
-#, c-format
-msgid ""
-" Cannot read source link \"%s\" \n"
-" %s "
-msgstr ""
-
-msgid ""
-" Cannot make stable symlinks across non-local filesystems: \n"
-"\n"
-" Option Stable Symlinks will be disabled "
-msgstr ""
-
-#, c-format
-msgid ""
-" Cannot create target symlink \"%s\" \n"
-" %s "
-msgstr ""
-
-#, c-format
-msgid ""
-" Cannot overwrite directory \"%s\" \n"
-" %s "
-msgstr ""
-
-#, c-format
-msgid ""
-" Cannot stat source file \"%s\" \n"
-" %s "
-msgstr ""
-
-#, c-format
-msgid " `%s' and `%s' are the same file "
-msgstr ""
-
-#, c-format
-msgid ""
-" Cannot create special file \"%s\" \n"
-" %s "
-msgstr ""
-
-#, c-format
-msgid ""
-" Cannot chown target file \"%s\" \n"
-" %s "
-msgstr ""
-
-#, c-format
-msgid ""
-" Cannot chmod target file \"%s\" \n"
-" %s "
-msgstr ""
-
-#, c-format
-msgid ""
-" Cannot open source file \"%s\" \n"
-" %s "
-msgstr ""
-
-msgid " Reget failed, about to overwrite file "
-msgstr ""
-
-#, c-format
-msgid ""
-" Cannot fstat source file \"%s\" \n"
-" %s "
-msgstr ""
-
-#, c-format
-msgid ""
-" Cannot create target file \"%s\" \n"
-" %s "
-msgstr ""
-
-#, c-format
-msgid ""
-" Cannot fstat target file \"%s\" \n"
-" %s "
-msgstr ""
-
-#, c-format
-msgid ""
-" Cannot read source file \"%s\" \n"
-" %s "
-msgstr ""
-
-#, c-format
-msgid ""
-" Cannot write target file \"%s\" \n"
-" %s "
-msgstr ""
-
-msgid "(stalled)"
-msgstr ""
-
-#, c-format
-msgid ""
-" Cannot close source file \"%s\" \n"
-" %s "
-msgstr ""
-
-#, c-format
-msgid ""
-" Cannot close target file \"%s\" \n"
-" %s "
-msgstr ""
-
-msgid "Incomplete file was retrieved. Keep it?"
-msgstr ""
-
-msgid "&Delete"
-msgstr ""
-
-msgid "&Keep"
-msgstr ""
-
-#, c-format
-msgid ""
-" Cannot stat source directory \"%s\" \n"
-" %s "
-msgstr ""
-
-#, c-format
-msgid ""
-" Source \"%s\" is not a directory \n"
-" %s "
-msgstr ""
-
-#, c-format
-msgid ""
-" Cannot copy cyclic symbolic link \n"
-" `%s' "
-msgstr ""
-
-#, c-format
-msgid ""
-" Destination \"%s\" must be a directory \n"
-" %s "
-msgstr ""
-
-#, c-format
-msgid ""
-" Cannot create target directory \"%s\" \n"
-" %s "
-msgstr ""
-
-#, c-format
-msgid ""
-" Cannot chown target directory \"%s\" \n"
-" %s "
-msgstr ""
-
-#, c-format
-msgid ""
-" Cannot stat file \"%s\" \n"
-" %s "
-msgstr ""
-
-#, c-format
-msgid " Cannot overwrite directory `%s' "
-msgstr ""
-
-#, c-format
-msgid ""
-" Cannot move file \"%s\" to \"%s\" \n"
-" %s "
-msgstr ""
-
-#, c-format
-msgid ""
-" Cannot remove file \"%s\" \n"
-" %s "
-msgstr ""
-
-#, c-format
-msgid " `%s' and `%s' are the same directory "
-msgstr ""
-
-#, c-format
-msgid " Cannot overwrite directory \"%s\" %s "
-msgstr ""
-
-#, c-format
-msgid " Cannot overwrite file \"%s\" %s "
-msgstr ""
-
-#, c-format
-msgid ""
-" Cannot move directory \"%s\" to \"%s\" \n"
-" %s "
-msgstr ""
-
-#, c-format
-msgid ""
-" Cannot delete file \"%s\" \n"
-" %s "
-msgstr ""
-
-#, c-format
-msgid ""
-" Cannot remove directory \"%s\" \n"
-" %s "
-msgstr ""
-
-msgid "1Copy"
-msgstr ""
-
-msgid "1Move"
-msgstr ""
-
-msgid "1Delete"
-msgstr ""
-
-#, no-c-format
-msgid "%o %f \"%s\"%m"
-msgstr ""
-
-#, no-c-format
-msgid "%o %d %f%m"
-msgstr ""
-
-msgid "file"
-msgstr ""
-
-msgid "files"
-msgstr ""
-
-msgid "directory"
-msgstr ""
-
-msgid "directories"
-msgstr ""
-
-msgid "files/directories"
-msgstr ""
-
-msgid " with source mask:"
-msgstr ""
-
-msgid " to:"
-msgstr ""
-
-msgid " Cannot operate on \"..\"! "
-msgstr ""
-
-msgid " Sorry, I could not put the job in background "
-msgstr ""
-
-msgid "&Retry"
-msgstr ""
-
-msgid "&Abort"
-msgstr ""
-
-msgid ""
-"\n"
-"   Directory not empty.   \n"
-"   Delete it recursively? "
-msgstr ""
-
-msgid ""
-"\n"
-"   Background process: Directory not empty \n"
-"   Delete it recursively? "
-msgstr ""
-
-msgid " Delete: "
-msgstr " ����: "
-
-msgid "Non&e"
-msgstr ""
-
-#, c-format
-msgid "ETA %d:%02d.%02d"
-msgstr ""
-
-#, c-format
-msgid "%.2f MB/s"
-msgstr ""
-
-#, c-format
-msgid "%.2f KB/s"
-msgstr ""
-
-#, c-format
-msgid "%ld B/s"
-msgstr ""
-
-msgid "File"
-msgstr ""
-
-msgid "Count"
-msgstr ""
-
-msgid "Bytes"
-msgstr ""
-
-msgid "Source"
-msgstr ""
-
-msgid "Target"
-msgstr ""
-
-msgid "Deleting"
-msgstr ""
-
-#, c-format
-msgid "Target file \"%s\" already exists!"
-msgstr ""
-
-msgid "If &size differs"
-msgstr ""
-
-msgid "&Update"
-msgstr ""
-
-msgid "Overwrite all targets?"
-msgstr ""
-
-msgid "&Reget"
-msgstr ""
-
-msgid "A&ppend"
-msgstr ""
-
-msgid "Overwrite this target?"
-msgstr ""
-
-#, c-format
-msgid "Target date: %s, size %llu"
-msgstr ""
-
-#, c-format
-msgid "Source date: %s, size %llu"
-msgstr ""
-
-#, c-format
-msgid "Target date: %s, size %u"
-msgstr ""
-
-#, c-format
-msgid "Source date: %s, size %u"
-msgstr ""
-
-msgid " File exists "
-msgstr ""
-
-msgid " Background process: File exists "
-msgstr ""
-
-msgid "preserve &Attributes"
-msgstr ""
-
-msgid "follow &Links"
-msgstr ""
-
-msgid "to:"
-msgstr ""
-
-msgid "&Using shell patterns"
-msgstr ""
-
-msgid "&Background"
-msgstr ""
-
-msgid "&Stable Symlinks"
-msgstr ""
-
-msgid "&Dive into subdir if exists"
-msgstr ""
-
-#, c-format
-msgid ""
-"Invalid source pattern `%s' \n"
-" %s "
-msgstr ""
-
-msgid "&Suspend"
-msgstr ""
-
-msgid "Con&tinue"
-msgstr ""
-
-msgid "&Chdir"
-msgstr ""
-
-msgid "&Again"
-msgstr ""
-
-msgid "&Quit"
-msgstr ""
-
-msgid "Pane&lize"
-msgstr ""
-
-msgid "&View - F3"
-msgstr ""
-
-msgid "&Edit - F4"
-msgstr ""
-
-msgid "find Re&cursively"
-msgstr ""
-
-msgid "Start at:"
-msgstr ""
-
-msgid "Filename:"
-msgstr ""
-
-msgid "Content: "
-msgstr ""
-
-msgid "&Tree"
-msgstr ""
-
-msgid "Find File"
-msgstr ""
-
-#, c-format
-msgid "Grepping in %s"
-msgstr ""
-
-msgid "Finished"
-msgstr ""
-
-#, c-format
-msgid "Searching %s"
-msgstr ""
-
-msgid "Searching"
-msgstr ""
-
-msgid " Help file format error\n"
-msgstr ""
-
-msgid " Internal bug: Double start of link area "
-msgstr ""
-
-#, c-format
-msgid " Cannot find node %s in help file "
-msgstr ""
-
-msgid "Index"
-msgstr ""
-
-msgid "Prev"
-msgstr ""
-
-msgid "&Move"
-msgstr ""
-
-msgid "&Remove"
-msgstr ""
-
-msgid "&Append"
-msgstr ""
-
-msgid "&Insert"
-msgstr ""
-
-msgid "New &Entry"
-msgstr ""
-
-msgid "New &Group"
-msgstr ""
-
-msgid "&Up"
-msgstr ""
-
-msgid "&Add current"
-msgstr ""
-
-msgid "&Refresh"
-msgstr ""
-
-msgid "Fr&ee VFSs now"
-msgstr ""
-
-msgid "Change &To"
-msgstr ""
-
-msgid "Subgroup - press ENTER to see list"
-msgstr ""
-
-msgid "Active VFS directories"
-msgstr ""
-
-msgid "Directory hotlist"
-msgstr ""
-
-msgid " Directory path "
-msgstr ""
-
-msgid " Directory label "
-msgstr ""
-
-#, c-format
-msgid "Moving %s"
-msgstr ""
-
-msgid "New hotlist entry"
-msgstr ""
-
-msgid "Directory label"
-msgstr ""
-
-msgid "Directory path"
-msgstr ""
-
-msgid " New hotlist group "
-msgstr ""
-
-msgid "Name of new group"
-msgstr ""
-
-#, c-format
-msgid "Label for \"%s\":"
-msgstr ""
-
-msgid " Add to hotlist "
-msgstr ""
-
-msgid " Remove: "
-msgstr ""
-
-msgid ""
-"\n"
-" Are you sure you want to remove this entry?"
-msgstr ""
-
-msgid ""
-"\n"
-" Group not empty.\n"
-" Remove it?"
-msgstr ""
-
-msgid " Top level group "
-msgstr ""
-
-msgid "MC was unable to write ~/"
-msgstr ""
-
-msgid " file, your old hotlist entries were not deleted"
-msgstr ""
-
-msgid " Hotlist Load "
-msgstr ""
-
-#, c-format
-msgid "Midnight Commander %s"
-msgstr ""
-
-#, c-format
-msgid "File:       %s"
-msgstr ""
-
-#, c-format
-msgid "Free nodes: %d (%d%%) of %d"
-msgstr ""
-
-msgid "No node information"
-msgstr ""
-
-#, c-format
-msgid "Free space: %s (%d%%) of %s"
-msgstr ""
-
-msgid "No space information"
-msgstr ""
-
-#, c-format
-msgid "Type:      %s "
-msgstr ""
-
-msgid "non-local vfs"
-msgstr ""
-
-#, c-format
-msgid "Device:    %s"
-msgstr ""
-
-#, c-format
-msgid "Filesystem: %s"
-msgstr ""
-
-#, c-format
-msgid "Accessed:  %s"
-msgstr ""
-
-#, c-format
-msgid "Modified:  %s"
-msgstr ""
-
-#. TRANSLATORS: "Status changed", like in the stat(2) man page
-#, c-format
-msgid "Status:    %s"
-msgstr ""
-
-#, c-format
-msgid "Dev. type: major %lu, minor %lu"
-msgstr ""
-
-#, c-format
-msgid "Size:      %s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid " (%ld block)"
-msgid_plural " (%ld blocks)"
-msgstr[0] " ���̾��� š���¡�� "
-msgstr[1] " ���̾��� š���¡�� "
-
-#, c-format
-msgid "Owner:     %s/%s"
-msgstr ""
-
-#, c-format
-msgid "Links:     %d"
-msgstr ""
-
-#, c-format
-msgid "Mode:      %s (%04o)"
-msgstr ""
-
-#, c-format
-msgid "Location:  %Xh:%Xh"
-msgstr ""
-
-msgid "File:       None"
-msgstr ""
-
-msgid "&Vertical"
-msgstr ""
-
-msgid "&Horizontal"
-msgstr ""
-
-msgid "&Xterm window title"
-msgstr ""
-
-msgid "h&Intbar visible"
-msgstr ""
-
-msgid "&Keybar visible"
-msgstr ""
-
-msgid "command &Prompt"
-msgstr ""
-
-msgid "show &Mini status"
-msgstr ""
-
-msgid "menu&Bar visible"
-msgstr ""
-
-msgid "&Equal split"
-msgstr ""
-
-msgid "pe&Rmissions"
-msgstr ""
-
-msgid "&File types"
-msgstr ""
-
-msgid " Panel split "
-msgstr ""
-
-msgid " Highlight... "
-msgstr ""
-
-msgid " Other options "
-msgstr ""
-
-msgid "output lines"
-msgstr ""
-
-msgid "Layout"
-msgstr ""
-
-msgid "Learn keys"
-msgstr ""
-
-msgid " Teach me a key "
-msgstr ""
-
-#, c-format
-msgid ""
-"Please press the %s\n"
-"and then wait until this message disappears.\n"
-"\n"
-"Then, press it again to see if OK appears\n"
-"next to its button.\n"
-"\n"
-"If you want to escape, press a single Escape key\n"
-"and wait as well."
-msgstr ""
-
-msgid " Cannot accept this key "
-msgstr ""
-
-#, c-format
-msgid " You have entered \"%s\""
-msgstr ""
-
-#. TRANSLATORS: This label appears near learned keys.  Keep it short.
-msgid "OK"
-msgstr ""
-
-msgid ""
-"It seems that all your keys already\n"
-"work fine. That's great."
-msgstr ""
-
-msgid "&Discard"
-msgstr ""
-
-msgid ""
-"Great! You have a complete terminal database!\n"
-"All your keys work well."
-msgstr ""
-
-msgid "Press all the keys mentioned here. After you have done it, check"
-msgstr ""
-
-msgid "which keys are not marked with OK.  Press space on the missing"
-msgstr ""
-
-msgid "key, or click with the mouse to define it. Move around with Tab."
-msgstr ""
-
-msgid ""
-" The Commander can't change to the directory that \n"
-" the subshell claims you are in.  Perhaps you have \n"
-" deleted your working directory, or given yourself \n"
-" extra access permissions with the \"su\" command? "
-msgstr ""
-
-msgid " The Midnight Commander "
-msgstr ""
-
-msgid " Do you really want to quit the Midnight Commander? "
-msgstr ""
-
-msgid "&Listing mode..."
-msgstr ""
-
-msgid "&Quick view     C-x q"
-msgstr ""
-
-msgid "&Info           C-x i"
-msgstr ""
-
-msgid "&Sort order..."
-msgstr ""
-
-msgid "&Filter..."
-msgstr ""
-
-msgid "&Network link..."
-msgstr ""
-
-msgid "FT&P link..."
-msgstr ""
-
-#, fuzzy
-msgid "S&hell link..."
-msgstr "�Ȣ£�� �����..."
-
-msgid "SM&B link..."
-msgstr ""
-
-msgid "&Rescan         C-r"
-msgstr ""
-
-msgid "&User menu          F2"
-msgstr ""
-
-msgid "&View               F3"
-msgstr ""
-
-msgid "Vie&w file...         "
-msgstr ""
-
-msgid "&Filtered view     M-!"
-msgstr ""
-
-msgid "&Edit               F4"
-msgstr ""
-
-msgid "&Copy               F5"
-msgstr ""
-
-msgid "c&Hmod           C-x c"
-msgstr ""
-
-msgid "&Link            C-x l"
-msgstr ""
-
-msgid "&SymLink         C-x s"
-msgstr ""
-
-msgid "edit s&Ymlink  C-x C-s"
-msgstr ""
-
-msgid "ch&Own           C-x o"
-msgstr ""
-
-msgid "&Advanced chown       "
-msgstr ""
-
-msgid "&Rename/Move        F6"
-msgstr ""
-
-msgid "&Mkdir              F7"
-msgstr ""
-
-msgid "&Delete             F8"
-msgstr ""
-
-msgid "&Quick cd          M-c"
-msgstr ""
-
-msgid "select &Group      M-+"
-msgstr ""
-
-msgid "u&Nselect group    M-\\"
-msgstr ""
-
-msgid "reverse selec&Tion M-*"
-msgstr ""
-
-msgid "e&Xit              F10"
-msgstr ""
-
-msgid "&Directory tree"
-msgstr ""
-
-msgid "&Find file            M-?"
-msgstr ""
-
-msgid "s&Wap panels          C-u"
-msgstr ""
-
-msgid "switch &Panels on/off C-o"
-msgstr ""
-
-msgid "&Compare directories  C-x d"
-msgstr ""
-
-msgid "e&Xternal panelize    C-x !"
-msgstr ""
-
-msgid "show directory s&Izes"
-msgstr ""
-
-msgid "command &History"
-msgstr ""
-
-msgid "di&Rectory hotlist    C-\\"
-msgstr ""
-
-msgid "&Active VFS list      C-x a"
-msgstr ""
-
-msgid "&Background jobs      C-x j"
-msgstr ""
-
-msgid "&Undelete files (ext2fs only)"
-msgstr ""
-
-msgid "&Listing format edit"
-msgstr ""
-
-msgid "Edit &extension file"
-msgstr ""
-
-msgid "Edit &menu file"
-msgstr ""
-
-msgid "Edit edi&tor menu file"
-msgstr ""
-
-msgid "Edit &syntax file"
-msgstr ""
-
-msgid "&Configuration..."
-msgstr ""
-
-msgid "&Layout..."
-msgstr "&�� ����..."
-
-msgid "c&Onfirmation..."
-msgstr ""
-
-msgid "&Display bits..."
-msgstr ""
-
-msgid "learn &Keys..."
-msgstr ""
-
-msgid "&Virtual FS..."
-msgstr ""
-
-msgid "&Save setup"
-msgstr ""
-
-msgid " &Above "
-msgstr ""
-
-msgid " &Left "
-msgstr ""
-
-msgid " &File "
-msgstr ""
-
-msgid " &Command "
-msgstr ""
-
-msgid " &Options "
-msgstr ""
-
-msgid " &Below "
-msgstr ""
-
-msgid " &Right "
-msgstr ""
-
-msgid " Information "
-msgstr ""
-
-msgid ""
-" Using the fast reload option may not reflect the exact \n"
-" directory contents. In this case you'll need to do a   \n"
-" manual reload of the directory. See the man page for   \n"
-" the details.                                           "
-msgstr ""
-
-msgid "Menu"
-msgstr ""
-
-msgid "The TERM environment variable is unset!\n"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "GNU Midnight Commander %s\n"
-msgstr "�� ��Ǣ�� ���¡�� (GNU Midnight Commander)"
-
-msgid "[flags] [this_dir] [other_panel_dir]\n"
-msgstr ""
-
-#, fuzzy
-msgid "+number"
-msgstr "Inode ��"
-
-msgid "Set initial line number for the internal editor"
-msgstr ""
-
-msgid ""
-"\n"
-"Please send any bug reports (including the output of `mc -V')\n"
-"to mc-devel@gnome.org\n"
-msgstr ""
-
-msgid ""
-"--colors KEYWORD={FORE},{BACK}\n"
-"\n"
-"{FORE} and {BACK} can be omitted, and the default will be used\n"
-"\n"
-"Keywords:\n"
-"   Global:       errors, reverse, gauge, input, viewunderline\n"
-"   File display: normal, selected, marked, markselect\n"
-"   Dialog boxes: dnormal, dfocus, dhotnormal, dhotfocus, errdhotnormal,\n"
-"                 errdhotfocus\n"
-"   Menus:        menu, menuhot, menusel, menuhotsel\n"
-"   Editor:       editnormal, editbold, editmarked\n"
-"   Help:         helpnormal, helpitalic, helpbold, helplink, helpslink\n"
-"   File types:   directory, executable, link, stalelink, device, special, "
-"core\n"
-"\n"
-"Colors:\n"
-"   black, gray, red, brightred, green, brightgreen, brown,\n"
-"   yellow, blue, brightblue, magenta, brightmagenta, cyan,\n"
-"   brightcyan, lightgray and white\n"
-"\n"
-msgstr ""
-
-msgid "Displays this help message"
-msgstr ""
-
-msgid "Displays the current version"
-msgstr ""
-
-msgid "Forces xterm features"
-msgstr ""
-
-msgid "Disable mouse support in text version"
-msgstr ""
-
-msgid "Tries to use termcap instead of terminfo"
-msgstr ""
-
-msgid "Resets soft keys on HP terminals"
-msgstr ""
-
-msgid "To run on slow terminals"
-msgstr ""
-
-msgid "Use stickchars to draw"
-msgstr ""
-
-msgid "Requests to run in black and white"
-msgstr ""
-
-msgid "Request to run in color mode"
-msgstr ""
-
-msgid "Specifies a color configuration"
-msgstr ""
-
-msgid "Displays a help screen on how to change the color scheme"
-msgstr ""
-
-msgid "Log ftp dialog to specified file"
-msgstr ""
-
-msgid "Set debug level"
-msgstr ""
-
-#, fuzzy
-msgid "Print data directory"
-msgstr "Ҿ�� Ө��� �ɨ�� ������"
-
-msgid "Print last working directory to specified file"
-msgstr ""
-
-msgid "Enables subshell support (default)"
-msgstr ""
-
-msgid "Disables subshell support"
-msgstr ""
-
-msgid "Launches the file viewer on a file"
-msgstr ""
-
-msgid "Edits one file"
-msgstr ""
-
-msgid " Notice "
-msgstr ""
-
-msgid ""
-" The Midnight Commander configuration files \n"
-" are now stored in the ~/.mc directory, the \n"
-" files have been moved now\n"
-msgstr ""
-
-msgid "safe de&Lete"
-msgstr ""
-
-msgid "cd follows lin&Ks"
-msgstr ""
-
-msgid "L&ynx-like motion"
-msgstr ""
-
-msgid "rotatin&G dash"
-msgstr ""
-
-msgid "co&Mplete: show all"
-msgstr ""
-
-msgid "&Use internal view"
-msgstr ""
-
-msgid "use internal ed&It"
-msgstr ""
-
-msgid "auto m&Enus"
-msgstr ""
-
-msgid "&Auto save setup"
-msgstr ""
-
-msgid "shell &Patterns"
-msgstr ""
-
-msgid "Compute &Totals"
-msgstr ""
-
-msgid "&Verbose operation"
-msgstr ""
-
-msgid "&Fast dir reload"
-msgstr ""
-
-msgid "mi&X all files"
-msgstr ""
-
-msgid "&Drop down menus"
-msgstr ""
-
-msgid "ma&Rk moves down"
-msgstr ""
-
-msgid "show &Hidden files"
-msgstr ""
-
-msgid "show &Backup files"
-msgstr ""
-
-msgid "&Never"
-msgstr ""
-
-msgid "on dumb &Terminals"
-msgstr ""
-
-msgid "Alwa&ys"
-msgstr ""
-
-msgid " Panel options "
-msgstr ""
-
-msgid " Pause after run... "
-msgstr ""
-
-msgid "Configure options"
-msgstr ""
-
-msgid "&Add new"
-msgstr ""
-
-msgid "External panelize"
-msgstr ""
-
-msgid "Command"
-msgstr "���"
-
-msgid "Other command"
-msgstr ""
-
-msgid " Add to external panelize "
-msgstr ""
-
-msgid " Enter command label: "
-msgstr ""
-
-msgid " Cannot run external panelize in a non-local directory "
-msgstr ""
-
-msgid "Find rejects after patching"
-msgstr "Ţ�츢¨Ÿ�� ���-�Ũĸ��� ���� ������"
-
-msgid "Find *.orig after patching"
-msgstr ""
-
-msgid "Find SUID and SGID programs"
-msgstr ""
-
-msgid "Cannot invoke command."
-msgstr ""
-
-msgid "Pipe close failed"
-msgstr ""
-
-msgid "missing argument"
-msgstr ""
-
-msgid "unknown option"
-msgstr ""
-
-msgid "invalid numeric value"
-msgstr ""
-
-msgid "Show this help message"
-msgstr ""
-
-msgid "Display brief usage message"
-msgstr ""
-
-msgid "ARG"
-msgstr ""
-
-#, c-format
-msgid "Usage:"
-msgstr ""
-
-msgid "[dev]"
-msgstr ""
-
-msgid "UP--DIR"
-msgstr ""
-
-msgid "SYMLINK"
-msgstr ""
-
-msgid "SUB-DIR"
-msgstr ""
-
-msgid "Size"
-msgstr "���"
-
-msgid "MTime"
-msgstr ""
-
-msgid "ATime"
-msgstr ""
-
-msgid "CTime"
-msgstr ""
-
-msgid "Permission"
-msgstr "�������"
-
-msgid "Perm"
-msgstr ""
-
-msgid "Nl"
-msgstr ""
-
-msgid "Inode"
-msgstr ""
-
-msgid "UID"
-msgstr ""
-
-msgid "GID"
-msgstr ""
-
-msgid "Owner"
-msgstr "����측��"
-
-msgid "Group"
-msgstr "���̾�"
-
-#, fuzzy, c-format
-msgid "%s byte"
-msgid_plural "%s bytes"
-msgstr[0] "%s ��θ�"
-msgstr[1] "%s ��θ�"
-
-#, fuzzy, c-format
-msgid "%s in %d file"
-msgid_plural "%s in %d files"
-msgstr[0] "%s ��θ� %d �������"
-msgstr[1] "%s ��θ� %d �������"
-
-msgid "<readlink failed>"
-msgstr "<��� š���� ������>"
-
-msgid "Unknown tag on display format: "
-msgstr ""
-
-msgid "User supplied format looks invalid, reverting to default."
-msgstr ""
-
-msgid " Do you really want to execute? "
-msgstr ""
-
-msgid "View"
-msgstr "���"
-
-msgid "Edit"
-msgstr "�����"
-
-msgid "RenMov"
-msgstr ""
-
-msgid "Mkdir"
-msgstr ""
-
-msgid " Choose input codepage "
-msgstr ""
-
-msgid "-  < No translation >"
-msgstr ""
-
-msgid ""
-"To use this feature select your codepage in\n"
-"Setup / Display Bits dialog!\n"
-"Do not forget to save options."
-msgstr ""
-
-#, c-format
-msgid ""
-"Screen size %dx%d is not supported.\n"
-"Check the TERM environment variable.\n"
-msgstr ""
-
-msgid ""
-"GNU Midnight Commander is already\n"
-"running on this terminal.\n"
-"Subshell support will be disabled."
-msgstr ""
-
-#, c-format
-msgid "Cannot open named pipe %s\n"
-msgstr ""
-
-msgid " The shell is still active. Quit anyway? "
-msgstr ""
-
-#, c-format
-msgid "Warning: Cannot change to %s.\n"
-msgstr ""
-
-msgid "With builtin Editor\n"
-msgstr ""
-
-msgid "Using system-installed S-Lang library"
-msgstr ""
-
-#, fuzzy
-msgid "Using included S-Lang library"
-msgstr "����� ����� ������ ���"
-
-msgid "with termcap database"
-msgstr ""
-
-msgid "with terminfo database"
-msgstr ""
-
-#, fuzzy
-msgid "Using the ncurses library"
-msgstr "����� ����� ������ ���"
-
-msgid "With optional subshell support"
-msgstr ""
-
-msgid "With subshell support as default"
-msgstr ""
-
-msgid "With support for background operations\n"
-msgstr ""
-
-msgid "With mouse support on xterm and Linux console\n"
-msgstr ""
-
-msgid "With mouse support on xterm\n"
-msgstr ""
-
-msgid "With support for X11 events\n"
-msgstr ""
-
-msgid "With internationalization support\n"
-msgstr ""
-
-msgid "With multiple codepages support\n"
-msgstr ""
-
-#, c-format
-msgid "Virtual File System:"
-msgstr ""
-
-#, c-format
-msgid ""
-"Cannot open the %s file for writing:\n"
-"%s\n"
-msgstr ""
-
-#, c-format
-msgid "Copy \"%s\" directory to:"
-msgstr ""
-
-#, c-format
-msgid "Move \"%s\" directory to:"
-msgstr ""
-
-#, c-format
-msgid ""
-" Cannot stat the destination \n"
-" %s "
+msgid "Search string not found"
 msgstr ""
 
-#, c-format
-msgid "  Delete %s?  "
-msgstr ""
-
-msgid "Static"
-msgstr ""
-
-msgid "Dynamc"
-msgstr ""
-
-msgid "Rescan"
-msgstr "���ռ�"
-
-msgid "Forget"
-msgstr ""
-
-msgid "Rmdir"
-msgstr ""
-
-#, c-format
-msgid ""
-"Cannot write to the %s file:\n"
-"%s\n"
-msgstr ""
-
-msgid " Format error on file Extensions File "
-msgstr ""
-
-#, c-format
-msgid " The %%var macro has no default "
-msgstr ""
-
-#, c-format
-msgid " The %%var macro has no variable "
-msgstr ""
-
-msgid " Debug "
-msgstr ""
-
-msgid " ERROR: "
-msgstr ""
-
-msgid " True:  "
-msgstr ""
-
-msgid " False: "
-msgstr ""
-
-msgid " Warning -- ignoring file "
-msgstr ""
-
-#, c-format
-msgid ""
-"File %s is not owned by root or you or is world writable.\n"
-"Using it may compromise your security"
-msgstr ""
-
-#, c-format
-msgid " No suitable entries found in %s "
-msgstr ""
-
-msgid " User menu "
-msgstr ""
-
-msgid "%b %e %H:%M"
-msgstr ""
-
-msgid "%b %e  %Y"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "%s is not a directory\n"
-msgstr "Ҿ�� Ө��� �ɨ�� ������"
-
-#, c-format
-msgid "Directory %s is not owned by you\n"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "Cannot set correct permissions for directory %s\n"
-msgstr " �� ������� ���/����� ���� ����� ��¡�: "
-
-#, c-format
-msgid "Cannot create temporary directory %s: %s\n"
-msgstr ""
-
-#, c-format
-msgid "Temporary files will be created in %s\n"
-msgstr ""
-
-#, c-format
-msgid "Temporary files will not be created\n"
-msgstr ""
-
-msgid " Pipe failed "
-msgstr ""
-
-msgid " Dup failed "
-msgstr ""
-
-#, fuzzy
-msgid " Cannot spawn child process "
-msgstr " ������ ������� ���� ����. "
-
-msgid "Empty output from child filter"
-msgstr ""
-
-#, c-format
-msgid ""
-" Cannot open \"%s\"\n"
-" %s "
-msgstr ""
-
-#, c-format
-msgid ""
-" Cannot stat \"%s\"\n"
-" %s "
-msgstr ""
-
-msgid " Cannot view: not a regular file "
+msgid "Not implemented yet"
 msgstr ""
 
-#, c-format
-msgid "File: %s"
+msgid "Num of replace tokens not equal to num of found tokens"
 msgstr ""
 
 #, c-format
-msgid "Offset 0x%08lx"
+msgid "Invalid token number %d"
 msgstr ""
 
-#, c-format
-msgid "Line %lu Col %lu"
+msgid "Normal"
 msgstr ""
-
-#, c-format
-msgid "%s bytes"
-msgstr "%s ��θ�"
 
-#, fuzzy, c-format
-msgid ">= %s bytes"
-msgstr "%s ��θ�"
+msgid "&Regular expression"
+msgstr "&சாதாரண கோவை"
 
-#, c-format
-msgid ""
-" Error while closing the file: \n"
-" %s \n"
-" Data may have been written or not. "
+msgid "Hexadecimal"
 msgstr ""
-
-#, fuzzy, c-format
-msgid ""
-" Cannot save file: \n"
-" %s "
-msgstr " ������ ������� ���� ����. "
 
-#, fuzzy
-msgid "Invalid hex search expression"
-msgstr " ����ý ����� "
-
-msgid " Invalid regular expression "
+msgid "Wildcard search"
 msgstr ""
 
 #, c-format
 msgid ""
-" The current line number is %d.\n"
-" Enter the new line number:"
+"Unable to load '%s' skin.\n"
+"Default skin has been loaded"
 msgstr ""
 
 #, c-format
 msgid ""
-" The current address is 0x%lx.\n"
-" Enter the new address:"
-msgstr ""
-
-msgid " Goto Address "
-msgstr ""
-
-msgid " Invalid address "
-msgstr ""
-
-msgid " Enter regexp:"
-msgstr ""
-
-msgid "ButtonBar|Help"
-msgstr ""
-
-msgid "ButtonBar|Quit"
-msgstr ""
-
-msgid "ButtonBar|Ascii"
-msgstr ""
-
-msgid "ButtonBar|Hex"
-msgstr ""
-
-msgid "ButtonBar|Goto"
-msgstr ""
-
-msgid "ButtonBar|Line"
-msgstr ""
-
-msgid "ButtonBar|View"
-msgstr ""
-
-msgid "ButtonBar|Edit"
-msgstr ""
-
-msgid "ButtonBar|Save"
-msgstr ""
-
-msgid "ButtonBar|UnWrap"
-msgstr ""
-
-msgid "ButtonBar|Wrap"
-msgstr ""
-
-msgid "ButtonBar|RxSrch"
-msgstr ""
-
-msgid "ButtonBar|HxSrch"
-msgstr ""
-
-msgid "ButtonBar|Search"
-msgstr ""
-
-msgid "ButtonBar|Raw"
-msgstr ""
-
-msgid "ButtonBar|Parse"
-msgstr ""
-
-msgid "ButtonBar|Unform"
-msgstr ""
-
-msgid "ButtonBar|Format"
-msgstr ""
-
-msgid " History "
+"Unable to parse '%s' skin.\n"
+"Default skin has been loaded"
 msgstr ""
 
 msgid "Function key 1"
@@ -2988,7 +170,13 @@ msgstr ""
 msgid "- on keypad"
 msgstr ""
 
+msgid "Slash on keypad"
+msgstr ""
+
 msgid "* on keypad"
+msgstr ""
+
+msgid "Escape key"
 msgstr ""
 
 msgid "Left arrow keypad"
@@ -3024,13 +212,181 @@ msgstr ""
 msgid "Enter on keypad"
 msgstr ""
 
-msgid "Slash on keypad"
+msgid "Function key 21"
 msgstr ""
 
-msgid "NumLock on keypad"
+msgid "Function key 22"
 msgstr ""
 
-msgid "Background process:"
+msgid "Function key 23"
+msgstr ""
+
+msgid "Function key 24"
+msgstr ""
+
+msgid "A1 key"
+msgstr ""
+
+msgid "C1 key"
+msgstr ""
+
+msgid "Plus"
+msgstr ""
+
+msgid "Minus"
+msgstr ""
+
+msgid "Asterisk"
+msgstr ""
+
+msgid "Dot"
+msgstr ""
+
+msgid "Less than"
+msgstr ""
+
+msgid "Great than"
+msgstr ""
+
+msgid "Equal"
+msgstr ""
+
+#, fuzzy
+msgid "Comma"
+msgstr "கட்டளை"
+
+msgid "Apostrophe"
+msgstr ""
+
+msgid "Colon"
+msgstr ""
+
+msgid "Exclamation mark"
+msgstr ""
+
+msgid "Question mark"
+msgstr ""
+
+msgid "Ampersand"
+msgstr ""
+
+msgid "Dollar sign"
+msgstr ""
+
+msgid "Quotation mark"
+msgstr ""
+
+msgid "Caret"
+msgstr ""
+
+msgid "Tilda"
+msgstr ""
+
+msgid "Prime"
+msgstr ""
+
+#, fuzzy
+msgid "Underline"
+msgstr " வாிசையை உள்ளீடு: "
+
+msgid "Understrike"
+msgstr ""
+
+msgid "Pipe"
+msgstr ""
+
+msgid "Left parenthesis"
+msgstr ""
+
+msgid "Right parenthesis"
+msgstr ""
+
+msgid "Left bracket"
+msgstr ""
+
+msgid "Right bracket"
+msgstr ""
+
+msgid "Left brace"
+msgstr ""
+
+msgid "Right brace"
+msgstr ""
+
+#, fuzzy
+msgid "Enter"
+msgstr "சொந்தக்காரர்"
+
+msgid "Tab key"
+msgstr ""
+
+msgid "Space key"
+msgstr ""
+
+msgid "Slash key"
+msgstr ""
+
+msgid "Backslash key"
+msgstr ""
+
+msgid "Number sign #"
+msgstr ""
+
+msgid "Ctrl"
+msgstr ""
+
+msgid "Alt"
+msgstr ""
+
+msgid "Shift"
+msgstr ""
+
+#, c-format
+msgid ""
+"Screen size %dx%d is not supported.\n"
+"Check the TERM environment variable.\n"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "%s is not a directory\n"
+msgstr "புதிய முனையம் ஒனறைப் படைக்கும்"
+
+#, c-format
+msgid "Directory %s is not owned by you\n"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "Cannot set correct permissions for directory %s\n"
+msgstr " இந்த கோப்பின் அளவு/அனுமதி தகவல் கிடைக்க முடியாது: "
+
+#, c-format
+msgid "Cannot create temporary directory %s: %s\n"
+msgstr ""
+
+#, c-format
+msgid "Temporary files will be created in %s\n"
+msgstr ""
+
+#, c-format
+msgid "Temporary files will not be created\n"
+msgstr ""
+
+#, c-format
+msgid "Press any key to continue..."
+msgstr ""
+
+msgid "Warning"
+msgstr "எச்சாிக்கை"
+
+#, fuzzy
+msgid "Pipe failed"
+msgstr "<இணை வாசித்தல் நொடிப்பு>"
+
+#, fuzzy
+msgid "Dup failed"
+msgstr "இதை வைத்து திற..."
+
+msgid "Error dup'ing old error pipe"
 msgstr ""
 
 #, c-format
@@ -3042,12 +398,6 @@ msgstr ""
 #, c-format
 msgid ""
 "Premature end of cpio archive\n"
-"%s"
-msgstr ""
-
-#, c-format
-msgid ""
-"Corrupted cpio header encountered in\n"
 "%s"
 msgstr ""
 
@@ -3065,6 +415,12 @@ msgstr ""
 
 #, c-format
 msgid ""
+"Corrupted cpio header encountered in\n"
+"%s"
+msgstr ""
+
+#, c-format
+msgid ""
 "Unexpected end of file\n"
 "%s"
 msgstr ""
@@ -3077,11 +433,11 @@ msgid "Starting linear transfer..."
 msgstr ""
 
 #, c-format
-msgid "%s: %s: %s %3d%% (%lu bytes transferred)"
+msgid "%s: %s: %s %3d%% (%ju bytes transferred)"
 msgstr ""
 
 #, c-format
-msgid "%s: %s: %s %lu bytes transferred"
+msgid "%s: %s: %s %ju bytes transferred"
 msgstr ""
 
 msgid "Getting file"
@@ -3096,6 +452,10 @@ msgstr ""
 msgid "Inconsistent extfs archive"
 msgstr ""
 
+#, fuzzy, c-format
+msgid "Warning: cannot open %s directory\n"
+msgstr "புதிய முனையம் ஒனறைப் படைக்கும்"
+
 #, c-format
 msgid "fish: Disconnecting from %s"
 msgstr ""
@@ -3106,7 +466,8 @@ msgstr ""
 msgid "Sorry, we cannot do password authenticated connections for now."
 msgstr ""
 
-msgid " fish: Password required for "
+#, c-format
+msgid "fish: Password is required for %s"
 msgstr ""
 
 msgid "fish: Sending password..."
@@ -3116,6 +477,9 @@ msgid "fish: Sending initial line..."
 msgstr ""
 
 msgid "fish: Handshaking version..."
+msgstr ""
+
+msgid "fish: Getting host info..."
 msgstr ""
 
 msgid "fish: Setting up current directory..."
@@ -3145,10 +509,13 @@ msgid "fish: Local read failed, sending zeros"
 msgstr ""
 
 #, c-format
-msgid "fish: storing %s %d (%lu)"
+msgid "fish: storing %s %d (%ju)"
 msgstr ""
 
 msgid "zeros"
+msgstr ""
+
+msgid "file"
 msgstr ""
 
 msgid "Aborting transfer..."
@@ -3164,7 +531,8 @@ msgstr ""
 msgid "ftpfs: Disconnecting from %s"
 msgstr ""
 
-msgid " FTP: Password required for "
+#, c-format
+msgid "FTP: Password required for %s"
 msgstr ""
 
 msgid "ftpfs: sending login name"
@@ -3193,7 +561,8 @@ msgstr ""
 msgid "ftpfs: Invalid host name."
 msgstr ""
 
-msgid "ftpfs: Invalid host address."
+#, c-format
+msgid "ftpfs: %s"
 msgstr ""
 
 #, c-format
@@ -3209,6 +578,17 @@ msgstr ""
 
 #, c-format
 msgid "Waiting to retry... %d (Control-C to cancel)"
+msgstr ""
+
+msgid "ftpfs: invalid address family"
+msgstr ""
+
+#, c-format
+msgid "ftpfs: could not setup passive mode: %s"
+msgstr ""
+
+#, c-format
+msgid "ftpfs: could not create socket: %s"
 msgstr ""
 
 msgid "ftpfs: could not setup passive mode"
@@ -3247,45 +627,16 @@ msgid "ftpfs: failed; nowhere to fallback to"
 msgstr ""
 
 #, c-format
-msgid "ftpfs: storing file %lu (%lu)"
+msgid "ftpfs: storing file %ju (%ju)"
 msgstr ""
 
 msgid ""
-"~/.netrc file has incorrect mode.\n"
-"Remove password or correct mode."
-msgstr ""
-
-msgid " MCFS "
-msgstr ""
-
-msgid " The server does not support this version "
-msgstr ""
-
-msgid ""
-" The remote server is not running on a system port \n"
-" you need a password to log in, but the information may \n"
-" not be safe on the remote side.  Continue? \n"
-msgstr ""
-
-msgid " MCFS Password required "
-msgstr ""
-
-msgid " Invalid password "
+"~/.netrc file has incorrect mode\n"
+"Remove password or correct mode"
 msgstr ""
 
 #, c-format
-msgid " Cannot locate hostname: %s "
-msgstr ""
-
-#, c-format
-msgid " Cannot create socket: %s "
-msgstr ""
-
-#, c-format
-msgid " Cannot connect to server: %s "
-msgstr ""
-
-msgid " Too many open connections "
+msgid "Warning: file %s not found\n"
 msgstr ""
 
 #, c-format
@@ -3301,33 +652,32 @@ msgid ""
 msgstr ""
 
 #, c-format
-msgid ""
-" reconnect to %s failed\n"
-" "
+msgid "reconnect to %s failed"
 msgstr ""
 
-msgid " Authentication failed "
+#, fuzzy
+msgid "Authentication failed"
+msgstr "<இணை வாசித்தல் நொடிப்பு>"
+
+#, fuzzy, c-format
+msgid "Error %s creating directory %s"
+msgstr "புதிய முனையம் ஒனறைப் படைக்கும்"
+
+#, c-format
+msgid "Error %s removing directory %s"
 msgstr ""
 
 #, c-format
-msgid " Error %s creating directory %s "
+msgid "%s opening remote file %s"
 msgstr ""
 
 #, c-format
-msgid " Error %s removing directory %s "
+msgid "%s removing remote file %s"
 msgstr ""
 
-#, c-format
-msgid " %s opening remote file %s "
-msgstr ""
-
-#, c-format
-msgid " %s removing remote file %s "
-msgstr ""
-
-#, c-format
-msgid " %s renaming files\n"
-msgstr ""
+#, fuzzy, c-format
+msgid "%s renaming files\n"
+msgstr "%s துண்டுகள் %d கோப்பில்"
 
 #, c-format
 msgid ""
@@ -3343,26 +693,25 @@ msgstr ""
 
 #, c-format
 msgid ""
-"Hmm,...\n"
 "%s\n"
 "doesn't look like a tar archive."
 msgstr ""
 
-msgid " undelfs: error "
+msgid "undelfs: error"
 msgstr ""
 
-msgid " not enough memory "
+msgid "not enough memory"
 msgstr ""
 
-msgid " while allocating block buffer "
-msgstr ""
-
-#, c-format
-msgid " open_inode_scan: %d "
+msgid "while allocating block buffer"
 msgstr ""
 
 #, c-format
-msgid " while starting inode scan %d "
+msgid "open_inode_scan: %d"
+msgstr ""
+
+#, c-format
+msgid "while starting inode scan %d"
 msgstr ""
 
 #, c-format
@@ -3370,30 +719,30 @@ msgid "undelfs: loading deleted files information %d inodes"
 msgstr ""
 
 #, c-format
-msgid " while calling ext2_block_iterate %d "
+msgid "while calling ext2_block_iterate %d"
 msgstr ""
 
-msgid " no more memory while reallocating array "
-msgstr ""
-
-#, c-format
-msgid " while doing inode scan %d "
-msgstr ""
-
-msgid " Ext2lib error "
+msgid "no more memory while reallocating array"
 msgstr ""
 
 #, c-format
-msgid " Cannot open file %s "
+msgid "while doing inode scan %d"
 msgstr ""
+
+msgid "Ext2lib error"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "Cannot open file %s"
+msgstr " temp கோப்பை திறக்கும் போது பிழை. "
 
 msgid "undelfs: reading inode bitmap..."
 msgstr ""
 
 #, c-format
 msgid ""
-" Cannot load inode bitmap from: \n"
-" %s \n"
+"Cannot load inode bitmap from:\n"
+"%s"
 msgstr ""
 
 msgid "undelfs: reading block bitmap..."
@@ -3401,18 +750,22 @@ msgstr ""
 
 #, c-format
 msgid ""
-" Cannot load block bitmap from: \n"
-" %s \n"
+"Cannot load block bitmap from:\n"
+"%s"
 msgstr ""
 
-msgid " vfs_info is not fs! "
+msgid "vfs_info is not fs!"
 msgstr ""
 
-msgid " You have to chdir to extract files first "
+msgid "You have to chdir to extract files first"
 msgstr ""
 
-msgid " while iterating over blocks "
+msgid "while iterating over blocks"
 msgstr ""
+
+#, fuzzy, c-format
+msgid "Cannot open file \"%s\""
+msgstr " temp கோப்பை திறக்கும் போது பிழை. "
 
 msgid "Cannot parse:"
 msgstr ""
@@ -3423,18 +776,3394 @@ msgstr ""
 msgid "Internal error:"
 msgstr ""
 
+msgid "Password:"
+msgstr "கடவுச்சொல்:"
+
 msgid "Changes to file lost"
 msgstr ""
 
+msgid "&Cancel"
+msgstr "&ரத்து"
+
+msgid "&Set"
+msgstr ""
+
+msgid "S&kip"
+msgstr ""
+
+msgid "Set &all"
+msgstr ""
+
+msgid "owner"
+msgstr ""
+
+msgid "group"
+msgstr ""
+
+msgid "other"
+msgstr ""
+
+msgid "On"
+msgstr ""
+
+msgid "Flag"
+msgstr ""
+
+msgid "Mode"
+msgstr "முறைமை"
+
+#, c-format
+msgid "%6d of %d"
+msgstr ""
+
+msgid "Chown advanced command"
+msgstr ""
+
+#, fuzzy, c-format
+msgid ""
+"Cannot chmod \"%s\"\n"
+"%s"
+msgstr " கோப்பை சேமிக்கும் போது பிழை. "
+
+#, fuzzy, c-format
+msgid ""
+"Cannot chown \"%s\"\n"
+"%s"
+msgstr " கோப்பை சேமிக்கும் போது பிழை. "
+
+msgid "Displays the current version"
+msgstr ""
+
+#, fuzzy
+msgid "Print data directory"
+msgstr "புதிய முனையம் ஒனறைப் படைக்கும்"
+
+msgid "Print last working directory to specified file"
+msgstr ""
+
+msgid "Enables subshell support (default)"
+msgstr ""
+
+msgid "Disables subshell support"
+msgstr ""
+
+msgid "Log ftp dialog to specified file"
+msgstr ""
+
+msgid "Set debug level"
+msgstr ""
+
+msgid "Launches the file viewer on a file"
+msgstr ""
+
+msgid "Edits one file"
+msgstr ""
+
+msgid "Forces xterm features"
+msgstr ""
+
+msgid "Disable mouse support in text version"
+msgstr ""
+
+msgid "Tries to use termcap instead of terminfo"
+msgstr ""
+
+msgid "To run on slow terminals"
+msgstr ""
+
+msgid "Use stickchars to draw"
+msgstr ""
+
+msgid "Resets soft keys on HP terminals"
+msgstr ""
+
+msgid "Load definitions of key bindings from specified file"
+msgstr ""
+
+msgid "Requests to run in black and white"
+msgstr ""
+
+msgid "Request to run in color mode"
+msgstr ""
+
+msgid "Specifies a color configuration"
+msgstr ""
+
+msgid "Show mc with specified skin"
+msgstr ""
+
+#. TRANSLATORS: don't translate keywords and names of colors
+msgid ""
+"--colors KEYWORD={FORE},{BACK}\n"
+"\n"
+"{FORE} and {BACK} can be omitted, and the default will be used\n"
+"\n"
+"Keywords:\n"
+"   Global:       errors, disabled, reverse, gauge, viewunderline\n"
+"                 input, inputmark, inputunchanged, commandlinemark\n"
+"   File display: normal, selected, marked, markselect\n"
+"   Dialog boxes: dnormal, dfocus, dhotnormal, dhotfocus, errdhotnormal,\n"
+"                 errdhotfocus\n"
+"   Menus:        menunormal, menuhot, menusel, menuhotsel, menuinactive\n"
+"   Editor:       editnormal, editbold, editmarked, editwhitespace,\n"
+"                 editlinestate\n"
+msgstr ""
+
+msgid ""
+"   Help:         helpnormal, helpitalic, helpbold, helplink, helpslink\n"
+"\n"
+"Colors:\n"
+"   black, gray, red, brightred, green, brightgreen, brown,\n"
+"   yellow, blue, brightblue, magenta, brightmagenta, cyan,\n"
+"   brightcyan, lightgray and white\n"
+"\n"
+msgstr ""
+
+#, fuzzy
+msgid "Color options"
+msgstr " விருப்பங்கள் "
+
+#, fuzzy
+msgid "+number"
+msgstr "Inode எண்"
+
+msgid "[this_dir] [other_panel_dir]"
+msgstr ""
+
+msgid "Set initial line number for the internal editor"
+msgstr ""
+
+msgid ""
+"\n"
+"Please send any bug reports (including the output of `mc -V')\n"
+"as tickets at www.midnight-commander.org\n"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "GNU Midnight Commander %s\n"
+msgstr "கனூ நள்ளிரவு ஆணையாலர் (GNU Midnight Commander)"
+
+msgid "No arguments given to the viewer."
+msgstr ""
+
+msgid "Two files are required to evoke the diffviewer."
+msgstr ""
+
+#, fuzzy
+msgid "Main options"
+msgstr " விருப்பங்கள் "
+
+msgid "Terminal options"
+msgstr ""
+
+#, fuzzy
+msgid "Background process error"
+msgstr "&பின்னோக்கம்"
+
+msgid "Unknown error in child"
+msgstr ""
+
+msgid "Child died unexpectedly"
+msgstr ""
+
+msgid "Background protocol error"
+msgstr ""
+
+#, fuzzy
+msgid "Reading failed"
+msgstr "<இணை வாசித்தல் நொடிப்பு>"
+
+msgid ""
+"Background process sent us a request for more arguments\n"
+"than we can handle."
+msgstr ""
+
+msgid "&Full file list"
+msgstr ""
+
+msgid "&Brief file list"
+msgstr ""
+
+msgid "&Long file list"
+msgstr ""
+
+msgid "&User defined:"
+msgstr ""
+
+msgid "Listing mode"
+msgstr ""
+
+msgid "User &mini status"
+msgstr ""
+
+msgid "&OK"
+msgstr "&சரி"
+
+msgid "&Reverse"
+msgstr ""
+
+msgid "Case sensi&tive"
+msgstr ""
+
+msgid "Executable &first"
+msgstr ""
+
+msgid "Sort order"
+msgstr ""
+
+msgid "Confirmation"
+msgstr ""
+
+#. TRANSLATORS: no need to translate 'Confirmation', it's just a context prefix
+#. 2
+msgid "Confirmation|&History cleanup"
+msgstr ""
+
+msgid "Confirmation|Di&rectory hotlist delete"
+msgstr ""
+
+msgid "Confirmation|E&xit"
+msgstr ""
+
+msgid "Confirmation|&Execute"
+msgstr ""
+
+msgid "Confirmation|O&verwrite"
+msgstr ""
+
+msgid "Confirmation|&Delete"
+msgstr ""
+
+msgid "UTF-8 output"
+msgstr ""
+
+msgid "Full 8 bits output"
+msgstr ""
+
+msgid "ISO 8859-1"
+msgstr ""
+
+msgid "7 bits"
+msgstr ""
+
+msgid "F&ull 8 bits input"
+msgstr ""
+
+msgid "Display bits"
+msgstr ""
+
+#, fuzzy
+msgid "Other 8 bit"
+msgstr "வேறு"
+
+msgid "Input / display codepage:"
+msgstr ""
+
+#, fuzzy
+msgid "&Select"
+msgstr "குறும்படத்தை தேர்ந்தெடு"
+
+msgid "Directory tree"
+msgstr ""
+
+#, fuzzy
+msgid "Use passive mode over pro&xy"
+msgstr "சேமிப்பு முறைமை..."
+
+#, fuzzy
+msgid "Use &passive mode"
+msgstr "சேமிப்பு முறைமை..."
+
+msgid "&Use ~/.netrc"
+msgstr ""
+
+msgid "&Always use ftp proxy"
+msgstr ""
+
+msgid "sec"
+msgstr ""
+
+msgid "ftpfs directory cache timeout:"
+msgstr ""
+
+msgid "ftp anonymous password:"
+msgstr ""
+
+msgid "Timeout for freeing VFSs:"
+msgstr ""
+
+msgid "Virtual File System Setting"
+msgstr ""
+
+msgid "cd"
+msgstr ""
+
+msgid "Quick cd"
+msgstr ""
+
+msgid "Symbolic link filename:"
+msgstr "குறியீட்டு இணைப்பு கோப்புப்பெயர்:"
+
+msgid "Existing filename (filename symlink will point to):"
+msgstr "இருக்கும் கோப்புப்பெயர் (குறியீட்டு இணைப்பு காண்பிக்கும் கோப்பின் பெயர்):"
+
+msgid "Symbolic link"
+msgstr ""
+
+msgid "Running"
+msgstr ""
+
+msgid "Stopped"
+msgstr ""
+
+msgid "&Stop"
+msgstr ""
+
+msgid "&Resume"
+msgstr ""
+
+msgid "&Kill"
+msgstr ""
+
+msgid "Background Jobs"
+msgstr ""
+
+msgid "Domain:"
+msgstr ""
+
+msgid "Username:"
+msgstr ""
+
+#, c-format
+msgid "Password for \\\\%s\\%s"
+msgstr ""
+
+msgid "7-bit ASCII"
+msgstr ""
+
+#, c-format
+msgid "Cannot translate from %s to %s"
+msgstr ""
+
+msgid "execute/search by others"
+msgstr ""
+
+msgid "write by others"
+msgstr ""
+
+msgid "read by others"
+msgstr ""
+
+msgid "execute/search by group"
+msgstr ""
+
+msgid "write by group"
+msgstr ""
+
+msgid "read by group"
+msgstr ""
+
+msgid "execute/search by owner"
+msgstr ""
+
+msgid "write by owner"
+msgstr ""
+
+msgid "read by owner"
+msgstr ""
+
+msgid "sticky bit"
+msgstr ""
+
+msgid "set group ID on execution"
+msgstr ""
+
+msgid "set user ID on execution"
+msgstr ""
+
+msgid "C&lear marked"
+msgstr ""
+
+msgid "S&et marked"
+msgstr ""
+
+msgid "&Marked all"
+msgstr ""
+
+msgid "Name"
+msgstr "பெயர்"
+
+msgid "Permissions (Octal)"
+msgstr ""
+
+msgid "Owner name"
+msgstr ""
+
+msgid "Group name"
+msgstr ""
+
+msgid "Use SPACE to change"
+msgstr ""
+
+msgid "an option, ARROW KEYS"
+msgstr ""
+
+msgid "to move between options"
+msgstr ""
+
+msgid "and T or INS to mark"
+msgstr ""
+
+msgid "Chmod command"
+msgstr ""
+
+#, fuzzy
+msgid "File"
+msgstr " கோப்பு "
+
+msgid "Permission"
+msgstr "அனுமதித்தல்"
+
+msgid "Set &users"
+msgstr ""
+
+msgid "Set &groups"
+msgstr ""
+
+msgid "Size"
+msgstr "அளவு"
+
+#, fuzzy
+msgid "Chown command"
+msgstr "கட்டளை"
+
+msgid "<Unknown user>"
+msgstr ""
+
+msgid "<Unknown group>"
+msgstr ""
+
+#, fuzzy
+msgid "User name"
+msgstr "&பயனர் பட்டி...       F11"
+
+msgid "Files tagged, want to cd?"
+msgstr ""
+
+msgid "&Yes"
+msgstr "&ஆம்"
+
+msgid "&No"
+msgstr "&இல்லை"
+
+msgid "Cannot change directory"
+msgstr ""
+
+#, fuzzy
+msgid "View file"
+msgstr "இதை வைத்து திற..."
+
+#, fuzzy
+msgid "Filename:"
+msgstr " கோப்பு "
+
+msgid "Filtered view"
+msgstr ""
+
+msgid "Filter command and arguments:"
+msgstr ""
+
+msgid "Create a new Directory"
+msgstr ""
+
+msgid "Enter directory name:"
+msgstr ""
+
+#, fuzzy
+msgid "Filter"
+msgstr " கோப்பு "
+
+msgid "Set expression for filtering filenames"
+msgstr ""
+
+msgid "&Using shell patterns"
+msgstr ""
+
+msgid "&Case sensitive"
+msgstr ""
+
+#, fuzzy
+msgid "&Files only"
+msgstr "&முழு வார்தைகள் மட்டும்"
+
+#, fuzzy
+msgid "Select"
+msgstr "குறும்படத்தை தேர்ந்தெடு"
+
+#, fuzzy
+msgid "Unselect"
+msgstr "குறும்படத்தை தேர்ந்தெடு"
+
+msgid "Extension file edit"
+msgstr ""
+
+msgid "Which extension file you want to edit?"
+msgstr ""
+
+msgid "&User"
+msgstr ""
+
+msgid "&System Wide"
+msgstr ""
+
+#, fuzzy
+msgid "Menu edit"
+msgstr "இதை வைத்து திற..."
+
+msgid "Which menu file do you want to edit?"
+msgstr ""
+
+msgid "&Local"
+msgstr ""
+
+msgid "Highlighting groups file edit"
+msgstr ""
+
+msgid "Which highlighting file you want to edit?"
+msgstr ""
+
+msgid "Compare directories"
+msgstr ""
+
+msgid "Select compare method:"
+msgstr ""
+
+msgid "&Quick"
+msgstr ""
+
+msgid "&Size only"
+msgstr ""
+
+msgid "&Thorough"
+msgstr ""
+
+msgid ""
+"Both panels should be in the listing mode\n"
+"to use this command"
+msgstr ""
+
+msgid ""
+"Not an xterm or Linux console;\n"
+"the panels cannot be toggled."
+msgstr ""
+
+#, c-format
+msgid "Link %s to:"
+msgstr ""
+
+msgid "Link"
+msgstr ""
+
+#, c-format
+msgid "link: %s"
+msgstr ""
+
+#, c-format
+msgid "symlink: %s"
+msgstr ""
+
+#, c-format
+msgid "Symlink `%s' points to:"
+msgstr ""
+
+msgid "Edit symlink"
+msgstr ""
+
+#, c-format
+msgid "edit symlink, unable to remove %s: %s"
+msgstr ""
+
+#, c-format
+msgid "edit symlink: %s"
+msgstr ""
+
+#, c-format
+msgid "`%s' is not a symbolic link"
+msgstr ""
+
+#, c-format
+msgid "Cannot chdir to %s"
+msgstr ""
+
+msgid "Enter machine name (F1 for details):"
+msgstr ""
+
+msgid "FTP to machine"
+msgstr ""
+
+msgid "Shell link to machine"
+msgstr ""
+
+msgid "SMB link to machine"
+msgstr ""
+
+msgid "Undelete files on an ext2 file system"
+msgstr ""
+
+msgid ""
+"Enter device (without /dev/) to undelete\n"
+"files on: (F1 for details)"
+msgstr ""
+
+#, fuzzy
+msgid "Setup"
+msgstr "சேமிப்பு முறைமை..."
+
+#, c-format
+msgid "Setup saved to ~/%s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid ""
+"Cannot chdir to \"%s\"\n"
+"%s"
+msgstr " கோப்பை சேமிக்கும் போது பிழை. "
+
+#, fuzzy
+msgid "Cannot execute commands on non-local filesystems"
+msgstr " வாிசையாக்கும் கட்டளையை இயக்கும் போது பிழை "
+
+msgid "The shell is already running a command"
+msgstr ""
+
+msgid "Screens"
+msgstr ""
+
+msgid "&Dismiss"
+msgstr ""
+
+msgid "All charsets"
+msgstr ""
+
+msgid "&Whole words"
+msgstr ""
+
+msgid "&Backwards"
+msgstr "&பின்னோக்கம்"
+
+msgid "Case &sensitive"
+msgstr ""
+
+#, fuzzy
+msgid "Enter search string:"
+msgstr " தேடுவதட்க்கு சரத்தை நுழைவிடு:"
+
+msgid "Search"
+msgstr "தேடு"
+
+#, fuzzy
+msgid "Search is disabled"
+msgstr "தேடு"
+
+#, fuzzy, c-format
+msgid ""
+"Cannot create temporary diff file\n"
+"%s"
+msgstr " கோப்பை சேமிக்கும் போது பிழை. "
+
+#, fuzzy, c-format
+msgid ""
+"Cannot create backup file\n"
+"%s%s\n"
+"%s"
+msgstr " கோப்பை சேமிக்கும் போது பிழை. "
+
+#, fuzzy, c-format
+msgid ""
+"Cannot create temporary merge file\n"
+"%s"
+msgstr " கோப்பை சேமிக்கும் போது பிழை. "
+
+#, fuzzy
+msgid "&Normal"
+msgstr "&இல்லை"
+
+msgid "&Fastest (Assume large files)"
+msgstr ""
+
+msgid "&Minimal (Find a smaller set of change)"
+msgstr ""
+
+msgid "Strip &trailing carriage return"
+msgstr ""
+
+msgid "Ignore all &whitespace"
+msgstr ""
+
+msgid "Ignore &space change"
+msgstr ""
+
+msgid "Ignore tab &expansion"
+msgstr ""
+
+msgid "&Ignore case"
+msgstr ""
+
+#, fuzzy
+msgid "Diff extra options"
+msgstr " விருப்பங்கள் "
+
+msgid "Diff algorithm"
+msgstr ""
+
+#, fuzzy
+msgid "Diff Options"
+msgstr " விருப்பங்கள் "
+
+#, fuzzy
+msgid "Edit"
+msgstr "பதிப்பு"
+
+msgid "Edit is disabled"
+msgstr ""
+
+#, fuzzy
+msgid "Goto line (left)"
+msgstr " வாிசைக்குப் போ "
+
+#, fuzzy
+msgid "Goto line (right)"
+msgstr " வாிசைக்குப் போ "
+
+#, fuzzy
+msgid "Enter line:"
+msgstr " வாிசையை உள்ளீடு: "
+
+msgid "ButtonBar|Help"
+msgstr ""
+
+msgid "ButtonBar|Save"
+msgstr ""
+
+msgid "ButtonBar|Edit"
+msgstr ""
+
+msgid "ButtonBar|Merge"
+msgstr ""
+
+msgid "ButtonBar|Search"
+msgstr ""
+
+msgid "ButtonBar|Options"
+msgstr ""
+
+msgid "ButtonBar|Quit"
+msgstr ""
+
+msgid "Quit"
+msgstr ""
+
+#, fuzzy
+msgid "File was modified. Save with exit?"
+msgstr " கோப்பு மாற்றப்பட்டது, சேமித்து வெளியேறு? "
+
+msgid ""
+"Midnight Commander is being shut down.\n"
+"Save modified file?"
+msgstr ""
+
+msgid "Diff:"
+msgstr ""
+
+msgid "Two files are needed to compare"
+msgstr ""
+
+msgid "Cannot read directory contents"
+msgstr ""
+
+msgid "Choose syntax highlighting"
+msgstr ""
+
+#, fuzzy
+msgid "< Auto >"
+msgstr " பற்றி "
+
+msgid "< Reload Current Syntax >"
+msgstr ""
+
+#, fuzzy
+msgid "About"
+msgstr " பற்றி "
+
+#, fuzzy
+msgid ""
+"Copyright (C) 1996-2010 the Free Software Foundation\n"
+"\n"
+"            A user friendly text editor\n"
+"         written for the Midnight Commander"
+msgstr ""
+"\n"
+"                Cooledit  v3.11.5\n"
+"\n"
+"நகல் காப்பு (C) 1996 இலவசப் மென்பொருள் நிறுவனம்\n"
+"\n"
+"    Midnight Commanderக்காக எழுதப்பட்ட ஓர்\n"
+"        பயனர் தோழமையான உரை பதிப்பான்.\n"
+
+#, fuzzy, c-format
+msgid "Cannot open %s for reading"
+msgstr "கோப்பை வாசிப்பதட்கு திறக்க முடியவில்லை: "
+
+msgid "Error"
+msgstr "பிழை"
+
+#, c-format
+msgid "Error reading %s"
+msgstr ""
+
+#, c-format
+msgid "Error reading from pipe: %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "Cannot open pipe for reading: %s"
+msgstr "கோப்பை வாசிப்பதட்கு திறக்க முடியவில்லை: "
+
+#, fuzzy, c-format
+msgid "Cannot get size/permissions for %s"
+msgstr " இந்த கோப்பின் அளவு/அனுமதி தகவல் கிடைக்க முடியாது: "
+
+#, fuzzy, c-format
+msgid "\"%s\" is not a regular file"
+msgstr "புதிய முனையம் ஒனறைப் படைக்கும்"
+
+#, fuzzy, c-format
+msgid "File \"%s\" is too large"
+msgstr " இந்த கோப்பு மிகப் பெரியது: "
+
+msgid "Macro recursion is too deep"
+msgstr ""
+
+msgid "File has hard-links. Detach before saving?"
+msgstr ""
+
+msgid "The file has been modified in the meantime. Save anyway?"
+msgstr ""
+
+#, c-format
+msgid "Error writing to pipe: %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "Cannot open pipe for writing: %s"
+msgstr "கோப்பை வாசிப்பதட்கு திறக்க முடியவில்லை: "
+
+#, fuzzy, c-format
+msgid "Cannot open file for writing: %s"
+msgstr "கோப்பை வாசிப்பதட்கு திறக்க முடியவில்லை: "
+
+#, fuzzy
+msgid "&Quick save"
+msgstr "விரைவான சேமிப்பு "
+
+#, fuzzy
+msgid "&Safe save"
+msgstr "பத்திரமான சேமிப்பு "
+
+msgid "&Do backups with following extension:"
+msgstr ""
+
+msgid "Check &POSIX new line"
+msgstr ""
+
+#, fuzzy
+msgid "Edit Save Mode"
+msgstr " சேமிப்பு முறைமையை பதி "
+
+msgid "The file you are saving is not finished with a newline"
+msgstr ""
+
+#, fuzzy
+msgid "C&ontinue"
+msgstr "தொடர்ந்து செல்"
+
+msgid "&Do not change"
+msgstr ""
+
+msgid "&Unix format (LF)"
+msgstr ""
+
+msgid "&Windows/DOS format (CR LF)"
+msgstr ""
+
+msgid "&Macintosh format (CR)"
+msgstr ""
+
+msgid "Change line breaks to:"
+msgstr ""
+
+#, fuzzy
+msgid "Enter file name:"
+msgstr " கோப்பு "
+
+#, fuzzy
+msgid "Save As"
+msgstr " வேறு பெயரில் சேமி "
+
+#, fuzzy
+msgid "A file already exists with this name"
+msgstr " இந்த பெயரில் கோப்பு ஒன்று இருக்கின்றது. "
+
+#, fuzzy
+msgid "&Overwrite"
+msgstr "மேல் எழுது"
+
+#, fuzzy
+msgid "Save as"
+msgstr "வேறு &பெயரில் சேமி...  F12"
+
+#, fuzzy
+msgid "Cannot save file"
+msgstr " கோப்பை சேமிக்கும் போது பிழை. "
+
+#, fuzzy
+msgid "Delete macro"
+msgstr " பெரும்-நிரலை நீக்கு"
+
+#, fuzzy
+msgid "Cannot open temp file"
+msgstr " temp கோப்பை திறக்கும் போது பிழை. "
+
+#, fuzzy
+msgid "Cannot open macro file"
+msgstr " பெரும்-நிரல் கோப்பை திறக்கும் போது பிழை. "
+
+#, fuzzy
+msgid "Cannot overwrite macro file"
+msgstr " பெரும்-நிரல் கோப்பை மேல் எழுதும் போது பிழை. "
+
+#, fuzzy
+msgid "Save macro"
+msgstr " பெரும்-நிரலை சேமி "
+
+#, fuzzy
+msgid "Press the macro's new hotkey:"
+msgstr "பெரு நிரல் வெம்மை விசையை அழுத்து: "
+
+#, fuzzy
+msgid "Press macro hotkey:"
+msgstr "பெரு நிரல் வெம்மை விசையை அழுத்து: "
+
+#, fuzzy
+msgid "Load macro"
+msgstr " பெரும்-நிரலை ஏற்று "
+
+#, fuzzy, c-format
+msgid "Confirm save file: \"%s\""
+msgstr " கோப்பு சேமிப்பை உறுதிப்படுத்து? : "
+
+#, fuzzy
+msgid "Save file"
+msgstr " கோப்பை சேமி "
+
+msgid "&Save"
+msgstr ""
+
+#, fuzzy
+msgid ""
+"Current text was modified without a file save.\n"
+"Continue discards these changes"
+msgstr ""
+" கோப்பை சேமிக்காமல் இந்த உரை மாற்றப்பட்டது. \n"
+" தொடர்ந்தால், மாறறங்கள் வீசப்படும். "
+
+msgid "Syntax file edit"
+msgstr ""
+
+msgid "Which syntax file you want to edit?"
+msgstr ""
+
+#, fuzzy
+msgid "Load"
+msgstr " ஏற்று "
+
+#, fuzzy
+msgid "Block is large, you may not be able to undo this action"
+msgstr " தொகுதி மிகப் பெரியது, இந்த செயலை கவிழ முடியாமல் இருக்கலாம். "
+
+#, fuzzy
+msgid "Replace"
+msgstr "&மாற்று"
+
+#, fuzzy, c-format
+msgid "%ld replacements made"
+msgstr " %ld மாற்றங்கள் செய்யப்பட்டன. "
+
+#, fuzzy
+msgid "&Cancel quit"
+msgstr "வெளியேற்றளை ரத்து செய்"
+
+msgid "This function is not implemented"
+msgstr ""
+
+#, fuzzy
+msgid "Copy to clipboard"
+msgstr " பிடிப்புப் பலகைக்கு நகல் "
+
+#, fuzzy
+msgid "Unable to save to file"
+msgstr " கோப்புக்கு சேமிக்க முடியவில்லை. "
+
+#, fuzzy
+msgid "Cut to clipboard"
+msgstr " பிடிப்புப் பலகைக்கு வெட்டு"
+
+#, fuzzy
+msgid "Goto line"
+msgstr " வாிசைக்குப் போ "
+
+#, fuzzy
+msgid "Save block"
+msgstr " தொகுதியை சேமி "
+
+#, fuzzy
+msgid "Insert file"
+msgstr "&கோப்பை செருகு... F15"
+
+#, fuzzy
+msgid "Cannot insert file"
+msgstr " கோப்பை செருகும் போது பிழை. "
+
+#, fuzzy
+msgid "Sort block"
+msgstr " தொகுதியை வாிசையாக்கு "
+
+#, fuzzy
+msgid "You must first highlight a block of text"
+msgstr " நீங்கள் முதல் உரை தொகுதியை தேர்வு செய்ய வேண்டும். "
+
+#, fuzzy
+msgid "Run sort"
+msgstr " வாிசையாக்குதலை இயக்கு "
+
+#, fuzzy
+msgid "Enter sort options (see manpage) separated by whitespace:"
+msgstr ""
+" வெண்ணிடைவெளியால் பிரித்த வாிசையாக்கும் விருப்பத்தேர்வுகளை உள்ளீடு (உதவி பக்கத்தைப் பார்): "
+
+#, fuzzy
+msgid "Sort"
+msgstr " வாிசையாக்கு "
+
+#, fuzzy
+msgid "Cannot execute sort command"
+msgstr " வாிசையாக்கும் கட்டளையை இயக்கும் போது பிழை "
+
+#, c-format
+msgid "Sort returned non-zero: %s"
+msgstr ""
+
+msgid "Paste output of external command"
+msgstr ""
+
+msgid "Enter shell command(s):"
+msgstr ""
+
+msgid "External command"
+msgstr ""
+
+#, fuzzy
+msgid "Cannot execute command"
+msgstr " வாிசையாக்கும் கட்டளையை இயக்கும் போது பிழை "
+
+msgid "Error creating script:"
+msgstr ""
+
+msgid "Error reading script:"
+msgstr ""
+
+msgid "Error closing script:"
+msgstr ""
+
+msgid "Script created:"
+msgstr ""
+
+msgid "Process block"
+msgstr ""
+
+msgid "Error calling program"
+msgstr ""
+
+#, fuzzy
+msgid "Copies to"
+msgstr " நகலும் இடம்"
+
+#, fuzzy
+msgid "Subject"
+msgstr " விஷயம்"
+
+#, fuzzy
+msgid "To"
+msgstr " நோக்கி"
+
+#, fuzzy
+msgid "mail -s <subject> -c <cc> <to>"
+msgstr " அஞ்சல் -s <விஷயம்> -c <cc> <நோக்கி>"
+
+#, fuzzy
+msgid "Mail"
+msgstr " அஞ்சல் "
+
+#, fuzzy
+msgid "Insert literal"
+msgstr "நிலைஉரு &செருகுதல்...    C-q"
+
+#, fuzzy
+msgid "Press any key:"
+msgstr "ஏதாவது ஒரு விசையை அழுத்து: "
+
+#, fuzzy
+msgid "Execute macro"
+msgstr " பெரு நிரலை செயல்படுத்து "
+
+#, fuzzy
+msgid ""
+"Current text was modified without a file save\n"
+"Continue discards these changes"
+msgstr ""
+" கோப்பை சேமிக்காமல் இந்த உரை மாற்றப்பட்டது. \n"
+" தொடர்ந்தால், மாறறங்கள் வீசப்படும். "
+
+msgid "In se&lection"
+msgstr ""
+
+#, fuzzy
+msgid "Enter replacement string:"
+msgstr " மாற்றல் சரத்தை நுழைவிடு:"
+
+msgid "&Find all"
+msgstr ""
+
+msgid "Cancel"
+msgstr "ரத்து"
+
+#, fuzzy
+msgid ""
+"Current text was modified without a file save.\n"
+"Continue discards these changes."
+msgstr ""
+" கோப்பை சேமிக்காமல் இந்த உரை மாற்றப்பட்டது. \n"
+" தொடர்ந்தால், மாறறங்கள் வீசப்படும். "
+
+msgid "&Skip"
+msgstr "&தவிர்"
+
+msgid "A&ll"
+msgstr "அனைத்&தும்"
+
+msgid "&Replace"
+msgstr "&மாற்று"
+
+#, fuzzy
+msgid "Replace with:"
+msgstr " இதை வைத்து மாற்று: "
+
+#, fuzzy
+msgid "Confirm replace"
+msgstr " மாற்றுதலை உறுதிப்படுத்து "
+
+#, fuzzy
+msgid "&Open file..."
+msgstr "இதை வைத்து திற..."
+
+msgid "&New"
+msgstr ""
+
+#, fuzzy
+msgid "Save &as..."
+msgstr "வேறு &பெயரில் சேமி...  F12"
+
+#, fuzzy
+msgid "&Insert file..."
+msgstr "&கோப்பை செருகு... F15"
+
+#, fuzzy
+msgid "Cop&y to file..."
+msgstr "கோப்புக்கு &நகல்... C-f"
+
+#, fuzzy
+msgid "&User menu..."
+msgstr "&பயனர் பட்டி...       F11"
+
+#, fuzzy
+msgid "A&bout..."
+msgstr "&இட அமைவு..."
+
+msgid "&Quit"
+msgstr ""
+
+msgid "&Undo"
+msgstr ""
+
+#, fuzzy
+msgid "&Toggle ins/overw"
+msgstr "&Ins/overw இருநிலை &மாற்று"
+
+#, fuzzy
+msgid "To&ggle mark"
+msgstr "குறி இருநிலை &மாற்றல் F3"
+
+msgid "&Mark columns"
+msgstr ""
+
+msgid "Mark &all"
+msgstr ""
+
+msgid "Unmar&k"
+msgstr ""
+
+#, fuzzy
+msgid "Cop&y"
+msgstr "நகல்"
+
+#, fuzzy
+msgid "Mo&ve"
+msgstr "முறைமை"
+
+msgid "&Delete"
+msgstr ""
+
+#, fuzzy
+msgid "Co&py to clipfile"
+msgstr "கோப்புக்கு &நகல்...    "
+
+#, fuzzy
+msgid "&Cut to clipfile"
+msgstr "&வாிசைக்குப் போ...       M-l"
+
+#, fuzzy
+msgid "Pa&ste from clipfile"
+msgstr "&வாிசைக்குப் போ...       M-l"
+
+msgid "&Beginning"
+msgstr ""
+
+msgid "&End"
+msgstr ""
+
+#, fuzzy
+msgid "&Search..."
+msgstr "தேடு"
+
+#, fuzzy
+msgid "Search &again"
+msgstr "&மறுபடியும் தேடு       F17"
+
+#, fuzzy
+msgid "&Replace..."
+msgstr "&மாற்று"
+
+#, fuzzy
+msgid "&Toggle bookmark"
+msgstr "குறி இருநிலை &மாற்றல் F3"
+
+#, fuzzy
+msgid "&Next bookmark"
+msgstr "&புதியது            C-n"
+
+#, fuzzy
+msgid "&Prev bookmark"
+msgstr "வாிசை&யாக்கு...          M-t"
+
+#, fuzzy
+msgid "&Flush bookmark"
+msgstr "&அஞ்சல்...                  "
+
+#, fuzzy
+msgid "&Go to line..."
+msgstr " வாிசைக்குப் போ "
+
+#, fuzzy
+msgid "&Toggle line state"
+msgstr "குறி இருநிலை &மாற்றல் F3"
+
+msgid "Go to matching &bracket"
+msgstr ""
+
+msgid "Toggle s&yntax highlighting"
+msgstr ""
+
+#, fuzzy
+msgid "&Find declaration"
+msgstr "விலக்கியவைகளை ஒட்டு-வேலைகளுக்கு பிரகு கண்டுபிடி"
+
+#, fuzzy
+msgid "Back from &declaration"
+msgstr "விலக்கியவைகளை ஒட்டு-வேலைகளுக்கு பிரகு கண்டுபிடி"
+
+#, fuzzy
+msgid "For&ward to declaration"
+msgstr "விலக்கியவைகளை ஒட்டு-வேலைகளுக்கு பிரகு கண்டுபிடி"
+
+#, fuzzy
+msgid "Encod&ing..."
+msgstr "வாிசை&யாக்கு...          M-t"
+
+#, fuzzy
+msgid "&Refresh screen"
+msgstr "திரையை &புதுக்கு            C-l"
+
+msgid "&Start record macro"
+msgstr ""
+
+#, fuzzy
+msgid "Finis&h record macro..."
+msgstr " பெரு நிரலை செயல்படுத்து "
+
+#, fuzzy
+msgid "&Execute macro..."
+msgstr " பெரு நிரலை செயல்படுத்து "
+
+#, fuzzy
+msgid "Delete macr&o..."
+msgstr " பெரும்-நிரலை நீக்கு"
+
+#, fuzzy
+msgid "'ispell' s&pell check"
+msgstr "'ispell' எ&ழுத்து சாிபார்ப்பு C-p"
+
+msgid "&Mail..."
+msgstr ""
+
+#, fuzzy
+msgid "Insert &literal..."
+msgstr "நிலைஉரு &செருகுதல்...    C-q"
+
+#, fuzzy
+msgid "Insert &date/time"
+msgstr "&திகதி/நேரம் செருகு           "
+
+#, fuzzy
+msgid "&Format paragraph"
+msgstr "&பத்தி வடிவம்                   M-p"
+
+#, fuzzy
+msgid "&Sort..."
+msgstr "&இட அமைவு..."
+
+msgid "&Paste output of..."
+msgstr ""
+
+#, fuzzy
+msgid "&External formatter"
+msgstr "பு&ற வடிவூட்டி                  F19"
+
+#, fuzzy
+msgid "&General..."
+msgstr "&பொதுவானது... "
+
+#, fuzzy
+msgid "Save &mode..."
+msgstr "சேமிப்பு முறைமை..."
+
+msgid "Learn &keys..."
+msgstr ""
+
+msgid "Syntax &highlighting..."
+msgstr ""
+
+#, fuzzy
+msgid "S&yntax file"
+msgstr " கோப்பை சேமி "
+
+#, fuzzy
+msgid "&Menu file"
+msgstr "இதை வைத்து திற..."
+
+msgid "&Save setup"
+msgstr ""
+
+#, fuzzy
+msgid "&File"
+msgstr " கோப்பு "
+
+#, fuzzy
+msgid "&Edit"
+msgstr "பதிப்பு"
+
+#, fuzzy
+msgid "&Search"
+msgstr "தேடு"
+
+#, fuzzy
+msgid "&Command"
+msgstr "கட்டளை"
+
+msgid "For&mat"
+msgstr ""
+
+#, fuzzy
+msgid "&Options"
+msgstr " விருப்பங்கள் "
+
+msgid "None"
+msgstr ""
+
+msgid "Dynamic paragraphing"
+msgstr ""
+
+msgid "Type writer wrap"
+msgstr ""
+
+msgid "Word wrap line length:"
+msgstr ""
+
+msgid "Cursor beyond end of line"
+msgstr ""
+
+msgid "Pers&istent selection"
+msgstr ""
+
+msgid "Synta&x highlighting"
+msgstr ""
+
+msgid "Visible tabs"
+msgstr ""
+
+msgid "Visible trailing spaces"
+msgstr ""
+
+#, fuzzy
+msgid "Save file &position"
+msgstr " கோப்பை சேமி "
+
+msgid "Confir&m before saving"
+msgstr ""
+
+msgid "&Return does autoindent"
+msgstr ""
+
+msgid "Tab spacing:"
+msgstr ""
+
+msgid "Fill tabs with &spaces"
+msgstr ""
+
+msgid "&Backspace through tabs"
+msgstr ""
+
+msgid "&Fake half tabs"
+msgstr ""
+
+msgid "Wrap mode"
+msgstr ""
+
+#, fuzzy
+msgid "Editor options"
+msgstr " விருப்பங்கள் "
+
+#, fuzzy
+msgid "Edit: "
+msgstr " பதிப்பு "
+
+msgid "ButtonBar|Mark"
+msgstr ""
+
+msgid "ButtonBar|Replac"
+msgstr ""
+
+msgid "ButtonBar|Copy"
+msgstr ""
+
+msgid "ButtonBar|Move"
+msgstr ""
+
+msgid "ButtonBar|Delete"
+msgstr ""
+
+msgid "ButtonBar|PullDn"
+msgstr ""
+
+#, fuzzy
+msgid "Load syntax file"
+msgstr " கோப்பை சேமி "
+
+#, fuzzy, c-format
+msgid ""
+"Cannot open file %s\n"
+"%s"
+msgstr " கோப்பை சேமிக்கும் போது பிழை. "
+
+#, c-format
+msgid "Error in file %s on line %d"
+msgstr ""
+
+msgid ""
+"The Commander can't change to the directory that\n"
+"the subshell claims you are in. Perhaps you have\n"
+"deleted your working directory, or given yourself\n"
+"extra access permissions with the \"su\" command?"
+msgstr ""
+
+#, c-format
+msgid "Type `exit' to return to the Midnight Commander"
+msgstr ""
+
+#, c-format
+msgid "Cannot fetch a local copy of %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid ""
+"Cannot create temporary command file\n"
+"%s"
+msgstr " கோப்பை சேமிக்கும் போது பிழை. "
+
+msgid "Parameter"
+msgstr ""
+
+#, c-format
+msgid " %s%s file error"
+msgstr ""
+
+#, c-format
+msgid ""
+"The format of the %smc.ext file has changed with version 3.0. It seems that "
+"the installation failed. Please fetch a fresh copy from the Midnight "
+"Commander package."
+msgstr ""
+
+#, c-format
+msgid "~/%s file error"
+msgstr ""
+
+#, c-format
+msgid ""
+"The format of the ~/%s file has changed with version 3.0. You may either "
+"want to copy it from %smc.ext or use that file as an example of how to write "
+"it."
+msgstr ""
+
+msgid "DialogTitle|Copy"
+msgstr ""
+
+msgid "DialogTitle|Move"
+msgstr ""
+
+msgid "DialogTitle|Delete"
+msgstr ""
+
+msgid "Cannot make the hardlink"
+msgstr ""
+
+#, fuzzy, c-format
+msgid ""
+"Cannot read source link \"%s\"\n"
+"%s"
+msgstr " கோப்பை சேமிக்கும் போது பிழை. "
+
+msgid ""
+"Cannot make stable symlinks acrossnon-local filesystems:\n"
+"\n"
+"Option Stable Symlinks will be disabled"
+msgstr ""
+
+#, fuzzy, c-format
+msgid ""
+"Cannot create target symlink \"%s\"\n"
+"%s"
+msgstr " கோப்பை சேமிக்கும் போது பிழை. "
+
+msgid "&Abort"
+msgstr ""
+
+#, fuzzy, c-format
+msgid ""
+"Cannot overwrite directory\"%s\"\n"
+"%s"
+msgstr "புதிய முனையம் ஒனறைப் படைக்கும்"
+
+#, fuzzy, c-format
+msgid ""
+"Cannot stat source file \"%s\"\n"
+"%s"
+msgstr " கோப்பை சேமிக்கும் போது பிழை. "
+
+#, c-format
+msgid ""
+"\"%s\"\n"
+"and\n"
+"\"%s\"\n"
+"are the same file"
+msgstr ""
+
+#, fuzzy, c-format
+msgid ""
+"Cannot create special file \"%s\"\n"
+"%s"
+msgstr " கோப்பை சேமிக்கும் போது பிழை. "
+
+#, fuzzy, c-format
+msgid ""
+"Cannot chown target file \"%s\"\n"
+"%s"
+msgstr " கோப்பை சேமிக்கும் போது பிழை. "
+
+#, fuzzy, c-format
+msgid ""
+"Cannot chmod target file \"%s\"\n"
+"%s"
+msgstr " கோப்பை சேமிக்கும் போது பிழை. "
+
+#, fuzzy, c-format
+msgid ""
+"Cannot open source file \"%s\"\n"
+"%s"
+msgstr " கோப்பை சேமிக்கும் போது பிழை. "
+
+msgid "Reget failed, about to overwrite file"
+msgstr ""
+
+#, fuzzy, c-format
+msgid ""
+"Cannot fstat source file \"%s\"\n"
+"%s"
+msgstr " கோப்பை சேமிக்கும் போது பிழை. "
+
+#, fuzzy, c-format
+msgid ""
+"Cannot create target file \"%s\"\n"
+"%s"
+msgstr " கோப்பை சேமிக்கும் போது பிழை. "
+
+#, fuzzy, c-format
+msgid ""
+"Cannot fstat target file \"%s\"\n"
+"%s"
+msgstr " கோப்பை சேமிக்கும் போது பிழை. "
+
+#, fuzzy, c-format
+msgid ""
+"Cannot read source file\"%s\"\n"
+"%s"
+msgstr " கோப்பை சேமிக்கும் போது பிழை. "
+
+#, fuzzy, c-format
+msgid ""
+"Cannot write target file \"%s\"\n"
+"%s"
+msgstr " கோப்பை சேமிக்கும் போது பிழை. "
+
+msgid "(stalled)"
+msgstr ""
+
+#, fuzzy, c-format
+msgid ""
+"Cannot close source file \"%s\"\n"
+"%s"
+msgstr " கோப்பை சேமிக்கும் போது பிழை. "
+
+#, fuzzy, c-format
+msgid ""
+"Cannot close target file \"%s\"\n"
+"%s"
+msgstr " கோப்பை சேமிக்கும் போது பிழை. "
+
+msgid "Incomplete file was retrieved. Keep it?"
+msgstr ""
+
+msgid "&Keep"
+msgstr ""
+
+#, fuzzy, c-format
+msgid ""
+"Cannot stat source directory \"%s\"\n"
+"%s"
+msgstr "புதிய முனையம் ஒனறைப் படைக்கும்"
+
+#, fuzzy, c-format
+msgid ""
+"Source \"%s\" is not a directory\n"
+"%s"
+msgstr "புதிய முனையம் ஒனறைப் படைக்கும்"
+
+#, c-format
+msgid ""
+"Cannot copy cyclic symbolic link\n"
+"\"%s\""
+msgstr ""
+
+#, c-format
+msgid ""
+"Destination \"%s\" must be a directory\n"
+"%s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid ""
+"Cannot create target directory \"%s\"\n"
+"%s"
+msgstr "புதிய முனையம் ஒனறைப் படைக்கும்"
+
+#, fuzzy, c-format
+msgid ""
+"Cannot chown target directory \"%s\"\n"
+"%s"
+msgstr "புதிய முனையம் ஒனறைப் படைக்கும்"
+
+#, fuzzy, c-format
+msgid ""
+"Cannot stat file \"%s\"\n"
+"%s"
+msgstr " கோப்பை சேமிக்கும் போது பிழை. "
+
+#, fuzzy, c-format
+msgid "Cannot overwrite directory \"%s\""
+msgstr "புதிய முனையம் ஒனறைப் படைக்கும்"
+
+#, fuzzy, c-format
+msgid ""
+"Cannot move file \"%s\" to \"%s\"\n"
+"%s"
+msgstr " கோப்பை சேமிக்கும் போது பிழை. "
+
+#, fuzzy, c-format
+msgid ""
+"Cannot remove file \"%s\"\n"
+"%s"
+msgstr " கோப்பை சேமிக்கும் போது பிழை. "
+
+#, c-format
+msgid ""
+"\"%s\"\n"
+"and\n"
+"\"%s\"\n"
+"are the same directory"
+msgstr ""
+
+#, fuzzy, c-format
+msgid ""
+"Cannot overwrite directory \"%s\"\n"
+"%s"
+msgstr "புதிய முனையம் ஒனறைப் படைக்கும்"
+
+#, fuzzy, c-format
+msgid ""
+"Cannot overwrite file \"%s\"\n"
+"%s"
+msgstr " கோப்பை சேமிக்கும் போது பிழை. "
+
+#, fuzzy, c-format
+msgid ""
+"Cannot move directory \"%s\" to \"%s\"\n"
+"%s"
+msgstr " கோப்பை சேமிக்கும் போது பிழை. "
+
+#, fuzzy, c-format
+msgid ""
+"Cannot delete file \"%s\"\n"
+"%s"
+msgstr " கோப்பை சேமிக்கும் போது பிழை. "
+
+#, fuzzy, c-format
+msgid ""
+"Cannot remove directory \"%s\"\n"
+"%s"
+msgstr "புதிய முனையம் ஒனறைப் படைக்கும்"
+
+msgid "Directory scanning"
+msgstr ""
+
+msgid "FileOperation|Copy"
+msgstr ""
+
+msgid "FileOperation|Move"
+msgstr ""
+
+msgid "FileOperation|Delete"
+msgstr ""
+
+#, no-c-format
+msgid "%o %f \"%s\"%m"
+msgstr ""
+
+#, no-c-format
+msgid "%o %d %f%m"
+msgstr ""
+
+msgid "files"
+msgstr ""
+
+msgid "directory"
+msgstr ""
+
+msgid "directories"
+msgstr ""
+
+msgid "files/directories"
+msgstr ""
+
+#. TRANSLATORS: keep leading space here to split words in Copy/Move dialog
+msgid " with source mask:"
+msgstr ""
+
+msgid "to:"
+msgstr ""
+
+#, c-format
+msgid "%s?"
+msgstr ""
+
+#, fuzzy
+msgid "Cannot operate on \"..\"!"
+msgstr " temp கோப்பை திறக்கும் போது பிழை. "
+
+msgid "Sorry, I could not put the job in background"
+msgstr ""
+
+msgid "&Retry"
+msgstr ""
+
+msgid ""
+"\n"
+"Directory not empty.\n"
+"Delete it recursively?"
+msgstr ""
+
+msgid ""
+"\n"
+"Background process: Directory not empty.\n"
+"Delete it recursively?"
+msgstr ""
+
+#, fuzzy
+msgid "Delete:"
+msgstr "நீக்கு"
+
+msgid "Non&e"
+msgstr ""
+
+#, c-format
+msgid "%d:%02d.%02d"
+msgstr ""
+
+#, c-format
+msgid "ETA %s"
+msgstr ""
+
+#, c-format
+msgid "%.2f MB/s"
+msgstr ""
+
+#, c-format
+msgid "%.2f KB/s"
+msgstr ""
+
+#, c-format
+msgid "%ld B/s"
+msgstr ""
+
+#, c-format
+msgid "Files processed: %llu of %llu"
+msgstr ""
+
+#, c-format
+msgid "Time: %s  %s (%s)"
+msgstr ""
+
+#, c-format
+msgid "Total: %s of %s"
+msgstr ""
+
+msgid "Source"
+msgstr ""
+
+msgid "Target"
+msgstr ""
+
+msgid "Deleting"
+msgstr ""
+
+#, fuzzy
+msgid "Target file already exists!"
+msgstr " இந்த பெயரில் கோப்பு ஒன்று இருக்கின்றது. "
+
+#, c-format
+msgid "Source date: %s, size %llu"
+msgstr ""
+
+#, c-format
+msgid "Target date: %s, size %llu"
+msgstr ""
+
+#, c-format
+msgid "Source date: %s, size %u"
+msgstr ""
+
+#, c-format
+msgid "Target date: %s, size %u"
+msgstr ""
+
+msgid "If &size differs"
+msgstr ""
+
+msgid "&Update"
+msgstr ""
+
+msgid "Overwrite all targets?"
+msgstr ""
+
+msgid "&Reget"
+msgstr ""
+
+msgid "A&ppend"
+msgstr ""
+
+msgid "Overwrite this target?"
+msgstr ""
+
+msgid "File exists"
+msgstr ""
+
+msgid "Background process: File exists"
+msgstr ""
+
+msgid "&Background"
+msgstr ""
+
+msgid "&Stable Symlinks"
+msgstr ""
+
+msgid "Di&ve into subdir if exists"
+msgstr ""
+
+msgid "Preserve &attributes"
+msgstr ""
+
+msgid "Follow &links"
+msgstr ""
+
+#, c-format
+msgid "Invalid source pattern `%s'"
+msgstr ""
+
+msgid "&Suspend"
+msgstr ""
+
+msgid "Con&tinue"
+msgstr ""
+
+msgid "&Chdir"
+msgstr ""
+
+msgid "&Again"
+msgstr ""
+
+msgid "Pane&lize"
+msgstr ""
+
+msgid "&View - F3"
+msgstr ""
+
+msgid "&Edit - F4"
+msgstr ""
+
+#, c-format
+msgid "Found: %ld"
+msgstr ""
+
+#, fuzzy
+msgid "Malformed regular expression"
+msgstr "  அவலட்சணமான regular expression  "
+
+msgid "Cas&e sensitive"
+msgstr ""
+
+msgid "&Find recursively"
+msgstr ""
+
+msgid "S&kip hidden"
+msgstr ""
+
+msgid "&All charsets"
+msgstr ""
+
+msgid "Case sens&itive"
+msgstr ""
+
+#, fuzzy
+msgid "Re&gular expression"
+msgstr "&சாதாரண கோவை"
+
+msgid "Fir&st hit"
+msgstr ""
+
+msgid "All cha&rsets"
+msgstr ""
+
+msgid "&Tree"
+msgstr ""
+
+msgid "Find File"
+msgstr ""
+
+msgid "Content:"
+msgstr ""
+
+#, fuzzy
+msgid "File name:"
+msgstr " கோப்பு "
+
+msgid "Start at:"
+msgstr ""
+
+#, c-format
+msgid "Grepping in %s"
+msgstr ""
+
+msgid "Finished"
+msgstr ""
+
+#, c-format
+msgid "Searching %s"
+msgstr ""
+
+msgid "Searching"
+msgstr ""
+
+msgid "Help file format error\n"
+msgstr ""
+
+msgid "Internal bug: Double start of link area"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "Cannot find node %s in help file"
+msgstr " temp கோப்பை திறக்கும் போது பிழை. "
+
+msgid "Help"
+msgstr ""
+
+msgid "ButtonBar|Index"
+msgstr ""
+
+msgid "ButtonBar|Prev"
+msgstr ""
+
+msgid "&Move"
+msgstr ""
+
+msgid "&Remove"
+msgstr ""
+
+msgid "&Append"
+msgstr ""
+
+msgid "&Insert"
+msgstr ""
+
+msgid "New &entry"
+msgstr ""
+
+#, fuzzy
+msgid "New &group"
+msgstr "குறும்படத்தை தேர்ந்தெடு"
+
+msgid "&Up"
+msgstr ""
+
+msgid "&Add current"
+msgstr ""
+
+msgid "&Refresh"
+msgstr ""
+
+msgid "Fr&ee VFSs now"
+msgstr ""
+
+msgid "Change &to"
+msgstr ""
+
+msgid "Subgroup - press ENTER to see list"
+msgstr ""
+
+msgid "Active VFS directories"
+msgstr ""
+
+msgid "Directory hotlist"
+msgstr ""
+
+msgid "Directory path"
+msgstr ""
+
+msgid "Directory label"
+msgstr ""
+
+#, c-format
+msgid "Moving %s"
+msgstr ""
+
+msgid "New hotlist entry"
+msgstr ""
+
+msgid "Directory label:"
+msgstr ""
+
+msgid "Directory path:"
+msgstr ""
+
+#, fuzzy
+msgid "New hotlist group"
+msgstr "குறும்படத்தை தேர்ந்தெடு"
+
+msgid "Name of new group:"
+msgstr ""
+
+#, c-format
+msgid "Label for \"%s\":"
+msgstr ""
+
+msgid "Add to hotlist"
+msgstr ""
+
+msgid "Remove:"
+msgstr ""
+
+msgid "Are you sure you want to remove this entry?"
+msgstr ""
+
+msgid ""
+"Group not empty.\n"
+"Remove it?"
+msgstr ""
+
+msgid "Top level group"
+msgstr ""
+
+msgid "Hotlist Load"
+msgstr ""
+
+#, c-format
+msgid ""
+"MC was unable to write ~/%s file,\n"
+"your old hotlist entries were not deleted"
+msgstr ""
+
+msgid "Information"
+msgstr ""
+
+#, c-format
+msgid "Midnight Commander %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "File: %s"
+msgstr " கோப்பு "
+
+#, c-format
+msgid "Free nodes: %ld (%ld%%) of %ld"
+msgstr ""
+
+msgid "No node information"
+msgstr ""
+
+#, c-format
+msgid "Free space: %s (%d%%) of %s"
+msgstr ""
+
+msgid "No space information"
+msgstr ""
+
+#, c-format
+msgid "Type:      %s"
+msgstr ""
+
+msgid "non-local vfs"
+msgstr ""
+
+#, c-format
+msgid "Device:    %s"
+msgstr ""
+
+#, c-format
+msgid "Filesystem: %s"
+msgstr ""
+
+#, c-format
+msgid "Accessed:  %s"
+msgstr ""
+
+#, c-format
+msgid "Modified:  %s"
+msgstr ""
+
+#. TRANSLATORS: Time of last status change as in stat(2) man.
+#, c-format
+msgid "Changed:   %s"
+msgstr ""
+
+#, c-format
+msgid "Dev. type: major %lu, minor %lu"
+msgstr ""
+
+#, c-format
+msgid "Size:      %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid " (%ld block)"
+msgid_plural " (%ld blocks)"
+msgstr[0] " தொகுதியை வாிசையாக்கு "
+msgstr[1] " தொகுதியை வாிசையாக்கு "
+
+#, c-format
+msgid "Owner:     %s/%s"
+msgstr ""
+
+#, c-format
+msgid "Links:     %d"
+msgstr ""
+
+#, c-format
+msgid "Mode:      %s (%04o)"
+msgstr ""
+
+#, c-format
+msgid "Location:  %Xh:%Xh"
+msgstr ""
+
+msgid "&Vertical"
+msgstr ""
+
+msgid "&Horizontal"
+msgstr ""
+
+msgid "Show free sp&ace"
+msgstr ""
+
+msgid "&XTerm window title"
+msgstr ""
+
+msgid "H&intbar visible"
+msgstr ""
+
+msgid "&Keybar visible"
+msgstr ""
+
+#, fuzzy
+msgid "Command &prompt"
+msgstr " கட்டளை "
+
+msgid "Show &mini status"
+msgstr ""
+
+#, fuzzy
+msgid "Menu&bar visible"
+msgstr "இதை வைத்து திற..."
+
+msgid "&Equal split"
+msgstr ""
+
+#, fuzzy
+msgid "Panel split"
+msgstr "வெளியேற்றளை ரத்து செய்"
+
+msgid "Console output"
+msgstr ""
+
+#, fuzzy
+msgid "Other options"
+msgstr " விருப்பங்கள் "
+
+msgid "Output lines:"
+msgstr ""
+
+msgid "Layout"
+msgstr ""
+
+msgid "Learn keys"
+msgstr ""
+
+msgid "Teach me a key"
+msgstr ""
+
+#, c-format
+msgid ""
+"Please press the %s\n"
+"and then wait until this message disappears.\n"
+"\n"
+"Then, press it again to see if OK appears\n"
+"next to its button.\n"
+"\n"
+"If you want to escape, press a single Escape key\n"
+"and wait as well."
+msgstr ""
+
+#, fuzzy
+msgid "Cannot accept this key"
+msgstr "புதிய முனையம் ஒனறைப் படைக்கும்"
+
+#, c-format
+msgid "You have entered \"%s\""
+msgstr ""
+
+#. TRANSLATORS: This label appears near learned keys.  Keep it short.
+msgid "OK"
+msgstr ""
+
+msgid ""
+"It seems that all your keys already\n"
+"work fine. That's great."
+msgstr ""
+
+msgid "&Discard"
+msgstr ""
+
+msgid ""
+"Great! You have a complete terminal database!\n"
+"All your keys work well."
+msgstr ""
+
+msgid "Press all the keys mentioned here. After you have done it, check"
+msgstr ""
+
+msgid "which keys are not marked with OK.  Press space on the missing"
+msgstr ""
+
+msgid "key, or click with the mouse to define it. Move around with Tab."
+msgstr ""
+
+#, c-format
+msgid "You have %zd opened screen. Quit anyway?"
+msgid_plural "You have %zd opened screens. Quit anyway?"
+msgstr[0] ""
+msgstr[1] ""
+
+#, fuzzy
+msgid "The Midnight Commander"
+msgstr "கனூ நள்ளிரவு ஆணையாலர் (GNU Midnight Commander)"
+
+msgid "Do you really want to quit the Midnight Commander?"
+msgstr ""
+
+msgid "File listin&g"
+msgstr ""
+
+#, fuzzy
+msgid "&Quick view"
+msgstr "விரைவான சேமிப்பு "
+
+msgid "&Info"
+msgstr ""
+
+msgid "&Listing mode..."
+msgstr ""
+
+msgid "&Sort order..."
+msgstr ""
+
+msgid "&Filter..."
+msgstr ""
+
+#, fuzzy
+msgid "&Encoding..."
+msgstr "வாிசை&யாக்கு...          M-t"
+
+msgid "FT&P link..."
+msgstr ""
+
+#, fuzzy
+msgid "S&hell link..."
+msgstr "குறியீட்டு இணைப்பு..."
+
+msgid "SM&B link..."
+msgstr ""
+
+#, fuzzy
+msgid "&Rescan"
+msgstr "மறுவருடல்"
+
+#, fuzzy
+msgid "&View"
+msgstr "காட்சி"
+
+#, fuzzy
+msgid "Vie&w file..."
+msgstr "இதை வைத்து திற..."
+
+msgid "&Filtered view"
+msgstr ""
+
+#, fuzzy
+msgid "&Copy"
+msgstr "நகல்"
+
+msgid "C&hmod"
+msgstr ""
+
+msgid "&Link"
+msgstr ""
+
+msgid "&Symlink"
+msgstr ""
+
+msgid "Relative symlin&k"
+msgstr ""
+
+msgid "Edit s&ymlink"
+msgstr ""
+
+msgid "Ch&own"
+msgstr ""
+
+msgid "&Advanced chown"
+msgstr ""
+
+msgid "&Rename/Move"
+msgstr ""
+
+msgid "&Mkdir"
+msgstr ""
+
+#, fuzzy
+msgid "&Quick cd"
+msgstr "விரைவான சேமிப்பு "
+
+#, fuzzy
+msgid "Select &group"
+msgstr "குறும்படத்தை தேர்ந்தெடு"
+
+msgid "U&nselect group"
+msgstr ""
+
+msgid "Reverse selec&tion"
+msgstr ""
+
+#, fuzzy
+msgid "E&xit"
+msgstr "பதிப்பு"
+
+#, fuzzy
+msgid "&User menu"
+msgstr "&பயனர் பட்டி...       F11"
+
+msgid "&Directory tree"
+msgstr ""
+
+#, fuzzy
+msgid "&Find file"
+msgstr "இதை வைத்து திற..."
+
+msgid "S&wap panels"
+msgstr ""
+
+msgid "Switch &panels on/off"
+msgstr ""
+
+msgid "&Compare directories"
+msgstr ""
+
+#, fuzzy
+msgid "&View diff files"
+msgstr "இதை வைத்து திற..."
+
+msgid "E&xternal panelize"
+msgstr ""
+
+msgid "Show directory s&izes"
+msgstr ""
+
+#, fuzzy
+msgid "Command &history"
+msgstr " கட்டளை "
+
+msgid "Di&rectory hotlist"
+msgstr ""
+
+msgid "&Active VFS list"
+msgstr ""
+
+#, fuzzy
+msgid "&Background jobs"
+msgstr "&பின்னோக்கம்"
+
+msgid "Screen lis&t"
+msgstr ""
+
+msgid "&Undelete files (ext2fs only)"
+msgstr ""
+
+msgid "&Listing format edit"
+msgstr ""
+
+msgid "Edit &extension file"
+msgstr ""
+
+msgid "Edit &menu file"
+msgstr ""
+
+msgid "Edit hi&ghlighting group file"
+msgstr ""
+
+msgid "&Configuration..."
+msgstr ""
+
+msgid "&Layout..."
+msgstr "&இட அமைவு..."
+
+#, fuzzy
+msgid "&Panel options..."
+msgstr " விருப்பங்கள் "
+
+msgid "C&onfirmation..."
+msgstr ""
+
+msgid "&Display bits..."
+msgstr ""
+
+msgid "&Virtual FS..."
+msgstr ""
+
+#, fuzzy
+msgid "&Above"
+msgstr "நகர்வு"
+
+msgid "&Left"
+msgstr ""
+
+msgid "&Below"
+msgstr ""
+
+msgid "&Right"
+msgstr ""
+
+#, fuzzy
+msgid "Panels:"
+msgstr "வெளியேற்றளை ரத்து செய்"
+
+msgid "ButtonBar|Menu"
+msgstr ""
+
+msgid "ButtonBar|View"
+msgstr ""
+
+msgid "ButtonBar|RenMov"
+msgstr ""
+
+msgid "ButtonBar|Mkdir"
+msgstr ""
+
+msgid "The TERM environment variable is unset!\n"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "Cannot create %s directory"
+msgstr "புதிய முனையம் ஒனறைப் படைக்கும்"
+
+msgid "&Never"
+msgstr ""
+
+msgid "On dum&b terminals"
+msgstr ""
+
+msgid "Alwa&ys"
+msgstr ""
+
+#, fuzzy
+msgid "A&uto save setup"
+msgstr "சேமிப்பு முறைமை..."
+
+msgid "Sa&fe delete"
+msgstr ""
+
+msgid "Cd follows lin&ks"
+msgstr ""
+
+msgid "Rotating d&ash"
+msgstr ""
+
+msgid "Co&mplete: show all"
+msgstr ""
+
+msgid "Shell &patterns"
+msgstr ""
+
+msgid "&Drop down menus"
+msgstr ""
+
+msgid "Auto m&enus"
+msgstr ""
+
+msgid "Use internal vie&w"
+msgstr ""
+
+msgid "Use internal edi&t"
+msgstr ""
+
+msgid "Pause after run"
+msgstr ""
+
+msgid "Timeout:"
+msgstr ""
+
+msgid "S&ingle press"
+msgstr ""
+
+msgid "Esc key mode"
+msgstr ""
+
+msgid "Mkdi&r autoname"
+msgstr ""
+
+msgid "Classic pro&gressbar"
+msgstr ""
+
+msgid "Compute tota&ls"
+msgstr ""
+
+msgid "&Verbose operation"
+msgstr ""
+
+#, fuzzy
+msgid "File operation options"
+msgstr " விருப்பங்கள் "
+
+msgid "Configure options"
+msgstr ""
+
+msgid "Case &insensitive"
+msgstr ""
+
+msgid "Case s&ensitive"
+msgstr ""
+
+#, fuzzy
+msgid "Use panel sort mo&de"
+msgstr "சேமிப்பு முறைமை..."
+
+#, fuzzy
+msgid "Quick search"
+msgstr "விரைவான சேமிப்பு "
+
+#, fuzzy
+msgid "&Permissions"
+msgstr "அனுமதித்தல்"
+
+msgid "File &types"
+msgstr ""
+
+msgid "File highlight"
+msgstr ""
+
+msgid "&Mouse page scrolling"
+msgstr ""
+
+msgid "Pa&ge scrolling"
+msgstr ""
+
+msgid "L&ynx-like motion"
+msgstr ""
+
+msgid "Navigation"
+msgstr ""
+
+msgid "A&uto save panels setup"
+msgstr ""
+
+#, fuzzy
+msgid "Re&verse files only"
+msgstr "&முழு வார்தைகள் மட்டும்"
+
+msgid "Ma&rk moves down"
+msgstr ""
+
+msgid "&Fast dir reload"
+msgstr ""
+
+msgid "Show &hidden files"
+msgstr ""
+
+msgid "Show &backup files"
+msgstr ""
+
+msgid "Mi&x all files"
+msgstr ""
+
+msgid "Use SI si&ze units"
+msgstr ""
+
+#, fuzzy
+msgid "Main panel options"
+msgstr " விருப்பங்கள் "
+
+#, fuzzy
+msgid "Panel options"
+msgstr " விருப்பங்கள் "
+
+msgid ""
+"Using the fast reload option may not reflect the exact\n"
+"directory contents. In this case you'll need to do a\n"
+"manual reload of the directory. See the man page for\n"
+"the details."
+msgstr ""
+
+msgid "&Add new"
+msgstr ""
+
+msgid "External panelize"
+msgstr ""
+
+msgid "Command"
+msgstr "கட்டளை"
+
+msgid "Other command"
+msgstr ""
+
+msgid "Add to external panelize"
+msgstr ""
+
+msgid "Enter command label:"
+msgstr ""
+
+msgid "Cannot run external panelize in a non-local directory"
+msgstr ""
+
+msgid "Find rejects after patching"
+msgstr "விலக்கியவைகளை ஒட்டு-வேலைகளுக்கு பிரகு கண்டுபிடி"
+
+msgid "Find *.orig after patching"
+msgstr ""
+
+msgid "Find SUID and SGID programs"
+msgstr ""
+
+msgid "Cannot invoke command."
+msgstr ""
+
+msgid "Pipe close failed"
+msgstr ""
+
+msgid "[dev]"
+msgstr ""
+
+msgid "UP--DIR"
+msgstr ""
+
+msgid "SYMLINK"
+msgstr ""
+
+msgid "SUB-DIR"
+msgstr ""
+
+#. TRANSLATORS: one single character to represent 'unsorted' sort mode
+#. TRANSLATORS: no need to translate 'sort', it's just a context prefix
+msgid "sort|u"
+msgstr ""
+
+msgid "&Unsorted"
+msgstr ""
+
+#. TRANSLATORS: one single character to represent 'name' sort mode
+#. TRANSLATORS: no need to translate 'sort', it's just a context prefix
+msgid "sort|n"
+msgstr ""
+
+msgid "&Name"
+msgstr ""
+
+#. TRANSLATORS: one single character to represent 'version' sort mode
+#. TRANSLATORS: no need to translate 'sort', it's just a context prefix
+msgid "sort|v"
+msgstr ""
+
+#, fuzzy
+msgid "&Version"
+msgstr "அனுமதித்தல்"
+
+#. TRANSLATORS: one single character to represent 'extension' sort mode
+#. TRANSLATORS: no need to translate 'sort', it's just a context prefix
+msgid "sort|e"
+msgstr ""
+
+msgid "&Extension"
+msgstr ""
+
+#. TRANSLATORS: one single character to represent 'size' sort mode
+#. TRANSLATORS: no need to translate 'sort', it's just a context prefix
+msgid "sort|s"
+msgstr ""
+
+msgid "&Size"
+msgstr ""
+
+msgid "Block Size"
+msgstr ""
+
+#. TRANSLATORS: one single character to represent 'Modify time' sort mode
+#. TRANSLATORS: no need to translate 'sort', it's just a context prefix
+msgid "sort|m"
+msgstr ""
+
+msgid "&Modify time"
+msgstr ""
+
+#. TRANSLATORS: one single character to represent 'Access time' sort mode
+#. TRANSLATORS: no need to translate 'sort', it's just a context prefix
+msgid "sort|a"
+msgstr ""
+
+msgid "&Access time"
+msgstr ""
+
+#. TRANSLATORS: one single character to represent 'Change time' sort mode
+#. TRANSLATORS: no need to translate 'sort', it's just a context prefix
+msgid "sort|h"
+msgstr ""
+
+msgid "C&hange time"
+msgstr ""
+
+msgid "Perm"
+msgstr ""
+
+msgid "Nl"
+msgstr ""
+
+#. TRANSLATORS: one single character to represent 'inode' sort mode
+#. TRANSLATORS: no need to translate 'sort', it's just a context prefix
+msgid "sort|i"
+msgstr ""
+
+msgid "&Inode"
+msgstr ""
+
+msgid "UID"
+msgstr ""
+
+msgid "GID"
+msgstr ""
+
+msgid "Owner"
+msgstr "சொந்தக்காரர்"
+
+msgid "Group"
+msgstr "தொகுதி"
+
+msgid "<readlink failed>"
+msgstr "<இணை வாசித்தல் நொடிப்பு>"
+
+#, fuzzy, c-format
+msgid "%s byte"
+msgid_plural "%s bytes"
+msgstr[0] "%s துண்டுகள்"
+msgstr[1] "%s துண்டுகள்"
+
+#, fuzzy, c-format
+msgid "%s in %d file"
+msgid_plural "%s in %d files"
+msgstr[0] "%s துண்டுகள் %d கோப்பில்"
+msgstr[1] "%s துண்டுகள் %d கோப்பில்"
+
+msgid "Unknown tag on display format:"
+msgstr ""
+
+msgid "User supplied format looks invalid, reverting to default."
+msgstr ""
+
+msgid "Do you really want to execute?"
+msgstr ""
+
+#, c-format
+msgid "Cannot chdir to \"%s\""
+msgstr ""
+
+msgid "Choose codepage"
+msgstr ""
+
+msgid "-  < No translation >"
+msgstr ""
+
+msgid "%b %e  %Y"
+msgstr ""
+
+msgid "%b %e %H:%M"
+msgstr ""
+
+#, fuzzy, c-format
+msgid ""
+"Cannot save file %s:\n"
+"%s"
+msgstr " கோப்பை சேமிக்கும் போது பிழை. "
+
+msgid ""
+"GNU Midnight Commander is already\n"
+"running on this terminal.\n"
+"Subshell support will be disabled."
+msgstr ""
+
+#, c-format
+msgid "Cannot open named pipe %s\n"
+msgstr ""
+
+msgid "The shell is still active. Quit anyway?"
+msgstr ""
+
+#, c-format
+msgid "Warning: Cannot change to %s.\n"
+msgstr ""
+
+msgid "With builtin Editor\n"
+msgstr ""
+
+msgid "Using system-installed S-Lang library"
+msgstr ""
+
+msgid "with terminfo database"
+msgstr ""
+
+#, fuzzy
+msgid "Using the ncurses library"
+msgstr "தட்போய அடைவை மறுபடியும் வருடு"
+
+#, fuzzy
+msgid "Using the ncursesw library"
+msgstr "தட்போய அடைவை மறுபடியும் வருடு"
+
+msgid "With optional subshell support"
+msgstr ""
+
+msgid "With subshell support as default"
+msgstr ""
+
+msgid "With support for background operations\n"
+msgstr ""
+
+msgid "With mouse support on xterm and Linux console\n"
+msgstr ""
+
+msgid "With mouse support on xterm\n"
+msgstr ""
+
+msgid "With support for X11 events\n"
+msgstr ""
+
+msgid "With internationalization support\n"
+msgstr ""
+
+msgid "With multiple codepages support\n"
+msgstr ""
+
+#, c-format
+msgid "Virtual File Systems:"
+msgstr ""
+
+#, c-format
+msgid "Data types:"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot open the %s file for writing:\n"
+"%s\n"
+msgstr ""
+
+#, c-format
+msgid "Copy \"%s\" directory to:"
+msgstr ""
+
+#, c-format
+msgid "Move \"%s\" directory to:"
+msgstr ""
+
+#, fuzzy, c-format
+msgid ""
+"Cannot stat the destination\n"
+"%s"
+msgstr " கோப்பை சேமிக்கும் போது பிழை. "
+
+#, fuzzy, c-format
+msgid "Delete %s?"
+msgstr "நீக்கு"
+
+msgid "ButtonBar|Static"
+msgstr ""
+
+msgid "ButtonBar|Dynamc"
+msgstr ""
+
+msgid "ButtonBar|Rescan"
+msgstr ""
+
+msgid "ButtonBar|Forget"
+msgstr ""
+
+msgid "ButtonBar|Rmdir"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot write to the %s file:\n"
+"%s\n"
+msgstr ""
+
+msgid "Format error on file Extensions File"
+msgstr ""
+
+#, c-format
+msgid "The %%var macro has no default"
+msgstr ""
+
+#, c-format
+msgid "The %%var macro has no variable"
+msgstr ""
+
+msgid "Debug"
+msgstr ""
+
+msgid "ERROR:"
+msgstr ""
+
+msgid "True:"
+msgstr ""
+
+msgid "False:"
+msgstr ""
+
+msgid "Warning -- ignoring file"
+msgstr ""
+
+#, c-format
+msgid ""
+"File %s is not owned by root or you or is world writable.\n"
+"Using it may compromise your security"
+msgstr ""
+
+#, fuzzy, c-format
+msgid ""
+"Cannot open file%s\n"
+"%s"
+msgstr " கோப்பை சேமிக்கும் போது பிழை. "
+
+#, c-format
+msgid "No suitable entries found in %s"
+msgstr ""
+
+#, fuzzy
+msgid "User menu"
+msgstr "&பயனர் பட்டி...       F11"
+
+msgid "Invalid value"
+msgstr ""
+
+#, fuzzy
+msgid "Cannot spawn child process"
+msgstr " கோப்பை சேமிக்கும் போது பிழை. "
+
+msgid "Empty output from child filter"
+msgstr ""
+
+msgid "&Line number (decimal)"
+msgstr ""
+
+msgid "Pe&rcents"
+msgstr ""
+
+msgid "&Decimal offset"
+msgstr ""
+
+msgid "He&xadecimal offset"
+msgstr ""
+
+msgid "Goto"
+msgstr ""
+
+msgid "ButtonBar|Ascii"
+msgstr ""
+
+msgid "ButtonBar|HxSrch"
+msgstr ""
+
+msgid "ButtonBar|UnWrap"
+msgstr ""
+
+msgid "ButtonBar|Wrap"
+msgstr ""
+
+msgid "ButtonBar|Hex"
+msgstr ""
+
+msgid "ButtonBar|Goto"
+msgstr ""
+
+msgid "ButtonBar|Raw"
+msgstr ""
+
+msgid "ButtonBar|Parse"
+msgstr ""
+
+msgid "ButtonBar|Unform"
+msgstr ""
+
+msgid "ButtonBar|Format"
+msgstr ""
+
+#, c-format
+msgid ""
+"Error while closing the file:\n"
+"%s\n"
+"Data may have been written or not"
+msgstr ""
+
+#, fuzzy, c-format
+msgid ""
+"Cannot save file:\n"
+"%s"
+msgstr " கோப்பை சேமிக்கும் போது பிழை. "
+
+#, fuzzy
+msgid "View: "
+msgstr "காட்சி"
+
+#, fuzzy, c-format
+msgid ""
+"Cannot open \"%s\"\n"
+"%s"
+msgstr " கோப்பை சேமிக்கும் போது பிழை. "
+
+#, fuzzy, c-format
+msgid ""
+"Cannot stat \"%s\"\n"
+"%s"
+msgstr " கோப்பை சேமிக்கும் போது பிழை. "
+
+#, fuzzy
+msgid "Cannot view: not a regular file"
+msgstr "புதிய முனையம் ஒனறைப் படைக்கும்"
+
+msgid "Seeking to search result"
+msgstr ""
+
+#, fuzzy
+msgid "Search done"
+msgstr "தேடு"
+
+msgid "Continue from begining?"
+msgstr ""
+
+msgid "History"
+msgstr ""
+
+#. TRANSLATORS: no need to translate 'DialogTitle', it's just a context prefix
+msgid "DialogTitle|History cleanup"
+msgstr ""
+
+msgid "Do you want clean this history?"
+msgstr ""
+
+msgid "Background process:"
+msgstr ""
+
+#, fuzzy
+#~ msgid "Cannot locate hostname: %s"
+#~ msgstr " கோப்பை சேமிக்கும் போது பிழை. "
+
+#, fuzzy
+#~ msgid "Cannot create socket: %s"
+#~ msgstr "புதிய முனையம் ஒனறைப் படைக்கும்"
+
+#, fuzzy
+#~ msgid "Cannot connect to server: %s"
+#~ msgstr "கோப்பை வாசிப்பதட்கு திறக்க முடியவில்லை: "
+
+#, fuzzy
+#~ msgid "File was modified, save with exit?"
+#~ msgstr " கோப்பு மாற்றப்பட்டது, சேமித்து வெளியேறு? "
+
+#~ msgid " Replace "
+#~ msgstr " மாற்று "
+
+#, fuzzy
+#~ msgid " Error "
+#~ msgstr "பிழை"
+
+#~ msgid " Insert File "
+#~ msgstr " கோப்பை செருகு "
+
+#~ msgid " Insert Literal "
+#~ msgstr "நிலைஉரை செருகு "
+
+#~ msgid " Execute Macro "
+#~ msgstr " பெரு நிரலை செயல்படுத்து "
+
+#~ msgid " Delete: "
+#~ msgstr " நீக்கு: "
+
+#~ msgid "%s bytes"
+#~ msgstr "%s துண்டுகள்"
+
+#, fuzzy
+#~ msgid ">= %s bytes"
+#~ msgstr "%s துண்டுகள்"
+
+#~ msgid "Do backups -->"
+#~ msgstr "காப்பு செய் -->"
+
+#~ msgid "Extension:"
+#~ msgstr "நீட்டிப்பு:"
+
+#~ msgid "&New              C-n"
+#~ msgstr "&புதியது            C-n"
+
+#~ msgid "&Save              F2"
+#~ msgstr "&சேமி              F2"
+
+#~ msgid "A&bout...            "
+#~ msgstr "ப&ற்றி...              "
+
+#~ msgid "&Quit             F10"
+#~ msgstr "&வெளியேறு         F10"
+
+#~ msgid "&New            C-x k"
+#~ msgstr "&புதியது           C-x k"
+
+#~ msgid "Copy to &file...     "
+#~ msgstr "கோப்புக்கு &நகல்...    "
+
+#, fuzzy
+#~ msgid "&Toggle mark                 F3"
+#~ msgstr "குறி இருநிலை &மாற்றல் F3"
+
+#, fuzzy
+#~ msgid "Mar&k columns              S-F3"
+#~ msgstr "நெடுவாிசைகளை குறியிடு S-F3"
+
+#, fuzzy
+#~ msgid "&Copy                        F5"
+#~ msgstr "&நகல்               F5"
+
+#, fuzzy
+#~ msgid "&Move                        F6"
+#~ msgstr "ந&கர்               F6"
+
+#, fuzzy
+#~ msgid "&Delete                      F8"
+#~ msgstr "&நீக்கு             F8"
+
+#, fuzzy
+#~ msgid "&Undo                       C-u"
+#~ msgstr "&கவிழ்              C-u"
+
+#, fuzzy
+#~ msgid "&Beginning               C-PgUp"
+#~ msgstr "&தொடங்கள்      C-PgUp"
+
+#, fuzzy
+#~ msgid "&End                     C-PgDn"
+#~ msgstr "&கடைசி          C-PgDn"
+
+#, fuzzy
+#~ msgid "C&opy to clipfile           M-w"
+#~ msgstr "&வாிசைக்குப் போ...       M-l"
+
+#, fuzzy
+#~ msgid "C&ut to clipfile            C-w"
+#~ msgstr "&வாிசைக்குப் போ...       M-l"
+
+#, fuzzy
+#~ msgid "Toggle bookmar&k               "
+#~ msgstr "குறி இருநிலை &மாற்றல் F3"
+
+#, fuzzy
+#~ msgid "&Next bookmark                 "
+#~ msgstr "&புதியது            C-n"
+
+#, fuzzy
+#~ msgid "Pre&v bookmark                 "
+#~ msgstr "வாிசை&யாக்கு...          M-t"
+
+#, fuzzy
+#~ msgid "&Flush bookmark                "
+#~ msgstr "&அஞ்சல்...                  "
+
+#~ msgid "&Search...         F7"
+#~ msgstr "&தேடு...            F7"
+
+#~ msgid "&Replace...        F4"
+#~ msgstr "&மாற்று...           F4"
+
+#~ msgid "&Go to line...            M-l"
+#~ msgstr "&வாிசைக்குப் போ...       M-l"
+
+#, fuzzy
+#~ msgid "Encod&ing...             M-e"
+#~ msgstr "வாிசை&யாக்கு...          M-t"
+
+#~ msgid "Sor&t...                 M-t"
+#~ msgstr "வாிசை&யாக்கு...          M-t"
+
+#~ msgid "&Mail...                    "
+#~ msgstr "&அஞ்சல்...                  "
+
+#~ msgid "'ispell' s&pell check    M-$"
+#~ msgstr "'ispell' எ&ழுத்து சாிபார்ப்பு  M-$"
+
+#~ msgid "Save"
+#~ msgstr "சேமி"
+
+#, fuzzy
+#~ msgid "Extension"
+#~ msgstr "நீட்டிப்பு:"
+
+#~ msgid " Emacs key: "
+#~ msgstr "  Emacs விசை:"
+
+#~ msgid " %d items found, %d bookmarks added "
+#~ msgstr " %d கண்டுபிடிக்கப் பட்டன, %d புத்தககுறிகள் சேர்க்கப்பட்டன "
+
+#~ msgid "pro&Mpt on replace"
+#~ msgstr "மாற்றும்போது தூ&ண்டு"
+
+#~ msgid "replace &All"
+#~ msgstr "அனைத்தையும் &மாற்று"
+
+#~ msgid "O&ne"
+#~ msgstr "ஒ&ன்று"
+
+#~ msgid "scanf &Expression"
+#~ msgstr "scanf &கோவை"
+
+#~ msgid " Enter replacement argument order eg. 3,2,1,4 "
+#~ msgstr " மாறியின் மாற்றல் வாிசையை நுழைவிடு. உதாரணம்: 3,2,1,4 "
+
+#~ msgid ""
+#~ " Invalid regular expression, or scanf expression with too many "
+#~ "conversions "
+#~ msgstr " சாதாரண கோவை பிழையானது, அல்லது scanf கோவையில் அதிகமான மாற்றங்கள் "
+
+#~ msgid " Error in replacement format string. "
+#~ msgstr " மாற்று சரத்தின் வடிவத்தில் பிழை. "
+
+#, fuzzy
+#~ msgid " Replacement too long. "
+#~ msgstr " மாற்றல் சரத்தை நுழைவிடு:"
+
+#, fuzzy
+#~ msgid "Invalid hex search expression"
+#~ msgstr " சாதாரண கோவை "
+
+#, fuzzy
+#~ msgid "Using included S-Lang library"
+#~ msgstr "தட்போய அடைவை மறுபடியும் வருடு"
+
 #~ msgid "%s bytes in %d files"
-#~ msgstr "%s ��θ� %d ����ҸǢ�"
+#~ msgstr "%s துண்டுகள் %d கோப்புகளிள்"
 
 #~ msgid " Not an ordinary file: "
-#~ msgstr " ����ý ����� ���: "
+#~ msgstr " சாதாரண கோப்பு அல்ல: "
 
 #~ msgid "Col %d"
-#~ msgstr "���š� %d"
+#~ msgstr "நெடுவாி %d"
 
 #, fuzzy
 #~ msgid "User menu available only in mcedit invoked from mc"
-#~ msgstr "mc'¢� ���� ��������� mcedit'¢� ��Χ� ���� ��� �����"
+#~ msgstr "mc'யில் இருந்து தொடங்கப்பட்ட mcedit'யில் மட்டுமே பயனர் பட்டி இருக்கும்"

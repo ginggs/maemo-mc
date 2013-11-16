@@ -3,72 +3,64 @@ dnl Configure.in file for the Midnight Commander
 dnl
 
 AC_INIT([GNU Midnight Commander], [], [mc-devel@gnome.org])
-AC_PREREQ(2.54)
+AC_PREREQ(2.60)
 m4_pattern_forbid(MC_)
+AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_SRCDIR(src/main.c)
 AC_CONFIG_AUX_DIR(config)
-AM_INIT_AUTOMAKE(mc, 4.6.2-pre1)
+MC_VERSION
+AM_INIT_AUTOMAKE(mc, ${VERSION} )
+
+dnl Enable silent rules by default (if yes)
+m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 
 AM_CONFIG_HEADER(config.h)
 AM_MAINTAINER_MODE
-
 AC_CANONICAL_HOST
 
-AC_GNU_SOURCE
-AC_AIX
-AC_MINIX
+AC_USE_SYSTEM_EXTENSIONS
+
+AC_PROG_LIBTOOL
+PKG_PROG_PKG_CONFIG
+AC_PATH_PROG([PERL], [perl], [/usr/bin/perl])
+
 AC_ISC_POSIX
 
 AC_PROG_CC_STDC
+AM_PROG_CC_C_O
+
+dnl Doxygen
+
+DX_HTML_FEATURE(ON)
+DX_CHM_FEATURE(OFF)
+DX_CHI_FEATURE(OFF)
+DX_MAN_FEATURE(OFF)
+DX_RTF_FEATURE(OFF)
+DX_XML_FEATURE(OFF)
+DX_PDF_FEATURE(OFF)
+DX_PS_FEATURE(OFF)
+DX_INIT_DOXYGEN(mc,doxygen.cfg,devel)
+
+dnl PKG_CHECK_MODULES([CHECK], [check >= 0.9.4])
 
 dnl
-dnl First try glib 2.x.  If it's not found, use glib 1.2.x.
+dnl First try glib 2.x.
 dnl Keep this check close to the beginning, so that the users
 dnl without any glib won't have their time wasted by other checks.
 dnl
-
-AC_ARG_WITH(glib12, 
-	[  --with-glib12            Force using glib 1.2.x [[no]]])
 
 AC_ARG_WITH([glib_static],
 	    [  --with-glib-static       Link glib statically [[no]]])
 
 glib_found=no
-if test "x$with_glib12" != "xyes"; then
-	PKG_CHECK_MODULES(GLIB, [glib-2.0], [glib_found=yes], [:])
+
+PKG_CHECK_MODULES(GLIB, [glib-2.0 >= 2.8], [glib_found=yes], [:])
+if test x"$glib_found" = xno; then
+    AC_MSG_ERROR([glib-2.0 not found or version too old (must be >= 2.8)])
 fi
 
-dnl Fall back to glib-1.2, don't use pkgconfig to find it.
-if test "x$glib_found" != "xyes" ; then
-	dnl This temporary variable is a workaround for a bug in Autoconf-2.53
-	glib_path=$PATH:/usr/local/bin
-
-	dnl Klugde for FreeBSD, where glib-config is renamed to glib12-config.
-	AC_PATH_PROGS([GLIB_CONFIG], [glib-config glib12-config],,[$glib_path])
-
-	AC_ARG_VAR([GLIB_CONFIG], [Path to glib-config (version 1.2.x only)])
-	AM_PATH_GLIB(1.2.6, , [AC_MSG_ERROR([Test for glib failed.
-GNU Midnight Commander requires glib 1.2.6 or above.])])
-	dnl Save GLIB_CFLAGS and GLIB_LIBS, since the following call to
-	dnl AM_PATH_GLIB will overwrite them.
-	save_GLIB_CFLAGS="$GLIB_CFLAGS"
-	save_GLIB_LIBS="$GLIB_LIBS"
-	dnl Check for gmodule.  Store the flags necessary to compile and
-	dnl link programs using gmodule functionality in GMODULE_CFLAGS
-	dnl and GMODULE_LIBS.
-	AM_PATH_GLIB(1.2.6, [gmodule_found=yes], , [gmodule])
-	GMODULE_CFLAGS="$GLIB_CFLAGS"
-	GMODULE_LIBS="$GLIB_LIBS"
-	GLIB_CFLAGS="$save_GLIB_CFLAGS"
-	GLIB_LIBS="$save_GLIB_LIBS"
-	GLIB_LIBDIR="`$GLIB_CONFIG --exec-prefix`/lib"
-
-	dnl Used in src/glibcompat.c
-	AC_CHECK_FUNCS([strlcpy])
-else
-	PKG_CHECK_MODULES(GMODULE, [gmodule-2.0], [gmodule_found=yes])
-	GLIB_LIBDIR="`$PKG_CONFIG --variable=libdir glib-2.0`"
-fi
+PKG_CHECK_MODULES(GMODULE, [gmodule-2.0], [gmodule_found=yes])
+GLIB_LIBDIR="`$PKG_CONFIG --variable=libdir glib-2.0`"
 
 if test "x$gmodule_found" = "xyes" ; then
 	dnl Check if the gmodule functionality supported on this system.
@@ -145,23 +137,14 @@ aux*)
     ;;
 esac
 
-dnl Extended Character Sets
-dnl
-AC_ARG_ENABLE([extcharset],
-	AC_HELP_STRING([--enable-extcharset], [Enable extended character sets]))
-if test x"$enable_extcharset" = x"yes"; then
-  AC_DEFINE([EXTCHARSET_ENABLED], 1, [Enable extended character sets?])
-fi
-
 AC_PROG_INSTALL
-AC_CHECK_HEADERS([unistd.h string.h memory.h grp.h limits.h malloc.h \
-	stdlib.h termios.h utime.h fcntl.h pwd.h sys/statfs.h sys/time.h \
+AC_CHECK_HEADERS([unistd.h string.h memory.h limits.h malloc.h \
+	utime.h fcntl.h sys/statfs.h sys/vfs.h sys/time.h \
 	sys/timeb.h sys/select.h sys/ioctl.h stropts.h arpa/inet.h \
 	security/pam_misc.h sys/socket.h sys/sysmacros.h sys/types.h \
 	sys/mkdev.h wchar.h wctype.h])
 
 AC_HEADER_TIME
-AC_HEADER_SYS_WAIT
 AC_HEADER_DIRENT
 AC_HEADER_STDC
 
@@ -170,25 +153,19 @@ AC_CHECK_MEMBERS([struct stat.st_blksize, struct stat.st_rdev])
 AC_STRUCT_ST_BLOCKS
 
 dnl
-dnl Check availability of some functions 
-dnl 
+dnl Check availability of some functions
+dnl
 
 AC_CHECK_FUNCS([\
 	atoll \
 	cfgetospeed \
-	getegid geteuid getgid getsid getuid \
 	initgroups isascii \
-	memcpy memmove memset \
-	putenv \
-	setreuid setuid statfs strerror strftime sysconf \
+	setreuid statfs sysconf \
 	tcgetattr tcsetattr truncate \
+	strverscmp \
+	strncasecmp \
+	realpath
 ])
-
-dnl S-Lang needs all four functions to be defined to use POSIX signal API
-AC_CHECK_FUNCS([sigaction sigemptyset sigprocmask sigaddset], , [slang_signals=no])
-if test x$slang_signals != xno; then
-    AC_DEFINE(SLANG_POSIX_SIGNALS, 1, [Define to use POSIX signal API in S-Lang])
-fi
 
 dnl
 dnl getpt is a GNU Extension (glibc 2.1.x)
@@ -220,10 +197,13 @@ AC_GET_FS_INFO
 
 dnl
 dnl Missing typedefs and replacements
-dnl 
+dnl
 
+AC_CHECK_SIZEOF(long)
+AC_CHECK_SIZEOF(long long)
 AC_TYPE_MODE_T
-AC_CHECK_TYPE(off_t, long)
+AC_TYPE_OFF_T
+AC_CHECK_SIZEOF(off_t)
 AC_TYPE_PID_T
 AC_TYPE_UID_T
 AC_CHECK_TYPE(nlink_t, unsigned int)
@@ -300,14 +280,6 @@ if test x$with_glib_static = xyes; then
     GLIB_LIBS="$new_GLIB_LIBS"
 fi
 
-
-dnl
-dnl Network related functions
-dnl
-
-AC_SEARCH_LIBS([socket], [socket])
-AC_SEARCH_LIBS([gethostbyname], [nsl])
-
 dnl
 dnl Sequent wants getprocessstats
 dnl
@@ -317,19 +289,13 @@ AC_CHECK_LIB(seq, get_process_stats, [
 		  [Define if you have function `get_process_stats' and
 have to use that instead of gettimeofday])])
 
-MC_VFS_CHECKS
-
-vfs_type="normal"
-if test x$use_vfs = xyes; then
-	AC_MSG_NOTICE([enabling VFS code])
-	vfs_type="Midnight Commander Virtual File System"
-fi
+AC_MC_VFS_CHECKS
 
 dnl
 dnl Check for gpm mouse support (Linux only)
 dnl
 mouse_lib="xterm only"
-AC_ARG_WITH(gpm-mouse, 
+AC_ARG_WITH(gpm-mouse,
 	[  --with-gpm-mouse         Compile with gpm mouse support (Linux only)
                            [[yes if found]]])
 
@@ -341,11 +307,17 @@ linux*)
 		       [Define to enable gpm mouse support on Linux])
 	    mouse_lib="gpm and xterm"
 	    MCLIBS="$MCLIBS -lgpm"],
-	    [AC_MSG_WARN([libgpm is missing or older than 0.18])
-	])
+            if test "x$with_gpm_mouse" = "xyes"; then
+                [AC_MSG_ERROR([libgpm is missing or older than 0.18])]
+            else
+                [AC_MSG_WARN([libgpm is missing or older than 0.18])]
+            fi
+	)
     fi
     ;;
 esac
+
+MC_CHECK_SEARCH_TYPE
 
 dnl
 dnl Check nroff and the options it supports
@@ -436,7 +408,7 @@ AC_ARG_WITH(subshell,
 		result="optional"
 	fi
 	if test x$withval = xyes
-        then 
+        then
 		result="yes"
 	fi],
 	[dnl Default: enable the subshell support
@@ -450,42 +422,7 @@ AC_MSG_RESULT([$result])
 subshell="$result"
 
 
-dnl
-dnl Select the screen library.  mcslang is the included S-Lang library.
-dnl
-AC_ARG_WITH(screen,
-	[  --with-screen=LIB        Compile with screen library: slang, mcslang or
-                           ncurses [[slang if found, else mcslang]]])
-
-case x$with_screen in
-xslang)
-	MC_WITH_SLANG(strict)
-	;;
-xmcslang)
-	MC_WITH_MCSLANG
-	;;
-xncurses)
-	MC_WITH_NCURSES
-	;;
-x)
-	MC_WITH_SLANG
-	;;
-*)
-	AC_MSG_ERROR([Value of the screen library is incorrect])
-	;;
-esac
-
-
-dnl
-dnl Force using termcap.  This option is processed in MC_WITH_MCSLANG.
-dnl Report an error if this option is not applicable.
-dnl
-AC_ARG_WITH(termcap,
-	[  --with-termcap           Try using termcap database [[only if no terminfo]]],
-	[if test x$with_screen != xmcslang; then
-		AC_MSG_ERROR([Option `--with-termcap' only works with `--with-screen=mcslang'])
-	fi
-])
+MC_WITH_SCREEN
 
 
 dnl
@@ -503,6 +440,21 @@ else
 	edit_msg="no"
 fi
 
+dnl
+dnl Diff viewer support.
+dnl
+AC_ARG_WITH(diff_viewer,
+        [  --with-diff-viewer       Compile with diff viewer [[yes]]])
+
+if test x$with_diff_viewer != xno; then
+	AC_DEFINE(USE_DIFF_VIEW, 1, [Define to enable diff viewer])
+	use_diff=yes
+	diff_msg="yes"
+	AC_MSG_NOTICE([using diff viewer])
+else
+	diff_msg="no"
+fi
+
 
 dnl Check if the OS is supported by the console saver.
 cons_saver=""
@@ -514,7 +466,7 @@ esac
 
 dnl Support for background operations
 AC_ARG_ENABLE([background],
-	      [  --enable-background      Support for background file operations [[yes]]])
+	      [  --enable-background     Support for background file operations [[yes]]])
 if test "x$enable_background" != xno; then
     AC_DEFINE(WITH_BACKGROUND, 1, [Define to enable background file operations])
 fi
@@ -524,30 +476,42 @@ dnl
 dnl User visible support for charset conversion.
 dnl
 AC_ARG_ENABLE([charset],
-	      [  --enable-charset         Support for charset selection and conversion [[no]]])
+	      [  --enable-charset        Support for charset selection and conversion [[yes]]])
 have_charset=
 charset_msg="no"
-if test "x$enable_charset" = xyes; then
-  if test "x$am_cv_func_iconv" != xyes; then
-    AC_MSG_WARN([Cannot enable charset support because iconv function is missing])    
-  else
+if test "x$enable_charset" != "xno"; then
     AC_DEFINE(HAVE_CHARSET, 1,
 	      [Define to enable charset selection and conversion])
     have_charset=yes
     charset_msg="yes"
-  fi
 fi
 
 if test "$GLIBC21" != yes; then
     AC_DEFINE(USE_INCLUDED_REGEX, 1, [Use the regex included here])
 fi
 
-dnl If default CFLAGS is used with gcc, add -Wall
-if test -z "$ac_env_CFLAGS_set"; then
-    if test -n "$GCC"; then
-	CFLAGS="$CFLAGS -Wall"
-    fi
+MC_CHECK_CFLAGS
+
+CFLAGS_OPTS=""
+
+if test "x$CFLAGS" = "x"; then
+    CFLAGS_OPTS=" -O2 "
 fi
+
+if test x$USE_MAINTAINER_MODE = xyes; then
+    CFLAGS_OPTS="-g3 -O -ggdb"
+    AC_DEFINE(USE_MAINTAINER_MODE, 1, [Use maintainer mode])
+fi
+
+AC_ARG_ENABLE(
+    [werror],
+    AC_HELP_STRING([--enable-werror], [Handle all compiler warnings as errors] )
+)
+
+if test "x$enable_werror" = xyes; then
+    MC_CHECK_ONE_CFLAG([-Werror])
+fi
+CFLAGS="$mc_configured_cflags $CFLAGS_OPTS $CFLAGS"
 
 AC_SUBST(CFLAGS)
 AC_SUBST(CPPFLAGS)
@@ -557,69 +521,105 @@ AC_SUBST(LIBS)
 dnl Libraries used only when building the mc binary
 AC_SUBST(MCLIBS)
 
-dnl Version for the RedHat package, without dashes
-RPM_VERSION=`echo $VERSION | sed 's/-//g'`
-AC_SUBST(RPM_VERSION)
+MAN_DATE=$(LC_ALL=C date "+%B %Y")
+AC_SUBST(MAN_DATE)
 
-if test -n "$use_smbfs"; then
-  AC_CONFIG_SUBDIRS([vfs/samba])
-fi
-
+AM_CONDITIONAL(USE_MAINTAINER_MODE, [test x"$USE_MAINTAINER_MODE" = xyes])
+AM_CONDITIONAL(USE_SCREEN_SLANG, [test x"$with_screen" = xslang])
 AM_CONDITIONAL(USE_EDIT, [test -n "$use_edit"])
-AM_CONDITIONAL(USE_VFS, [test "x$use_vfs" = xyes])
-AM_CONDITIONAL(USE_VFS_NET, [test x"$use_net_code" = xtrue])
-AM_CONDITIONAL(USE_UNDEL_FS, [test -n "$use_undelfs"])
-AM_CONDITIONAL(USE_SAMBA_FS, [test -n "$use_smbfs"])
-AM_CONDITIONAL(USE_MCFS, [test -n "$use_mcfs"])
-AM_CONDITIONAL(INCLUDED_SLANG, [test "x$with_screen" = xmcslang])
+AM_CONDITIONAL(USE_DIFF, [test -n "$use_diff"])
 AM_CONDITIONAL(CHARSET, [test -n "$have_charset"])
 AM_CONDITIONAL(CONS_SAVER, [test -n "$cons_saver"])
 
-AC_CONFIG_FILES([
-Makefile 
-mc.spec
-mc.qpg
-pkginfo
-prototype
-doc/Makefile 
-vfs/Makefile
-vfs/extfs/Makefile
-lib/Makefile
-src/Makefile
-slang/Makefile 
-edit/Makefile 
-syntax/Makefile
-m4/Makefile
-lib/mc.ext
-vfs/extfs/a
-vfs/extfs/apt
-vfs/extfs/audio
-vfs/extfs/deb
-vfs/extfs/deba
-vfs/extfs/debd
-vfs/extfs/dpkg
-vfs/extfs/iso9660
-vfs/extfs/hp48
-vfs/extfs/lslR
-vfs/extfs/mailfs
-vfs/extfs/patchfs
-vfs/extfs/rpms
-vfs/extfs/ualz
-vfs/extfs/uar
-vfs/extfs/uarj
-vfs/extfs/uha
-vfs/extfs/ulha 
-vfs/extfs/urar
-vfs/extfs/uzip
-vfs/extfs/uzoo
+AC_CONFIG_FILES(
+[
+src/man2hlp/man2hlp
+],
+[
+chmod +x src/man2hlp/man2hlp
+])
 
-doc/mc.1 doc/mcedit.1 doc/mcview.1 doc/mcserv.8
-doc/es/mc.1 doc/es/Makefile
-doc/hu/mc.1 doc/hu/Makefile
-doc/it/mc.1 doc/it/Makefile
-doc/pl/mc.1 doc/pl/Makefile
-doc/ru/mc.1 doc/ru/Makefile
-doc/sr/mc.1 doc/sr/mcserv.8 doc/sr/Makefile
+AC_CONFIG_FILES([
+Makefile
+
+contrib/Makefile
+contrib/dist/Makefile
+contrib/dist/debian/Makefile
+contrib/dist/gentoo/Makefile
+contrib/dist/redhat/Makefile
+contrib/dist/redhat/mc.spec
+contrib/dist/mc.qpg
+contrib/dist/pkginfo
+contrib/dist/prototype
+
+misc/Makefile
+misc/skins/Makefile
+misc/mc.ext
+
+src/Makefile
+src/consaver/Makefile
+src/editor/Makefile
+src/man2hlp/Makefile
+src/viewer/Makefile
+src/diffviewer/Makefile
+
+lib/Makefile
+lib/filehighlight/Makefile
+lib/mcconfig/Makefile
+lib/search/Makefile
+lib/skin/Makefile
+lib/strutil/Makefile
+lib/tty/Makefile
+lib/vfs/Makefile
+lib/vfs/mc-vfs/Makefile
+lib/vfs/mc-vfs/extfs/Makefile
+lib/vfs/mc-vfs/extfs/a+
+lib/vfs/mc-vfs/extfs/apt+
+lib/vfs/mc-vfs/extfs/audio
+lib/vfs/mc-vfs/extfs/deb
+lib/vfs/mc-vfs/extfs/deba
+lib/vfs/mc-vfs/extfs/debd
+lib/vfs/mc-vfs/extfs/dpkg+
+lib/vfs/mc-vfs/extfs/iso9660
+lib/vfs/mc-vfs/extfs/hp48+
+lib/vfs/mc-vfs/extfs/lslR
+lib/vfs/mc-vfs/extfs/mailfs
+lib/vfs/mc-vfs/extfs/patchfs
+lib/vfs/mc-vfs/extfs/rpms+
+lib/vfs/mc-vfs/extfs/s3+
+lib/vfs/mc-vfs/extfs/uace
+lib/vfs/mc-vfs/extfs/ualz
+lib/vfs/mc-vfs/extfs/uar
+lib/vfs/mc-vfs/extfs/uarc
+lib/vfs/mc-vfs/extfs/uarj
+lib/vfs/mc-vfs/extfs/uc1541
+lib/vfs/mc-vfs/extfs/uha
+lib/vfs/mc-vfs/extfs/ulha
+lib/vfs/mc-vfs/extfs/urar
+lib/vfs/mc-vfs/extfs/uzip
+lib/vfs/mc-vfs/extfs/uzoo
+
+lib/vfs/mc-vfs/fish/Makefile
+
+misc/syntax/Makefile
+
+doc/Makefile
+doc/hints/Makefile
+doc/man/mc.1 doc/man/mcedit.1 doc/man/mcview.1 doc/man/Makefile
+doc/man/es/mc.1 doc/man/es/Makefile
+doc/man/hu/mc.1 doc/man/hu/Makefile
+doc/man/it/mc.1 doc/man/it/Makefile
+doc/man/pl/mc.1 doc/man/pl/Makefile
+doc/man/ru/mc.1 doc/man/ru/Makefile
+doc/man/sr/mc.1 doc/man/sr/Makefile
+
+doc/hlp/Makefile
+doc/hlp/es/Makefile
+doc/hlp/hu/Makefile
+doc/hlp/it/Makefile
+doc/hlp/pl/Makefile
+doc/hlp/ru/Makefile
+doc/hlp/sr/Makefile
 
 intl/Makefile
 po/Makefile.in
@@ -640,5 +640,7 @@ Configuration:
   X11 events support:         ${textmode_x11_support}
   With subshell support:      ${subshell}
   Internal editor:            ${edit_msg}
+  Diff viewer:                ${diff_msg}
   Support for charset:        ${charset_msg}
+  Search type:                ${SEARCH_TYPE}
 "

@@ -1,18 +1,28 @@
+
+/** \file dir.h
+ *  \brief Header: directory routines
+ */
+
 #ifndef MC_DIR_H
 #define MC_DIR_H
+
+#include <sys/stat.h>
+
+#include "lib/global.h"
 
 #define MIN_FILES 128
 #define RESIZE_STEPS 128
 
-#include <sys/stat.h>
-
+/* keys are set only during sorting */
 typedef struct {
-
     /* File attributes */
-
-    int  fnamelen;
+    size_t fnamelen;
     char *fname;
     struct stat st;
+    /* key used for comparing names */
+    char *sort_key;
+    /* key used for comparing extensions */
+    char *second_sort_key;
 
     /* Flags */
     struct {
@@ -31,47 +41,29 @@ typedef struct {
 typedef int sortfn (const void *, const void *);
 
 int do_load_dir (const char *path, dir_list * list, sortfn * sort, int reverse,
-		 int case_sensitive, const char *filter);
+		 int case_sensitive, int exec_ff, const char *fltr);
 void do_sort (dir_list * list, sortfn * sort, int top, int reverse,
-	      int case_sensitive);
+	      int case_sensitive, int exec_ff);
 int do_reload_dir (const char *path, dir_list * list, sortfn * sort, int count,
-		   int reverse, int case_sensitive, const char *filter);
+		   int reverse, int case_sensitive, int exec_ff, const char *fltr);
 void clean_dir (dir_list * list, int count);
-int set_zero_dir (dir_list * list);
+gboolean set_zero_dir (dir_list *list);
 int handle_path (dir_list *list, const char *path, struct stat *buf1,
 		 int next_free, int *link_to_dir, int *stale_link);
 
 /* Sorting functions */
-int unsorted   (const file_entry *a, const file_entry *b);
-int sort_name  (const file_entry *a, const file_entry *b);
-int sort_ext   (const file_entry *a, const file_entry *b);
-int sort_time  (const file_entry *a, const file_entry *b);
-int sort_atime (const file_entry *a, const file_entry *b);
-int sort_ctime (const file_entry *a, const file_entry *b);
-int sort_size  (const file_entry *a, const file_entry *b);
-int sort_inode (const file_entry *a, const file_entry *b);
+int unsorted   (file_entry *a, file_entry *b);
+int sort_name  (file_entry *a, file_entry *b);
+int sort_vers  (file_entry *a, file_entry *b);
+int sort_ext   (file_entry *a, file_entry *b);
+int sort_time  (file_entry *a, file_entry *b);
+int sort_atime (file_entry *a, file_entry *b);
+int sort_ctime (file_entry *a, file_entry *b);
+int sort_size  (file_entry *a, file_entry *b);
+int sort_inode (file_entry *a, file_entry *b);
 
-/* SORT_TYPES is used to build the nice dialog box entries */
-#define SORT_TYPES 8
-
-/* This is the number of sort types not available in that dialog box */
-#define SORT_TYPES_EXTRA 0
-
-/* The total nnumber of sort types */
-#define SORT_TYPES_TOTAL (SORT_TYPES + SORT_TYPES_EXTRA)
-
-typedef struct {
-    const char    *sort_name;
-    int     (*sort_fn)(const file_entry *, const file_entry *);
-} sort_orders_t;
-
-extern sort_orders_t sort_orders [SORT_TYPES_TOTAL];
 
 int link_isdir (const file_entry *);
 int if_link_is_exe (const char *full_name, const file_entry *file);
 
-extern int show_backups;
-extern int show_dot_files;
-extern int mix_all_files;
-
-#endif
+#endif                          /* MC_DIR_H */

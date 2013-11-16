@@ -1,85 +1,122 @@
-AM_CFLAGS = $(GLIB_CFLAGS)
+SUBDIRS = man2hlp viewer
+
+if USE_EDIT
+SUBDIRS += editor
+endif
+
+if USE_DIFF
+SUBDIRS += diffviewer
+endif
+
+AM_CPPFLAGS = -DDATADIR=\""$(pkgdatadir)/"\" \
+	-DLOCALEDIR=\""$(localedir)"\" \
+	-DSYSCONFDIR=\""$(sysconfdir)/@PACKAGE@/"\"
+
+
+if CONS_SAVER
+SUBDIRS += consaver
+AM_CPPFLAGS += -DSAVERDIR=\""$(pkglibexecdir)"\"
+endif
+
+AM_CFLAGS = $(GLIB_CFLAGS) -I$(top_srcdir) $(PCRE_CFLAGS)
 
 localedir = $(datadir)/locale
 pkglibexecdir =		$(libexecdir)/@PACKAGE@
 
 bin_PROGRAMS = mc mcmfmt
 
-if CONS_SAVER
-pkglibexec_PROGRAMS = cons.saver
-AM_CPPFLAGS = -DDATADIR=\""$(pkgdatadir)/"\" -DLOCALEDIR=\""$(localedir)"\" \
-	-DSAVERDIR=\""$(pkglibexecdir)"\"
-else
-AM_CPPFLAGS = -DDATADIR=\""$(pkgdatadir)/"\" -DLOCALEDIR=\""$(localedir)"\"
-endif
-
-noinst_PROGRAMS = man2hlp
-man2hlp_LDADD = $(GLIB_LIBS)
-
 mcmfmt_SOURCES = mfmt.c
 
-cons_saver_SOURCES = cons.saver.c
-
-man2hlp_SOURCES = man2hlp.c glibcompat.c
-
-if INCLUDED_SLANG
-SLANGLIB = ../slang/libmcslang.a
-endif
-
 if USE_EDIT
-EDITLIB = ../edit/libedit.a
+EDITLIB = editor/libedit.la
 endif
 
-if USE_VFS
-if USE_SAMBA_FS
-VFSLIB = ../vfs/libvfs-mc.a ../vfs/samba/libsamba.a
-else
-VFSLIB = ../vfs/libvfs-mc.a
-endif
+if USE_DIFF
+DIFFLIB = diffviewer/libdiffviewer.la
 endif
 
-mc_LDADD = $(EDITLIB) $(SLANGLIB) $(VFSLIB) \
-	$(INTLLIBS) $(GLIB_LIBS) $(MCLIBS) $(LIBICONV)
-
-CHARSET_SRC = charsets.c charsets.h selcodepage.c selcodepage.h
-
-SRCS =	achown.c achown.h background.c background.h boxes.c boxes.h	\
-	chmod.c chmod.h chown.c chown.h cmd.c cmd.h color.c color.h	\
-	command.c command.h complete.c complete.h cons.handler.c	\
-	cons.saver.h dialog.c dialog.h dir.c dir.h			\
-	eregex.h execute.c execute.h ext.c ext.h file.c filegui.c	\
-	filegui.h file.h filenot.c fileopctx.c fileopctx.h find.c	\
-	find.h findme.c	findme.h fs.h					\
-	glibcompat.c glibcompat.h global.h help.c help.h hotlist.c	\
-	hotlist.h info.c info.h key.c key.h keyxdef.c layout.c		\
-	layout.h learn.c learn.h listmode.c listmode.h			\
-	logging.h logging.c						\
-	main.c main.h							\
-	menu.c menu.h mountlist.c mountlist.h mouse.c mouse.h myslang.h	\
-	option.c option.h panel.h panelize.c panelize.h poptalloca.h	\
-	popt.c poptconfig.c popt.h popthelp.c poptint.h poptparse.c	\
-	profile.c profile.h regex.c rxvt.c screen.c setup.c setup.h	\
-	slint.c	subshell.c subshell.h textconf.c textconf.h		\
-	tree.c tree.h treestore.c treestore.h tty.c tty.h user.c user.h	\
-	util.c util.h utilunix.c view.c view.h vfsdummy.h widget.c	\
-	widget.h win.c win.h wtools.c wtools.h unixcompat.h		\
-	x11conn.h x11conn.c ecs.h ecs.c
+SRC_charset = charsets.c charsets.h selcodepage.c selcodepage.h
 
 if CHARSET
-mc_SOURCES = $(SRCS) $(CHARSET_SRC)
-else
-mc_SOURCES = $(SRCS)
+    SRC_USE_charset=$(SRC_charset)
 endif
 
-EXTRA_DIST = ChangeLog OChangeLog man2hlp.c $(CHARSET_SRC)
+mc_LDADD = \
+	viewer/libmcviewer.la \
+	$(DIFFLIB) $(EDITLIB) \
+	../lib/libmc.la \
+	$(MCLIBS) $(SLANGLIB) $(GLIB_LIBS) \
+	$(PCRE_LIBS) $(LIBICONV) $(INTLLIBS)
 
-# automated testing
+if ENABLE_VFS_SMB
+# this is a hack for linking with own samba library in simple way
+mc_LDADD += ../lib/vfs/mc-vfs/samba/libsamba.a
+endif
 
-TESTS =			ecs-test
+SRC_mc_widgets = \
+	dialog.c dialog.h \
+	dialog-switch.c dialog-switch.h \
+	menu.c menu.h \
+	screen.c panel.h \
+	tree.c tree.h \
+	widget.c widget.h \
+	wtools.c wtools.h
 
-check_PROGRAMS =	ecs-test
-ecs_test_SOURCES =	ecs-test.c ecs.h ecs.c
-ecs_test_LDADD =	$(GLIB_LIBS) $(INTLLIBS) $(MCLIBS)
+SRC_mc_conssaver = \
+	cons.handler.c consaver/cons.saver.h
+
+SRC_mc_options = \
+	learn.c learn.h \
+	option.c option.h \
+	setup.c setup.h
+
+SRC_mc_keybind = \
+	keybind.c keybind.h \
+	cmddef.h
+
+mc_SOURCES = \
+	$(SRC_USE_charset) \
+	$(SRC_mc_widgets) \
+	$(SRC_mc_conssaver) \
+	$(SRC_mc_options) \
+	$(SRC_mc_keybind) \
+	achown.c achown.h \
+	args.c args.h \
+	background.c background.h \
+	boxes.c boxes.h \
+	chmod.c chmod.h \
+	chown.c chown.h \
+	clipboard.c clipboard.h \
+	cmd.c cmd.h \
+	command.c command.h \
+	complete.c \
+	dir.c dir.h \
+	execute.c execute.h \
+	ext.c ext.h \
+	file.c file.h \
+	filegui.c filegui.h \
+	filenot.c \
+	fileopctx.c fileopctx.h \
+	find.c find.h \
+	help.c help.h \
+	history.h \
+	hotlist.c hotlist.h \
+	info.c info.h \
+	layout.c layout.h \
+	listmode.c listmode.h \
+	main.c main.h \
+	main-widgets.h \
+	panelize.c panelize.h \
+	subshell.c subshell.h \
+	textconf.c textconf.h \
+	treestore.c treestore.h \
+	user.c user.h
+
+#if USE_MOUNTLIST
+mc_SOURCES += mountlist.c mountlist.h
+#endif
+
+EXTRA_DIST = $(SRC_maintainer) $(SRC_charset)
 
 # end of automated testing
 
@@ -87,6 +124,9 @@ install-exec-hook:
 	$(MAKE) install_mcview
 if USE_EDIT
 	$(MAKE) install_mcedit
+endif
+if USE_DIFF
+	$(MAKE) install_mcdiff
 endif
 
 #
@@ -98,8 +138,14 @@ install_mcview:
 install_mcedit:
 	cd $(DESTDIR)$(bindir)/$(binprefix) && rm -f mcedit && $(LN_S) mc mcedit
 
+install_mcdiff:
+	cd $(DESTDIR)$(bindir)/$(binprefix) && rm -f mcdiff && $(LN_S) mc mcdiff
+
 uninstall-hook:
 	rm -f $(DESTDIR)$(bindir)/$(binprefix)/mcview
 if USE_EDIT
 	rm -f $(DESTDIR)$(bindir)/$(binprefix)/mcedit
+endif
+if USE_DIFF
+	rm -f $(DESTDIR)$(bindir)/$(binprefix)/mcdiff
 endif
