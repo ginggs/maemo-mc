@@ -1,23 +1,28 @@
-/* Mouse managing
+/*
+   Mouse managing
+
    Copyright (C) 1994, 1998, 1999, 2000, 2001, 2002, 2004, 2005, 2006,
-   2007, 2009 Free Software Foundation, Inc.
-   
+   2007, 2009, 2011
+   The Free Software Foundation, Inc.
+
    Written by:
    Andrew Borodin <aborodin@vmail.ru>, 2009.
-   
-   This program is free software; you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 2 of the License, or
-   (at your option) any later version.
-   
-   This program is distributed in the hope that it will be useful,
+
+   This file is part of the Midnight Commander.
+
+   The Midnight Commander is free software: you can redistribute it
+   and/or modify it under the terms of the GNU General Public License as
+   published by the Free Software Foundation, either version 3 of the License,
+   or (at your option) any later version.
+
+   The Midnight Commander is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  */
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 /** \file mouse.c
  *  \brief Source: mouse managing
@@ -34,12 +39,30 @@
 #include "lib/global.h"
 
 #include "tty.h"
-#include "tty-internal.h" /* mouse_enabled */
+#include "tty-internal.h"       /* mouse_enabled */
 #include "mouse.h"
-#include "key.h"  /* define sequence */
+#include "key.h"                /* define sequence */
 
+/*** global variables ****************************************************************************/
+
+Mouse_Type use_mouse_p = MOUSE_NONE;
 gboolean mouse_enabled = FALSE;
+int mouse_fd = -1;              /* for when gpm_fd changes to < 0 and the old one must be cleared from select_set */
 const char *xmouse_seq;
+const char *xmouse_extended_seq;
+
+/*** file scope macro definitions ****************************************************************/
+
+/*** file scope type declarations ****************************************************************/
+
+/*** file scope variables ************************************************************************/
+
+/*** file scope functions ************************************************************************/
+/* --------------------------------------------------------------------------------------------- */
+
+/* --------------------------------------------------------------------------------------------- */
+/*** public functions ****************************************************************************/
+/* --------------------------------------------------------------------------------------------- */
 
 void
 show_mouse_pointer (int x, int y)
@@ -53,10 +76,13 @@ show_mouse_pointer (int x, int y)
 #endif /* HAVE_LIBGPM */
 }
 
+/* --------------------------------------------------------------------------------------------- */
+
 void
 init_mouse (void)
 {
-    switch (use_mouse_p) {
+    switch (use_mouse_p)
+    {
 #ifdef HAVE_LIBGPM
     case MOUSE_NONE:
         use_mouse_p = MOUSE_GPM;
@@ -66,6 +92,7 @@ init_mouse (void)
     case MOUSE_XTERM_NORMAL_TRACKING:
     case MOUSE_XTERM_BUTTON_EVENT_TRACKING:
         define_sequence (MCKEY_MOUSE, xmouse_seq, MCKEY_NOACTION);
+        define_sequence (MCKEY_EXTENDED_MOUSE, xmouse_extended_seq, MCKEY_NOACTION);
         break;
 
     default:
@@ -75,31 +102,34 @@ init_mouse (void)
     enable_mouse ();
 }
 
+/* --------------------------------------------------------------------------------------------- */
+
 void
 enable_mouse (void)
 {
     if (mouse_enabled)
         return;
 
-    switch (use_mouse_p) {
+    switch (use_mouse_p)
+    {
 #ifdef HAVE_LIBGPM
     case MOUSE_GPM:
-    {
-        int mouse_d;
-        Gpm_Connect conn;
+        {
+            Gpm_Connect conn;
 
-        conn.eventMask = ~GPM_MOVE;
-        conn.defaultMask = GPM_MOVE;
-        conn.minMod = 0;
-        conn.maxMod = 0;
+            conn.eventMask = ~GPM_MOVE;
+            conn.defaultMask = GPM_MOVE;
+            conn.minMod = 0;
+            conn.maxMod = 0;
 
-        mouse_d = Gpm_Open (&conn, 0);
-        if (mouse_d == -1) {
-            use_mouse_p = MOUSE_NONE;
-            return;
+            mouse_fd = Gpm_Open (&conn, 0);
+            if (mouse_fd == -1)
+            {
+                use_mouse_p = MOUSE_NONE;
+                return;
+            }
+            mouse_enabled = TRUE;
         }
-        mouse_enabled = 1;
-    }
         break;
 #endif /* HAVE_LIBGPM */
 
@@ -109,6 +139,9 @@ enable_mouse (void)
 
         /* enable mouse tracking */
         printf (ESC_STR "[?1000h");
+
+        /* enable SGR extended mouse reporting */
+        printf (ESC_STR "[?1006h");
 
         fflush (stdout);
         mouse_enabled = TRUE;
@@ -121,6 +154,9 @@ enable_mouse (void)
         /* enable mouse tracking */
         printf (ESC_STR "[?1002h");
 
+        /* enable SGR extended mouse reporting */
+        printf (ESC_STR "[?1006h");
+
         fflush (stdout);
         mouse_enabled = TRUE;
         break;
@@ -130,6 +166,8 @@ enable_mouse (void)
     }
 }
 
+/* --------------------------------------------------------------------------------------------- */
+
 void
 disable_mouse (void)
 {
@@ -138,13 +176,17 @@ disable_mouse (void)
 
     mouse_enabled = FALSE;
 
-    switch (use_mouse_p) {
+    switch (use_mouse_p)
+    {
 #ifdef HAVE_LIBGPM
     case MOUSE_GPM:
         Gpm_Close ();
         break;
 #endif
     case MOUSE_XTERM_NORMAL_TRACKING:
+        /* disable SGR extended mouse reporting */
+        printf (ESC_STR "[?1006l");
+
         /* disable mouse tracking */
         printf (ESC_STR "[?1000l");
 
@@ -154,6 +196,9 @@ disable_mouse (void)
         fflush (stdout);
         break;
     case MOUSE_XTERM_BUTTON_EVENT_TRACKING:
+        /* disable SGR extended mouse reporting */
+        printf (ESC_STR "[?1006l");
+
         /* disable mouse tracking */
         printf (ESC_STR "[?1002l");
 
@@ -166,3 +211,5 @@ disable_mouse (void)
         break;
     }
 }
+
+/* --------------------------------------------------------------------------------------------- */

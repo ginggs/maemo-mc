@@ -1,5 +1,6 @@
+.\" -*- mode: troff; coding: utf8 -*-
 .\"Przetłumaczone przez by Macieja Wojciechowskiego    wojciech@staszic.waw.pl
-.TH MC 1 "@DATE_OF_MAN_PAGE@" "MC Version @DISTR_VERSION@" "GNU Midnight Commander"
+.TH MC 1 "%DATE_OF_MAN_PAGE%" "MC Version %DISTR_VERSION%" "GNU Midnight Commander"
 .\"SKIP_SECTION"
 .SH NAZWA
 mc \- wizualny interpetator poleceń dla systemów Unixopodobnych
@@ -61,14 +62,14 @@ użytkownicy basha i zsh:
 mc ()
 {
         MC=$HOME/tmp/mc$$\-"$RANDOM"
-        @prefix@/bin/mc \-P "$@" > "$MC"
+        %prefix%/bin/mc \-P "$@" > "$MC"
         cd "`cat $MC`"
         rm "$MC"
         unset MC;
 }
 
 użytkownicy tcsh:
-alias mc 'setenv MC `@prefix@/bin/mc \-P \!*`; cd $MC; unsetenv MC'
+alias mc 'setenv MC `%prefix%/bin/mc \-P \!*`; cd $MC; unsetenv MC'
 .fi
 Wiem, że ta funkcja mogłaby być krótsza dla basha i zsh, ale małe cudzysłowy
 nie zaakceptowały by zawieszenia programu kombinacją
@@ -103,6 +104,13 @@ Wyświetla wersję programu.
 .I \-x
 Wymusza włączenie trybu xterm. Używane kiedy działa się na terminalach wyposażonych
 w opcje xterm (dwa tryby ekranu i możliwość wysyłania myszą sygnałów wyjścia).
+.TP
+.I \-X, \-\-no\-x11
+Do not use X11 to get the state of modifiers Alt, Ctrl, Shift
+.TP
+.I \-g, \-\-oldmouse
+Force a "normal tracking" mouse mode. Used when running on
+xterm\-capable terminals (tmux/screen).
 .PP
 Jeśli wybrano, pierwszy katalog używany jest do wyświetlenia w pierwszym panelu.
 Drugi wyświetlany jest w drugim panelu.
@@ -162,7 +170,7 @@ przeglądaniu pomocy i przy drzewie katalogów.
 .PP
 Standardowo czas autopowtórzenia przy klikaniu myszą wynosi 400 milisekund.
 Tę wartość można zmienić edytując plik
-\&~/.mc/ini
+\&~/.config/mc/ini
 i zmieniając parametr
 .IR mouse_repeat_rate .
 .PP
@@ -772,6 +780,8 @@ Włącza okno dialogowe, w którym standardowo znajduje się ścieżka do
 katalogu w
 nieaktywnym panelu, po czym kopiuje aktualny plik (lub wybrane
 jeśli wybrano jakiekolwiek) do katalogu, który wybraliśmy w oknie dialogowym.
+Space for destination file may be preallocated relative to preallocate_space
+configure option.
 Podczas procesu kopiowania możesz go w każdej chwili przerwać wciskając C\-c lub
 Esc. Żeby dowiedzieć się czegoś więcej na temat jokerów w ścieżce źródłowej
 (którymi najczęściej będą * lub ^\\(.*\\)$) i innych możliwych określeń w
@@ -901,9 +911,9 @@ Komenda panelu zewnętrznego (External panelize) pozwala na wykonywania program�
 zewnętrznych i ustawienia zawartości paneli na to co zwróciła wywołana
 komenda.
 .PP
-Komenda edycji rozszerzeń plików (Extension file edit) pozwala na własny wybór
+Komenda edycji rozszerzeń plików (Edit Extension File) pozwala na własny wybór
 programów, które mają być używane do wykonywania plików z podanymi
-rozszerzeniami. Komenda edycji pliku menu (Menu file edit) może być używana do
+rozszerzeniami. Komenda edycji pliku menu (Edit Menu File) może być używana do
 edytowania menu użytkownika (tego, które pojawia się po naciśnięciu kombinacji
 F2).
 .PP
@@ -1024,7 +1034,7 @@ Katalogi do omijania powinny być umieszczone w zmiennej
 .B ignore_dirs
 w sekcji
 .B FindFile
-twojego pliku ~/.mc/ini.
+twojego pliku ~/.config/mc/ini.
 .PP
 Składowe katalogów powinny być oddzielone od siebie przez średniki, to jest
 przykład:
@@ -1083,9 +1093,9 @@ Powoduje to przechodzenie do częściej przeglądanych katalogów znacznie szybc
 Możesz używać ciągle wartości CDPATH opisanej w sekcji Wewnętrzne
 przemieszczanie.
 .PP
-.\"NODE "    Extension File Edit"
-.SH "    Edycja rozszerzeń pliów (Extension File Edit)"
-Ta komenda wywoła twój edytor na plik ~/.mc/bindings. Format tego pliku jest
+.\"NODE "    Edit Extension File"
+.SH "    Edycja rozszerzeń pliów (Edit Extension File)"
+Ta komenda wywoła twój edytor na plik ~/.config/mc/mc.ext. Format tego pliku jest
 następujący (zmienił się on począwszy od wersji 3.0):
 .PP
 Wszystkie linie zaczynające się od #, lub puste, nie są brane pod uwagę.
@@ -1152,15 +1162,15 @@ przez Midnight Commandera (tylko operacje kopiowania i przenoszenia, mogą
 być wykonywane w tle). Z tego menu możesz zastopować, zresetować i "zabić"
 proces w tle.
 .PP
-.\"NODE "    Menu File Edit"
-.SH "    Edycja menu użytkownika (Menu File Edit)"
+.\"NODE "    Edit Menu File"
+.SH "    Edycja menu użytkownika (Edit Menu File)"
 Menu użytkownika jest bardzo użytecznym menu, które może być tworzone
 w sposób dowolny, przez użytkownika. Kiedy tylko próbujesz coś zrobić
 przy użyciu tego menu, ładowany jest plik .mc.menu z aktualnego katalogu, ale
 tylko wtedy kiedy jest on w posiadaniu użytkownika lub roota i mamy do niego
-prawa zapisu. Jeśli takiego nie ma próbuje się z plikiem ~/.mc/menu z tymi
+prawa zapisu. Jeśli takiego nie ma próbuje się z plikiem ~/.config/mc/menu z tymi
 samymi założeniami, jeśli jego też nie ma \- używa się standardowego pliku
-systemowego, który znajduje się w @prefix@/share/mc/mc.menu.
+systemowego, który znajduje się w %prefix%/share/mc/mc.menu.
 .PP
 Format pliku z menu użytkownika jest bardzo prosty. Linie zaczynające się
 od czegokolwiek innego niż spacja lub tabulacja, są traktowane jako
@@ -1412,7 +1422,7 @@ te, których używa w komenda
 .I Auto Save Setup.
 Jeśli ta opcja jest włączona, kiedy wychodzisz z Midnight Commandera
 konfiguracja MC zostanie zachowana automatycznie (bez pytania)
-do pliku ~/.mc/ini.
+do pliku ~/.config/mc/ini.
 .PP
 .I Auto menus.
 Jeśli ta opcja jest włączona, menu użytkownika będzie włączone na starcie.
@@ -1544,7 +1554,7 @@ wiadomość zniknie. W przeciwnym wypadku wciśnij klawisz, który sobie życzys
 i również poczekaj na zniknięcie okna.
 .PP
 Kiedy skończysz już ze wszystkimi klawiszami, możesz nacisnąć Save
-żeby zachować zmiany do pliku ~/.mc/ini do sekcji [terminal:TERM] (gdzie
+żeby zachować zmiany do pliku ~/.config/mc/ini do sekcji [terminal:TERM] (gdzie
 TERM jest nazwą twojego aktualnego terminala) lub po prostu odrzucić je.
 .PP
 .\"NODE "    Virtual FS"
@@ -1597,13 +1607,13 @@ System plików FTP (FTP File System) po więcej szczegółów.
 .\"NODE "    Save Setup"
 .SH "    Zapisz ustawienia (Save Setup)"
 Na starcie Midnight Commander będzie próbował odczytać opcje startowe
-z pliku ~/.mc/ini. Jeśli on nie istnieje, odczyta on konfiguracje z
-ogólnodostępnego pliku @prefix@/share/mc/mc.ini. Jeśli on też nie istnieje MC
+z pliku ~/.config/mc/ini. Jeśli on nie istnieje, odczyta on konfiguracje z
+ogólnodostępnego pliku %prefix%/share/mc/mc.ini. Jeśli on też nie istnieje MC
 użyje swoich domyślnych ustawień.
 .PP
 Komenda
 .I Save Setup
-tworzy plik ~/.mc/ini zachowując aktualne ustawienia lewego, prawego menu,
+tworzy plik ~/.config/mc/ini zachowując aktualne ustawienia lewego, prawego menu,
 jak również menu opcji.
 .PP
 Jeśli właczysz opcję
@@ -1758,11 +1768,11 @@ z Midnight Commandera.
 .PP
 Jeśli używasz
 .B basha
-możesz wybrać startowe komendy twojej powłoki w tle w pliku ~/.mc/bashrc,
-a ustawienia klawiatury w ~/.mc/inputrc.
+możesz wybrać startowe komendy twojej powłoki w tle w pliku ~/.local/share/mc/bashrc,
+a ustawienia klawiatury w ~/.local/share/mc/inputrc.
 Użytkownicy
 .B tcsh
-mogą wstawiać komendy startowe do pliku ~/.mc/tcshrc.
+mogą wstawiać komendy startowe do pliku ~/.local/share/mc/tcshrc.
 .PP
 Jeśli kod powłoki w tle jest użyty, możesz zawiesić aplikację w dowolnej chwili
 po prostu naciskając kombinację C\-o i przeskakując spowrotem do Midnight
@@ -2071,9 +2081,6 @@ Przewija jedną linię wstecz.
 .BR C\-l .
 Odświeża ekran.
 .PP
-.BR ! .
-Włącza powłokę w aktualnym katalogu roboczym.
-.PP
 .BR C\-f .
 Przeskakuje do następnego pliku.
 .PP
@@ -2109,13 +2116,13 @@ zobaczyć jakie są klawisze po prostu obejrzyj odpowiednie menu
 rozwijalne. Inne klawisze to: przemieszczanie z Shiftem zaznaczające tekst.
 .B Ctrl\-Ins
 kopiuje do pliku
-.B cooledit.clip
+.B mcedit.clip
 a
 .B Shift\-Ins
-wkleja z pliku cooledit.clip.
+wkleja z pliku mcedit.clip.
 .B Shift\-Del
 Wycina do
-.BR cooledit.clip ,
+.BR mcedit.clip ,
 a
 .B Ctrl\-Del
 kasuje zaznaczony tekst. Klawisze dokończenia również dają Enter z
@@ -2135,20 +2142,20 @@ i przyporządkowany klawisz. Makro jest wykonywane również jeśli naciśniesz
 klawisz Meta, Ctrl, lub Esc i wybrany klawisz, jednak tylko jeśli ten
 klawisz nie jest używane przez inne funkcje. Raz zdefiniowane, makro
 wędruje sobie do pliku
-.B .mc/cedit/cooledit.macros
+.B ~/.local/share/mc/mcedit/mcedit.macros
 w twoim katalogu domowym. Możesz skasować makro kasując odpowiednią linię z
 tego pliku.
 .PP
 .B F19
 sformatuje format C jeśli jest podświetlony. Żeby to działało, stwórz
 wykonywalny plik
-.B .mc/cedit/edit.indent.rc
+.B ~/.local/share/mc/mcedit/edit.indent.rc
 w twoim katalogu domowym zawierający poniższe:
 .PP
 .nf
 #!/bin/sh
-/usr/bin/indent \-kr \-pcs $HOME/.mc/cedit/cooledit.block >& /dev/null
-cat /dev/null > $HOME/.mc/cedit/cooledit.error
+/usr/bin/indent \-kr \-pcs ~/.cache/mc/mcedit/mcedit.block>& /dev/null
+cat /dev/null > ~/.cache/mc/mcedit/cooledit.error
 .fi
 .PP
 Edytor wyświetla również znaki nieamerykańskie (160+). Kiedy edytujesz plik
@@ -2228,7 +2235,7 @@ normalnego użytku, możesz próbować używać panelowych komend FTP i dowiąza
 (dostępnych z linii menu) lub zmienić ścieżkę bezpośrednio za pomocą zwykłej
 komendy cd wyglądającej tak jak poniżej:
 .PP
-.I /#ftp:[!][użytkownik[:hasło]@]komputer[:port][zdalny katalog]
+.I ftp://[!][użytkownik[:hasło]@]komputer[:port][zdalny katalog]
 .PP
 Parametry
 .IR użytkownik ,
@@ -2249,11 +2256,11 @@ do tego dostępu).
 Przykłady:
 .PP
 .nf
-    /#ftp:ftp.nuclecu.unam.mx/linux/local
-    /#ftp:tsx\-11.mit.edu/pub/linux/packages
-    /#ftp:!behind.firewall.edu/pub
-    /#ftp:guest@remote\-host.com:40/pub
-    /#ftp:miguel:xxx@server/pub
+    ftp://ftp.nuclecu.unam.mx/linux/local
+    ftp://tsx\-11.mit.edu/pub/linux/packages
+    ftp://!behind.firewall.edu/pub
+    ftp://guest@remote\-host.com:40/pub
+    ftp://miguel:xxx@server/pub
 .fi
 .PP
 Aby połączyć się z serwerem znajdującym się za firewallem, będziesz musiał
@@ -2266,7 +2273,7 @@ Inną możliwością jest ustawienie opcji
 w oknie konfiguracyjnym wirtualnego systemu plików. Skonfiguruje
 to program tak, aby zawsze
 używał serwera proxy. Jeśli ta zmienna jest ustawiona, program będzie robił
-dwie rzeczy: konsultował plik @prefix@/share/mc.no_proxy w celu znalezienia linii
+dwie rzeczy: konsultował plik %prefix%/share/mc.no_proxy w celu znalezienia linii
 zawierających nazwy serwerów, które są lokalne (jeśli nazwa hosta zaczyna
 się od kropki, uznaje się, że jest to domena) i sprawdza czy jakieś hosty
 bez kropek w nazwie są widoczne bezpośrednio.
@@ -2301,8 +2308,8 @@ zostało to pomyślane.
 Przykłady
 .PP
 .nf
-    mc\-3.0.tar.gz#utar/mc\-3.0/vfs
-    /ftp/GCC/gcc\-2.7.0.tar#utar
+    mc\-3.0.tar.gz/utar://mc\-3.0/vfs
+    /ftp/GCC/gcc\-2.7.0.tar/utar://
 .fi
 .PP
 Późniejszy podaje pełną ścieżkę archiwum tar.
@@ -2318,7 +2325,7 @@ Aby połączyć się z obcą maszyną, musisz tylko zmienić katalog do
 specjalnego katalogu, którego nazwa jest w następującym formacie:
 .PP
 .nf
-/#sh:[użytkownik@]komputer[:opcje];/[zdalny\-katalog];</em>
+sh://[użytkownik@]komputer[:opcje];/[zdalny\-katalog];</em>
 .fi
 Elementy
 .IR użytkownik ,
@@ -2340,9 +2347,9 @@ na niego.
 Przykłady:
 .PP
 .nf
-    /#sh:onlyrsh.mx:r/linux/local
-    /#sh:joe@want.compression.edu:C/private
-    /#sh:joe@noncompressed.ssh.edu/private
+    sh://onlyrsh.mx:r/linux/local
+    sh://joe@want.compression.edu:C/private
+    sh://joe@noncompressed.ssh.edu/private
 .fi
 .\"NODE "  Undelete File System"
 .SH "  Odzyskiwanie plików"
@@ -2353,19 +2360,165 @@ system plików jest tylko nakładką na bibliotekę ext2fs: odzyskiwanie nazw
 wszystkich skasowanych plików i próba uczynienia z nich normalnej partycji.
 .PP
 Żeby używać tych systemów plików, będziesz musiał przejść od specjalnego
-pliku, którego nazwa składa się z przedrostka "undel:" i nazwy pliku,
+pliku, którego nazwa składa się z przedrostka "undel://" i nazwy pliku,
 w której ów plik rezyduje.
 .PP
 Na przykład, aby odzyskać skasowane pliki z drugiej partycji pierwszego
 dysku scsi Linux, będziesz musiał użyć następującej ścieżki:
 .PP
 .nf
-    undel:/dev/sda2
+    undel:///dev/sda2
 .fi
 .PP
 Może to chwilkę potrwać zanim pliki zostaną pokazane i będziesz mógł je
 normalnie oglądać.
 .PP
+.\"NODE "  SMB File System"
+.SH "  SMB File System"
+The smbfs allows you to manipulate files on remote machines with SMB
+(or CIFS) protocol.  These include Windows for Workgroups,
+Windows 9x/ME/XP, Windows NT, Windows 2000 and Samba.
+To actually use it, you may try to use the panel command "SMB link..."
+(accessible from the menubar) or you may directly change your current
+directory to it using the cd command to a path name that looks like this:
+.PP
+.I smb://[user@]machine[/service][/remote\-dir]
+.PP
+The
+.IR user ,
+.I service
+and
+.I remote\-dir
+elements are optional.
+The
+.IR user ,
+.I domain
+and
+.I password
+can be specified in an input dialog.
+.PP
+Examples:
+.PP
+.nf
+    smb://machine/Share
+    smb://other_machine
+    smb://guest@machine/Public/Irlex
+.fi
+.\"NODE "  EXTernal File System"
+.SH "  EXTernal File System"
+.B extfs
+allows to integrate numerous features and file types into GNU Midnight
+Commander in an easy way, by writing scripts.
+.PP
+Extfs filesystems can be divided into two categories:
+.PP
+1. Stand\-alone filesystems, which are not associated with any existing
+file.  They represent certain system\-wide data as a directory tree.
+You can invoke them by typing
+.RI ' "cd fsname://" '
+where fsname is an extfs short name (see below).  Examples of such
+filesystems include audio (list audio tracks on the CD) or apt (list of
+all Debian packages in the system).
+.PP
+For example, to list CD\-Audio tracks on your CD\-ROM drive, type
+.PP
+.nf
+  cd audio://
+.fi
+.PP
+2. 'Archive' filesystems (like rpm, patchfs and more), which represent
+contents of a file as a directory tree.  It can consist of 'real' files
+compressed in an archive (urar, rpm) or virtual files, like messages
+in a mailbox (mailfs) or parts of a patch (patchfs).  To access such
+filesystems
+.RI ' fsname:// '
+should be appended to the archive name.  Note that the archive itself
+can be on another vfs.
+.PP
+For example, to list contents of a zip archive documents.zip type
+.PP
+.nf
+  cd documents.zip/uzip://
+.fi
+.PP
+In many aspects, you could treat extfs like any other directory.  For
+instance, you can add it to the hotlist or change to it from directory
+history.  An important limitation is that you cannot invoke shell
+commands inside extfs, just like any other non\-local VFS.
+.PP
+Common extfs scripts included with Midnight Commander are:
+.TP
+.B a
+access 'A:' DOS/Windows diskette
+.RI ( "cd a://" ).
+.TP
+.B apt
+front end to Debian's APT package management system
+.RI ( "cd apt://" ).
+.TP
+.B audio
+audio CD ripping and playing
+.RI ( "cd audio://"
+or
+.IR "cd device/audio://" ).
+.TP
+.B bpp
+package of Bad Penguin GNU/Linux distribution
+.RI ( "cd file.bpp/bpp://" ).
+.TP
+.B deb
+package of Debian GNU/Linux distribution
+.RI ( "cd file.deb/deb://" ).
+.TP
+.B dpkg
+Debian GNU/Linux installed packages
+.RI ( "cd deb://" ).
+.TP
+.B hp48
+view and copy files to/from a HP48 calculator
+.RI ( "cd hp48://" ).
+.TP
+.B lslR
+browsing of lslR listings as found on many FTPs
+.RI ( "cd filename/lslR://" ).
+.TP
+.B mailfs
+mbox\-style mailbox files support
+.RI ( "cd mailbox/mailfs://" ).
+.TP
+.B patchfs
+extfs to handle unified and context diffs
+.RI ( "cd filename/patchfs://" ).
+.TP
+.B rpm
+RPM package
+.RI ( "cd filename/rpm://" ).
+.TP
+.B rpms
+RPM database management
+.RI ( "cd rpms://" ).
+.TP
+.B ulha, urar, uzip, uzoo, uar, uha
+archivers
+.RI ( "cd archive/xxxx://"
+where xxxx is one of:
+.IR ulha ,
+.IR urar ,
+.IR uzip ,
+.IR uzoo ,
+.IR uar ,
+.IR uha ).
+.PP
+You could bind file type/extension to specified extfs as described in the
+.\"LINK2"
+Edit Extension File
+.\"Edit Extension File"
+section.  Here is an example entry for Debian packages:
+.PP
+.nf
+  regex/\.deb$
+          Open=%cd %p/deb://
+.fi
 .SH Polskie znaki
 Midnight Commander bardzo dobrze radzi sobie z obsługą znaków
 nieamerykańskich (160+) w tym polskich. Ważne jest aby mieć ustawione
@@ -2529,7 +2682,7 @@ Większość ustawień Midnight Commandera może być zmieniana z poziomu menu.
 Pomimo tego jest pewna ilość ustawień, których zmiana możliwa jest jedynie
 poprzez zmianę w plikach konfiguracyjnych.
 .PP
-Opcje mogą być ustawione w twoim pliku ~/.mc/ini :
+Opcje mogą być ustawione w twoim pliku ~/.config/mc/ini :
 .PP
 .I clear_before_exec.
 .IP
@@ -2680,7 +2833,7 @@ zawartość wybranego katalogu.
 Midnight Commander pozwala ci na naprawienie bazy danych terminali bez
 posiadania uprawnień roota. Midnight Commander szuka w pliku startowym
 (mc.lib położonego w katalogach z bibliotekami Midnight Commandera) lub w
-pliku ~/.mc/ini sekcji "terminal:nazwa\-twojego\-terminala" i potem sekcji
+pliku ~/.config/mc/ini sekcji "terminal:nazwa\-twojego\-terminala" i potem sekcji
 "terminal:general", każda linia sekcji zawiera symbol klawisza, który
 chcesz zdefiniować, zaczynające się do znaku równości i definicji klawisza.
 Możesz użyć kombinacji \\E aby reprezentować znak escape i ^x aby
@@ -2722,58 +2875,59 @@ zupełnie bezużytecznych klawiszy).
 .\"NODE "FILES"
 .SH PLIKI
 .PP
-Program będzie pobierał wszystkie swoje informacje ze zmiennej MCHOME,
+Program będzie pobierał wszystkie swoje informacje ze zmiennej
+.BR MC_DATADIR ,
 jeśli jest ona nie ustawiona to znowu przetwarzany jest katalog /usr.
 .PP
-@prefix@/share/mc.hlp
+%prefix%/share/mc.hlp
 .IP
 Plik pomocy dla programu.
 .PP
-@prefix@/share/mc/mc.ext
+%prefix%/share/mc/mc.ext
 .IP
 Standardowy plik rozszerzeń plików.
 .PP
-~/.mc/bindings
+~/.config/mc/mc.ext
 .IP
 Własny plik użytkownika, konfiguruje podgląd i edycje plików. Ma wyższy
 priorytet niż plik systemowy.
 .PP
-@prefix@/share/mc/mc.ini
+%prefix%/share/mc/mc.ini
 .IP
 Standardowy plik setupu do Midnight Commandera, używany tylko wówczas,
-kiedy użytkownik nie ma swojego własnego pliku ~/.mc/ini.
+kiedy użytkownik nie ma swojego własnego pliku ~/.config/mc/ini.
 .PP
-@prefix@/share/mc/mc.lib
+%prefix%/share/mc/mc.lib
 .IP
 Globalne ustawienia Midnight Commandera. Ustawienia w tym pliku są
 uwzględniane przez wszystkie sesje Midnight Commandera, użyteczne do
 definiowania ogólnosystemowych ustawień terminali.
 .PP
-~/.mc/ini
+~/.config/mc/ini
 .IP
 Własny setup użytkownika. Jeśli ten plik jest dostępny, jest ładowany
 zamiast pliku globalnego.
 .PP
-@prefix@/share/mc/mc.hint
+%prefix%/share/mc/mc.hint
 .IP
 Plik zawierający podpowiedzi (hints) wyświetlane przez program.
 .PP
-@prefix@/share/mc/mc.menu
+%prefix%/share/mc/mc.menu
 .IP
 Ten plik zawiera informacje o ogólnosystemowych aplikacjach w menu.
 .PP
-~/.mc/menu
+~/.config/mc/menu
 .IP
 Własny plik menu użytkownika. Jeśli ten plik jest obecny jest używany
 zamiast pliku globalnego.
 .PP
-~/.mc/tree
+~~/.cache/mc/tree
 .IP
 Lista katalogów drzewa katalogów i podglądu drzewa. Jedna linia jest jednym
 wejściem. Linie zaczynające się od ukośnika są pełnymi nazwami katalogów.
 Linie zaczynające się od numeru mają tyle znaków ile poprzedni katalog.
 Jeśli chcesz możesz stworzyć plik używając komendy "find / \-type d
-\-print | sort > ~/.mc/tree". Normalnie nie ma sensu tego czynić, gdyż
+\-print | sort > ~/.cache/mc/tree". Normalnie nie ma sensu tego czynić, gdyż
 Midnight Commander robi to sam za ciebie.
 .PP
 \&./.mc.menu
@@ -2781,6 +2935,11 @@ Midnight Commander robi to sam za ciebie.
 Lokalny plik zdefiniowany przez użytkownika. Jeśli ten plik jest dostępny,
 jest używany zamiast pliku w katalogu domowym i ogólnosystemowego.
 .PP
+To change default home directory of MC, you can use 
+.BR MC_HOME
+environment variable. The value of MC_HOME must be an absolute path. If MC_HOME
+is unset or empty, HOME variable is used. If HOME is unset or empty, MC
+directories are get from GLib library.
 .\"SKIP_SECTION"
 .SH LICENCJA
 Program jest dystrybuowany na zasadach licencji GNU General Public License

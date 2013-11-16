@@ -3,58 +3,61 @@
    Function for whow info on display
 
    Copyright (C) 1994, 1995, 1996, 1998, 1999, 2000, 2001, 2002, 2003,
-   2004, 2005, 2006, 2007, 2009 Free Software Foundation, Inc.
+   2004, 2005, 2006, 2007, 2009, 2011, 2013
+   The Free Software Foundation, Inc.
 
-   Written by: 1994, 1995, 1998 Miguel de Icaza
-   1994, 1995 Janne Kukonlehto
-   1995 Jakub Jelinek
-   1996 Joseph M. Hinkle
-   1997 Norbert Warmuth
-   1998 Pavel Machek
-   2004 Roland Illig <roland.illig@gmx.de>
-   2005 Roland Illig <roland.illig@gmx.de>
-   2009 Slava Zanko <slavazanko@google.com>
-   2009 Andrew Borodin <aborodin@vmail.ru>
-   2009, 2010 Ilia Maslakov <il.smind@gmail.com>
+   Written by:
+   Miguel de Icaza, 1994, 1995, 1998
+   Janne Kukonlehto, 1994, 1995
+   Jakub Jelinek, 1995
+   Joseph M. Hinkle, 1996
+   Norbert Warmuth, 1997
+   Pavel Machek, 1998
+   Roland Illig <roland.illig@gmx.de>, 2004, 2005
+   Slava Zanko <slavazanko@google.com>, 2009
+   Andrew Borodin <aborodin@vmail.ru>, 2009, 2013
+   Ilia Maslakov <il.smind@gmail.com>, 2009, 2010
 
    This file is part of the Midnight Commander.
 
-   The Midnight Commander is free software; you can redistribute it
+   The Midnight Commander is free software: you can redistribute it
    and/or modify it under the terms of the GNU General Public License as
-   published by the Free Software Foundation; either version 2 of the
-   License, or (at your option) any later version.
+   published by the Free Software Foundation, either version 3 of the License,
+   or (at your option) any later version.
 
-   The Midnight Commander is distributed in the hope that it will be
-   useful, but WITHOUT ANY WARRANTY; without even the implied warranty
-   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   General Public License for more details.
+   The Midnight Commander is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-   MA 02110-1301, USA.
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <config.h>
+#include <inttypes.h>           /* uintmax_t */
 
 #include "lib/global.h"
 #include "lib/skin.h"
 #include "lib/tty/tty.h"
 #include "lib/tty/key.h"
 #include "lib/strutil.h"
+#include "lib/util.h"
+#include "lib/widget.h"
+#ifdef HAVE_CHARSET
+#include "lib/charsets.h"
+#endif
 
-#include "src/dialog.h"         /* Dlg_head */
-#include "src/widget.h"         /* WButtonBar */
-#include "src/charsets.h"
 #include "src/setup.h"          /* panels_options */
-#include "src/main.h"           /* source_codepage */
+#include "src/keybind-defaults.h"
 
 #include "internal.h"
-#include "mcviewer.h"
 
 /*** global variables ****************************************************************************/
 
 /*** file scope macro definitions ****************************************************************/
+
+#define BUF_TRUNC_LEN 5         /* The length of the line displays the file size */
 
 /*** file scope type declarations ****************************************************************/
 
@@ -69,60 +72,59 @@ static enum ruler_type
 } ruler = RULER_NONE;
 
 /*** file scope functions ************************************************************************/
-
 /* --------------------------------------------------------------------------------------------- */
 
-/* Define labels and handlers for functional keys */
+/** Define labels and handlers for functional keys */
+
 static void
 mcview_set_buttonbar (mcview_t * view)
 {
-    Dlg_head *h = view->widget.owner;
+    WDialog *h = WIDGET (view)->owner;
     WButtonBar *b = find_buttonbar (h);
-    const global_keymap_t *keymap = view->hex_mode ? view->hex_map : view->plain_map;
+    const global_keymap_t *keymap = view->hex_mode ? viewer_hex_map : viewer_map;
 
-    buttonbar_set_label (b, 1, Q_ ("ButtonBar|Help"), keymap, (Widget *) view);
+    buttonbar_set_label (b, 1, Q_ ("ButtonBar|Help"), keymap, WIDGET (view));
 
     if (view->hex_mode)
     {
         if (view->hexedit_mode)
-            buttonbar_set_label (b, 2, Q_ ("ButtonBar|View"), keymap, (Widget *) view);
+            buttonbar_set_label (b, 2, Q_ ("ButtonBar|View"), keymap, WIDGET (view));
         else if (view->datasource == DS_FILE)
-            buttonbar_set_label (b, 2, Q_ ("ButtonBar|Edit"), keymap, (Widget *) view);
+            buttonbar_set_label (b, 2, Q_ ("ButtonBar|Edit"), keymap, WIDGET (view));
         else
-            buttonbar_set_label (b, 2, "", keymap, (Widget *) view);
+            buttonbar_set_label (b, 2, "", keymap, WIDGET (view));
 
-        buttonbar_set_label (b, 4, Q_ ("ButtonBar|Ascii"), keymap, (Widget *) view);
-        buttonbar_set_label (b, 6, Q_ ("ButtonBar|Save"), keymap, (Widget *) view);
-        buttonbar_set_label (b, 7, Q_ ("ButtonBar|HxSrch"), keymap, (Widget *) view);
+        buttonbar_set_label (b, 4, Q_ ("ButtonBar|Ascii"), keymap, WIDGET (view));
+        buttonbar_set_label (b, 6, Q_ ("ButtonBar|Save"), keymap, WIDGET (view));
+        buttonbar_set_label (b, 7, Q_ ("ButtonBar|HxSrch"), keymap, WIDGET (view));
 
     }
     else
     {
         buttonbar_set_label (b, 2, view->text_wrap_mode ? Q_ ("ButtonBar|UnWrap")
-                             : Q_ ("ButtonBar|Wrap"), keymap, (Widget *) view);
-        buttonbar_set_label (b, 4, Q_ ("ButtonBar|Hex"), keymap, (Widget *) view);
-        buttonbar_set_label (b, 6, "", keymap, (Widget *) view);
-        buttonbar_set_label (b, 7, Q_ ("ButtonBar|Search"), keymap, (Widget *) view);
+                             : Q_ ("ButtonBar|Wrap"), keymap, WIDGET (view));
+        buttonbar_set_label (b, 4, Q_ ("ButtonBar|Hex"), keymap, WIDGET (view));
+        buttonbar_set_label (b, 6, "", keymap, WIDGET (view));
+        buttonbar_set_label (b, 7, Q_ ("ButtonBar|Search"), keymap, WIDGET (view));
     }
 
-    buttonbar_set_label (b, 5, Q_ ("ButtonBar|Goto"), keymap, (Widget *) view);
+    buttonbar_set_label (b, 5, Q_ ("ButtonBar|Goto"), keymap, WIDGET (view));
     buttonbar_set_label (b, 8, view->magic_mode ? Q_ ("ButtonBar|Raw")
-                         : Q_ ("ButtonBar|Parse"), keymap, (Widget *) view);
+                         : Q_ ("ButtonBar|Parse"), keymap, WIDGET (view));
 
     if (mcview_is_in_panel (view))
-        buttonbar_set_label (b, 10, "", keymap, (Widget *) view);
+        buttonbar_set_label (b, 10, "", keymap, WIDGET (view));
     else
     {
         /* don't override some panel buttonbar keys  */
-        buttonbar_set_label (b, 3, Q_ ("ButtonBar|Quit"), keymap, (Widget *) view);
+        buttonbar_set_label (b, 3, Q_ ("ButtonBar|Quit"), keymap, WIDGET (view));
         buttonbar_set_label (b, 9, view->text_nroff_mode ? Q_ ("ButtonBar|Unform")
-                             : Q_ ("ButtonBar|Format"), keymap, (Widget *) view);
-        buttonbar_set_label (b, 10, Q_ ("ButtonBar|Quit"), keymap, (Widget *) view);
+                             : Q_ ("ButtonBar|Format"), keymap, WIDGET (view));
+        buttonbar_set_label (b, 10, Q_ ("ButtonBar|Quit"), keymap, WIDGET (view));
     }
 }
 
 /* --------------------------------------------------------------------------------------------- */
-
 
 static void
 mcview_display_status (mcview_t * view)
@@ -132,36 +134,36 @@ mcview_display_status (mcview_t * view)
     const screen_dimen width = view->status_area.width;
     const screen_dimen height = view->status_area.height;
     const char *file_label;
-    screen_dimen file_label_width;
 
     if (height < 1)
         return;
 
-    tty_setcolor (SELECTED_COLOR);
-    widget_move (view, top, left);
-    tty_draw_hline (-1, -1, ' ', width);
+    tty_setcolor (STATUSBAR_COLOR);
+    tty_draw_hline (WIDGET (view)->y + top, WIDGET (view)->x + left, ' ', width);
 
-    file_label = view->filename ? view->filename : view->command ? view->command : "";
-    file_label_width = str_term_width1 (file_label) - 2;
+    file_label =
+        view->filename_vpath != NULL ?
+        vfs_path_get_last_path_str (view->filename_vpath) : view->command != NULL ?
+        view->command : "";
+
     if (width > 40)
     {
-        char buffer[BUF_TINY];
+        char buffer[BUF_TRUNC_LEN + 1];
+
         widget_move (view, top, width - 32);
         if (view->hex_mode)
-        {
-            tty_printf ("0x%08lx", (unsigned long) view->hex_cursor);
-        }
+            tty_printf ("0x%08" PRIxMAX, (uintmax_t) view->hex_cursor);
         else
         {
-            size_trunc_len (buffer, 5, mcview_get_filesize (view), 0, panels_options.kilobyte_si);
-            tty_printf ("%9lli/%s%s %s", view->dpy_end,
+            size_trunc_len (buffer, BUF_TRUNC_LEN, mcview_get_filesize (view), 0,
+                            panels_options.kilobyte_si);
+            tty_printf ("%9" PRIuMAX "/%s%s %s", (uintmax_t) view->dpy_end,
                         buffer, mcview_may_still_grow (view) ? "+" : " ",
 #ifdef HAVE_CHARSET
-                        source_codepage >= 0 ? get_codepage_id (source_codepage) : ""
-#else
-                        ""
+                        mc_global.source_codepage >= 0 ?
+                        get_codepage_id (mc_global.source_codepage) :
 #endif
-                );
+                        "");
         }
     }
     widget_move (view, top, left);
@@ -174,9 +176,7 @@ mcview_display_status (mcview_t * view)
 }
 
 /* --------------------------------------------------------------------------------------------- */
-
 /*** public functions ****************************************************************************/
-
 /* --------------------------------------------------------------------------------------------- */
 
 void
@@ -188,7 +188,7 @@ mcview_update (mcview_t * view)
     {
         view->dpy_bbar_dirty = FALSE;
         mcview_set_buttonbar (view);
-        buttonbar_redraw (find_buttonbar (view->widget.owner));
+        widget_redraw (WIDGET (find_buttonbar (WIDGET (view)->owner)));
     }
 
     if (view->dirty > dirt_limit)
@@ -223,8 +223,8 @@ mcview_update (mcview_t * view)
 }
 
 /* --------------------------------------------------------------------------------------------- */
+/** Displays as much data from view->dpy_start as fits on the screen */
 
-/* Displays as much data from view->dpy_start as fits on the screen */
 void
 mcview_display (mcview_t * view)
 {
@@ -258,8 +258,8 @@ mcview_compute_areas (mcview_t * view)
 
     view_area.top = view->dpy_frame_size;
     view_area.left = view->dpy_frame_size;
-    view_area.height = mcview_dimen_doz (view->widget.lines, 2 * view->dpy_frame_size);
-    view_area.width = mcview_dimen_doz (view->widget.cols, 2 * view->dpy_frame_size);
+    view_area.height = mcview_dimen_doz (WIDGET (view)->lines, 2 * view->dpy_frame_size);
+    view_area.width = mcview_dimen_doz (WIDGET (view)->cols, 2 * view->dpy_frame_size);
 
     /* Most coordinates of the areas equal those of the whole viewer */
     view->status_area = view_area;
@@ -310,7 +310,9 @@ mcview_update_bytes_per_line (mcview_t * view)
         bytes = 4;
     else
         bytes = 4 * ((cols - 8) / ((cols < 80) ? 17 : 18));
+#ifdef HAVE_ASSERT_H
     assert (bytes != 0);
+#endif
 
     view->bytes_per_line = bytes;
     view->dirty = mcview_max_dirt_limit + 1;    /* To force refresh */
@@ -328,7 +330,9 @@ mcview_display_toggle_ruler (mcview_t * view)
         RULER_NONE
     };
 
+#ifdef HAVE_ASSERT_H
     assert ((size_t) ruler < 3);
+#endif
     ruler = next[(size_t) ruler];
     mcview_compute_areas (view);
     view->dirty++;
@@ -339,10 +343,12 @@ mcview_display_toggle_ruler (mcview_t * view)
 void
 mcview_display_clean (mcview_t * view)
 {
+    Widget *w = WIDGET (view);
+
     tty_setcolor (NORMAL_COLOR);
-    widget_erase ((Widget *) view);
+    widget_erase (w);
     if (view->dpy_frame_size != 0)
-        tty_draw_box (view->widget.y, view->widget.x, view->widget.lines, view->widget.cols, FALSE);
+        tty_draw_box (w->y, w->x, w->lines, w->cols, FALSE);
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -365,7 +371,7 @@ mcview_display_ruler (mcview_t * view)
     if (ruler == RULER_NONE || height < 1)
         return;
 
-    tty_setcolor (MARKED_COLOR);
+    tty_setcolor (VIEW_BOLD_COLOR);
     for (c = 0; c < width; c++)
     {
         cl = view->dpy_text_column + c;
@@ -377,7 +383,7 @@ mcview_display_ruler (mcview_t * view)
 
         if ((cl != 0) && (cl % 10) == 0)
         {
-            g_snprintf (r_buff, sizeof (r_buff), "%" OFFSETTYPE_PRId, (long unsigned int) cl);
+            g_snprintf (r_buff, sizeof (r_buff), "%" PRIuMAX, (uintmax_t) cl);
             if (nums_row < height)
             {
                 widget_move (view, top + nums_row, left + c - 1);
@@ -414,6 +420,8 @@ mcview_percent (mcview_t * view, off_t p)
 
     widget_move (view, top, right - 4);
     tty_printf ("%3d%%", percent);
+    /* avoid cursor wrapping in NCurses-base MC */
+    widget_move (view, top, right - 1);
 }
 
 /* --------------------------------------------------------------------------------------------- */

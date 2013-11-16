@@ -1,20 +1,24 @@
-/* Configure module for the Midnight Commander
+/*
+   Configure module for the Midnight Commander
+
    Copyright (C) 1994, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006,
-   2007, 2009 Free Software Foundation, Inc. 
+   2007, 2009, 2011
+   The Free Software Foundation, Inc.
 
-   This program is free software; you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 2 of the License, or
-   (at your option) any later version.
+   This file is part of the Midnight Commander.
 
-   This program is distributed in the hope that it will be useful,
+   The Midnight Commander is free software: you can redistribute it
+   and/or modify it under the terms of the GNU General Public License as
+   published by the Free Software Foundation, either version 3 of the License,
+   or (at your option) any later version.
+
+   The Midnight Commander is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <config.h>
@@ -24,8 +28,6 @@
 #include "lib/mcconfig.h"
 
 /*** global variables **************************************************/
-
-extern int utf8_display;
 
 /*** file scope macro definitions **************************************/
 
@@ -38,21 +40,21 @@ extern int utf8_display;
 /*** public functions **************************************************/
 
 gchar **
-mc_config_get_groups (mc_config_t * mc_config, gsize * len)
+mc_config_get_groups (const mc_config_t * mc_config, gsize * len)
 {
     gchar **ret;
 
     if (!mc_config)
     {
-	ret = g_try_malloc0 (sizeof (gchar **));
-	if (len != NULL)
-	    *len=0;
-	return ret;
+        ret = g_try_malloc0 (sizeof (gchar **));
+        if (len != NULL)
+            *len = 0;
+        return ret;
     }
     ret = g_key_file_get_groups (mc_config->handle, len);
     if (ret == NULL)
     {
-	ret = g_try_malloc0 (sizeof (gchar **));
+        ret = g_try_malloc0 (sizeof (gchar **));
     }
     return ret;
 }
@@ -60,21 +62,21 @@ mc_config_get_groups (mc_config_t * mc_config, gsize * len)
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 gchar **
-mc_config_get_keys (mc_config_t * mc_config, const gchar * group, gsize * len)
+mc_config_get_keys (const mc_config_t * mc_config, const gchar * group, gsize * len)
 {
     gchar **ret;
 
     if (!mc_config || !group)
     {
-	ret = g_try_malloc0 (sizeof (gchar **));
-	if (len != NULL)
-	    *len=0;
-	return ret;
+        ret = g_try_malloc0 (sizeof (gchar **));
+        if (len != NULL)
+            *len = 0;
+        return ret;
     }
     ret = g_key_file_get_keys (mc_config->handle, group, len, NULL);
     if (ret == NULL)
     {
-	ret = g_try_malloc0 (sizeof (gchar **));
+        ret = g_try_malloc0 (sizeof (gchar **));
     }
     return ret;
 }
@@ -83,87 +85,84 @@ mc_config_get_keys (mc_config_t * mc_config, const gchar * group, gsize * len)
 
 gchar *
 mc_config_get_string (mc_config_t * mc_config, const gchar * group,
-		      const gchar * param, const gchar * def)
+                      const gchar * param, const gchar * def)
 {
     GIConv conv;
     GString *buffer;
     gchar *ret;
-    const char *_system_codepage = str_detect_termencoding();
+    estr_t conv_res;
 
     if (!mc_config || !group || !param)
-	return def ? g_strdup (def) : NULL;
+        return g_strdup (def);
 
-    if (! mc_config_has_param(mc_config, group, param))
+    if (!mc_config_has_param (mc_config, group, param))
     {
-	mc_config_set_string (mc_config, group, param, def ? def : "");
-	return def ? g_strdup (def) : NULL;
+        if (def != NULL)
+            mc_config_set_string (mc_config, group, param, def);
+        return g_strdup (def);
     }
 
     ret = g_key_file_get_string (mc_config->handle, group, param, NULL);
+    if (ret == NULL)
+        ret = g_strdup (def);
 
-    if (!ret)
-	ret = def ? g_strdup (def) : NULL;
-
-    if (str_isutf8 (_system_codepage))
+    if (mc_global.utf8_display)
         return ret;
 
-    conv = g_iconv_open (_system_codepage, "UTF-8");
+    conv = str_crt_conv_from ("UTF-8");
     if (conv == INVALID_CONV)
         return ret;
 
     buffer = g_string_new ("");
-
-    if (str_convert (conv, ret, buffer) == ESTR_FAILURE)
-    {
-        g_string_free(buffer, TRUE);
-        str_close_conv (conv);
-        return ret;
-    }
+    conv_res = str_convert (conv, ret, buffer);
     str_close_conv (conv);
 
-    g_free(ret);
+    if (conv_res == ESTR_FAILURE)
+    {
+        g_string_free (buffer, TRUE);
+        return ret;
+    }
 
-    return g_string_free(buffer, FALSE);
+    g_free (ret);
+
+    return g_string_free (buffer, FALSE);
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 gchar *
-mc_config_get_string_raw (mc_config_t * mc_config, const gchar * group,
-		      const gchar * param, const gchar * def)
+mc_config_get_string_raw (const mc_config_t * mc_config, const gchar * group,
+                          const gchar * param, const gchar * def)
 {
     gchar *ret;
 
     if (!mc_config || !group || !param)
-	return def ? g_strdup (def) : NULL;
+        return g_strdup (def);
 
-    if (! mc_config_has_param(mc_config, group, param))
+    if (!mc_config_has_param (mc_config, group, param))
     {
-	mc_config_set_string (mc_config, group, param, def ? def : "");
-	return def ? g_strdup (def) : NULL;
+        if (def != NULL)
+            mc_config_set_string (mc_config, group, param, def);
+        return g_strdup (def);
     }
 
     ret = g_key_file_get_string (mc_config->handle, group, param, NULL);
 
-    if (!ret)
-	ret = def ? g_strdup (def) : NULL;
-
-    return ret;
+    return ret != NULL ? ret : g_strdup (def);
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 gboolean
-mc_config_get_bool (mc_config_t * mc_config, const gchar * group,
-		    const gchar * param, gboolean def)
+mc_config_get_bool (mc_config_t * mc_config, const gchar * group, const gchar * param, gboolean def)
 {
     if (!mc_config || !group || !param)
-	return def;
+        return def;
 
-    if (! mc_config_has_param(mc_config, group, param))
+    if (!mc_config_has_param (mc_config, group, param))
     {
-	mc_config_set_bool (mc_config, group, param, def);
-	return def;
+        mc_config_set_bool (mc_config, group, param, def);
+        return def;
     }
 
     return g_key_file_get_boolean (mc_config->handle, group, param, NULL);
@@ -172,16 +171,15 @@ mc_config_get_bool (mc_config_t * mc_config, const gchar * group,
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 int
-mc_config_get_int (mc_config_t * mc_config, const gchar * group,
-		   const gchar * param, int def)
+mc_config_get_int (mc_config_t * mc_config, const gchar * group, const gchar * param, int def)
 {
     if (!mc_config || !group || !param)
-	return def;
+        return def;
 
-    if (! mc_config_has_param(mc_config, group, param))
+    if (!mc_config_has_param (mc_config, group, param))
     {
-	mc_config_set_int (mc_config, group, param, def);
-	return def;
+        mc_config_set_int (mc_config, group, param, def);
+        return def;
     }
 
     return g_key_file_get_integer (mc_config->handle, group, param, NULL);
@@ -192,39 +190,36 @@ mc_config_get_int (mc_config_t * mc_config, const gchar * group,
 
 gchar **
 mc_config_get_string_list (mc_config_t * mc_config, const gchar * group,
-			   const gchar * param, gsize * length)
+                           const gchar * param, gsize * length)
 {
     if (!mc_config || !group || !param)
-	return NULL;
+        return NULL;
 
-    return g_key_file_get_string_list (mc_config->handle, group, param,
-				       length, NULL);
+    return g_key_file_get_string_list (mc_config->handle, group, param, length, NULL);
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 gboolean *
 mc_config_get_bool_list (mc_config_t * mc_config, const gchar * group,
-			 const gchar * param, gsize * length)
+                         const gchar * param, gsize * length)
 {
     if (!mc_config || !group || !param)
-	return NULL;
+        return NULL;
 
-    return g_key_file_get_boolean_list (mc_config->handle, group, param,
-					length, NULL);
+    return g_key_file_get_boolean_list (mc_config->handle, group, param, length, NULL);
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 int *
 mc_config_get_int_list (mc_config_t * mc_config, const gchar * group,
-			const gchar * param, gsize * length)
+                        const gchar * param, gsize * length)
 {
     if (!mc_config || !group || !param)
-	return NULL;
+        return NULL;
 
-    return g_key_file_get_integer_list (mc_config->handle, group, param,
-					length, NULL);
+    return g_key_file_get_integer_list (mc_config->handle, group, param, length, NULL);
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */

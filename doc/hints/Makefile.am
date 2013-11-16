@@ -1,11 +1,14 @@
-LIBFILES_OUT = mc.ext
+if USE_NLS
+SUBDIRS = l10n
+endif
 
+DIST_SUBDIRS = l10n
 
-pkgdata_DATA = mc.hint mc.hint.cs mc.hint.es mc.hint.hu mc.hint.it	\
-	mc.hint.nl mc.hint.pl mc.hint.ru mc.hint.sr mc.hint.uk		\
-	mc.hint.zh
+HINTFILE = mc.hint
 
+hintdir = $(pkgdatadir)/hints
+
+hint_DATA = $(HINTFILE)
 
 # Files processed by configure don't need to be here
-EXTRA_DIST = \
-	$(pkgdata_DATA)
+EXTRA_DIST = $(HINTFILE)

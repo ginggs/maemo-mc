@@ -1,24 +1,30 @@
-/* editor syntax highlighting.
+/*
+   Editor syntax highlighting.
 
    Copyright (C) 1996, 1997, 1998, 2001, 2002, 2003, 2004, 2005, 2006,
-   2007 Free Software Foundation, Inc.
+   2007, 2010, 2011, 2013
+   The Free Software Foundation, Inc.
 
-   Authors: 1998 Paul Sheer
+   Written by:
+   Paul Sheer, 1998
+   Egmont Koblinger <egmont@gmail.com>, 2010
+   Slava Zanko <slavazanko@gmail.com>, 2013
+   Andrew Borodin <aborodin@vmail.ru>, 2013
 
-   This program is free software; you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 2 of the License, or
-   (at your option) any later version.
+   This file is part of the Midnight Commander.
 
-   This program is distributed in the hope that it will be useful,
+   The Midnight Commander is free software: you can redistribute it
+   and/or modify it under the terms of the GNU General Public License as
+   published by the Free Software Foundation, either version 3 of the License,
+   or (at your option) any later version.
+
+   The Midnight Commander is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
-   02110-1301, USA.
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /** \file
@@ -52,13 +58,18 @@
 #include "lib/search.h"         /* search engine */
 #include "lib/skin.h"
 #include "lib/strutil.h"        /* utf string functions */
-
-#include "src/main.h"           /* mc_home */
-#include "src/wtools.h"         /* message() */
+#include "lib/util.h"
+#include "lib/widget.h"         /* message() */
 
 #include "edit-impl.h"
-#include "edit-widget.h"
+#include "editwidget.h"
 
+/*** global variables ****************************************************************************/
+
+int option_syntax_highlighting = 1;
+int option_auto_syntax = 1;
+
+/*** file scope macro definitions ****************************************************************/
 
 /* bytes */
 #define SYNTAX_MARKER_DENSITY 512
@@ -78,13 +89,22 @@
 #define SYNTAX_TOKEN_BRACKET    '\003'
 #define SYNTAX_TOKEN_BRACE      '\004'
 
+#define whiteness(x) ((x) == '\t' || (x) == '\n' || (x) == ' ')
+
+#define free_args(x)
+#define break_a {result=line;break;}
+#define check_a {if(!*a){result=line;break;}}
+#define check_not_a {if(*a){result=line;break;}}
+
+/*** file scope type declarations ****************************************************************/
+
 struct key_word
 {
     char *keyword;
     unsigned char first;
     char *whole_word_chars_left;
     char *whole_word_chars_right;
-    int line_start;
+    long line_start;
     int color;
 };
 
@@ -100,37 +120,38 @@ struct context_rule
     char *whole_word_chars_left;
     char *whole_word_chars_right;
     char *keyword_first_chars;
-    int spelling;
+    gboolean spelling;
     /* first word is word[1] */
     struct key_word **keyword;
 };
 
-struct _syntax_marker
+typedef struct
 {
-    long offset;
-    struct syntax_rule rule;
-    struct _syntax_marker *next;
-};
+    off_t offset;
+    edit_syntax_rule_t rule;
+} syntax_marker_t;
 
-int option_syntax_highlighting = 1;
-int option_auto_syntax = 1;
+/*** file scope variables ************************************************************************/
+
+static char *error_file_name = NULL;
+
+/*** file scope functions ************************************************************************/
+/* --------------------------------------------------------------------------------------------- */
 
 static gint
 mc_defines_destroy (gpointer key, gpointer value, gpointer data)
 {
-    char **values = value;
-
     (void) data;
 
     g_free (key);
-    while (*values)
-        g_free (*values++);
-    g_free (value);
+    g_strfreev ((char **) value);
 
     return FALSE;
 }
 
-/* Completely destroys the defines tree */
+/* --------------------------------------------------------------------------------------------- */
+/** Completely destroys the defines tree */
+
 static void
 destroy_defines (GTree ** defines)
 {
@@ -139,12 +160,16 @@ destroy_defines (GTree ** defines)
     *defines = NULL;
 }
 
-/* Wrapper for case insensitive mode */
+/* --------------------------------------------------------------------------------------------- */
+
+/** Wrapper for case insensitive mode */
 inline static int
-xx_tolower (WEdit * edit, int c)
+xx_tolower (const WEdit * edit, int c)
 {
     return edit->is_case_insensitive ? tolower (c) : c;
 }
+
+/* --------------------------------------------------------------------------------------------- */
 
 static void
 subst_defines (GTree * defines, char **argv, char **argv_end)
@@ -185,9 +210,11 @@ subst_defines (GTree * defines, char **argv, char **argv_end)
     }
 }
 
-static long
-compare_word_to_right (WEdit * edit, long i, const char *text,
-                       const char *whole_left, const char *whole_right, int line_start)
+/* --------------------------------------------------------------------------------------------- */
+
+static off_t
+compare_word_to_right (const WEdit * edit, off_t i, const char *text,
+                       const char *whole_left, const char *whole_right, long line_start)
 {
     const unsigned char *p, *q;
     int c, d, j;
@@ -195,22 +222,20 @@ compare_word_to_right (WEdit * edit, long i, const char *text,
     if (*text == '\0')
         return -1;
 
-    c = xx_tolower (edit, edit_get_byte (edit, i - 1));
-    if (line_start != 0 && c != '\n')
-        return -1;
-    if (whole_left != NULL && strchr (whole_left, c) != NULL)
+    c = xx_tolower (edit, edit_buffer_get_byte (&edit->buffer, i - 1));
+    if ((line_start != 0 && c != '\n') || (whole_left != NULL && strchr (whole_left, c) != NULL))
         return -1;
 
-    for (p = (unsigned char *) text, q = p + str_term_width1 ((char *) p); p < q; p++, i++)
+    for (p = (unsigned char *) text, q = p + strlen ((char *) p); p < q; p++, i++)
     {
         switch (*p)
         {
         case SYNTAX_TOKEN_STAR:
             if (++p > q)
                 return -1;
-            for (;;)
+            while (TRUE)
             {
-                c = xx_tolower (edit, edit_get_byte (edit, i));
+                c = xx_tolower (edit, edit_buffer_get_byte (&edit->buffer, i));
                 if (*p == '\0' && whole_right != NULL && strchr (whole_right, c) == NULL)
                     break;
                 if (c == *p)
@@ -224,30 +249,19 @@ compare_word_to_right (WEdit * edit, long i, const char *text,
             if (++p > q)
                 return -1;
             j = 0;
-            for (;;)
+            while (TRUE)
             {
-                c = xx_tolower (edit, edit_get_byte (edit, i));
+                c = xx_tolower (edit, edit_buffer_get_byte (&edit->buffer, i));
                 if (c == *p)
                 {
                     j = i;
-                    if (*p == *text && p[1] == '\0')   /* handle eg '+' and @+@ keywords properly */
+                    if (*p == *text && p[1] == '\0')    /* handle eg '+' and @+@ keywords properly */
                         break;
                 }
-                if (j && strchr ((char *) p + 1, c))    /* c exists further down, so it will get matched later */
+                if (j != 0 && strchr ((char *) p + 1, c) != NULL)       /* c exists further down, so it will get matched later */
                     break;
-                if (c == '\n' || c == '\t' || c == ' ')
-                {
-                    if (!*p)
-                    {
-                        i--;
-                        break;
-                    }
-                    if (j == 0)
-                        return -1;
-                    i = j;
-                    break;
-                }
-                if (whole_right != NULL && (strchr (whole_right, c) == NULL))
+                if (c == '\n' || c == '\t' || c == ' ' ||
+                    (whole_right != NULL && strchr (whole_right, c) == NULL))
                 {
                     if (*p == '\0')
                     {
@@ -266,16 +280,16 @@ compare_word_to_right (WEdit * edit, long i, const char *text,
             if (++p > q)
                 return -1;
             c = -1;
-            for (;; i++)
+            while (TRUE)
             {
                 d = c;
-                c = xx_tolower (edit, edit_get_byte (edit, i));
+                c = xx_tolower (edit, edit_buffer_get_byte (&edit->buffer, i));
                 for (j = 0; p[j] != SYNTAX_TOKEN_BRACKET && p[j]; j++)
                     if (c == p[j])
                         goto found_char2;
                 break;
               found_char2:
-                ;               /* dummy command */
+                i++;
             }
             i--;
             while (*p != SYNTAX_TOKEN_BRACKET && p <= q)
@@ -288,7 +302,7 @@ compare_word_to_right (WEdit * edit, long i, const char *text,
         case SYNTAX_TOKEN_BRACE:
             if (++p > q)
                 return -1;
-            c = xx_tolower (edit, edit_get_byte (edit, i));
+            c = xx_tolower (edit, edit_buffer_get_byte (&edit->buffer, i));
             for (; *p != SYNTAX_TOKEN_BRACE && *p; p++)
                 if (c == *p)
                     goto found_char3;
@@ -298,17 +312,19 @@ compare_word_to_right (WEdit * edit, long i, const char *text,
                 p++;
             break;
         default:
-            if (*p != xx_tolower (edit, edit_get_byte (edit, i)))
+            if (*p != xx_tolower (edit, edit_buffer_get_byte (&edit->buffer, i)))
                 return -1;
         }
     }
-    if (whole_right != NULL && strchr (whole_right, xx_tolower (edit, edit_get_byte (edit, i))) != NULL)
-        return -1;
-    return i;
+    return (whole_right != NULL &&
+            strchr (whole_right,
+                    xx_tolower (edit, edit_buffer_get_byte (&edit->buffer, i))) != NULL) ? -1 : i;
 }
 
+/* --------------------------------------------------------------------------------------------- */
+
 static const char *
-xx_strchr (WEdit * edit, const unsigned char *s, int char_byte)
+xx_strchr (const WEdit * edit, const unsigned char *s, int char_byte)
 {
     while (*s >= '\005' && xx_tolower (edit, *s) != char_byte)
         s++;
@@ -316,8 +332,10 @@ xx_strchr (WEdit * edit, const unsigned char *s, int char_byte)
     return (const char *) s;
 }
 
-static struct syntax_rule
-apply_rules_going_right (WEdit * edit, long i, struct syntax_rule rule)
+/* --------------------------------------------------------------------------------------------- */
+
+static void
+apply_rules_going_right (WEdit * edit, off_t i)
 {
     struct context_rule *r;
     int c;
@@ -325,18 +343,19 @@ apply_rules_going_right (WEdit * edit, long i, struct syntax_rule rule)
     gboolean found_left = FALSE, found_right = FALSE;
     gboolean keyword_foundleft = FALSE, keyword_foundright = FALSE;
     gboolean is_end;
-    long end = 0;
-    struct syntax_rule _rule = rule;
+    off_t end = 0;
+    edit_syntax_rule_t _rule = edit->rule;
 
-    c = xx_tolower (edit, edit_get_byte (edit, i));
+    c = xx_tolower (edit, edit_buffer_get_byte (&edit->buffer, i));
     if (c == 0)
-        return rule;
-    is_end = (rule.end == (unsigned char) i);
+        return;
+
+    is_end = (edit->rule.end == i);
 
     /* check to turn off a keyword */
-    if (_rule.keyword)
+    if (_rule.keyword != 0)
     {
-        if (edit_get_byte (edit, i - 1) == '\n')
+        if (edit_buffer_get_byte (&edit->buffer, i - 1) == '\n')
             _rule.keyword = 0;
         if (is_end)
         {
@@ -346,12 +365,12 @@ apply_rules_going_right (WEdit * edit, long i, struct syntax_rule rule)
     }
 
     /* check to turn off a context */
-    if (_rule.context && !_rule.keyword)
+    if (_rule.context != 0 && _rule.keyword == 0)
     {
-        long e;
+        off_t e;
 
         r = edit->rules[_rule.context];
-        if (r->first_right == c && !(rule.border & RULE_ON_RIGHT_BORDER)
+        if (r->first_right == c && (edit->rule.border & RULE_ON_RIGHT_BORDER) == 0
             && (e =
                 compare_word_to_right (edit, i, r->right, r->whole_word_chars_left,
                                        r->whole_word_chars_right, r->line_start_right)) > 0)
@@ -362,7 +381,7 @@ apply_rules_going_right (WEdit * edit, long i, struct syntax_rule rule)
             if (r->between_delimiters)
                 _rule.context = 0;
         }
-        else if (is_end && rule.border & RULE_ON_RIGHT_BORDER)
+        else if (is_end && (edit->rule.border & RULE_ON_RIGHT_BORDER) != 0)
         {
             /* always turn off a context at 4 */
             found_left = TRUE;
@@ -370,7 +389,7 @@ apply_rules_going_right (WEdit * edit, long i, struct syntax_rule rule)
             if (!keyword_foundleft)
                 _rule.context = 0;
         }
-        else if (is_end && rule.border & RULE_ON_LEFT_BORDER)
+        else if (is_end && (edit->rule.border & RULE_ON_LEFT_BORDER) != 0)
         {
             /* never turn off a context at 2 */
             found_left = TRUE;
@@ -379,7 +398,7 @@ apply_rules_going_right (WEdit * edit, long i, struct syntax_rule rule)
     }
 
     /* check to turn on a keyword */
-    if (!_rule.keyword)
+    if (_rule.keyword == 0)
     {
         const char *p;
 
@@ -391,7 +410,7 @@ apply_rules_going_right (WEdit * edit, long i, struct syntax_rule rule)
             {
                 struct key_word *k;
                 int count;
-                long e;
+                off_t e;
 
                 count = p - r->keyword_first_chars;
                 k = r->keyword[count];
@@ -409,11 +428,11 @@ apply_rules_going_right (WEdit * edit, long i, struct syntax_rule rule)
     }
 
     /* check to turn on a context */
-    if (!_rule.context)
+    if (_rule.context == 0)
     {
         if (!found_left && is_end)
         {
-            if (rule.border & RULE_ON_RIGHT_BORDER)
+            if ((edit->rule.border & RULE_ON_RIGHT_BORDER) != 0)
             {
                 _rule.border = 0;
                 _rule.context = 0;
@@ -421,7 +440,7 @@ apply_rules_going_right (WEdit * edit, long i, struct syntax_rule rule)
                 _rule.keyword = 0;
 
             }
-            else if (rule.border & RULE_ON_LEFT_BORDER)
+            else if ((edit->rule.border & RULE_ON_LEFT_BORDER) != 0)
             {
                 r = edit->rules[_rule._context];
                 _rule.border = 0;
@@ -433,11 +452,10 @@ apply_rules_going_right (WEdit * edit, long i, struct syntax_rule rule)
 
                     if (r->first_right == c)
                     {
-                        long e;
+                        off_t e;
 
-                        e =  compare_word_to_right (edit, i, r->right, r->whole_word_chars_left,
-                                                   r->whole_word_chars_right,
-                                                   r->line_start_right);
+                        e = compare_word_to_right (edit, i, r->right, r->whole_word_chars_left,
+                                                   r->whole_word_chars_right, r->line_start_right);
                         if (e >= end)
                         {
                             _rule.end = e;
@@ -455,22 +473,22 @@ apply_rules_going_right (WEdit * edit, long i, struct syntax_rule rule)
             int count;
             struct context_rule **rules = edit->rules;
 
-            for (count = 1; rules[count]; count++)
+            for (count = 1; rules[count] != NULL; count++)
             {
                 r = rules[count];
                 if (r->first_left == c)
                 {
-                    long e;
+                    off_t e;
 
                     e = compare_word_to_right (edit, i, r->left, r->whole_word_chars_left,
                                                r->whole_word_chars_right, r->line_start_left);
-                    if (e >= end && (!_rule.keyword || keyword_foundright))
+                    if (e >= end && (_rule.keyword == 0 || keyword_foundright))
                     {
                         _rule.end = e;
                         found_right = TRUE;
                         _rule.border = RULE_ON_LEFT_BORDER;
                         _rule._context = count;
-                        if (!r->between_delimiters && !_rule.keyword)
+                        if (!r->between_delimiters && _rule.keyword == 0)
                         {
                             _rule.context = count;
                             contextchanged = TRUE;
@@ -483,7 +501,7 @@ apply_rules_going_right (WEdit * edit, long i, struct syntax_rule rule)
     }
 
     /* check again to turn on a keyword if the context switched */
-    if (contextchanged && !_rule.keyword)
+    if (contextchanged && _rule.keyword == 0)
     {
         const char *p;
 
@@ -494,7 +512,7 @@ apply_rules_going_right (WEdit * edit, long i, struct syntax_rule rule)
         {
             struct key_word *k;
             int count;
-            long e;
+            off_t e;
 
             count = p - r->keyword_first_chars;
             k = r->keyword[count];
@@ -509,85 +527,84 @@ apply_rules_going_right (WEdit * edit, long i, struct syntax_rule rule)
         }
     }
 
-    return _rule;
+    edit->rule = _rule;
 }
 
-static struct syntax_rule
-edit_get_rule (WEdit * edit, long byte_index)
+/* --------------------------------------------------------------------------------------------- */
+
+static void
+edit_get_rule (WEdit * edit, off_t byte_index)
 {
-    long i;
+    off_t i;
 
     if (byte_index > edit->last_get_rule)
     {
         for (i = edit->last_get_rule + 1; i <= byte_index; i++)
         {
-            edit->rule = apply_rules_going_right (edit, i, edit->rule);
-            if (i >
-                (edit->syntax_marker ? edit->syntax_marker->offset +
-                 SYNTAX_MARKER_DENSITY : SYNTAX_MARKER_DENSITY))
-            {
-                struct _syntax_marker *s;
+            off_t d = SYNTAX_MARKER_DENSITY;
 
-                s = edit->syntax_marker;
-                edit->syntax_marker = g_malloc (sizeof (struct _syntax_marker));
-                edit->syntax_marker->next = s;
-                edit->syntax_marker->offset = i;
-                edit->syntax_marker->rule = edit->rule;
+            apply_rules_going_right (edit, i);
+
+            if (edit->syntax_marker != NULL)
+                d += ((syntax_marker_t *) edit->syntax_marker->data)->offset;
+
+            if (i > d)
+            {
+                syntax_marker_t *s;
+
+                s = g_new (syntax_marker_t, 1);
+                s->offset = i;
+                s->rule = edit->rule;
+                edit->syntax_marker = g_slist_prepend (edit->syntax_marker, s);
             }
         }
     }
     else if (byte_index < edit->last_get_rule)
     {
-        struct _syntax_marker *s;
-
-        for (;;)
+        while (TRUE)
         {
-            if (!edit->syntax_marker)
+            syntax_marker_t *s;
+
+            if (edit->syntax_marker == NULL)
             {
                 memset (&edit->rule, 0, sizeof (edit->rule));
                 for (i = -1; i <= byte_index; i++)
-                    edit->rule = apply_rules_going_right (edit, i, edit->rule);
+                    apply_rules_going_right (edit, i);
                 break;
             }
-            if (byte_index >= edit->syntax_marker->offset)
+
+            s = (syntax_marker_t *) edit->syntax_marker->data;
+
+            if (byte_index >= s->offset)
             {
-                edit->rule = edit->syntax_marker->rule;
-                for (i = edit->syntax_marker->offset + 1; i <= byte_index; i++)
-                    edit->rule = apply_rules_going_right (edit, i, edit->rule);
+                edit->rule = s->rule;
+                for (i = s->offset + 1; i <= byte_index; i++)
+                    apply_rules_going_right (edit, i);
                 break;
             }
-            s = edit->syntax_marker->next;
-            g_free (edit->syntax_marker);
-            edit->syntax_marker = s;
+
+            g_free (s);
+            edit->syntax_marker = g_slist_delete_link (edit->syntax_marker, edit->syntax_marker);
         }
     }
     edit->last_get_rule = byte_index;
-    return edit->rule;
 }
 
-static inline void
-translate_rule_to_color (WEdit * edit, struct syntax_rule rule, int *color)
+/* --------------------------------------------------------------------------------------------- */
+
+static inline int
+translate_rule_to_color (const WEdit * edit, const edit_syntax_rule_t * rule)
 {
-    *color = edit->rules[rule.context]->keyword[rule.keyword]->color;
+    return edit->rules[rule->context]->keyword[rule->keyword]->color;
 }
 
-void
-edit_get_syntax_color (WEdit * edit, long byte_index, int *color)
-{
-    if (!tty_use_colors ())
-        *color = 0;
-    else if (edit->rules && byte_index < edit->last_byte && option_syntax_highlighting)
-        translate_rule_to_color (edit, edit_get_rule (edit, byte_index), color);
-    else
-        *color = EDITOR_NORMAL_COLOR;
-}
-
-
-/*
+/* --------------------------------------------------------------------------------------------- */
+/**
    Returns 0 on error/eof or a count of the number of bytes read
    including the newline. Result must be free'd.
    In case of an error, *line will not be modified.
  */
+
 static size_t
 read_one_line (char **line, FILE * f)
 {
@@ -597,7 +614,7 @@ read_one_line (char **line, FILE * f)
     /* not reallocate string too often */
     p = g_string_sized_new (64);
 
-    for (;;)
+    while (TRUE)
     {
         int c;
 
@@ -636,6 +653,8 @@ read_one_line (char **line, FILE * f)
 
     return r;
 }
+
+/* --------------------------------------------------------------------------------------------- */
 
 static char *
 convert (char *s)
@@ -706,7 +725,7 @@ convert (char *s)
     return r;
 }
 
-#define whiteness(x) ((x) == '\t' || (x) == '\n' || (x) == ' ')
+/* --------------------------------------------------------------------------------------------- */
 
 static int
 get_args (char *l, char **args, int args_size)
@@ -730,20 +749,23 @@ get_args (char *l, char **args, int args_size)
     return argc;
 }
 
-#define free_args(x)
-#define break_a {result=line;break;}
-#define check_a {if(!*a){result=line;break;}}
-#define check_not_a {if(*a){result=line;break;}}
+/* --------------------------------------------------------------------------------------------- */
 
 static int
-this_try_alloc_color_pair (const char *fg, const char *bg)
+this_try_alloc_color_pair (const char *fg, const char *bg, const char *attrs)
 {
-    char f[80], b[80], *p;
+    char f[80], b[80], a[80], *p;
 
     if (bg != NULL && *bg == '\0')
         bg = NULL;
     if (fg != NULL && *fg == '\0')
         fg = NULL;
+    if (attrs != NULL && *attrs == '\0')
+        attrs = NULL;
+
+    if ((fg == NULL) && (bg == NULL))
+        return EDITOR_NORMAL_COLOR;
+
     if (fg != NULL)
     {
         g_strlcpy (f, fg, sizeof (f));
@@ -760,10 +782,52 @@ this_try_alloc_color_pair (const char *fg, const char *bg)
             *p = '\0';
         bg = b;
     }
-    return tty_try_alloc_color_pair (fg, bg);
+    if ((fg == NULL) || (bg == NULL))
+    {
+        /* get colors from skin */
+        char *editnormal;
+
+        editnormal = mc_skin_get ("editor", "_default_", "default;default");
+
+        if (fg == NULL)
+        {
+            g_strlcpy (f, editnormal, sizeof (f));
+            p = strchr (f, ';');
+            if (p != NULL)
+                *p = '\0';
+            if (f[0] == '\0')
+                g_strlcpy (f, "default", sizeof (f));
+            fg = f;
+        }
+        if (bg == NULL)
+        {
+            p = strchr (editnormal, ';');
+            if ((p != NULL) && (*(++p) != '\0'))
+                g_strlcpy (b, p, sizeof (b));
+            else
+                g_strlcpy (b, "default", sizeof (b));
+            bg = b;
+        }
+
+        g_free (editnormal);
+    }
+
+    if (attrs != NULL)
+    {
+        g_strlcpy (a, attrs, sizeof (a));
+        p = strchr (a, '/');
+        if (p != NULL)
+            *p = '\0';
+        /* get_args() mangles the + signs, unmangle 'em */
+        p = a;
+        while ((p = strchr (p, SYNTAX_TOKEN_PLUS)) != NULL)
+            *p++ = '+';
+        attrs = a;
+    }
+    return tty_try_alloc_color_pair (fg, bg, attrs);
 }
 
-static char *error_file_name = NULL;
+/* --------------------------------------------------------------------------------------------- */
 
 static FILE *
 open_include_file (const char *filename)
@@ -776,25 +840,26 @@ open_include_file (const char *filename)
         return fopen (filename, "r");
 
     g_free (error_file_name);
-    error_file_name = g_strconcat (home_dir, PATH_SEP_STR EDIT_DIR PATH_SEP_STR,
-                                   filename, (char *) NULL);
+    error_file_name =
+        g_build_filename (mc_config_get_data_path (), EDIT_DIR, filename, (char *) NULL);
     f = fopen (error_file_name, "r");
     if (f != NULL)
         return f;
 
     g_free (error_file_name);
-    error_file_name = g_strconcat (mc_home, PATH_SEP_STR, "syntax", PATH_SEP_STR,
-                                   filename, (char *) NULL);
+    error_file_name = g_build_filename (mc_global.sysconfig_dir, "syntax", filename, (char *) NULL);
     f = fopen (error_file_name, "r");
     if (f != NULL)
         return f;
 
     g_free (error_file_name);
-    error_file_name = g_strconcat (mc_home_alt, PATH_SEP_STR "syntax" PATH_SEP_STR,
-                                   filename, (char *) NULL);
+    error_file_name =
+        g_build_filename (mc_global.share_data_dir, "syntax", filename, (char *) NULL);
 
     return fopen (error_file_name, "r");
 }
+
+/* --------------------------------------------------------------------------------------------- */
 
 inline static void
 xx_lowerize_line (WEdit * edit, char *line, size_t len)
@@ -807,13 +872,15 @@ xx_lowerize_line (WEdit * edit, char *line, size_t len)
     }
 }
 
-/* returns line number on error */
+/* --------------------------------------------------------------------------------------------- */
+/** returns line number on error */
+
 static int
 edit_read_syntax_rules (WEdit * edit, FILE * f, char **args, int args_size)
 {
     FILE *g = NULL;
-    char *fg, *bg;
-    char last_fg[32] = "", last_bg[32] = "";
+    char *fg, *bg, *attrs;
+    char last_fg[32] = "", last_bg[32] = "", last_attrs[64] = "";
     char whole_right[512];
     char whole_left[512];
     char *l = 0;
@@ -838,7 +905,7 @@ edit_read_syntax_rules (WEdit * edit, FILE * f, char **args, int args_size)
     if (!edit->defines)
         edit->defines = g_tree_new ((GCompareFunc) strcmp);
 
-    for (;;)
+    while (TRUE)
     {
         char **a;
         size_t len;
@@ -847,47 +914,41 @@ edit_read_syntax_rules (WEdit * edit, FILE * f, char **args, int args_size)
         l = 0;
 
         len = read_one_line (&l, f);
-        if (len == 0)
-        {
-            if (g)
-            {
-                fclose (f);
-                f = g;
-                g = 0;
-                line = save_line + 1;
-                MC_PTR_FREE (error_file_name);
-                MC_PTR_FREE (l);
-                len = read_one_line (&l, f);
-                if (len == 0)
-                    break;
-                else
-                    xx_lowerize_line (edit, l, len);
-            }
-            else
-            {
-                break;
-            }
-        }
+        if (len != 0)
+            xx_lowerize_line (edit, l, len);
         else
         {
+            if (g == NULL)
+                break;
+
+            fclose (f);
+            f = g;
+            g = NULL;
+            line = save_line + 1;
+            MC_PTR_FREE (error_file_name);
+            MC_PTR_FREE (l);
+            len = read_one_line (&l, f);
+            if (len == 0)
+                break;
             xx_lowerize_line (edit, l, len);
         }
+
         argc = get_args (l, args, args_size);
         a = args + 1;
-        if (!args[0])
+        if (args[0] == NULL)
         {
             /* do nothing */
         }
-        else if (!strcmp (args[0], "include"))
+        else if (strcmp (args[0], "include") == 0)
         {
-            if (g || argc != 2)
+            if (g != NULL || argc != 2)
             {
                 result = line;
                 break;
             }
             g = f;
             f = open_include_file (args[1]);
-            if (!f)
+            if (f == NULL)
             {
                 MC_PTR_FREE (error_file_name);
                 result = line;
@@ -896,19 +957,19 @@ edit_read_syntax_rules (WEdit * edit, FILE * f, char **args, int args_size)
             save_line = line;
             line = 0;
         }
-        else if (!strcmp (args[0], "caseinsensitive"))
+        else if (strcmp (args[0], "caseinsensitive") == 0)
         {
             edit->is_case_insensitive = TRUE;
         }
-        else if (!strcmp (args[0], "wholechars"))
+        else if (strcmp (args[0], "wholechars") == 0)
         {
             check_a;
-            if (!strcmp (*a, "left"))
+            if (strcmp (*a, "left") == 0)
             {
                 a++;
                 g_strlcpy (whole_left, *a, sizeof (whole_left));
             }
-            else if (!strcmp (*a, "right"))
+            else if (strcmp (*a, "right") == 0)
             {
                 a++;
                 g_strlcpy (whole_right, *a, sizeof (whole_right));
@@ -921,12 +982,12 @@ edit_read_syntax_rules (WEdit * edit, FILE * f, char **args, int args_size)
             a++;
             check_not_a;
         }
-        else if (!strcmp (args[0], "context"))
+        else if (strcmp (args[0], "context") == 0)
         {
             check_a;
             if (num_contexts == -1)
             {
-                if (strcmp (*a, "default"))
+                if (strcmp (*a, "default") != 0)
                 {               /* first context is the default */
                     break_a;
                 }
@@ -941,30 +1002,30 @@ edit_read_syntax_rules (WEdit * edit, FILE * f, char **args, int args_size)
                 /* Terminate previous context.  */
                 r[num_contexts - 1]->keyword[num_words] = NULL;
                 c = r[num_contexts] = g_malloc0 (sizeof (struct context_rule));
-                if (!strcmp (*a, "exclusive"))
+                if (strcmp (*a, "exclusive") == 0)
                 {
                     a++;
                     c->between_delimiters = 1;
                 }
                 check_a;
-                if (!strcmp (*a, "whole"))
+                if (strcmp (*a, "whole") == 0)
                 {
                     a++;
                     c->whole_word_chars_left = g_strdup (whole_left);
                     c->whole_word_chars_right = g_strdup (whole_right);
                 }
-                else if (!strcmp (*a, "wholeleft"))
+                else if (strcmp (*a, "wholeleft") == 0)
                 {
                     a++;
                     c->whole_word_chars_left = g_strdup (whole_left);
                 }
-                else if (!strcmp (*a, "wholeright"))
+                else if (strcmp (*a, "wholeright") == 0)
                 {
                     a++;
                     c->whole_word_chars_right = g_strdup (whole_right);
                 }
                 check_a;
-                if (!strcmp (*a, "linestart"))
+                if (strcmp (*a, "linestart") == 0)
                 {
                     a++;
                     c->line_start_left = 1;
@@ -972,7 +1033,7 @@ edit_read_syntax_rules (WEdit * edit, FILE * f, char **args, int args_size)
                 check_a;
                 c->left = g_strdup (*a++);
                 check_a;
-                if (!strcmp (*a, "linestart"))
+                if (strcmp (*a, "linestart") == 0)
                 {
                     a++;
                     c->line_start_right = 1;
@@ -987,14 +1048,18 @@ edit_read_syntax_rules (WEdit * edit, FILE * f, char **args, int args_size)
             c->keyword[0] = g_malloc0 (sizeof (struct key_word));
             subst_defines (edit->defines, a, &args[1024]);
             fg = *a;
-            if (*a)
+            if (*a != '\0')
                 a++;
             bg = *a;
-            if (*a)
+            if (*a != '\0')
                 a++;
-            g_strlcpy (last_fg, fg ? fg : "", sizeof (last_fg));
-            g_strlcpy (last_bg, bg ? bg : "", sizeof (last_bg));
-            c->keyword[0]->color = this_try_alloc_color_pair (fg, bg);
+            attrs = *a;
+            if (*a != '\0')
+                a++;
+            g_strlcpy (last_fg, fg != NULL ? fg : "", sizeof (last_fg));
+            g_strlcpy (last_bg, bg != NULL ? bg : "", sizeof (last_bg));
+            g_strlcpy (last_attrs, attrs != NULL ? attrs : "", sizeof (last_attrs));
+            c->keyword[0]->color = this_try_alloc_color_pair (fg, bg, attrs);
             c->keyword[0]->keyword = g_strdup (" ");
             check_not_a;
 
@@ -1008,16 +1073,16 @@ edit_read_syntax_rules (WEdit * edit, FILE * f, char **args, int args_size)
                 r = tmp;
             }
         }
-        else if (!strcmp (args[0], "spellcheck"))
+        else if (strcmp (args[0], "spellcheck") == 0)
         {
-            if (!c)
+            if (c == NULL)
             {
                 result = line;
                 break;
             }
-            c->spelling = 1;
+            c->spelling = TRUE;
         }
-        else if (!strcmp (args[0], "keyword"))
+        else if (strcmp (args[0], "keyword") == 0)
         {
             struct key_word *k;
 
@@ -1025,30 +1090,30 @@ edit_read_syntax_rules (WEdit * edit, FILE * f, char **args, int args_size)
                 break_a;
             check_a;
             k = r[num_contexts - 1]->keyword[num_words] = g_malloc0 (sizeof (struct key_word));
-            if (!strcmp (*a, "whole"))
+            if (strcmp (*a, "whole") == 0)
             {
                 a++;
                 k->whole_word_chars_left = g_strdup (whole_left);
                 k->whole_word_chars_right = g_strdup (whole_right);
             }
-            else if (!strcmp (*a, "wholeleft"))
+            else if (strcmp (*a, "wholeleft") == 0)
             {
                 a++;
                 k->whole_word_chars_left = g_strdup (whole_left);
             }
-            else if (!strcmp (*a, "wholeright"))
+            else if (strcmp (*a, "wholeright") == 0)
             {
                 a++;
                 k->whole_word_chars_right = g_strdup (whole_right);
             }
             check_a;
-            if (!strcmp (*a, "linestart"))
+            if (strcmp (*a, "linestart") == 0)
             {
                 a++;
                 k->line_start = 1;
             }
             check_a;
-            if (!strcmp (*a, "whole"))
+            if (strcmp (*a, "whole") == 0)
             {
                 break_a;
             }
@@ -1056,16 +1121,21 @@ edit_read_syntax_rules (WEdit * edit, FILE * f, char **args, int args_size)
             k->first = *k->keyword;
             subst_defines (edit->defines, a, &args[1024]);
             fg = *a;
-            if (*a)
+            if (*a != '\0')
                 a++;
             bg = *a;
-            if (*a)
+            if (*a != '\0')
                 a++;
-            if (!fg)
+            attrs = *a;
+            if (*a != '\0')
+                a++;
+            if (fg == NULL)
                 fg = last_fg;
-            if (!bg)
+            if (bg == NULL)
                 bg = last_bg;
-            k->color = this_try_alloc_color_pair (fg, bg);
+            if (attrs == NULL)
+                attrs = last_attrs;
+            k->color = this_try_alloc_color_pair (fg, bg, attrs);
             check_not_a;
 
             if (++num_words >= alloc_words_per_context)
@@ -1085,11 +1155,11 @@ edit_read_syntax_rules (WEdit * edit, FILE * f, char **args, int args_size)
         {
             /* do nothing for comment */
         }
-        else if (!strcmp (args[0], "file"))
+        else if (strcmp (args[0], "file") == 0)
         {
             break;
         }
-        else if (!strcmp (args[0], "define"))
+        else if (strcmp (args[0], "define") == 0)
         {
             char *key = *a++;
             char **argv;
@@ -1105,9 +1175,7 @@ edit_read_syntax_rules (WEdit * edit, FILE * f, char **args, int args_size)
             argv = g_new (char *, argc - 1);
             g_tree_insert (edit->defines, key, argv);
             while (*a != NULL)
-            {
                 *argv++ = g_strdup (*a++);
-            }
             *argv = NULL;
         }
         else
@@ -1127,28 +1195,24 @@ edit_read_syntax_rules (WEdit * edit, FILE * f, char **args, int args_size)
         r[num_contexts] = NULL;
     }
 
-    if (!edit->rules[0])
+    if (edit->rules[0] == NULL)
         MC_PTR_FREE (edit->rules);
 
-    if (result)
-        return result;
-
-    if (num_contexts == -1)
-    {
-        return line;
-    }
-
+    if (result == 0)
     {
         char *first_chars, *p;
 
+        if (num_contexts == -1)
+            return line;
+
         first_chars = g_malloc0 (max_alloc_words_per_context + 2);
 
-        for (i = 0; edit->rules[i]; i++)
+        for (i = 0; edit->rules[i] != NULL; i++)
         {
             c = edit->rules[i];
             p = first_chars;
             *p++ = (char) 1;
-            for (j = 1; c->keyword[j]; j++)
+            for (j = 1; c->keyword[j] != NULL; j++)
                 *p++ = c->keyword[j]->first;
             *p = '\0';
             c->keyword_first_chars = g_strdup (first_chars);
@@ -1160,52 +1224,7 @@ edit_read_syntax_rules (WEdit * edit, FILE * f, char **args, int args_size)
     return result;
 }
 
-void
-edit_free_syntax_rules (WEdit * edit)
-{
-    size_t i, j;
-
-    if (!edit)
-        return;
-    if (edit->defines)
-        destroy_defines (&edit->defines);
-    if (!edit->rules)
-        return;
-
-    edit_get_rule (edit, -1);
-    MC_PTR_FREE (edit->syntax_type);
-
-    for (i = 0; edit->rules[i]; i++)
-    {
-        if (edit->rules[i]->keyword)
-        {
-            for (j = 0; edit->rules[i]->keyword[j]; j++)
-            {
-                MC_PTR_FREE (edit->rules[i]->keyword[j]->keyword);
-                MC_PTR_FREE (edit->rules[i]->keyword[j]->whole_word_chars_left);
-                MC_PTR_FREE (edit->rules[i]->keyword[j]->whole_word_chars_right);
-                MC_PTR_FREE (edit->rules[i]->keyword[j]);
-            }
-        }
-        MC_PTR_FREE (edit->rules[i]->left);
-        MC_PTR_FREE (edit->rules[i]->right);
-        MC_PTR_FREE (edit->rules[i]->whole_word_chars_left);
-        MC_PTR_FREE (edit->rules[i]->whole_word_chars_right);
-        MC_PTR_FREE (edit->rules[i]->keyword);
-        MC_PTR_FREE (edit->rules[i]->keyword_first_chars);
-        MC_PTR_FREE (edit->rules[i]);
-    }
-
-    while (edit->syntax_marker)
-    {
-        struct _syntax_marker *s = edit->syntax_marker->next;
-        g_free (edit->syntax_marker);
-        edit->syntax_marker = s;
-    }
-
-    MC_PTR_FREE (edit->rules);
-    tty_color_free_all_tmp ();
-}
+/* --------------------------------------------------------------------------------------------- */
 
 /* returns -1 on file error, line number on error in file syntax */
 static int
@@ -1215,7 +1234,7 @@ edit_read_syntax_file (WEdit * edit, char ***pnames, const char *syntax_file,
 #define NENTRIES 30
     FILE *f, *g = NULL;
     char *args[1024], *l = NULL;
-    int line = 0;
+    long line = 0;
     int result = 0;
     int count = 0;
     char *lib_file;
@@ -1225,7 +1244,7 @@ edit_read_syntax_file (WEdit * edit, char ***pnames, const char *syntax_file,
     f = fopen (syntax_file, "r");
     if (f == NULL)
     {
-        lib_file = concat_dir_and_file (mc_home, "Syntax");
+        lib_file = g_build_filename (mc_global.share_data_dir, "syntax", "Syntax", (char *) NULL);
         f = fopen (lib_file, "r");
         g_free (lib_file);
         if (f == NULL)
@@ -1233,7 +1252,7 @@ edit_read_syntax_file (WEdit * edit, char ***pnames, const char *syntax_file,
     }
 
     args[0] = NULL;
-    for (;;)
+    while (TRUE)
     {
         line++;
         MC_PTR_FREE (l);
@@ -1243,7 +1262,7 @@ edit_read_syntax_file (WEdit * edit, char ***pnames, const char *syntax_file,
         if (args[0] == NULL)
             continue;
 
-        /* Looking for `include ...` lines before first `file ...` ones */
+        /* Looking for 'include ...' lines before first 'file ...' ones */
         if (!found && strcmp (args[0], "include") == 0)
         {
             if (g != NULL)
@@ -1257,7 +1276,7 @@ edit_read_syntax_file (WEdit * edit, char ***pnames, const char *syntax_file,
             goto found_type;
         }
 
-        /* looking for `file ...' lines only */
+        /* looking for 'file ...' lines only */
         if (strcmp (args[0], "file") != 0)
             continue;
 
@@ -1318,7 +1337,7 @@ edit_read_syntax_file (WEdit * edit, char ***pnames, const char *syntax_file,
                 }
                 else
                 {
-                    MC_PTR_FREE (edit->syntax_type);
+                    g_free (edit->syntax_type);
                     edit->syntax_type = g_strdup (syntax_type);
                     /* if there are no rules then turn off syntax highlighting for speed */
                     if (!g && !edit->rules[1])
@@ -1337,35 +1356,106 @@ edit_read_syntax_file (WEdit * edit, char ***pnames, const char *syntax_file,
             }
         }
     }
-    MC_PTR_FREE (l);
+    g_free (l);
     fclose (f);
     return result;
 }
 
-static char *
+/* --------------------------------------------------------------------------------------------- */
+
+static const char *
 get_first_editor_line (WEdit * edit)
 {
-    size_t i;
     static char s[256];
 
     s[0] = '\0';
-    if (edit == NULL)
-        return s;
 
-    for (i = 0; i < sizeof (s) - 1; i++)
+    if (edit != NULL)
     {
-        s[i] = edit_get_byte (edit, i);
-        if (s[i] == '\n')
+        size_t i;
+
+        for (i = 0; i < sizeof (s) - 1; i++)
         {
-            s[i] = '\0';
-            break;
+            s[i] = edit_buffer_get_byte (&edit->buffer, i);
+            if (s[i] == '\n')
+            {
+                s[i] = '\0';
+                break;
+            }
         }
+
+        s[sizeof (s) - 1] = '\0';
     }
-    s[sizeof (s) - 1] = '\0';
+
     return s;
 }
 
-/*
+/* --------------------------------------------------------------------------------------------- */
+/*** public functions ****************************************************************************/
+/* --------------------------------------------------------------------------------------------- */
+
+int
+edit_get_syntax_color (WEdit * edit, off_t byte_index)
+{
+    if (!tty_use_colors ())
+        return 0;
+
+    if (edit->rules != NULL && byte_index < edit->buffer.size && option_syntax_highlighting)
+    {
+        edit_get_rule (edit, byte_index);
+        return translate_rule_to_color (edit, &edit->rule);
+    }
+
+    return EDITOR_NORMAL_COLOR;
+}
+
+/* --------------------------------------------------------------------------------------------- */
+
+void
+edit_free_syntax_rules (WEdit * edit)
+{
+    size_t i, j;
+
+    if (!edit)
+        return;
+    if (edit->defines)
+        destroy_defines (&edit->defines);
+    if (!edit->rules)
+        return;
+
+    edit_get_rule (edit, -1);
+    MC_PTR_FREE (edit->syntax_type);
+
+    for (i = 0; edit->rules[i]; i++)
+    {
+        if (edit->rules[i]->keyword)
+        {
+            for (j = 0; edit->rules[i]->keyword[j]; j++)
+            {
+                MC_PTR_FREE (edit->rules[i]->keyword[j]->keyword);
+                MC_PTR_FREE (edit->rules[i]->keyword[j]->whole_word_chars_left);
+                MC_PTR_FREE (edit->rules[i]->keyword[j]->whole_word_chars_right);
+                MC_PTR_FREE (edit->rules[i]->keyword[j]);
+            }
+        }
+        MC_PTR_FREE (edit->rules[i]->left);
+        MC_PTR_FREE (edit->rules[i]->right);
+        MC_PTR_FREE (edit->rules[i]->whole_word_chars_left);
+        MC_PTR_FREE (edit->rules[i]->whole_word_chars_right);
+        MC_PTR_FREE (edit->rules[i]->keyword);
+        MC_PTR_FREE (edit->rules[i]->keyword_first_chars);
+        MC_PTR_FREE (edit->rules[i]);
+    }
+
+    g_slist_foreach (edit->syntax_marker, (GFunc) g_free, NULL);
+    g_slist_free (edit->syntax_marker);
+    edit->syntax_marker = NULL;
+    MC_PTR_FREE (edit->rules);
+    tty_color_free_all_tmp ();
+}
+
+/* --------------------------------------------------------------------------------------------- */
+/**
  * Load rules into edit struct.  Either edit or *pnames must be NULL.  If
  * edit is NULL, a list of types will be stored into names.  If type is
  * NULL, then the type will be selected according to the filename.
@@ -1384,7 +1474,7 @@ edit_load_syntax (WEdit * edit, char ***pnames, const char *type)
     {
         char *saved_type;
 
-        saved_type = g_strdup (type); /* save edit->syntax_type */
+        saved_type = g_strdup (type);   /* save edit->syntax_type */
         edit_free_syntax_rules (edit);
         edit->syntax_type = saved_type; /* restore edit->syntax_type */
     }
@@ -1395,16 +1485,16 @@ edit_load_syntax (WEdit * edit, char ***pnames, const char *type)
     if (!option_syntax_highlighting && (!pnames || !*pnames))
         return;
 
-    if (edit)
-    {
-        if (!edit->filename)
-            return;
-        if (!*edit->filename && !type)
-            return;
-    }
-    f = concat_dir_and_file (home_dir, EDIT_SYNTAX_FILE);
-    r = edit_read_syntax_file (edit, pnames, f, edit ? edit->filename : 0,
-                               get_first_editor_line (edit), type);
+    if (edit != NULL && edit->filename_vpath == NULL)
+        return;
+
+    f = mc_config_get_full_path (EDIT_SYNTAX_FILE);
+    if (edit != NULL)
+        r = edit_read_syntax_file (edit, pnames, f, vfs_path_as_str (edit->filename_vpath),
+                                   get_first_editor_line (edit),
+                                   option_auto_syntax ? NULL : edit->syntax_type);
+    else
+        r = edit_read_syntax_file (NULL, pnames, f, NULL, "", NULL);
     if (r == -1)
     {
         edit_free_syntax_rules (edit);
@@ -1422,8 +1512,12 @@ edit_load_syntax (WEdit * edit, char ***pnames, const char *type)
     g_free (f);
 }
 
+/* --------------------------------------------------------------------------------------------- */
+
 const char *
 edit_get_syntax_type (const WEdit * edit)
 {
     return edit->syntax_type;
 }
+
+/* --------------------------------------------------------------------------------------------- */

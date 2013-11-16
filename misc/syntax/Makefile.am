@@ -1,16 +1,23 @@
+SYNTAX_IN = Syntax.in
+
+SYNTAX_OUT = Syntax
+
 SYNTAXFILES =			\
 	PKGBUILD.syntax		\
 	ada95.syntax		\
+	as.syntax		\
 	aspx.syntax		\
 	assembler.syntax	\
 	awk.syntax		\
 	c.syntax		\
 	cabal.syntax		\
 	changelog.syntax	\
+	cmake.syntax		\
 	cs.syntax		\
 	css.syntax		\
 	cxx.syntax		\
 	d.syntax		\
+	dlink.syntax		\
 	debian-changelog.syntax	\
 	debian-control.syntax	\
 	debian-description.syntax	\
@@ -28,10 +35,12 @@ SYNTAXFILES =			\
 	idl.syntax		\
 	ini.syntax		\
 	j.syntax		\
+	jal.syntax		\
 	java.syntax		\
 	js.syntax		\
 	latex.syntax		\
 	lisp.syntax		\
+	lkr.syntax		\
 	lsm.syntax		\
 	lua.syntax		\
 	m4.syntax		\
@@ -50,6 +59,7 @@ SYNTAXFILES =			\
 	procmail.syntax		\
 	properties.syntax	\
 	python.syntax		\
+	cython.syntax		\
 	ruby.syntax		\
 	sh.syntax		\
 	slang.syntax		\
@@ -69,15 +79,11 @@ SYNTAXFILES =			\
 	yum-repo.syntax		\
 	yxx.syntax
 
-SYNTAXCONFFILES =		\
-	Syntax
-
-if USE_EDIT
+if USE_INTERNAL_EDIT
 syntaxdir =		$(pkgdatadir)/syntax
-syntax_DATA =		$(SYNTAXFILES)
-
-syntaxconfdir =		$(sysconfdir)/@PACKAGE@
-syntaxconf_DATA =	$(SYNTAXCONFFILES)
+syntax_DATA =		$(SYNTAX_OUT) \
+			$(SYNTAXFILES)
 endif
 
-EXTRA_DIST =		$(SYNTAXFILES) $(SYNTAXCONFFILES)
+EXTRA_DIST =		$(SYNTAX_IN) \
+			$(SYNTAXFILES)

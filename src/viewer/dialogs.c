@@ -3,36 +3,35 @@
    Function for paint dialogs
 
    Copyright (C) 1994, 1995, 1996, 1998, 1999, 2000, 2001, 2002, 2003,
-   2004, 2005, 2006, 2007, 2009 Free Software Foundation, Inc.
+   2004, 2005, 2006, 2007, 2009, 2011
+   The Free Software Foundation, Inc.
 
-   Written by: 1994, 1995, 1998 Miguel de Icaza
-   1994, 1995 Janne Kukonlehto
-   1995 Jakub Jelinek
-   1996 Joseph M. Hinkle
-   1997 Norbert Warmuth
-   1998 Pavel Machek
-   2004 Roland Illig <roland.illig@gmx.de>
-   2005 Roland Illig <roland.illig@gmx.de>
-   2009 Slava Zanko <slavazanko@google.com>
-   2009 Andrew Borodin <aborodin@vmail.ru>
-   2009 Ilia Maslakov <il.smind@gmail.com>
+   Written by:
+   Miguel de Icaza, 1994, 1995, 1998
+   Janne Kukonlehto, 1994, 1995
+   Jakub Jelinek, 1995
+   Joseph M. Hinkle, 1996
+   Norbert Warmuth, 1997
+   Pavel Machek, 1998
+   Roland Illig <roland.illig@gmx.de>, 2004, 2005
+   Slava Zanko <slavazanko@google.com>, 2009
+   Andrew Borodin <aborodin@vmail.ru>, 2009, 2012
+   Ilia Maslakov <il.smind@gmail.com>, 2009
 
    This file is part of the Midnight Commander.
 
-   The Midnight Commander is free software; you can redistribute it
+   The Midnight Commander is free software: you can redistribute it
    and/or modify it under the terms of the GNU General Public License as
-   published by the Free Software Foundation; either version 2 of the
-   License, or (at your option) any later version.
+   published by the Free Software Foundation, either version 3 of the License,
+   or (at your option) any later version.
 
-   The Midnight Commander is distributed in the hope that it will be
-   useful, but WITHOUT ANY WARRANTY; without even the implied warranty
-   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   General Public License for more details.
+   The Midnight Commander is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-   MA 02110-1301, USA.
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <config.h>
@@ -43,10 +42,12 @@
 #include "lib/global.h"
 #include "lib/search.h"
 #include "lib/strutil.h"
+#include "lib/widget.h"
+#ifdef HAVE_CHARSET
+#include "lib/charsets.h"
+#endif
 
-#include "src/wtools.h"
 #include "src/history.h"
-#include "src/charsets.h"
 
 #include "internal.h"
 
@@ -67,55 +68,54 @@ mcview_search_options_t mcview_search_options = {
 /*** file scope variables ************************************************************************/
 
 /*** file scope functions ************************************************************************/
+/* --------------------------------------------------------------------------------------------- */
 
+/* --------------------------------------------------------------------------------------------- */
 /*** public functions ****************************************************************************/
-
 /* --------------------------------------------------------------------------------------------- */
 
 gboolean
 mcview_dialog_search (mcview_t * view)
 {
-    int SEARCH_DLG_MIN_HEIGHT = 12;
-    int SEARCH_DLG_HEIGHT_SUPPLY = 3;
-    int SEARCH_DLG_WIDTH = 58;
-
     char *exp = NULL;
     int qd_result;
-
     size_t num_of_types;
-    gchar **list_of_types = mc_search_get_types_strings_array (&num_of_types);
-    int SEARCH_DLG_HEIGHT = SEARCH_DLG_MIN_HEIGHT + num_of_types - SEARCH_DLG_HEIGHT_SUPPLY;
+    gchar **list_of_types;
 
-    QuickWidget quick_widgets[] = {
-        QUICK_BUTTON (6, 10, SEARCH_DLG_HEIGHT - 3, SEARCH_DLG_HEIGHT, N_("&Cancel"), B_CANCEL,
-                      NULL),
-        QUICK_BUTTON (2, 10, SEARCH_DLG_HEIGHT - 3, SEARCH_DLG_HEIGHT, N_("&OK"), B_ENTER, NULL),
+    list_of_types = mc_search_get_types_strings_array (&num_of_types);
+
+    {
+        quick_widget_t quick_widgets[] = {
+            /* *INDENT-OFF* */
+            QUICK_LABELED_INPUT (N_("Enter search string:"), input_label_above,
+                                 INPUT_LAST_TEXT, MC_HISTORY_SHARED_SEARCH, &exp,
+                                 NULL, FALSE, FALSE, INPUT_COMPLETE_NONE),
+            QUICK_SEPARATOR (TRUE),
+            QUICK_START_COLUMNS,
+                QUICK_RADIO (num_of_types, (const char **) list_of_types,
+                             (int *) &mcview_search_options.type, NULL),
+            QUICK_NEXT_COLUMN,
+                QUICK_CHECKBOX (N_("Cas&e sensitive"), &mcview_search_options.case_sens, NULL),
+                QUICK_CHECKBOX (N_("&Backwards"), &mcview_search_options.backwards, NULL),
+                QUICK_CHECKBOX (N_("&Whole words"), &mcview_search_options.whole_words, NULL),
 #ifdef HAVE_CHARSET
-        QUICK_CHECKBOX (SEARCH_DLG_WIDTH / 2 + 3, SEARCH_DLG_WIDTH, 8, SEARCH_DLG_HEIGHT,
-                        N_("All charsets"), &mcview_search_options.all_codepages),
+                QUICK_CHECKBOX (N_("&All charsets"), &mcview_search_options.all_codepages, NULL),
 #endif
-        QUICK_CHECKBOX (SEARCH_DLG_WIDTH / 2 + 3, SEARCH_DLG_WIDTH, 7, SEARCH_DLG_HEIGHT,
-                        N_("&Whole words"), &mcview_search_options.whole_words),
-        QUICK_CHECKBOX (SEARCH_DLG_WIDTH / 2 + 3, SEARCH_DLG_WIDTH, 6, SEARCH_DLG_HEIGHT,
-                        N_("&Backwards"), &mcview_search_options.backwards),
-        QUICK_CHECKBOX (SEARCH_DLG_WIDTH / 2 + 3, SEARCH_DLG_WIDTH, 5, SEARCH_DLG_HEIGHT,
-                        N_("Case &sensitive"), &mcview_search_options.case_sens),
-        QUICK_RADIO (3, SEARCH_DLG_WIDTH, 5, SEARCH_DLG_HEIGHT,
-                     num_of_types, (const char **) list_of_types,
-                     (int *) &mcview_search_options.type),
-        QUICK_INPUT (3, SEARCH_DLG_WIDTH, 3, SEARCH_DLG_HEIGHT,
-                     INPUT_LAST_TEXT, SEARCH_DLG_WIDTH - 6, 0, MC_HISTORY_SHARED_SEARCH, &exp),
-        QUICK_LABEL (3, SEARCH_DLG_WIDTH, 2, SEARCH_DLG_HEIGHT, N_("Enter search string:")),
-        QUICK_END
-    };
+            QUICK_STOP_COLUMNS,
+            QUICK_BUTTONS_OK_CANCEL,
+            QUICK_END
+            /* *INDENT-ON* */
+        };
 
-    QuickDialog Quick_input = {
-        SEARCH_DLG_WIDTH, SEARCH_DLG_HEIGHT, -1, -1,
-        N_("Search"), "[Input Line Keys]",
-        quick_widgets, NULL, FALSE
-    };
+        quick_dialog_t qdlg = {
+            -1, -1, 58,
+            N_("Search"), "[Input Line Keys]",
+            quick_widgets, NULL, NULL
+        };
 
-    qd_result = quick_dialog (&Quick_input);
+        qd_result = quick_dialog (&qdlg);
+    }
+
     g_strfreev (list_of_types);
 
     if ((qd_result == B_CANCEL) || (exp == NULL) || (exp[0] == '\0'))
@@ -126,9 +126,10 @@ mcview_dialog_search (mcview_t * view)
 
 #ifdef HAVE_CHARSET
     {
-        GString *tmp = str_convert_to_input (exp);
+        GString *tmp;
 
-        if (tmp)
+        tmp = str_convert_to_input (exp);
+        if (tmp != NULL)
         {
             g_free (exp);
             exp = g_string_free (tmp, FALSE);
@@ -176,111 +177,88 @@ mcview_dialog_goto (mcview_t * view, off_t * offset)
         N_("He&xadecimal offset")
     };
 
-    const int goto_dlg_height = 12;
-    int goto_dlg_width = 40;
-
     static mcview_goto_type_t current_goto_type = MC_VIEW_GOTO_LINENUM;
 
-    size_t i;
-
-    size_t num_of_types = sizeof (mc_view_goto_str) / sizeof (mc_view_goto_str[0]);
+    size_t num_of_types;
     char *exp = NULL;
     int qd_result;
-    gboolean res = FALSE;
+    gboolean res;
 
-    QuickWidget quick_widgets[] = {
-        QUICK_BUTTON (6, 10, goto_dlg_height - 3, goto_dlg_height, N_("&Cancel"), B_CANCEL, NULL),
-        QUICK_BUTTON (2, 10, goto_dlg_height - 3, goto_dlg_height, N_("&OK"), B_ENTER, NULL),
-        QUICK_RADIO (3, goto_dlg_width, 4, goto_dlg_height,
-                     num_of_types, (const char **) mc_view_goto_str, (int *) &current_goto_type),
-        QUICK_INPUT (3, goto_dlg_width, 2, goto_dlg_height,
-                     INPUT_LAST_TEXT, goto_dlg_width - 6, 0, MC_HISTORY_VIEW_GOTO, &exp),
-        QUICK_END
-    };
-
-    QuickDialog Quick_input = {
-        goto_dlg_width, goto_dlg_height, -1, -1,
-        N_("Goto"), "[Input Line Keys]",
-        quick_widgets, NULL, FALSE
-    };
+    num_of_types = G_N_ELEMENTS (mc_view_goto_str);
 
 #ifdef ENABLE_NLS
-    for (i = 0; i < num_of_types; i++)
-        mc_view_goto_str[i] = _(mc_view_goto_str[i]);
+    {
+        size_t i;
 
-    quick_widgets[0].u.button.text = _(quick_widgets[0].u.button.text);
-    quick_widgets[1].u.button.text = _(quick_widgets[1].u.button.text);
+        for (i = 0; i < num_of_types; i++)
+            mc_view_goto_str[i] = _(mc_view_goto_str[i]);
+    }
 #endif
 
-    /* calculate widget coordinates */
     {
-        int b0_len, b1_len, len;
-        const int button_gap = 2;
+        quick_widget_t quick_widgets[] = {
+            /* *INDENT-OFF* */
+            QUICK_INPUT (INPUT_LAST_TEXT, MC_HISTORY_VIEW_GOTO, &exp, NULL,
+                         FALSE, FALSE, INPUT_COMPLETE_NONE),
+            QUICK_RADIO (num_of_types, (const char **) mc_view_goto_str, (int *) &current_goto_type,
+                         NULL),
+            QUICK_BUTTONS_OK_CANCEL,
+            QUICK_END
+            /* *INDENT-ON* */
+        };
 
-        /* preliminary dialog width */
-        goto_dlg_width = max (goto_dlg_width, str_term_width1 (Quick_input.title) + 4);
+        quick_dialog_t qdlg = {
+            -1, -1, 40,
+            N_("Goto"), "[Input Line Keys]",
+            quick_widgets, NULL, NULL
+        };
 
-        /* length of radiobuttons */
-        for (i = 0; i < num_of_types; i++)
-            goto_dlg_width = max (goto_dlg_width, str_term_width1 (mc_view_goto_str[i]) + 10);
-
-        /* length of buttons */
-        b0_len = str_term_width1 (quick_widgets[0].u.button.text) + 3;
-        b1_len = str_term_width1 (quick_widgets[1].u.button.text) + 5;  /* default button */
-        len = b0_len + b1_len + button_gap * 2;
-
-        /* dialog width */
-        Quick_input.xlen = max (goto_dlg_width, len + 6);
-
-        /* correct widget coordinates */
-        for (i = sizeof (quick_widgets) / sizeof (quick_widgets[0]); i > 0; i--)
-            quick_widgets[i - 1].x_divisions = Quick_input.xlen;
-
-        /* input length */
-        quick_widgets[3].u.input.len = Quick_input.xlen - 6;
-
-        /* button positions */
-        quick_widgets[1].relative_x = Quick_input.xlen / 2 - len / 2;
-        quick_widgets[0].relative_x = quick_widgets[1].relative_x + b1_len + button_gap;
+        /* run dialog */
+        qd_result = quick_dialog (&qdlg);
     }
-
-    /* run dialog */
-    qd_result = quick_dialog (&Quick_input);
 
     *offset = -1;
 
     /* check input line value */
-    if ((qd_result != B_CANCEL) && (exp != NULL) && (exp[0] != '\0'))
+    res = (qd_result != B_CANCEL && exp != NULL && exp[0] != '\0');
+    if (res)
     {
         int base = (current_goto_type == MC_VIEW_GOTO_OFFSET_HEX) ? 16 : 10;
         off_t addr;
         char *error;
 
-        res = TRUE;
-
-        addr = strtoll (exp, &error, base);
+        addr = (off_t) g_ascii_strtoll (exp, &error, base);
         if ((*error == '\0') && (addr >= 0))
         {
             switch (current_goto_type)
             {
             case MC_VIEW_GOTO_LINENUM:
                 mcview_coord_to_offset (view, offset, addr, 0);
+                *offset = mcview_bol (view, *offset, 0);
                 break;
             case MC_VIEW_GOTO_PERCENT:
                 if (addr > 100)
                     addr = 100;
                 *offset = addr * mcview_get_filesize (view) / 100;
+                if (!view->hex_mode)
+                    *offset = mcview_bol (view, *offset, 0);
                 break;
             case MC_VIEW_GOTO_OFFSET_DEC:
-                *offset = addr;
-                break;
             case MC_VIEW_GOTO_OFFSET_HEX:
                 *offset = addr;
+                if (!view->hex_mode)
+                    *offset = mcview_bol (view, *offset, 0);
+                else
+                {
+                    addr = mcview_get_filesize (view);
+                    if (*offset > addr)
+                        *offset = addr;
+                }
                 break;
             default:
+                *offset = 0;
                 break;
             }
-            *offset = mcview_bol (view, *offset);
         }
     }
 

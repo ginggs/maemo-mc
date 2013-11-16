@@ -1,15 +1,19 @@
-#ifndef MC_VIEWER_INLINES_H
-#define MC_VIEWER_INLINES_H
+#ifndef MC__VIEWER_INLINES_H
+#define MC__VIEWER_INLINES_H
 
-/*** typedefs(not structures) and defined constants ********************/
+#ifdef HAVE_ASSERT_H
+#include <assert.h>
+#endif
 
-/*** enums *************************************************************/
+/*** typedefs(not structures) and defined constants **********************************************/
 
-/*** structures declarations (and typedefs of structures)***************/
+/*** enums ***************************************************************************************/
 
-/*** global variables defined in .c file *******************************/
+/*** structures declarations (and typedefs of structures)*****************************************/
 
-/*** declarations of public functions **********************************/
+/*** global variables defined in .c file *********************************************************/
+
+/*** declarations of public functions ************************************************************/
 
 /*** inline functions ****************************************************************************/
 
@@ -24,7 +28,9 @@ mcview_offset_doz (off_t a, off_t b)
 static inline off_t
 mcview_offset_rounddown (off_t a, off_t b)
 {
+#ifdef HAVE_ASSERT_H
     assert (b != 0);
+#endif
     return a - a % b;
 }
 
@@ -78,7 +84,9 @@ mcview_already_loaded (off_t offset, off_t idx, size_t size)
 static inline gboolean
 mcview_get_byte_file (mcview_t * view, off_t byte_index, int *retval)
 {
+#ifdef HAVE_ASSERT_H
     assert (view->datasource == DS_FILE);
+#endif
 
     mcview_file_load_data (view, byte_index);
     if (mcview_already_loaded (view->ds_file_offset, byte_index, view->ds_file_datalen))
@@ -109,7 +117,9 @@ mcview_get_byte (mcview_t * view, off_t offset, int *retval)
     case DS_NONE:
         return mcview_get_byte_none (view, offset, retval);
     }
+#ifdef HAVE_ASSERT_H
     assert (!"Unknown datasource type");
+#endif
     return -1;
 }
 
@@ -163,4 +173,4 @@ mcview_is_nroff_sequence (mcview_t * view, off_t offset)
 
 /* --------------------------------------------------------------------------------------------- */
 
-#endif
+#endif /* MC__VIEWER_INLINES_H */

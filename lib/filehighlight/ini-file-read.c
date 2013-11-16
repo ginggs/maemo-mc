@@ -2,27 +2,26 @@
    File highlight plugin.
    Reading and parse rules from ini-files
 
-   Copyright (C) 2009 The Free Software Foundation, Inc.
+   Copyright (C) 2009, 2011
+   The Free Software Foundation, Inc.
 
    Written by:
    Slava Zanko <slavazanko@gmail.com>, 2009.
 
    This file is part of the Midnight Commander.
 
-   The Midnight Commander is free software; you can redistribute it
+   The Midnight Commander is free software: you can redistribute it
    and/or modify it under the terms of the GNU General Public License as
-   published by the Free Software Foundation; either version 2 of the
-   License, or (at your option) any later version.
+   published by the Free Software Foundation, either version 3 of the License,
+   or (at your option) any later version.
 
-   The Midnight Commander is distributed in the hope that it will be
-   useful, but WITHOUT ANY WARRANTY; without even the implied warranty
-   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   General Public License for more details.
+   The Midnight Commander is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-   MA 02110-1301, USA.
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <config.h>
@@ -32,9 +31,8 @@
 #include "lib/fileloc.h"
 #include "lib/strescape.h"
 #include "lib/skin.h"
+#include "lib/util.h"           /* exist_file() */
 #include "lib/filehighlight.h"
-
-#include "src/main.h"
 
 #include "internal.h"
 
@@ -77,12 +75,14 @@ mc_fhl_parse_get_file_type_id (mc_fhl_t * fhl, const gchar * group_name)
     int i;
     gchar *param_type = mc_config_get_string (fhl->config, group_name, "type", "");
 
-    if (*param_type == '\0') {
+    if (*param_type == '\0')
+    {
         g_free (param_type);
         return FALSE;
     }
 
-    for (i = 0; types[i] != NULL; i++) {
+    for (i = 0; types[i] != NULL; i++)
+    {
         if (strcmp (types[i], param_type) == 0)
             break;
     }
@@ -107,7 +107,8 @@ mc_fhl_parse_get_regexp (mc_fhl_t * fhl, const gchar * group_name)
     mc_fhl_filter_t *mc_filter;
     gchar *regexp = mc_config_get_string (fhl->config, group_name, "regexp", "");
 
-    if (*regexp == '\0') {
+    if (*regexp == '\0')
+    {
         g_free (regexp);
         return FALSE;
     }
@@ -122,7 +123,6 @@ mc_fhl_parse_get_regexp (mc_fhl_t * fhl, const gchar * group_name)
     g_ptr_array_add (fhl->filters, (gpointer) mc_filter);
     g_free (regexp);
     return TRUE;
-
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -132,39 +132,37 @@ mc_fhl_parse_get_extensions (mc_fhl_t * fhl, const gchar * group_name)
 {
     mc_fhl_filter_t *mc_filter;
     gchar **exts, **exts_orig;
-    gchar *esc_ext;
     gsize exts_size;
-    GString *buf = g_string_new ("");
+    GString *buf;
 
     exts_orig = exts =
         mc_config_get_string_list (fhl->config, group_name, "extensions", &exts_size);
 
-    if (exts_orig == NULL)
-        return FALSE;
-
-    if (exts_orig[0] == NULL) {
+    if (exts_orig == NULL || exts_orig[0] == NULL)
+    {
         g_strfreev (exts_orig);
         return FALSE;
     }
 
-    while (*exts != NULL) {
+    buf = g_string_sized_new (64);
+    for (exts = exts_orig; *exts != NULL; exts++)
+    {
+        char *esc_ext;
+
         esc_ext = strutils_regex_escape (*exts);
         if (buf->len != 0)
             g_string_append_c (buf, '|');
         g_string_append (buf, esc_ext);
         g_free (esc_ext);
-        exts++;
     }
     g_strfreev (exts_orig);
-    esc_ext = g_string_free (buf, FALSE);
-    buf = g_string_new (".*\\.(");
-    g_string_append (buf, esc_ext);
+
+    g_string_prepend (buf, ".*\\.(");
     g_string_append (buf, ")$");
-    g_free (esc_ext);
 
     mc_filter = g_new0 (mc_fhl_filter_t, 1);
     mc_filter->type = MC_FLHGH_T_FREGEXP;
-    mc_filter->search_condition = mc_search_new (buf->str, -1);
+    mc_filter->search_condition = mc_search_new (buf->str, buf->len);
     mc_filter->search_condition->is_case_sensitive =
         mc_config_get_bool (fhl->config, group_name, "extensions_case", TRUE);
     mc_filter->search_condition->search_type = MC_SEARCH_T_REGEX;
@@ -179,63 +177,46 @@ mc_fhl_parse_get_extensions (mc_fhl_t * fhl, const gchar * group_name)
 /*** public functions ****************************************************************************/
 /* --------------------------------------------------------------------------------------------- */
 
-
 gboolean
 mc_fhl_read_ini_file (mc_fhl_t * fhl, const gchar * filename)
 {
     if (fhl == NULL || filename == NULL || !exist_file (filename))
         return FALSE;
 
-    if (fhl->config) {
+    if (fhl->config != NULL)
+        return mc_config_read_file (fhl->config, filename, TRUE, FALSE);
 
-        if (!mc_config_read_file (fhl->config, filename))
-            return FALSE;
-
-        return TRUE;
-    }
-
-    fhl->config = mc_config_init (filename);
-
-    if (fhl->config == NULL)
-        return FALSE;
-
-    return TRUE;
+    fhl->config = mc_config_init (filename, TRUE);
+    return (fhl->config != NULL);
 }
-
 
 /* --------------------------------------------------------------------------------------------- */
 
 gboolean
-mc_fhl_init_from_standart_files (mc_fhl_t * fhl)
+mc_fhl_init_from_standard_files (mc_fhl_t * fhl)
 {
     gchar *name;
+    gboolean ok;
 
-    /* ${datadir}/mc/filehighlight.ini  */
-    name = concat_dir_and_file (mc_home_alt, MC_FHL_INI_FILE);
-    if (exist_file (name) && (!mc_fhl_read_ini_file (fhl, name))) {
-        g_free (name);
-        return FALSE;
-    }
+    /* ${XDG_CONFIG_HOME}/mc/filehighlight.ini */
+    name = mc_config_get_full_path (MC_FHL_INI_FILE);
+    ok = mc_fhl_read_ini_file (fhl, name);
     g_free (name);
+    if (ok)
+        return TRUE;
 
     /* ${sysconfdir}/mc/filehighlight.ini  */
-    name = concat_dir_and_file (mc_home, MC_FHL_INI_FILE);
-    if (exist_file (name) && (!mc_fhl_read_ini_file (fhl, name))) {
-        g_free (name);
-        return FALSE;
-    }
+    name = g_build_filename (mc_global.sysconfig_dir, MC_FHL_INI_FILE, (char *) NULL);
+    ok = mc_fhl_read_ini_file (fhl, name);
     g_free (name);
+    if (ok)
+        return TRUE;
 
-    /* ~/.mc/filehighlight.ini */
-    name = g_build_filename (home_dir, MC_USERCONF_DIR, MC_FHL_INI_FILE, NULL);
-
-    if (exist_file (name) && (!mc_fhl_read_ini_file (fhl, name))) {
-        g_free (name);
-        return FALSE;
-    }
+    /* ${datadir}/mc/filehighlight.ini  */
+    name = g_build_filename (mc_global.share_data_dir, MC_FHL_INI_FILE, (char *) NULL);
+    ok = mc_fhl_read_ini_file (fhl, name);
     g_free (name);
-
-    return TRUE;
+    return ok;
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -253,17 +234,21 @@ mc_fhl_parse_ini_file (mc_fhl_t * fhl)
     if (group_names == NULL)
         return FALSE;
 
-    while (*group_names) {
+    while (*group_names)
+    {
 
-        if (mc_config_has_param (fhl->config, *group_names, "type")) {
+        if (mc_config_has_param (fhl->config, *group_names, "type"))
+        {
             /* parse filetype filter */
             mc_fhl_parse_get_file_type_id (fhl, *group_names);
         }
-        if (mc_config_has_param (fhl->config, *group_names, "regexp")) {
+        if (mc_config_has_param (fhl->config, *group_names, "regexp"))
+        {
             /* parse regexp filter */
             mc_fhl_parse_get_regexp (fhl, *group_names);
         }
-        if (mc_config_has_param (fhl->config, *group_names, "extensions")) {
+        if (mc_config_has_param (fhl->config, *group_names, "extensions"))
+        {
             /* parse extensions filter */
             mc_fhl_parse_get_extensions (fhl, *group_names);
         }

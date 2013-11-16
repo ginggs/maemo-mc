@@ -1,7 +1,8 @@
 /*
    Functions for escaping and unescaping strings
 
-   Copyright (C) 2009 The Free Software Foundation, Inc.
+   Copyright (C) 2009, 2011, 2013
+   The Free Software Foundation, Inc.
 
    Written by:
    Slava Zanko <slavazanko@gmail.com>, 2009;
@@ -9,25 +10,24 @@
 
    This file is part of the Midnight Commander.
 
-   The Midnight Commander is free software; you can redistribute it
+   The Midnight Commander is free software: you can redistribute it
    and/or modify it under the terms of the GNU General Public License as
-   published by the Free Software Foundation; either version 2 of the
-   License, or (at your option) any later version.
+   published by the Free Software Foundation, either version 3 of the License,
+   or (at your option) any later version.
 
-   The Midnight Commander is distributed in the hope that it will be
-   useful, but WITHOUT ANY WARRANTY; without even the implied warranty
-   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   General Public License for more details.
+   The Midnight Commander is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-   MA 02110-1301, USA.
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <config.h>
-#include "lib/strescape.h"
 
+#include "lib/global.h"
+#include "lib/strescape.h"
 
 /*** global variables ****************************************************************************/
 
@@ -60,7 +60,7 @@ strutils_escape (const char *src, gsize src_len, const char *escaped_chars,
 
     ret = g_string_new ("");
 
-    if (src_len == (gsize) - 1)
+    if (src_len == (gsize) (-1))
         src_len = strlen (src);
 
     for (curr_index = 0; curr_index < src_len; curr_index++)
@@ -106,39 +106,51 @@ strutils_unescape (const char *src, gsize src_len, const char *unescaped_chars,
     if (*src == '\0')
         return strdup ("");
 
-    ret = g_string_new ("");
+    ret = g_string_sized_new (16);
 
-    if (src_len == (gsize) - 1)
+    if (src_len == (gsize) (-1))
         src_len = strlen (src);
+    src_len--;
 
-    for (curr_index = 0; curr_index < src_len - 1; curr_index++)
+    for (curr_index = 0; curr_index < src_len; curr_index++)
     {
         if (src[curr_index] != '\\')
         {
             g_string_append_c (ret, src[curr_index]);
             continue;
         }
+
         curr_index++;
-        if (unescape_non_printable)
+
+        if (unescaped_chars == ESCAPE_SHELL_CHARS && src[curr_index] == '$')
         {
-            switch (src[curr_index])
-            {
-            case 'n':
-                g_string_append_c (ret, '\n');
-                continue;
-            case 't':
-                g_string_append_c (ret, '\t');
-                continue;
-            case 'b':
-                g_string_append_c (ret, '\b');
-                continue;
-            case '0':
-                g_string_append (ret, '\0');
-                continue;
-            }
-        }
-        if (strchr (unescaped_chars, (int) src[curr_index]) == NULL)
+            /* special case: \$ is used to disallow variable substitution */
             g_string_append_c (ret, '\\');
+        }
+        else
+        {
+            if (unescape_non_printable)
+            {
+                switch (src[curr_index])
+                {
+                case 'n':
+                    g_string_append_c (ret, '\n');
+                    continue;
+                case 't':
+                    g_string_append_c (ret, '\t');
+                    continue;
+                case 'b':
+                    g_string_append_c (ret, '\b');
+                    continue;
+                case '0':
+                    g_string_append_c (ret, '\0');
+                    continue;
+                }
+            }
+
+            if (strchr (unescaped_chars, (int) src[curr_index]) == NULL)
+                g_string_append_c (ret, '\\');
+        }
 
         g_string_append_c (ret, src[curr_index]);
     }
@@ -149,16 +161,15 @@ strutils_unescape (const char *src, gsize src_len, const char *unescaped_chars,
 
 /* --------------------------------------------------------------------------------------------- */
 
-/** To be compatible with the general posix command lines we have to escape
- strings for the command line
-
- \param src
- string for escaping
-
- \returns
- return escaped string (which needs to be freed later)
-        or NULL when NULL string is passed.
+/**
+ * To be compatible with the general posix command lines we have to escape
+ * strings for the command line
+ *
+ * @param src string for escaping
+ *
+ * @return escaped string (which needs to be freed later) or NULL when NULL string is passed.
  */
+
 char *
 strutils_shell_escape (const char *src)
 {
@@ -183,15 +194,15 @@ strutils_regex_escape (const char *src)
 
 /* --------------------------------------------------------------------------------------------- */
 
-/** Unescape paths or other strings for e.g the internal cd
-    shell-unescape within a given buffer (writing to it!)
-
- \param text
- string for unescaping
-
- \returns
- return unescaped string (which needs to be freed)
+/**
+ * Unescape paths or other strings for e.g the internal cd
+ * shell-unescape within a given buffer (writing to it!)
+ *
+ * @param text string for unescaping
+ *
+ * @return unescaped string (which needs to be freed)
  */
+
 char *
 strutils_shell_unescape (const char *text)
 {
@@ -215,18 +226,15 @@ strutils_regex_unescape (const char *text)
 
 /* --------------------------------------------------------------------------------------------- */
 
-/** Check if char in pointer contain escape'd chars
-
- \param start
- string for checking
-
- \param current
- pointer to checked character
-
- \returns
- return TRUE if string contain escaped chars
- otherwise return FALSE
+/**
+ * Check if char in pointer contain escape'd chars
+ *
+ * @param start string for checking
+ * @param current pointer to checked character
+ *
+ * @return TRUE if string contain escaped chars otherwise return FALSE
  */
+
 gboolean
 strutils_is_char_escaped (const char *start, const char *current)
 {
@@ -243,6 +251,5 @@ strutils_is_char_escaped (const char *start, const char *current)
     }
     return (gboolean) num_esc % 2;
 }
-
 
 /* --------------------------------------------------------------------------------------------- */

@@ -2,31 +2,29 @@
    File highlight plugin.
    Interface functions
 
-   Copyright (C) 2009 The Free Software Foundation, Inc.
+   Copyright (C) 2009, 2011
+   The Free Software Foundation, Inc.
 
    Written by:
    Slava Zanko <slavazanko@gmail.com>, 2009.
 
    This file is part of the Midnight Commander.
 
-   The Midnight Commander is free software; you can redistribute it
+   The Midnight Commander is free software: you can redistribute it
    and/or modify it under the terms of the GNU General Public License as
-   published by the Free Software Foundation; either version 2 of the
-   License, or (at your option) any later version.
+   published by the Free Software Foundation, either version 3 of the License,
+   or (at your option) any later version.
 
-   The Midnight Commander is distributed in the hope that it will be
-   useful, but WITHOUT ANY WARRANTY; without even the implied warranty
-   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   General Public License for more details.
+   The Midnight Commander is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-   MA 02110-1301, USA.
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <config.h>
-
 
 #include "lib/global.h"
 #include "lib/filehighlight.h"
@@ -41,30 +39,28 @@
 /*** file scope variables ************************************************************************/
 
 /*** file scope functions ************************************************************************/
+
+static void
+mc_fhl_filter_free (void *data)
+{
+    mc_fhl_filter_t *filter = (mc_fhl_filter_t *) data;
+
+    g_free (filter->fgcolor);
+    g_free (filter->bgcolor);
+    mc_search_free (filter->search_condition);
+    g_free (filter);
+}
+
 /* --------------------------------------------------------------------------------------------- */
 
 void
 mc_fhl_array_free (mc_fhl_t * fhl)
 {
-    guint i;
-    mc_fhl_filter_t *mc_filter;
-
-    if (fhl->filters == NULL)
-        return;
-
-    for (i = 0; i < fhl->filters->len; i++) {
-        mc_filter = (mc_fhl_filter_t *) g_ptr_array_index (fhl->filters, i);
-
-        g_free (mc_filter->fgcolor);
-        g_free (mc_filter->bgcolor);
-
-        if (mc_filter->search_condition != NULL)
-            mc_search_free (mc_filter->search_condition);
-
-        g_free (mc_filter);
+    if (fhl->filters != NULL)
+    {
+        g_ptr_array_foreach (fhl->filters, (GFunc) mc_fhl_filter_free, NULL);
+        fhl->filters = (GPtrArray *) g_ptr_array_free (fhl->filters, TRUE);
     }
-    g_ptr_array_free (fhl->filters, TRUE);
-    fhl->filters = NULL;
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -74,7 +70,6 @@ mc_fhl_array_free (mc_fhl_t * fhl)
 mc_fhl_t *
 mc_fhl_new (gboolean need_auto_fill)
 {
-
     mc_fhl_t *fhl;
 
     fhl = g_try_new0 (mc_fhl_t, 1);
@@ -84,12 +79,14 @@ mc_fhl_new (gboolean need_auto_fill)
     if (!need_auto_fill)
         return fhl;
 
-    if (!mc_fhl_init_from_standart_files (fhl)) {
+    if (!mc_fhl_init_from_standard_files (fhl))
+    {
         g_free (fhl);
         return NULL;
     }
 
-    if (!mc_fhl_parse_ini_file (fhl)) {
+    if (!mc_fhl_parse_ini_file (fhl))
+    {
         mc_fhl_free (&fhl);
         return NULL;
     }
@@ -116,13 +113,11 @@ mc_fhl_free (mc_fhl_t ** fhl)
 void
 mc_fhl_clear (mc_fhl_t * fhl)
 {
-    if (fhl == NULL)
-        return;
-
-    if (fhl->config)
+    if (fhl != NULL)
+    {
         mc_config_deinit (fhl->config);
-
-    mc_fhl_array_free (fhl);
+        mc_fhl_array_free (fhl);
+    }
 }
 
 /* --------------------------------------------------------------------------------------------- */

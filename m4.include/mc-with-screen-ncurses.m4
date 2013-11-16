@@ -13,7 +13,9 @@ AC_DEFUN([MC_CHECK_NCURSES_BY_PATH], [
     fi
 
     saved_CPPFLAGS="$CPPFLAGS"
+    saved_LDFLAGS="$LDFLAGS"
     CPPFLAGS="$CPPFLAGS $ac_ncurses_inc_path"
+    LDFLAGS="$LDFLAGS $ac_ncurses_lib_path"
 
     dnl Check for the headers
     dnl Both headers should be in the same directory
@@ -48,7 +50,7 @@ AC_DEFUN([MC_CHECK_NCURSES_BY_PATH], [
 
     if test x"$found_ncurses" = x"yes"; then
         screen_type=ncurses
-        screen_msg="ncurses library (installed on the system)"
+        screen_msg="Ncurses library"
 
         AC_DEFINE(HAVE_NCURSES, 1,
                   [Define to use ncurses library for screen management])
@@ -56,6 +58,7 @@ AC_DEFUN([MC_CHECK_NCURSES_BY_PATH], [
         MCLIBS="$MCLIBS $ac_ncurses_lib_path"
     else
         CPPFLAGS="$saved_CPPFLAGS"
+        LDFLAGS="$saved_LDPFLAGS"
         AC_MSG_ERROR([$error_msg_ncurses])
     fi
 ])
@@ -74,7 +77,7 @@ AC_DEFUN([MC_WITH_NCURSES], [
 
     dnl get the user supplied include path
     AC_ARG_WITH([ncurses-includes],
-        AC_HELP_STRING([--with-ncurses-includes=@<:@DIR@:>@],
+        AS_HELP_STRING([--with-ncurses-includes=@<:@DIR@:>@],
             [set path to ncurses includes @<:@default=/usr/include@:>@; make sense only if --with-screen=ncurses; for /usr/local/include/ncurses specify /usr/local/include]
         ),
         [ac_ncurses_inc_path="$withval"],
@@ -83,7 +86,7 @@ AC_DEFUN([MC_WITH_NCURSES], [
 
     dnl get the user supplied lib path
     AC_ARG_WITH([ncurses-libs],
-        AC_HELP_STRING([--with-ncurses-libs=@<:@DIR@:>@],
+        AS_HELP_STRING([--with-ncurses-libs=@<:@DIR@:>@],
             [set path to ncurses library @<:@default=/usr/lib@:>@; make sense only if --with-screen=ncurses]
         ),
         [ac_ncurses_lib_path="$withval"],
@@ -100,7 +103,7 @@ AC_DEFUN([MC_WITH_NCURSES], [
                        [AC_MSG_ERROR([Cannot find ncurses library])])
 
         screen_type=ncurses
-        screen_msg="ncurses library"
+        screen_msg="Ncurses library"
         AC_DEFINE(USE_NCURSES, 1, 
                   [Define to use ncurses for screen management])
     else
@@ -124,7 +127,7 @@ AC_DEFUN([MC_WITH_NCURSES], [
         fi
 
         screen_type=ncurses
-        screen_msg="ncurses library"
+        screen_msg="Ncurses library"
         AC_DEFINE(USE_NCURSES, 1, 
                   [Define to use ncurses for screen management])
     fi
@@ -174,7 +177,7 @@ AC_DEFUN([MC_WITH_NCURSESW], [
     fi
 
     screen_type=ncursesw
-    screen_msg="ncursesw library"
+    screen_msg="Ncursesw library"
     AC_DEFINE(USE_NCURSESW, 1,
 	      [Define to use ncursesw for screen management])
 

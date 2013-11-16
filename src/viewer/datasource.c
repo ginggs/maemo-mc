@@ -3,36 +3,35 @@
    Functions for datasources
 
    Copyright (C) 1994, 1995, 1996, 1998, 1999, 2000, 2001, 2002, 2003,
-   2004, 2005, 2006, 2007, 2009 Free Software Foundation, Inc.
+   2004, 2005, 2006, 2007, 2009, 2011
+   The Free Software Foundation, Inc.
 
-   Written by: 1994, 1995, 1998 Miguel de Icaza
-   1994, 1995 Janne Kukonlehto
-   1995 Jakub Jelinek
-   1996 Joseph M. Hinkle
-   1997 Norbert Warmuth
-   1998 Pavel Machek
-   2004 Roland Illig <roland.illig@gmx.de>
-   2005 Roland Illig <roland.illig@gmx.de>
-   2009 Slava Zanko <slavazanko@google.com>
-   2009 Andrew Borodin <aborodin@vmail.ru>
-   2009 Ilia Maslakov <il.smind@gmail.com>
+   Written by:
+   Miguel de Icaza, 1994, 1995, 1998
+   Janne Kukonlehto, 1994, 1995
+   Jakub Jelinek, 1995
+   Joseph M. Hinkle, 1996
+   Norbert Warmuth, 1997
+   Pavel Machek, 1998
+   Roland Illig <roland.illig@gmx.de>, 2004, 2005
+   Slava Zanko <slavazanko@google.com>, 2009
+   Andrew Borodin <aborodin@vmail.ru>, 2009
+   Ilia Maslakov <il.smind@gmail.com>, 2009
 
    This file is part of the Midnight Commander.
 
-   The Midnight Commander is free software; you can redistribute it
+   The Midnight Commander is free software: you can redistribute it
    and/or modify it under the terms of the GNU General Public License as
-   published by the Free Software Foundation; either version 2 of the
-   License, or (at your option) any later version.
+   published by the Free Software Foundation, either version 3 of the License,
+   or (at your option) any later version.
 
-   The Midnight Commander is distributed in the hope that it will be
-   useful, but WITHOUT ANY WARRANTY; without even the implied warranty
-   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   General Public License for more details.
+   The Midnight Commander is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-   MA 02110-1301, USA.
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /*
@@ -57,8 +56,9 @@
 #include <config.h>
 
 #include "lib/global.h"
-#include "src/wtools.h"
-#include "lib/vfs/mc-vfs/vfs.h"
+#include "lib/vfs/vfs.h"
+#include "lib/util.h"
+#include "lib/widget.h"         /* D_NORMAL, D_ERROR */
 
 #include "internal.h"
 
@@ -71,15 +71,18 @@
 /*** file scope variables ************************************************************************/
 
 /*** file scope functions ************************************************************************/
+/* --------------------------------------------------------------------------------------------- */
 
+/* --------------------------------------------------------------------------------------------- */
 /*** public functions ****************************************************************************/
-
 /* --------------------------------------------------------------------------------------------- */
 
 static void
 mcview_set_datasource_stdio_pipe (mcview_t * view, FILE * fp)
 {
+#ifdef HAVE_ASSERT_H
     assert (fp != NULL);
+#endif
     view->datasource = DS_STDIO_PIPE;
     view->ds_stdio_pipe = fp;
 
@@ -111,7 +114,9 @@ mcview_get_filesize (mcview_t * view)
     case DS_STRING:
         return view->ds_string_len;
     default:
+#ifdef HAVE_ASSERT_H
         assert (!"Unknown datasource type");
+#endif
         return 0;
     }
 }
@@ -134,7 +139,9 @@ mcview_update_filesize (mcview_t * view)
 char *
 mcview_get_ptr_file (mcview_t * view, off_t byte_index)
 {
+#ifdef HAVE_ASSERT_H
     assert (view->datasource == DS_FILE);
+#endif
 
     mcview_file_load_data (view, byte_index);
     if (mcview_already_loaded (view->ds_file_offset, byte_index, view->ds_file_datalen))
@@ -147,7 +154,9 @@ mcview_get_ptr_file (mcview_t * view, off_t byte_index)
 char *
 mcview_get_ptr_string (mcview_t * view, off_t byte_index)
 {
+#ifdef HAVE_ASSERT_H
     assert (view->datasource == DS_STRING);
+#endif
     if (byte_index < (off_t) view->ds_string_len)
         return (char *) (view->ds_string_data + byte_index);
     return NULL;
@@ -162,9 +171,10 @@ mcview_get_utf (mcview_t * view, off_t byte_index, int *char_width, gboolean * r
     int res = -1;
     gunichar ch;
     gchar *next_ch = NULL;
-    int width = 0;
+    gchar utf8buf[UTF8_CHAR_LEN + 1];
 
-    *result = TRUE;
+    *char_width = 0;
+    *result = FALSE;
 
     switch (view->datasource)
     {
@@ -183,18 +193,33 @@ mcview_get_utf (mcview_t * view, off_t byte_index, int *char_width, gboolean * r
     }
 
     if (str == NULL)
-    {
-        *result = FALSE;
-        width = 0;
         return 0;
-    }
 
     res = g_utf8_get_char_validated (str, -1);
 
     if (res < 0)
     {
+        /* Retry with explicit bytes to make sure it's not a buffer boundary */
+        int i;
+        for (i = 0; i < UTF8_CHAR_LEN; i++)
+        {
+            if (mcview_get_byte (view, byte_index + i, &res))
+                utf8buf[i] = res;
+            else
+            {
+                utf8buf[i] = '\0';
+                break;
+            }
+        }
+        utf8buf[UTF8_CHAR_LEN] = '\0';
+        str = utf8buf;
+        res = g_utf8_get_char_validated (str, -1);
+    }
+
+    if (res < 0)
+    {
         ch = *str;
-        width = 0;
+        *char_width = 1;
     }
     else
     {
@@ -202,16 +227,11 @@ mcview_get_utf (mcview_t * view, off_t byte_index, int *char_width, gboolean * r
         /* Calculate UTF-8 char width */
         next_ch = g_utf8_next_char (str);
         if (next_ch)
-        {
-            width = next_ch - str;
-        }
+            *char_width = next_ch - str;
         else
-        {
-            ch = 0;
-            width = 0;
-        }
+            return 0;
     }
-    *char_width = width;
+    *result = TRUE;
     return ch;
 }
 
@@ -220,7 +240,9 @@ mcview_get_utf (mcview_t * view, off_t byte_index, int *char_width, gboolean * r
 gboolean
 mcview_get_byte_string (mcview_t * view, off_t byte_index, int *retval)
 {
+#ifdef HAVE_ASSERT_H
     assert (view->datasource == DS_STRING);
+#endif
     if (byte_index < (off_t) view->ds_string_len)
     {
         if (retval)
@@ -237,10 +259,14 @@ mcview_get_byte_string (mcview_t * view, off_t byte_index, int *retval)
 gboolean
 mcview_get_byte_none (mcview_t * view, off_t byte_index, int *retval)
 {
-    assert (view->datasource == DS_NONE);
     (void) &view;
     (void) byte_index;
-    if (retval)
+
+#ifdef HAVE_ASSERT_H
+    assert (view->datasource == DS_NONE);
+#endif
+
+    if (retval != NULL)
         *retval = -1;
     return FALSE;
 }
@@ -251,8 +277,13 @@ void
 mcview_set_byte (mcview_t * view, off_t offset, byte b)
 {
     (void) &b;
+#ifndef HAVE_ASSERT_H
+    (void) offset;
+#else
     assert (offset < mcview_get_filesize (view));
     assert (view->datasource == DS_FILE);
+
+#endif
     view->ds_file_datalen = 0;  /* just force reloading */
 }
 
@@ -266,7 +297,9 @@ mcview_file_load_data (mcview_t * view, off_t byte_index)
     ssize_t res;
     size_t bytes_read;
 
+#ifdef HAVE_ASSERT_H
     assert (view->datasource == DS_FILE);
+#endif
 
     if (mcview_already_loaded (view->ds_file_offset, byte_index, view->ds_file_datalen))
         return;
@@ -344,7 +377,10 @@ mcview_close_datasource (mcview_t * view)
         view->ds_string_data = NULL;
         break;
     default:
-        assert (!"Unknown datasource type");
+#ifdef HAVE_ASSERT_H
+        assert (!"Unknown datasource type")
+#endif
+            ;
     }
     view->datasource = DS_NONE;
 }
@@ -414,7 +450,9 @@ mcview_load_command_output (mcview_t * view, const char *command)
 void
 mcview_set_datasource_vfs_pipe (mcview_t * view, int fd)
 {
+#ifdef HAVE_ASSERT_H
     assert (fd != -1);
+#endif
     view->datasource = DS_VFS_PIPE;
     view->ds_vfs_pipe = fd;
 

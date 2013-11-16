@@ -2,27 +2,26 @@
    Search text engine.
    HEX-style pattern matching
 
-   Copyright (C) 2009 The Free Software Foundation, Inc.
+   Copyright (C) 2009, 2011
+   The Free Software Foundation, Inc.
 
    Written by:
    Slava Zanko <slavazanko@gmail.com>, 2009.
 
    This file is part of the Midnight Commander.
 
-   The Midnight Commander is free software; you can redistribute it
+   The Midnight Commander is free software: you can redistribute it
    and/or modify it under the terms of the GNU General Public License as
-   published by the Free Software Foundation; either version 2 of the
-   License, or (at your option) any later version.
+   published by the Free Software Foundation, either version 3 of the License,
+   or (at your option) any later version.
 
-   The Midnight Commander is distributed in the hope that it will be
-   useful, but WITHOUT ANY WARRANTY; without even the implied warranty
-   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   General Public License for more details.
+   The Midnight Commander is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-   MA 02110-1301, USA.
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <config.h>
@@ -33,8 +32,6 @@
 #include "lib/strutil.h"
 #include "lib/search.h"
 #include "lib/strescape.h"
-
-#include "src/charsets.h"
 
 #include "internal.h"
 
@@ -49,48 +46,67 @@
 /*** file scope functions ************************************************************************/
 
 static GString *
-mc_search__hex_translate_to_regex (gchar * str, gsize * len)
+mc_search__hex_translate_to_regex (const GString * astr)
 {
-    GString *buff = g_string_new ("");
-    gchar *tmp_str = g_strndup (str, *len);
-    gchar *tmp_str2;
+    GString *buff;
+    gchar *tmp_str, *tmp_str2;
+    gsize tmp_str_len;
     gsize loop = 0;
-    int val, ptr;
+
+    buff = g_string_sized_new (64);
+    tmp_str = g_strndup (astr->str, astr->len);
+    tmp_str2 = tmp_str;
+
+    /* remove 0x prefices */
+    while (TRUE)
+    {
+        tmp_str2 = strstr (tmp_str2, "0x");
+        if (tmp_str2 == NULL)
+            break;
+
+        *tmp_str2++ = ' ';
+        *tmp_str2++ = ' ';
+    }
 
     g_strchug (tmp_str);        /* trim leadind whitespaces */
+    tmp_str_len = strlen (tmp_str);
 
-    while (loop < *len) {
-        if (sscanf (tmp_str + loop, "%i%n", &val, &ptr)) {
-            if (val < -128 || val > 255) {
+    while (loop < tmp_str_len)
+    {
+        int val, ptr;
+
+        if (sscanf (tmp_str + loop, "%x%n", &val, &ptr))
+        {
+            if (val < -128 || val > 255)
                 loop++;
-                continue;
+            else
+            {
+                g_string_append_printf (buff, "\\x%02X", (unsigned char) val);
+                loop += ptr;
             }
-            tmp_str2 = g_strdup_printf ("\\x%02X", (unsigned char) val);
-            g_string_append (buff, tmp_str2);
-            g_free (tmp_str2);
-            loop += ptr;
-            continue;
         }
-
-        if (*(tmp_str + loop) == '"') {
+        else if (*(tmp_str + loop) == '"')
+        {
             gsize loop2 = 0;
+
             loop++;
-            while (loop + loop2 < *len) {
+            while (loop + loop2 < tmp_str_len)
+            {
                 if (*(tmp_str + loop + loop2) == '"' &&
                     !strutils_is_char_escaped (tmp_str, tmp_str + loop + loop2))
                     break;
                 loop2++;
             }
+
             g_string_append_len (buff, tmp_str + loop, loop2 - 1);
             loop += loop2;
-            continue;
         }
-        loop++;
+        else
+            loop++;
     }
 
     g_free (tmp_str);
 
-    *len = buff->len;
     return buff;
 }
 
@@ -100,14 +116,14 @@ void
 mc_search__cond_struct_new_init_hex (const char *charset, mc_search_t * lc_mc_search,
                                      mc_search_cond_t * mc_search_cond)
 {
-    GString *tmp =
-        mc_search__hex_translate_to_regex (mc_search_cond->str->str, &mc_search_cond->len);
+    GString *tmp;
 
+    g_string_ascii_down (mc_search_cond->str);
+    tmp = mc_search__hex_translate_to_regex (mc_search_cond->str);
     g_string_free (mc_search_cond->str, TRUE);
     mc_search_cond->str = tmp;
 
     mc_search__cond_struct_new_init_regex (charset, lc_mc_search, mc_search_cond);
-
 }
 
 /* --------------------------------------------------------------------------------------------- */

@@ -3,50 +3,49 @@
    Function for work with growing bufers
 
    Copyright (C) 1994, 1995, 1996, 1998, 1999, 2000, 2001, 2002, 2003,
-   2004, 2005, 2006, 2007, 2009 Free Software Foundation, Inc.
+   2004, 2005, 2006, 2007, 2009, 2011
+   The Free Software Foundation, Inc.
 
-   Written by: 1994, 1995, 1998 Miguel de Icaza
-   1994, 1995 Janne Kukonlehto
-   1995 Jakub Jelinek
-   1996 Joseph M. Hinkle
-   1997 Norbert Warmuth
-   1998 Pavel Machek
-   2004 Roland Illig <roland.illig@gmx.de>
-   2005 Roland Illig <roland.illig@gmx.de>
-   2009 Slava Zanko <slavazanko@google.com>
-   2009 Andrew Borodin <aborodin@vmail.ru>
-   2009 Ilia Maslakov <il.smind@gmail.com>
+   Written by:
+   Miguel de Icaza, 1994, 1995, 1998
+   Janne Kukonlehto, 1994, 1995
+   Jakub Jelinek, 1995
+   Joseph M. Hinkle, 1996
+   Norbert Warmuth, 1997
+   Pavel Machek, 1998
+   Roland Illig <roland.illig@gmx.de>, 2004, 2005
+   Slava Zanko <slavazanko@google.com>, 2009
+   Andrew Borodin <aborodin@vmail.ru>, 2009
+   Ilia Maslakov <il.smind@gmail.com>, 2009
 
    This file is part of the Midnight Commander.
 
-   The Midnight Commander is free software; you can redistribute it
+   The Midnight Commander is free software: you can redistribute it
    and/or modify it under the terms of the GNU General Public License as
-   published by the Free Software Foundation; either version 2 of the
-   License, or (at your option) any later version.
+   published by the Free Software Foundation, either version 3 of the License,
+   or (at your option) any later version.
 
-   The Midnight Commander is distributed in the hope that it will be
-   useful, but WITHOUT ANY WARRANTY; without even the implied warranty
-   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   General Public License for more details.
+   The Midnight Commander is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-   MA 02110-1301, USA.
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <config.h>
 #include <errno.h>
 
 #include "lib/global.h"
-#include "src/wtools.h"
-
-#include "lib/vfs/mc-vfs/vfs.h"
+#include "lib/vfs/vfs.h"
+#include "lib/util.h"
+#include "lib/widget.h"         /* D_NORMAL */
 
 #include "internal.h"
 
 /* Block size for reading files in parts */
-#define VIEW_PAGE_SIZE		((size_t) 8192)
+#define VIEW_PAGE_SIZE ((size_t) 8192)
 
 /*** global variables ****************************************************************************/
 
@@ -57,9 +56,10 @@
 /*** file scope variables ************************************************************************/
 
 /*** file scope functions ************************************************************************/
+/* --------------------------------------------------------------------------------------------- */
 
+/* --------------------------------------------------------------------------------------------- */
 /*** public functions ****************************************************************************/
-
 /* --------------------------------------------------------------------------------------------- */
 
 void
@@ -76,7 +76,9 @@ mcview_growbuf_init (mcview_t * view)
 void
 mcview_growbuf_free (mcview_t * view)
 {
+#ifdef HAVE_ASSERT_H
     assert (view->growbuf_in_use);
+#endif
 
     g_ptr_array_foreach (view->growbuf_blockptr, (GFunc) g_free, NULL);
 
@@ -91,7 +93,9 @@ mcview_growbuf_free (mcview_t * view)
 off_t
 mcview_growbuf_filesize (mcview_t * view)
 {
+#ifdef HAVE_ASSERT_H
     assert (view->growbuf_in_use);
+#endif
 
     if (view->growbuf_blockptr->len == 0)
         return 0;
@@ -100,10 +104,11 @@ mcview_growbuf_filesize (mcview_t * view)
 }
 
 /* --------------------------------------------------------------------------------------------- */
-
-/* Copies the output from the pipe to the growing buffer, until either
+/** Copies the output from the pipe to the growing buffer, until either
  * the end-of-pipe is reached or the interval [0..ofs) of the growing
- * buffer is completely filled. */
+ * buffer is completely filled.
+ */
+
 void
 mcview_growbuf_read_until (mcview_t * view, off_t ofs)
 {
@@ -112,7 +117,9 @@ mcview_growbuf_read_until (mcview_t * view, off_t ofs)
     size_t bytesfree;
     gboolean short_read;
 
+#ifdef HAVE_ASSERT_H
     assert (view->growbuf_in_use);
+#endif
 
     if (view->growbuf_finished)
         return;
@@ -150,7 +157,9 @@ mcview_growbuf_read_until (mcview_t * view, off_t ofs)
         }
         else
         {
+#ifdef HAVE_ASSERT_H
             assert (view->datasource == DS_VFS_PIPE);
+#endif
             do
             {
                 nread = mc_read (view->ds_vfs_pipe, p, bytesfree);
@@ -177,13 +186,15 @@ mcview_get_byte_growing_buffer (mcview_t * view, off_t byte_index, int *retval)
     off_t pageno;
     off_t pageindex;
 
-    if (retval)
+    if (retval != NULL)
         *retval = -1;
 
     pageno = byte_index / VIEW_PAGE_SIZE;
     pageindex = byte_index % VIEW_PAGE_SIZE;
 
+#ifdef HAVE_ASSERT_H
     assert (view->growbuf_in_use);
+#endif
 
     if (pageno < 0)
         return FALSE;
@@ -191,15 +202,16 @@ mcview_get_byte_growing_buffer (mcview_t * view, off_t byte_index, int *retval)
     mcview_growbuf_read_until (view, byte_index + 1);
     if (view->growbuf_blockptr->len == 0)
         return FALSE;
-    if (pageno < view->growbuf_blockptr->len - 1)
+    if (pageno < (off_t) view->growbuf_blockptr->len - 1)
     {
-        if (retval)
+        if (retval != NULL)
             *retval = *((byte *) (g_ptr_array_index (view->growbuf_blockptr, pageno) + pageindex));
         return TRUE;
     }
-    if (pageno == view->growbuf_blockptr->len - 1 && pageindex < (off_t) view->growbuf_lastindex)
+    if (pageno == (off_t) view->growbuf_blockptr->len - 1
+        && pageindex < (off_t) view->growbuf_lastindex)
     {
-        if (retval)
+        if (retval != NULL)
             *retval = *((byte *) (g_ptr_array_index (view->growbuf_blockptr, pageno) + pageindex));
         return TRUE;
     }
@@ -214,7 +226,9 @@ mcview_get_ptr_growing_buffer (mcview_t * view, off_t byte_index)
     off_t pageno = byte_index / VIEW_PAGE_SIZE;
     off_t pageindex = byte_index % VIEW_PAGE_SIZE;
 
+#ifdef HAVE_ASSERT_H
     assert (view->growbuf_in_use);
+#endif
 
     if (pageno < 0)
         return NULL;
@@ -222,9 +236,10 @@ mcview_get_ptr_growing_buffer (mcview_t * view, off_t byte_index)
     mcview_growbuf_read_until (view, byte_index + 1);
     if (view->growbuf_blockptr->len == 0)
         return NULL;
-    if (pageno < view->growbuf_blockptr->len - 1)
+    if (pageno < (off_t) view->growbuf_blockptr->len - 1)
         return (char *) (g_ptr_array_index (view->growbuf_blockptr, pageno) + pageindex);
-    if (pageno == view->growbuf_blockptr->len - 1 && pageindex < (off_t) view->growbuf_lastindex)
+    if (pageno == (off_t) view->growbuf_blockptr->len - 1
+        && pageindex < (off_t) view->growbuf_lastindex)
         return (char *) (g_ptr_array_index (view->growbuf_blockptr, pageno) + pageindex);
     return NULL;
 }

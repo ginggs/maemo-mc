@@ -10,9 +10,11 @@
 
 /*** structures declarations (and typedefs of structures)*****************************************/
 
-typedef struct mc_skin_color_struct {
+typedef struct mc_skin_color_struct
+{
     gchar *fgcolor;
     gchar *bgcolor;
+    gchar *attrs;
     int pair_index;
 } mc_skin_color_t;
 
@@ -35,4 +37,6 @@ void mc_skin_hardcoded_blackwhite_colors (mc_skin_t *);
 
 void mc_skin_colors_old_configure (mc_skin_t *);
 
-#endif
+/*** inline functions ****************************************************************************/
+
+#endif /* MC__SKIN_INTERNAL_H */

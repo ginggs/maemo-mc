@@ -3,36 +3,35 @@
    Function for work with coordinate cache (ccache)
 
    Copyright (C) 1994, 1995, 1996, 1998, 1999, 2000, 2001, 2002, 2003,
-   2004, 2005, 2006, 2007, 2009 Free Software Foundation, Inc.
+   2004, 2005, 2006, 2007, 2009, 2011
+   the Free Software Foundation, Inc.
 
-   Written by: 1994, 1995, 1998 Miguel de Icaza
-   1994, 1995 Janne Kukonlehto
-   1995 Jakub Jelinek
-   1996 Joseph M. Hinkle
-   1997 Norbert Warmuth
-   1998 Pavel Machek
-   2004 Roland Illig <roland.illig@gmx.de>
-   2005 Roland Illig <roland.illig@gmx.de>
-   2009 Slava Zanko <slavazanko@google.com>
-   2009 Andrew Borodin <aborodin@vmail.ru>
-   2009 Ilia Maslakov <il.smind@gmail.com>
+   Written by:
+   Miguel de Icaza, 1994, 1995, 1998
+   Janne Kukonlehto, 1994, 1995
+   Jakub Jelinek, 1995
+   Joseph M. Hinkle, 1996
+   Norbert Warmuth, 1997
+   Pavel Machek, 1998
+   Roland Illig <roland.illig@gmx.de>, 2004, 2005
+   Slava Zanko <slavazanko@google.com>, 2009
+   Andrew Borodin <aborodin@vmail.ru>, 2009
+   Ilia Maslakov <il.smind@gmail.com>, 2009
 
    This file is part of the Midnight Commander.
 
-   The Midnight Commander is free software; you can redistribute it
+   The Midnight Commander is free software: you can redistribute it
    and/or modify it under the terms of the GNU General Public License as
-   published by the Free Software Foundation; either version 2 of the
-   License, or (at your option) any later version.
+   published by the Free Software Foundation, either version 3 of the License,
+   or (at your option) any later version.
 
-   The Midnight Commander is distributed in the hope that it will be
-   useful, but WITHOUT ANY WARRANTY; without even the implied warranty
-   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   General Public License for more details.
+   The Midnight Commander is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-   MA 02110-1301, USA.
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /*
@@ -52,6 +51,9 @@
 #include <config.h>
 
 #include <string.h>             /* for g_memmove() */
+#ifdef MC_ENABLE_DEBUGGING_CODE
+#include <inttypes.h>           /* uintmax_t */
+#endif
 
 #include "lib/global.h"
 #include "lib/tty/tty.h"
@@ -71,7 +73,6 @@ typedef gboolean (*cmp_func_t) (const coord_cache_entry_t * a, const coord_cache
 /*** file scope variables ************************************************************************/
 
 /*** file scope functions ************************************************************************/
-
 /* --------------------------------------------------------------------------------------------- */
 
 /* insert new cache entry into the cache */
@@ -98,11 +99,15 @@ mcview_ccache_add_entry (coord_cache_t * cache, size_t pos, const coord_cache_en
     cache->size++;
 }
 
+/* --------------------------------------------------------------------------------------------- */
+
 static gboolean
 mcview_coord_cache_entry_less_offset (const coord_cache_entry_t * a, const coord_cache_entry_t * b)
 {
     return (a->cc_offset < b->cc_offset);
 }
+
+/* --------------------------------------------------------------------------------------------- */
 
 static gboolean
 mcview_coord_cache_entry_less_plain (const coord_cache_entry_t * a, const coord_cache_entry_t * b)
@@ -117,6 +122,8 @@ mcview_coord_cache_entry_less_plain (const coord_cache_entry_t * a, const coord_
 }
 
 
+/* --------------------------------------------------------------------------------------------- */
+
 static gboolean
 mcview_coord_cache_entry_less_nroff (const coord_cache_entry_t * a, const coord_cache_entry_t * b)
 {
@@ -130,15 +137,19 @@ mcview_coord_cache_entry_less_nroff (const coord_cache_entry_t * a, const coord_
 }
 
 
-/* Find and return the index of the last cache entry that is
+/* --------------------------------------------------------------------------------------------- */
+/** Find and return the index of the last cache entry that is
  * smaller than ''coord'', according to the criterion ''sort_by''. */
+
 static inline size_t
 mcview_ccache_find (mcview_t * view, const coord_cache_entry_t * coord, cmp_func_t cmp_func)
 {
     size_t base = 0;
     size_t limit = view->coord_cache->size;
 
+#ifdef HAVE_ASSERT_H
     assert (limit != 0);
+#endif
 
     while (limit > 1)
     {
@@ -160,9 +171,7 @@ mcview_ccache_find (mcview_t * view, const coord_cache_entry_t * coord, cmp_func
 }
 
 /* --------------------------------------------------------------------------------------------- */
-
 /*** public functions ****************************************************************************/
-
 /* --------------------------------------------------------------------------------------------- */
 
 coord_cache_t *
@@ -207,7 +216,9 @@ mcview_ccache_dump (mcview_t * view)
     guint i;
     const coord_cache_t *cache = view->coord_cache;
 
+#ifdef HAVE_ASSERT_H
     assert (cache != NULL);
+#endif
 
     filesize = mcview_get_filesize (view);
 
@@ -217,16 +228,17 @@ mcview_ccache_dump (mcview_t * view)
     (void) setvbuf (f, NULL, _IONBF, 0);
 
     /* cache entries */
-    for (i = 0; i < view->coord_cache->size; i++)
+    for (i = 0; i < cache->size; i++)
     {
         (void) fprintf (f,
-                        "entry %8u  "
-                        "offset %8" OFFSETTYPE_PRId "  "
-                        "line %8" OFFSETTYPE_PRId "  "
-                        "column %8" OFFSETTYPE_PRId "  "
-                        "nroff_column %8" OFFSETTYPE_PRId "\n",
-                        (unsigned int) i, cache->cache[i].cc_offset, cache[i]->cache.cc_line,
-                        cache->cache[i].cc_column, cache->cache[i].cc_nroff_column);
+                        "entry %8u  offset %8" PRIuMAX
+                        "  line %8" PRIuMAX "  column %8" PRIuMAX
+                        "  nroff_column %8" PRIuMAX "\n",
+                        (unsigned int) i,
+                        (uintmax_t) cache->cache[i]->cc_offset,
+                        (uintmax_t) cache->cache[i]->cc_line,
+                        (uintmax_t) cache->cache[i]->cc_column,
+                        (uintmax_t) cache->cache[i]->cc_nroff_column);
     }
     (void) fprintf (f, "\n");
 
@@ -235,16 +247,15 @@ mcview_ccache_dump (mcview_t * view)
     {
         mcview_offset_to_coord (view, &line, &column, offset);
         (void) fprintf (f,
-                        "offset %8" OFFSETTYPE_PRId "  "
-                        "line %8" OFFSETTYPE_PRId "  "
-                        "column %8" OFFSETTYPE_PRId "\n", offset, line, column);
+                        "offset %8" PRIuMAX "  line %8" PRIuMAX "  column %8" PRIuMAX "\n",
+                        (uintmax_t) offset, (uintmax_t) line, (uintmax_t) column);
     }
 
     /* line/column -> offset translation */
     for (line = 0; TRUE; line++)
     {
         mcview_coord_to_offset (view, &nextline_offset, line + 1, 0);
-        (void) fprintf (f, "nextline_offset %8" OFFSETTYPE_PRId "\n", nextline_offset);
+        (void) fprintf (f, "nextline_offset %8" PRIuMAX "\n", (uintmax_t) nextline_offset);
 
         for (column = 0; TRUE; column++)
         {
@@ -253,8 +264,8 @@ mcview_ccache_dump (mcview_t * view)
                 break;
 
             (void) fprintf (f,
-                            "line %8" OFFSETTYPE_PRId "  column %8" OFFSETTYPE_PRId "  offset %8"
-                            OFFSETTYPE_PRId "\n", line, column, offset);
+                            "line %8" PRIuMAX "  column %8" PRIuMAX "  offset %8" PRIuMAX "\n",
+                            (uintmax_t) line, (uintmax_t) column, (uintmax_t) offset);
         }
 
         if (nextline_offset >= filesize - 1)
@@ -266,12 +277,11 @@ mcview_ccache_dump (mcview_t * view)
 #endif
 
 /* --------------------------------------------------------------------------------------------- */
-
-
-/* Look up the missing components of ''coord'', which are given by
+/** Look up the missing components of ''coord'', which are given by
  * ''lookup_what''. The function returns the smallest value that
  * matches the existing components of ''coord''.
  */
+
 void
 mcview_ccache_lookup (mcview_t * view, coord_cache_entry_t * coord, enum ccache_type lookup_what)
 {

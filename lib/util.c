@@ -1,28 +1,35 @@
-/* Various utilities
+/*
+   Various utilities
+
    Copyright (C) 1994, 1995, 1996, 1998, 1999, 2000, 2001, 2002, 2003,
-   2004, 2005, 2007, 2009 Free Software Foundation, Inc.
-   Written 1994, 1995, 1996 by:
-   Miguel de Icaza, Janne Kukonlehto, Dugan Porter,
-   Jakub Jelinek, Mauricio Plaza.
+   2004, 2005, 2007, 2009, 2011, 2013
+   The Free Software Foundation, Inc.
 
-   The file_date routine is mostly from GNU's fileutils package,
-   written by Richard Stallman and David MacKenzie.
+   Written by:
+   Miguel de Icaza, 1994, 1995, 1996
+   Janne Kukonlehto, 1994, 1995, 1996
+   Dugan Porter, 1994, 1995, 1996
+   Jakub Jelinek, 1994, 1995, 1996
+   Mauricio Plaza, 1994, 1995, 1996
+   Slava Zanko <slavazanko@gmail.com>, 2013
 
-   This program is free software; you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 2 of the License, or
-   (at your option) any later version.
+   This file is part of the Midnight Commander.
 
-   This program is distributed in the hope that it will be useful,
+   The Midnight Commander is free software: you can redistribute it
+   and/or modify it under the terms of the GNU General Public License as
+   published by the Free Software Foundation, either version 3 of the License,
+   or (at your option) any later version.
+
+   The Midnight Commander is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  */
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
-/** \file
+/** \file lib/util.c
  *  \brief Source: various utilities
  */
 
@@ -41,41 +48,36 @@
 #include <unistd.h>
 
 #include "lib/global.h"
-#include "lib/tty/win.h"        /* xterm_flag */
-#include "lib/search.h"
 #include "lib/mcconfig.h"
-#include "lib/timefmt.h"
 #include "lib/fileloc.h"
-#include "lib/vfs/mc-vfs/vfs.h"
+#include "lib/vfs/vfs.h"
 #include "lib/strutil.h"
+#include "lib/util.h"
 
-#include "src/filegui.h"
-#include "src/file.h"           /* copy_file_file() */
-#ifndef HAVE_CHARSET
-#include "src/main.h"           /* eight_bit_clean */
-#endif
+/*** global variables ****************************************************************************/
 
-int easy_patterns = 1;
+/*** file scope macro definitions ****************************************************************/
 
-char *user_recent_timeformat = NULL;    /* time format string for recent dates */
-char *user_old_timeformat = NULL;       /* time format string for older dates */
+#define ismode(n,m) ((n & m) == m)
 
-/*
- * Cache variable for the i18n_checktimelength function,
- * initially set to a clearly invalid value to show that
- * it hasn't been initialized yet.
- */
-static size_t i18n_timelength_cache = MAX_I18NTIMELENGTH + 1;
+/* Number of attempts to create a temporary file */
+#ifndef TMP_MAX
+#define TMP_MAX 16384
+#endif /* !TMP_MAX */
 
-extern void
-str_replace (char *s, char from, char to)
-{
-    for (; *s != '\0'; s++)
-    {
-        if (*s == from)
-            *s = to;
-    }
-}
+#define TMP_SUFFIX ".tmp"
+
+#define ASCII_A (0x40 + 1)
+#define ASCII_Z (0x40 + 26)
+#define ASCII_a (0x60 + 1)
+#define ASCII_z (0x60 + 26)
+
+/*** file scope type declarations ****************************************************************/
+
+/*** file scope variables ************************************************************************/
+
+/*** file scope functions ************************************************************************/
+/* --------------------------------------------------------------------------------------------- */
 
 static inline int
 is_7bit_printable (unsigned char c)
@@ -83,21 +85,139 @@ is_7bit_printable (unsigned char c)
     return (c > 31 && c < 127);
 }
 
+/* --------------------------------------------------------------------------------------------- */
+
 static inline int
 is_iso_printable (unsigned char c)
 {
     return ((c > 31 && c < 127) || c >= 160);
 }
 
+/* --------------------------------------------------------------------------------------------- */
+
 static inline int
 is_8bit_printable (unsigned char c)
 {
     /* "Full 8 bits output" doesn't work on xterm */
-    if (xterm_flag)
+    if (mc_global.tty.xterm_flag)
         return is_iso_printable (c);
 
     return (c > 31 && c != 127 && c != 155);
 }
+
+/* --------------------------------------------------------------------------------------------- */
+
+static char *
+resolve_symlinks (const vfs_path_t * vpath)
+{
+    char *p, *p2;
+    char *buf, *buf2, *q, *r, c;
+    struct stat mybuf;
+
+    if (vpath->relative)
+        return NULL;
+
+    p = p2 = g_strdup (vfs_path_as_str (vpath));
+    r = buf = g_malloc (MC_MAXPATHLEN);
+    buf2 = g_malloc (MC_MAXPATHLEN);
+    *r++ = PATH_SEP;
+    *r = 0;
+
+    do
+    {
+        q = strchr (p + 1, PATH_SEP);
+        if (!q)
+        {
+            q = strchr (p + 1, 0);
+            if (q == p + 1)
+                break;
+        }
+        c = *q;
+        *q = 0;
+        if (mc_lstat (vpath, &mybuf) < 0)
+        {
+            g_free (buf);
+            buf = NULL;
+            goto ret;
+        }
+        if (!S_ISLNK (mybuf.st_mode))
+            strcpy (r, p + 1);
+        else
+        {
+            int len;
+
+            len = mc_readlink (vpath, buf2, MC_MAXPATHLEN - 1);
+            if (len < 0)
+            {
+                g_free (buf);
+                buf = NULL;
+                goto ret;
+            }
+            buf2[len] = 0;
+            if (*buf2 == PATH_SEP)
+                strcpy (buf, buf2);
+            else
+                strcpy (r, buf2);
+        }
+        canonicalize_pathname (buf);
+        r = strchr (buf, 0);
+        if (!*r || *(r - 1) != PATH_SEP)
+            /* FIXME: this condition is always true because r points to the EOL */
+        {
+            *r++ = PATH_SEP;
+            *r = 0;
+        }
+        *q = c;
+        p = q;
+    }
+    while (c != '\0');
+
+    if (!*buf)
+        strcpy (buf, PATH_SEP_STR);
+    else if (*(r - 1) == PATH_SEP && r != buf + 1)
+        *(r - 1) = 0;
+
+  ret:
+    g_free (buf2);
+    g_free (p2);
+    return buf;
+}
+
+/* --------------------------------------------------------------------------------------------- */
+
+static gboolean
+mc_util_write_backup_content (const char *from_file_name, const char *to_file_name)
+{
+    FILE *backup_fd;
+    char *contents;
+    gsize length;
+    gboolean ret1 = TRUE;
+
+    if (!g_file_get_contents (from_file_name, &contents, &length, NULL))
+        return FALSE;
+
+    backup_fd = fopen (to_file_name, "w");
+    if (backup_fd == NULL)
+    {
+        g_free (contents);
+        return FALSE;
+    }
+
+    if (fwrite ((const void *) contents, 1, length, backup_fd) != length)
+        ret1 = FALSE;
+    {
+        int ret2;
+        ret2 = fflush (backup_fd);
+        ret2 = fclose (backup_fd);
+        (void) ret2;
+    }
+    g_free (contents);
+    return ret1;
+}
+
+/* --------------------------------------------------------------------------------------------- */
+/*** public functions ****************************************************************************/
+/* --------------------------------------------------------------------------------------------- */
 
 int
 is_printable (int c)
@@ -109,10 +229,10 @@ is_printable (int c)
        by setting the output codepage */
     return is_8bit_printable (c);
 #else
-    if (!eight_bit_clean)
+    if (!mc_global.eight_bit_clean)
         return is_7bit_printable (c);
 
-    if (full_eight_bits)
+    if (mc_global.full_eight_bits)
     {
         return is_8bit_printable (c);
     }
@@ -121,71 +241,8 @@ is_printable (int c)
 #endif /* !HAVE_CHARSET */
 }
 
-/* Calculates the message dimensions (lines and columns) */
-void
-msglen (const char *text, int *lines, int *columns)
-{
-    int nlines = 1;             /* even the empty string takes one line */
-    int ncolumns = 0;
-    int colindex = 0;
-
-    for (; *text != '\0'; text++)
-    {
-        if (*text == '\n')
-        {
-            nlines++;
-            colindex = 0;
-        }
-        else
-        {
-            colindex++;
-            if (colindex > ncolumns)
-                ncolumns = colindex;
-        }
-    }
-
-    *lines = nlines;
-    *columns = ncolumns;
-}
-
-/*
- * Copy from s to d, and trim the beginning if necessary, and prepend
- * "..." in this case.  The destination string can have at most len
- * bytes, not counting trailing 0.
- */
-char *
-trim (const char *s, char *d, int len)
-{
-    int source_len;
-
-    /* Sanity check */
-    len = max (len, 0);
-
-    source_len = strlen (s);
-    if (source_len > len)
-    {
-        /* Cannot fit the whole line */
-        if (len <= 3)
-        {
-            /* We only have room for the dots */
-            memset (d, '.', len);
-            d[len] = 0;
-            return d;
-        }
-        else
-        {
-            /* Begin with ... and add the rest of the source string */
-            memset (d, '.', 3);
-            strcpy (d + 3, s + 3 + source_len - len);
-        }
-    }
-    else
-        /* We can copy the whole line */
-        strcpy (d, s);
-    return d;
-}
-
-/*
+/* --------------------------------------------------------------------------------------------- */
+/**
  * Quote the filename for the purpose of inserting it into the command
  * line.  If quote_percent is 1, replace "%" with "%%" - the percent is
  * processed by the mc command line.
@@ -247,6 +304,8 @@ name_quote (const char *s, int quote_percent)
     return ret;
 }
 
+/* --------------------------------------------------------------------------------------------- */
+
 char *
 fake_name_quote (const char *s, int quote_percent)
 {
@@ -254,56 +313,64 @@ fake_name_quote (const char *s, int quote_percent)
     return g_strdup (s);
 }
 
-/*
- * Remove the middle part of the string to fit given length.
- * Use "~" to show where the string was truncated.
- * Return static buffer, no need to free() it.
- */
-const char *
-name_trunc (const char *txt, size_t trunc_len)
-{
-    return str_trunc (txt, trunc_len);
-}
-
-/*
- * path_trunc() is the same as name_trunc() above but
+/* --------------------------------------------------------------------------------------------- */
+/**
+ * path_trunc() is the same as str_trunc() but
  * it deletes possible password from path for security
  * reasons.
  */
+
 const char *
 path_trunc (const char *path, size_t trunc_len)
 {
-    char *secure_path = strip_password (g_strdup (path), 1);
+    vfs_path_t *vpath;
+    char *secure_path;
+    const char *ret;
 
-    const char *ret = str_trunc (secure_path, trunc_len);
+    vpath = vfs_path_from_str (path);
+    secure_path = vfs_path_to_str_flags (vpath, 0, VPF_STRIP_PASSWORD);
+    vfs_path_free (vpath);
+
+    ret = str_trunc (secure_path, trunc_len);
     g_free (secure_path);
 
     return ret;
 }
 
+/* --------------------------------------------------------------------------------------------- */
+
 const char *
-size_trunc (double size, gboolean use_si)
+size_trunc (uintmax_t size, gboolean use_si)
 {
     static char x[BUF_TINY];
-    long int divisor = 1;
+    uintmax_t divisor = 1;
     const char *xtra = "";
 
-    if (size > 999999999L)
+    if (size > 999999999UL)
     {
         divisor = use_si ? 1000 : 1024;
         xtra = use_si ? "k" : "K";
-        if (size / divisor > 999999999L)
+
+        if (size / divisor > 999999999UL)
         {
             divisor = use_si ? (1000 * 1000) : (1024 * 1024);
             xtra = use_si ? "m" : "M";
+
+            if (size / divisor > 999999999UL)
+            {
+                divisor = use_si ? (1000 * 1000 * 1000) : (1024 * 1024 * 1024);
+                xtra = use_si ? "g" : "G";
+            }
         }
     }
-    g_snprintf (x, sizeof (x), "%.0f%s", (size / divisor), xtra);
+    g_snprintf (x, sizeof (x), "%.0f%s", 1.0 * size / divisor, xtra);
     return x;
 }
 
+/* --------------------------------------------------------------------------------------------- */
+
 const char *
-size_trunc_sep (double size, gboolean use_si)
+size_trunc_sep (uintmax_t size, gboolean use_si)
 {
     static char x[60];
     int count;
@@ -313,7 +380,7 @@ size_trunc_sep (double size, gboolean use_si)
     p = y = size_trunc (size, use_si);
     p += strlen (p) - 1;
     d = x + sizeof (x) - 1;
-    *d-- = 0;
+    *d-- = '\0';
     while (p >= y && isalpha ((unsigned char) *p))
         *d-- = *p--;
     for (count = 0; p >= y; count++)
@@ -331,7 +398,8 @@ size_trunc_sep (double size, gboolean use_si)
     return d;
 }
 
-/*
+/* --------------------------------------------------------------------------------------------- */
+/**
  * Print file SIZE to BUFFER, but don't exceed LEN characters,
  * not including trailing 0. BUFFER should be at least LEN+1 long.
  * This function is called for every file on panels, so avoid
@@ -340,58 +408,99 @@ size_trunc_sep (double size, gboolean use_si)
  * Units: size units (filesystem sizes are 1K blocks)
  *    0=bytes, 1=Kbytes, 2=Mbytes, etc.
  */
+
 void
-size_trunc_len (char *buffer, unsigned int len, off_t size, int units, gboolean use_si)
+size_trunc_len (char *buffer, unsigned int len, uintmax_t size, int units, gboolean use_si)
 {
     /* Avoid taking power for every file.  */
-    static const off_t power10[] = { 1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000,
-        1000000000
+    /* *INDENT-OFF* */
+    static const uintmax_t power10[] = {
+    /* we hope that size of uintmax_t is 4 bytes at least */
+        1ULL,
+        10ULL,
+        100ULL,
+        1000ULL,
+        10000ULL,
+        100000ULL,
+        1000000ULL,
+        10000000ULL,
+        100000000ULL,
+        1000000000ULL
+    /* maximum value of uintmax_t (in case of 4 bytes) is
+        4294967295
+     */
+#if SIZEOF_UINTMAX_T == 8
+                     ,
+        10000000000ULL,
+        100000000000ULL,
+        1000000000000ULL,
+        10000000000000ULL,
+        100000000000000ULL,
+        1000000000000000ULL,
+        10000000000000000ULL,
+        100000000000000000ULL,
+        1000000000000000000ULL,
+        10000000000000000000ULL
+    /* maximum value of uintmax_t (in case of 8 bytes) is
+        18447644073710439615
+     */
+#endif
     };
+    /* *INDENT-ON* */
     static const char *const suffix[] = { "", "K", "M", "G", "T", "P", "E", "Z", "Y", NULL };
     static const char *const suffix_lc[] = { "", "k", "m", "g", "t", "p", "e", "z", "y", NULL };
+
+    const char *const *sfx = use_si ? suffix_lc : suffix;
     int j = 0;
-    int size_remain;
 
     if (len == 0)
         len = 9;
+#if SIZEOF_UINTMAX_T == 8
+    /* 20 decimal digits are required to represent 8 bytes */
+    else if (len > 19)
+        len = 19;
+#else
+    /* 10 decimal digits are required to represent 4 bytes */
+    else if (len > 9)
+        len = 9;
+#endif
 
     /*
      * recalculate from 1024 base to 1000 base if units>0
      * We can't just multiply by 1024 - that might cause overflow
-     * if off_t type is too small
+     * if uintmax_t type is too small
      */
-    if (units && use_si)
-    {
+    if (use_si)
         for (j = 0; j < units; j++)
         {
+            uintmax_t size_remain;
+
             size_remain = ((size % 125) * 1024) / 1000; /* size mod 125, recalculated */
-            size = size / 125;  /* 128/125 = 1024/1000 */
-            size = size * 128;  /* This will convert size from multiple of 1024 to multiple of 1000 */
+            size /= 125;        /* 128/125 = 1024/1000 */
+            size *= 128;        /* This will convert size from multiple of 1024 to multiple of 1000 */
             size += size_remain;        /* Re-add remainder lost by division/multiplication */
         }
-    }
 
-    for (j = units; suffix[j] != NULL; j++)
+    for (j = units; sfx[j] != NULL; j++)
     {
         if (size == 0)
         {
             if (j == units)
             {
                 /* Empty files will print "0" even with minimal width.  */
-                g_snprintf (buffer, len + 1, "0");
-                break;
+                g_snprintf (buffer, len + 1, "%s", "0");
             }
-
-            /* Use "~K" or just "K" if len is 1.  Use "B" for bytes.  */
-            g_snprintf (buffer, len + 1, (len > 1) ? "~%s" : "%s",
-                        (j > 1) ? (use_si ? suffix_lc[j - 1] : suffix[j - 1]) : "B");
+            else
+            {
+                /* Use "~K" or just "K" if len is 1.  Use "B" for bytes.  */
+                g_snprintf (buffer, len + 1, (len > 1) ? "~%s" : "%s", (j > 1) ? sfx[j - 1] : "B");
+            }
             break;
         }
 
-        if (size < power10[len - (j > 0)])
+        if (size < power10[len - (j > 0 ? 1 : 0)])
         {
-            g_snprintf (buffer, len + 1, "%lu%s", (unsigned long) size,
-                        use_si ? suffix_lc[j] : suffix[j]);
+            g_snprintf (buffer, len + 1, "%" PRIuMAX "%s", size, sfx[j]);
             break;
         }
 
@@ -403,15 +512,7 @@ size_trunc_len (char *buffer, unsigned int len, off_t size, int units, gboolean 
     }
 }
 
-int
-is_exe (mode_t mode)
-{
-    if ((S_IXUSR & mode) || (S_IXGRP & mode) || (S_IXOTH & mode))
-        return 1;
-    return 0;
-}
-
-#define ismode(n,m) ((n & m) == m)
+/* --------------------------------------------------------------------------------------------- */
 
 const char *
 string_perm (mode_t mode_bits)
@@ -468,95 +569,7 @@ string_perm (mode_t mode_bits)
     return mode;
 }
 
-/* p: string which might contain an url with a password (this parameter is
-   modified in place).
-   has_prefix = 0: The first parameter is an url without a prefix
-   (user[:pass]@]machine[:port][remote-dir). Delete
-   the password.
-   has_prefix = 1: Search p for known url prefixes. If found delete
-   the password from the url. 
-   Caveat: only the first url is found
- */
-char *
-strip_password (char *p, int has_prefix)
-{
-    static const struct
-    {
-        const char *name;
-        size_t len;
-    } prefixes[] =
-    {
-        /* *INDENT-OFF* */
-        { "/#ftp:", 6 },
-        { "ftp://", 6 },
-        { "/#smb:", 6 },
-        { "smb://", 6 },
-        { "/#sh:", 5 },
-        { "sh://", 5 },
-        { "ssh://", 6 }
-        /* *INDENT-ON* */
-    };
-
-    char *at, *inner_colon, *dir;
-    size_t i;
-    char *result = p;
-
-    for (i = 0; i < sizeof (prefixes) / sizeof (prefixes[0]); i++)
-    {
-        char *q;
-
-        if (has_prefix)
-        {
-            q = strstr (p, prefixes[i].name);
-            if (q == NULL)
-                continue;
-            else
-                p = q + prefixes[i].len;
-        }
-
-        dir = strchr (p, PATH_SEP);
-        if (dir != NULL)
-            *dir = '\0';
-
-        /* search for any possible user */
-        at = strrchr (p, '@');
-
-        if (dir)
-            *dir = PATH_SEP;
-
-        /* We have a username */
-        if (at)
-        {
-            inner_colon = memchr (p, ':', at - p);
-            if (inner_colon)
-                memmove (inner_colon, at, strlen (at) + 1);
-        }
-        break;
-    }
-    return (result);
-}
-
-const char *
-strip_home_and_password (const char *dir)
-{
-    size_t len;
-    static char newdir[MC_MAXPATHLEN];
-
-    len = strlen (home_dir);
-    if (home_dir != NULL && strncmp (dir, home_dir, len) == 0 &&
-        (dir[len] == PATH_SEP || dir[len] == '\0'))
-    {
-        newdir[0] = '~';
-        g_strlcpy (&newdir[1], &dir[len], sizeof (newdir) - 1);
-        return newdir;
-    }
-
-    /* We do not strip homes in /#ftp tree, I do not like ~'s there 
-       (see ftpfs.c why) */
-    g_strlcpy (newdir, dir, sizeof (newdir));
-    strip_password (newdir, 1);
-    return newdir;
-}
+/* --------------------------------------------------------------------------------------------- */
 
 const char *
 extension (const char *filename)
@@ -565,106 +578,31 @@ extension (const char *filename)
     return (d != NULL) ? d + 1 : "";
 }
 
-int
-exist_file (const char *name)
-{
-    return access (name, R_OK) == 0;
-}
-
-int
-check_for_default (const char *default_file, const char *file)
-{
-    if (!exist_file (file))
-    {
-        FileOpContext *ctx;
-        FileOpTotalContext *tctx;
-
-        if (!exist_file (default_file))
-            return -1;
-
-        ctx = file_op_context_new (OP_COPY);
-        tctx = file_op_total_context_new ();
-        file_op_context_create_ui (ctx, 0, FALSE);
-        copy_file_file (tctx, ctx, default_file, file);
-        file_op_total_context_destroy (tctx);
-        file_op_context_destroy (ctx);
-    }
-
-    return 0;
-}
-
-
+/* --------------------------------------------------------------------------------------------- */
 
 char *
-load_file (const char *filename)
-{
-    FILE *data_file;
-    struct stat s;
-    char *data;
-    long read_size;
-
-    data_file = fopen (filename, "r");
-    if (data_file == NULL)
-    {
-        return 0;
-    }
-    if (fstat (fileno (data_file), &s) != 0)
-    {
-        fclose (data_file);
-        return 0;
-    }
-    data = g_malloc (s.st_size + 1);
-    read_size = fread (data, 1, s.st_size, data_file);
-    data[read_size] = 0;
-    fclose (data_file);
-
-    if (read_size > 0)
-        return data;
-    else
-    {
-        g_free (data);
-        return 0;
-    }
-}
-
-char *
-load_mc_home_file (const char *_mc_home, const char *_mc_home_alt, const char *filename,
-                   char **allocated_filename)
+load_mc_home_file (const char *from, const char *filename, char **allocated_filename)
 {
     char *hintfile_base, *hintfile;
     char *lang;
     char *data;
 
-    hintfile_base = concat_dir_and_file (_mc_home, filename);
+    hintfile_base = g_build_filename (from, filename, (char *) NULL);
     lang = guess_message_value ();
 
     hintfile = g_strconcat (hintfile_base, ".", lang, (char *) NULL);
-    data = load_file (hintfile);
-
-    if (!data)
+    if (!g_file_get_contents (hintfile, &data, NULL, NULL))
     {
+        /* Fall back to the two-letter language code */
+        if (lang[0] != '\0' && lang[1] != '\0')
+            lang[2] = '\0';
         g_free (hintfile);
-        g_free (hintfile_base);
-        hintfile_base = concat_dir_and_file (_mc_home_alt, filename);
-
         hintfile = g_strconcat (hintfile_base, ".", lang, (char *) NULL);
-        data = load_file (hintfile);
-
-        if (!data)
+        if (!g_file_get_contents (hintfile, &data, NULL, NULL))
         {
-            /* Fall back to the two-letter language code */
-            if (lang[0] && lang[1])
-                lang[2] = 0;
             g_free (hintfile);
-            hintfile = g_strconcat (hintfile_base, ".", lang, (char *) NULL);
-            data = load_file (hintfile);
-
-            if (!data)
-            {
-                g_free (hintfile);
-                hintfile = hintfile_base;
-                data = load_file (hintfile_base);
-            }
+            hintfile = hintfile_base;
+            g_file_get_contents (hintfile_base, &data, NULL, NULL);
         }
     }
 
@@ -673,7 +611,7 @@ load_mc_home_file (const char *_mc_home, const char *_mc_home_alt, const char *f
     if (hintfile != hintfile_base)
         g_free (hintfile_base);
 
-    if (allocated_filename)
+    if (allocated_filename != NULL)
         *allocated_filename = hintfile;
     else
         g_free (hintfile);
@@ -681,75 +619,7 @@ load_mc_home_file (const char *_mc_home, const char *_mc_home_alt, const char *f
     return data;
 }
 
-/* Check strftime() results. Some systems (i.e. Solaris) have different
-   short-month and month name sizes for different locales */
-size_t
-i18n_checktimelength (void)
-{
-    size_t length = 0;
-    const time_t testtime = time (NULL);
-    struct tm *lt = localtime (&testtime);
-
-    if (i18n_timelength_cache <= MAX_I18NTIMELENGTH)
-        return i18n_timelength_cache;
-
-    if (lt == NULL)
-    {
-        /* huh, localtime() doesnt seem to work ... falling back to "(invalid)" */
-        length = str_term_width1 (_(INVALID_TIME_TEXT));
-    }
-    else
-    {
-        char buf[MB_LEN_MAX * MAX_I18NTIMELENGTH + 1];
-
-        /* We are interested in the longest possible date */
-        lt->tm_sec = lt->tm_min = lt->tm_hour = lt->tm_mday = 10;
-
-        /* Loop through all months to find out the longest one */
-        for (lt->tm_mon = 0; lt->tm_mon < 12; lt->tm_mon++) {
-            strftime (buf, sizeof(buf) - 1, user_recent_timeformat, lt);
-            length = max ((size_t) str_term_width1 (buf), length);
-            strftime (buf, sizeof(buf) - 1, user_old_timeformat, lt);
-            length = max ((size_t) str_term_width1 (buf), length);
-        }
-
-        length = max ((size_t) str_term_width1 (_(INVALID_TIME_TEXT)), length);
-    }
-
-    /* Don't handle big differences. Use standard value (email bug, please) */
-    if (length > MAX_I18NTIMELENGTH || length < MIN_I18NTIMELENGTH)
-        length = STD_I18NTIMELENGTH;
-
-    /* Save obtained value to the cache */
-    i18n_timelength_cache = length;
-
-    return i18n_timelength_cache;
-}
-
-const char *
-file_date (time_t when)
-{
-    static char timebuf[MB_LEN_MAX * MAX_I18NTIMELENGTH + 1];
-    time_t current_time = time ((time_t) 0);
-    const char *fmt;
-
-    if (current_time > when + 6L * 30L * 24L * 60L * 60L        /* Old. */
-        || current_time < when - 60L * 60L)     /* In the future. */
-        /* The file is fairly old or in the future.
-           POSIX says the cutoff is 6 months old;
-           approximate this by 6*30 days.
-           Allow a 1 hour slop factor for what is considered "the future",
-           to allow for NFS server/client clock disagreement.
-           Show the year instead of the time of day.  */
-
-        fmt = user_old_timeformat;
-    else
-        fmt = user_recent_timeformat;
-
-    FMT_LOCALTIME (timebuf, sizeof (timebuf), fmt, when);
-
-    return timebuf;
-}
+/* --------------------------------------------------------------------------------------------- */
 
 const char *
 extract_line (const char *s, const char *top)
@@ -763,14 +633,40 @@ extract_line (const char *s, const char *top)
     return tmp_line;
 }
 
-/* The basename routine */
+/* --------------------------------------------------------------------------------------------- */
+/**
+ * The basename routine
+ */
+
 const char *
 x_basename (const char *s)
 {
-    const char *where;
-    return ((where = strrchr (s, PATH_SEP))) ? where + 1 : s;
+    const char *url_delim, *path_sep;
+
+    url_delim = g_strrstr (s, VFS_PATH_URL_DELIMITER);
+    path_sep = strrchr (s, PATH_SEP);
+
+    if (url_delim == NULL
+        || url_delim < path_sep - strlen (VFS_PATH_URL_DELIMITER)
+        || url_delim - s + strlen (VFS_PATH_URL_DELIMITER) < strlen (s))
+    {
+        /* avoid trailing PATH_SEP, if present */
+        if (s[strlen (s) - 1] == PATH_SEP)
+        {
+            while (--path_sep > s && *path_sep != PATH_SEP);
+            return (path_sep != s) ? path_sep + 1 : s;
+        }
+        else
+            return (path_sep != NULL) ? path_sep + 1 : s;
+    }
+
+    while (--url_delim > s && *url_delim != PATH_SEP);
+    while (--url_delim > s && *url_delim != PATH_SEP);
+
+    return (url_delim == s) ? s : url_delim + 1;
 }
 
+/* --------------------------------------------------------------------------------------------- */
 
 const char *
 unix_error_string (int error_num)
@@ -785,6 +681,8 @@ unix_error_string (int error_num)
     return buffer;
 }
 
+/* --------------------------------------------------------------------------------------------- */
+
 const char *
 skip_separators (const char *s)
 {
@@ -796,6 +694,8 @@ skip_separators (const char *s)
 
     return su;
 }
+
+/* --------------------------------------------------------------------------------------------- */
 
 const char *
 skip_numbers (const char *s)
@@ -809,7 +709,9 @@ skip_numbers (const char *s)
     return su;
 }
 
-/* Remove all control sequences from the argument string.  We define
+/* --------------------------------------------------------------------------------------------- */
+/**
+ * Remove all control sequences from the argument string.  We define
  * "control sequence", in a sort of pidgin BNF, as follows:
  *
  * control-seq = Esc non-'['
@@ -827,12 +729,11 @@ strip_ctrl_codes (char *s)
 {
     char *w;                    /* Current position where the stripped data is written */
     char *r;                    /* Current position where the original data is read */
-    char *n;
 
-    if (!s)
-        return 0;
+    if (s == NULL)
+        return NULL;
 
-    for (w = s, r = s; *r;)
+    for (w = s, r = s; *r != '\0';)
     {
         if (*r == ESC_CHAR)
         {
@@ -841,7 +742,8 @@ strip_ctrl_codes (char *s)
             if (*(++r) == '[' || *r == '(')
             {
                 /* strchr() matches trailing binary 0 */
-                while (*(++r) && strchr ("0123456789;?", *r));
+                while (*(++r) != '\0' && strchr ("0123456789;?", *r) != NULL)
+                    ;
             }
             else if (*r == ']')
             {
@@ -853,7 +755,7 @@ strip_ctrl_codes (char *s)
                  */
                 char *new_r = r;
 
-                for (; *new_r; ++new_r)
+                for (; *new_r != '\0'; ++new_r)
                 {
                     switch (*new_r)
                     {
@@ -870,53 +772,36 @@ strip_ctrl_codes (char *s)
                         }
                     }
                 }
-              osc_out:;
+              osc_out:
+                ;
             }
 
             /*
              * Now we are at the last character of the sequence.
              * Skip it unless it's binary 0.
              */
-            if (*r)
+            if (*r != '\0')
                 r++;
-            continue;
         }
-
-        n = str_get_next_char (r);
-        if (str_isprint (r))
+        else
         {
-            memmove (w, r, n - r);
-            w += n - r;
+            char *n;
+
+            n = str_get_next_char (r);
+            if (str_isprint (r))
+            {
+                memmove (w, r, n - r);
+                w += n - r;
+            }
+            r = n;
         }
-        r = n;
     }
-    *w = 0;
+
+    *w = '\0';
     return s;
 }
 
-
-#ifndef ENABLE_VFS
-char *
-get_current_wd (char *buffer, size_t size)
-{
-    char *p;
-    size_t len;
-
-    p = g_get_current_dir ();
-    len = strlen (p) + 1;
-
-    if (len > size)
-    {
-        g_free (p);
-        return NULL;
-    }
-
-    memcpy (buffer, p, len);
-    g_free (p);
-
-    return buffer;
-}
-#endif /* !ENABLE_VFS */
+/* --------------------------------------------------------------------------------------------- */
 
 enum compression_type
 get_compression_type (int fd, const char *name)
@@ -988,7 +873,7 @@ get_compression_type (int fd, const char *name)
         return COMPRESSION_XZ;
 
     str_len = strlen (name);
-    /* HACK: we must belive to extention of LZMA file :) ... */
+    /* HACK: we must belive to extension of LZMA file :) ... */
     if ((str_len > 5 && strcmp (&name[str_len - 5], ".lzma") == 0) ||
         (str_len > 4 && strcmp (&name[str_len - 4], ".tlz") == 0))
         return COMPRESSION_LZMA;
@@ -996,99 +881,30 @@ get_compression_type (int fd, const char *name)
     return COMPRESSION_NONE;
 }
 
+/* --------------------------------------------------------------------------------------------- */
+
 const char *
 decompress_extension (int type)
 {
     switch (type)
     {
     case COMPRESSION_GZIP:
-        return "#ugz";
+        return "/ugz" VFS_PATH_URL_DELIMITER;
     case COMPRESSION_BZIP:
-        return "#ubz";
+        return "/ubz" VFS_PATH_URL_DELIMITER;
     case COMPRESSION_BZIP2:
-        return "#ubz2";
+        return "/ubz2" VFS_PATH_URL_DELIMITER;
     case COMPRESSION_LZMA:
-        return "#ulzma";
+        return "/ulzma" VFS_PATH_URL_DELIMITER;
     case COMPRESSION_XZ:
-        return "#uxz";
+        return "/uxz" VFS_PATH_URL_DELIMITER;
     }
     /* Should never reach this place */
     fprintf (stderr, "Fatal: decompress_extension called with an unknown argument\n");
     return 0;
 }
 
-/* Hooks */
-void
-add_hook (Hook ** hook_list, void (*hook_fn) (void *), void *data)
-{
-    Hook *new_hook = g_new (Hook, 1);
-
-    new_hook->hook_fn = hook_fn;
-    new_hook->next = *hook_list;
-    new_hook->hook_data = data;
-
-    *hook_list = new_hook;
-}
-
-void
-execute_hooks (Hook * hook_list)
-{
-    Hook *new_hook = 0;
-    Hook *p;
-
-    /* We copy the hook list first so tahat we let the hook
-     * function call delete_hook
-     */
-
-    while (hook_list)
-    {
-        add_hook (&new_hook, hook_list->hook_fn, hook_list->hook_data);
-        hook_list = hook_list->next;
-    }
-    p = new_hook;
-
-    while (new_hook)
-    {
-        (*new_hook->hook_fn) (new_hook->hook_data);
-        new_hook = new_hook->next;
-    }
-
-    for (hook_list = p; hook_list;)
-    {
-        p = hook_list;
-        hook_list = hook_list->next;
-        g_free (p);
-    }
-}
-
-void
-delete_hook (Hook ** hook_list, void (*hook_fn) (void *))
-{
-    Hook *current, *new_list, *next;
-
-    new_list = 0;
-
-    for (current = *hook_list; current; current = next)
-    {
-        next = current->next;
-        if (current->hook_fn == hook_fn)
-            g_free (current);
-        else
-            add_hook (&new_list, current->hook_fn, current->hook_data);
-    }
-    *hook_list = new_list;
-}
-
-int
-hook_present (Hook * hook_list, void (*hook_fn) (void *))
-{
-    Hook *p;
-
-    for (p = hook_list; p; p = p->next)
-        if (p->hook_fn == hook_fn)
-            return 1;
-    return 0;
-}
+/* --------------------------------------------------------------------------------------------- */
 
 void
 wipe_password (char *passwd)
@@ -1102,8 +918,15 @@ wipe_password (char *passwd)
     g_free (passwd);
 }
 
-/* Convert "\E" -> esc character and ^x to control-x key and ^^ to ^ key */
-/* Returns a newly allocated string */
+/* --------------------------------------------------------------------------------------------- */
+/**
+ * Convert "\E" -> esc character and ^x to control-x key and ^^ to ^ key
+ *
+ * @param p pointer to string
+ *
+ * @return newly allocated string
+ */
+
 char *
 convert_controls (const char *p)
 {
@@ -1149,163 +972,62 @@ convert_controls (const char *p)
     return valcopy;
 }
 
-static char *
-resolve_symlinks (const char *path)
-{
-    char *buf, *buf2, *q, *r, c;
-    int len;
-    struct stat mybuf;
-    const char *p;
+/* --------------------------------------------------------------------------------------------- */
+/**
+ * Finds out a relative path from first to second, i.e. goes as many ..
+ * as needed up in first and then goes down using second
+ */
 
-    if (*path != PATH_SEP)
-        return NULL;
-    r = buf = g_malloc (MC_MAXPATHLEN);
-    buf2 = g_malloc (MC_MAXPATHLEN);
-    *r++ = PATH_SEP;
-    *r = 0;
-    p = path;
-    for (;;)
-    {
-        q = strchr (p + 1, PATH_SEP);
-        if (!q)
-        {
-            q = strchr (p + 1, 0);
-            if (q == p + 1)
-                break;
-        }
-        c = *q;
-        *q = 0;
-        if (mc_lstat (path, &mybuf) < 0)
-        {
-            g_free (buf);
-            g_free (buf2);
-            *q = c;
-            return NULL;
-        }
-        if (!S_ISLNK (mybuf.st_mode))
-            strcpy (r, p + 1);
-        else
-        {
-            len = mc_readlink (path, buf2, MC_MAXPATHLEN - 1);
-            if (len < 0)
-            {
-                g_free (buf);
-                g_free (buf2);
-                *q = c;
-                return NULL;
-            }
-            buf2[len] = 0;
-            if (*buf2 == PATH_SEP)
-                strcpy (buf, buf2);
-            else
-                strcpy (r, buf2);
-        }
-        canonicalize_pathname (buf);
-        r = strchr (buf, 0);
-        if (!*r || *(r - 1) != PATH_SEP)
-        {
-            *r++ = PATH_SEP;
-            *r = 0;
-        }
-        *q = c;
-        p = q;
-        if (!c)
-            break;
-    }
-    if (!*buf)
-        strcpy (buf, PATH_SEP_STR);
-    else if (*(r - 1) == PATH_SEP && r != buf + 1)
-        *(r - 1) = 0;
-    g_free (buf2);
-    return buf;
-}
-
-static gboolean
-mc_util_write_backup_content (const char *from_file_name, const char *to_file_name)
-{
-    FILE *backup_fd;
-    char *contents;
-    gsize length;
-    gboolean ret1 = TRUE;
-
-    if (!g_file_get_contents (from_file_name, &contents, &length, NULL))
-        return FALSE;
-
-    backup_fd = fopen (to_file_name, "w");
-    if (backup_fd == NULL)
-    {
-        g_free (contents);
-        return FALSE;
-    }
-
-    if (fwrite ((const void *) contents, 1, length, backup_fd) != length)
-        ret1 = FALSE;
-    {
-        int ret2;
-        ret2 = fflush (backup_fd);
-        ret2 = fclose (backup_fd);
-    }
-    g_free (contents);
-    return ret1;
-}
-
-/* Finds out a relative path from first to second, i.e. goes as many ..
- * as needed up in first and then goes down using second */
 char *
-diff_two_paths (const char *first, const char *second)
+diff_two_paths (const vfs_path_t * vpath1, const vfs_path_t * vpath2)
 {
     char *p, *q, *r, *s, *buf = NULL;
     int i, j, prevlen = -1, currlen;
     char *my_first = NULL, *my_second = NULL;
 
-    my_first = resolve_symlinks (first);
+    my_first = resolve_symlinks (vpath1);
     if (my_first == NULL)
-        return NULL;
-    my_second = resolve_symlinks (second);
+        goto ret;
+
+    my_second = resolve_symlinks (vpath2);
     if (my_second == NULL)
-    {
-        g_free (my_first);
-        return NULL;
-    }
+        goto ret;
+
     for (j = 0; j < 2; j++)
     {
         p = my_first;
         q = my_second;
-        for (;;)
+        while (TRUE)
         {
             r = strchr (p, PATH_SEP);
             s = strchr (q, PATH_SEP);
-            if (!r || !s)
+            if (r == NULL || s == NULL)
                 break;
-            *r = 0;
-            *s = 0;
-            if (strcmp (p, q))
+            *r = '\0';
+            *s = '\0';
+            if (strcmp (p, q) != 0)
             {
                 *r = PATH_SEP;
                 *s = PATH_SEP;
                 break;
             }
-            else
-            {
-                *r = PATH_SEP;
-                *s = PATH_SEP;
-            }
+
+            *r = PATH_SEP;
+            *s = PATH_SEP;
+
             p = r + 1;
             q = s + 1;
         }
         p--;
-        for (i = 0; (p = strchr (p + 1, PATH_SEP)) != NULL; i++);
+        for (i = 0; (p = strchr (p + 1, PATH_SEP)) != NULL; i++)
+            ;
         currlen = (i + 1) * 3 + strlen (q) + 1;
-        if (j)
+        if (j != 0)
         {
             if (currlen < prevlen)
                 g_free (buf);
             else
-            {
-                g_free (my_first);
-                g_free (my_second);
-                return buf;
-            }
+                goto ret;
         }
         p = buf = g_malloc (currlen);
         prevlen = currlen;
@@ -1313,24 +1035,18 @@ diff_two_paths (const char *first, const char *second)
             strcpy (p, "../");
         strcpy (p, q);
     }
+
+  ret:
     g_free (my_first);
     g_free (my_second);
     return buf;
 }
 
-/* If filename is NULL, then we just append PATH_SEP to the dir */
-char *
-concat_dir_and_file (const char *dir, const char *file)
-{
-    int i = strlen (dir);
+/* --------------------------------------------------------------------------------------------- */
+/**
+ * Append text to GList, remove all entries with the same text
+ */
 
-    if (dir[i - 1] == PATH_SEP)
-        return g_strconcat (dir, file, (char *) NULL);
-    else
-        return g_strconcat (dir, PATH_SEP_STR, file, (char *) NULL);
-}
-
-/* Append text to GList, remove all entries with the same text */
 GList *
 list_append_unique (GList * list, char *text)
 {
@@ -1356,6 +1072,7 @@ list_append_unique (GList * list, char *text)
 
             g_free (lc_link->data);
             tmp = g_list_remove_link (list, lc_link);
+            (void) tmp;
             g_list_free_1 (lc_link);
         }
         lc_link = newlink;
@@ -1364,103 +1081,20 @@ list_append_unique (GList * list, char *text)
     return list;
 }
 
-/* Following code heavily borrows from libiberty, mkstemps.c */
-
-/* Number of attempts to create a temporary file */
-#ifndef TMP_MAX
-#define TMP_MAX 16384
-#endif /* !TMP_MAX */
-
-/*
- * Arguments:
- * pname (output) - pointer to the name of the temp file (needs g_free).
- *                  NULL if the function fails.
- * prefix - part of the filename before the random part.
- *          Prepend $TMPDIR or /tmp if there are no path separators.
- * suffix - if not NULL, part of the filename after the random part.
- *
- * Result:
- * handle of the open file or -1 if couldn't open any.
- */
-int
-mc_mkstemps (char **pname, const char *prefix, const char *suffix)
-{
-    static const char letters[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    static unsigned long value;
-    struct timeval tv;
-    char *tmpbase;
-    char *tmpname;
-    char *XXXXXX;
-    int count;
-
-    if (strchr (prefix, PATH_SEP) == NULL)
-    {
-        /* Add prefix first to find the position of XXXXXX */
-        tmpbase = concat_dir_and_file (mc_tmpdir (), prefix);
-    }
-    else
-    {
-        tmpbase = g_strdup (prefix);
-    }
-
-    tmpname = g_strconcat (tmpbase, "XXXXXX", suffix, (char *) NULL);
-    *pname = tmpname;
-    XXXXXX = &tmpname[strlen (tmpbase)];
-    g_free (tmpbase);
-
-    /* Get some more or less random data.  */
-    gettimeofday (&tv, NULL);
-    value += (tv.tv_usec << 16) ^ tv.tv_sec ^ getpid ();
-
-    for (count = 0; count < TMP_MAX; ++count)
-    {
-        unsigned long v = value;
-        int fd;
-
-        /* Fill in the random bits.  */
-        XXXXXX[0] = letters[v % 62];
-        v /= 62;
-        XXXXXX[1] = letters[v % 62];
-        v /= 62;
-        XXXXXX[2] = letters[v % 62];
-        v /= 62;
-        XXXXXX[3] = letters[v % 62];
-        v /= 62;
-        XXXXXX[4] = letters[v % 62];
-        v /= 62;
-        XXXXXX[5] = letters[v % 62];
-
-        fd = open (tmpname, O_RDWR | O_CREAT | O_TRUNC | O_EXCL, S_IRUSR | S_IWUSR);
-        if (fd >= 0)
-        {
-            /* Successfully created.  */
-            return fd;
-        }
-
-        /* This is a random value.  It is only necessary that the next
-           TMP_MAX values generated by adding 7777 to VALUE are different
-           with (module 2^32).  */
-        value += 7777;
-    }
-
-    /* Unsuccessful. Free the filename. */
-    g_free (tmpname);
-    *pname = NULL;
-
-    return -1;
-}
-
-/*
+/* --------------------------------------------------------------------------------------------- */
+/**
  * Read and restore position for the given filename.
  * If there is no stored data, return line 1 and col 0.
  */
+
 void
-load_file_position (const char *filename, long *line, long *column, off_t * offset)
+load_file_position (const vfs_path_t * filename_vpath, long *line, long *column, off_t * offset,
+                    GArray ** bookmarks)
 {
     char *fn;
     FILE *f;
-    char buf[MC_MAXPATHLEN + 20];
-    int len;
+    char buf[MC_MAXPATHLEN + 100];
+    const size_t len = vfs_path_len (filename_vpath);
 
     /* defaults */
     *line = 1;
@@ -1468,21 +1102,23 @@ load_file_position (const char *filename, long *line, long *column, off_t * offs
     *offset = 0;
 
     /* open file with positions */
-    fn = g_build_filename (home_dir, MC_USERCONF_DIR, MC_FILEPOS_FILE, NULL);
+    fn = mc_config_get_full_path (MC_FILEPOS_FILE);
     f = fopen (fn, "r");
     g_free (fn);
-    if (!f)
+    if (f == NULL)
         return;
 
-    len = strlen (filename);
+    /* prepare array for serialized bookmarks */
+    if (bookmarks != NULL)
+        *bookmarks = g_array_sized_new (FALSE, FALSE, sizeof (size_t), MAX_SAVED_BOOKMARKS);
 
-    while (fgets (buf, sizeof (buf), f))
+    while (fgets (buf, sizeof (buf), f) != NULL)
     {
         const char *p;
         gchar **pos_tokens;
 
         /* check if the filename matches the beginning of string */
-        if (strncmp (buf, filename, len) != 0)
+        if (strncmp (buf, vfs_path_as_str (filename_vpath), len) != 0)
             continue;
 
         /* followed by single space */
@@ -1491,60 +1127,76 @@ load_file_position (const char *filename, long *line, long *column, off_t * offs
 
         /* and string without spaces */
         p = &buf[len + 1];
-        if (strchr (p, ' '))
+        if (strchr (p, ' ') != NULL)
             continue;
 
-        pos_tokens = g_strsplit_set (p, ";", 3);
-        if (pos_tokens[0] != NULL)
-        {
-            *line = strtol (pos_tokens[0], NULL, 10);
-            if (pos_tokens[1] != NULL)
-            {
-                *column = strtol (pos_tokens[1], NULL, 10);
-                if (pos_tokens[2] != NULL)
-                    *offset = strtoll (pos_tokens[2], NULL, 10);
-                else
-                    *offset = 0;
-            }
-            else
-            {
-                *column = 0;
-                *offset = 0;
-            }
-        }
-        else
+        pos_tokens = g_strsplit (p, ";", 3 + MAX_SAVED_BOOKMARKS);
+        if (pos_tokens[0] == NULL)
         {
             *line = 1;
             *column = 0;
             *offset = 0;
         }
+        else
+        {
+            *line = strtol (pos_tokens[0], NULL, 10);
+            if (pos_tokens[1] == NULL)
+            {
+                *column = 0;
+                *offset = 0;
+            }
+            else
+            {
+                *column = strtol (pos_tokens[1], NULL, 10);
+                if (pos_tokens[2] == NULL)
+                    *offset = 0;
+                else if (bookmarks != NULL)
+                {
+                    size_t i;
+
+                    *offset = (off_t) g_ascii_strtoll (pos_tokens[2], NULL, 10);
+
+                    for (i = 0; i < MAX_SAVED_BOOKMARKS && pos_tokens[3 + i] != NULL; i++)
+                    {
+                        size_t val;
+
+                        val = strtoul (pos_tokens[3 + i], NULL, 10);
+                        g_array_append_val (*bookmarks, val);
+                    }
+                }
+            }
+        }
+
         g_strfreev (pos_tokens);
     }
+
     fclose (f);
 }
 
-/* Save position for the given file */
-#define TMP_SUFFIX ".tmp"
+/* --------------------------------------------------------------------------------------------- */
+/**
+ * Save position for the given file
+ */
+
 void
-save_file_position (const char *filename, long line, long column, off_t offset)
+save_file_position (const vfs_path_t * filename_vpath, long line, long column, off_t offset,
+                    GArray * bookmarks)
 {
-    static int filepos_max_saved_entries = 0;
+    static size_t filepos_max_saved_entries = 0;
     char *fn, *tmp_fn;
     FILE *f, *tmp_f;
-    char buf[MC_MAXPATHLEN + 20];
-    int i = 1;
-    gsize len;
+    char buf[MC_MAXPATHLEN + 100];
+    size_t i;
+    const size_t len = vfs_path_len (filename_vpath);
+    gboolean src_error = FALSE;
 
     if (filepos_max_saved_entries == 0)
-        filepos_max_saved_entries =
-            mc_config_get_int (mc_main_config, CONFIG_APP_SECTION, "filepos_max_saved_entries",
-                               1024);
+        filepos_max_saved_entries = mc_config_get_int (mc_main_config, CONFIG_APP_SECTION,
+                                                       "filepos_max_saved_entries", 1024);
 
-    fn = g_build_filename (home_dir, MC_USERCONF_DIR, MC_FILEPOS_FILE, NULL);
+    fn = mc_config_get_full_path (MC_FILEPOS_FILE);
     if (fn == NULL)
         goto early_error;
-
-    len = strlen (filename);
 
     mc_util_make_backup_if_possible (fn, TMP_SUFFIX);
 
@@ -1556,70 +1208,56 @@ save_file_position (const char *filename, long line, long column, off_t offset)
     tmp_fn = g_strdup_printf ("%s" TMP_SUFFIX, fn);
     tmp_f = fopen (tmp_fn, "r");
     if (tmp_f == NULL)
+    {
+        src_error = TRUE;
         goto open_source_error;
+    }
 
     /* put the new record */
-    if (line != 1 || column != 0)
+    if (line != 1 || column != 0 || bookmarks != NULL)
     {
-        if (fprintf (f, "%s %ld;%ld;%llu\n", filename, line, column, (unsigned long long) offset) <
-            0)
+        if (fprintf
+            (f, "%s %ld;%ld;%" PRIuMAX, vfs_path_as_str (filename_vpath), line, column,
+             (uintmax_t) offset) < 0)
+            goto write_position_error;
+        if (bookmarks != NULL)
+            for (i = 0; i < bookmarks->len && i < MAX_SAVED_BOOKMARKS; i++)
+                if (fprintf (f, ";%zu", g_array_index (bookmarks, size_t, i)) < 0)
+                    goto write_position_error;
+
+        if (fprintf (f, "\n") < 0)
             goto write_position_error;
     }
 
-    while (fgets (buf, sizeof (buf), tmp_f))
+    i = 1;
+    while (fgets (buf, sizeof (buf), tmp_f) != NULL)
     {
-        if (buf[len] == ' ' && strncmp (buf, filename, len) == 0 && !strchr (&buf[len + 1], ' '))
+        if (buf[len] == ' ' && strncmp (buf, vfs_path_as_str (filename_vpath), len) == 0
+            && strchr (&buf[len + 1], ' ') == NULL)
             continue;
 
         fprintf (f, "%s", buf);
         if (++i > filepos_max_saved_entries)
             break;
     }
-    fclose (tmp_f);
-    g_free (tmp_fn);
-    fclose (f);
-    mc_util_unlink_backup_if_possible (fn, TMP_SUFFIX);
-    g_free (fn);
-    return;
 
   write_position_error:
     fclose (tmp_f);
   open_source_error:
     g_free (tmp_fn);
     fclose (f);
-    mc_util_restore_from_backup_if_possible (fn, TMP_SUFFIX);
+    if (src_error)
+        mc_util_restore_from_backup_if_possible (fn, TMP_SUFFIX);
+    else
+        mc_util_unlink_backup_if_possible (fn, TMP_SUFFIX);
   open_target_error:
     g_free (fn);
   early_error:
-    return;
+    if (bookmarks != NULL)
+        g_array_free (bookmarks, TRUE);
 }
 
-#undef TMP_SUFFIX
-extern const char *
-cstrcasestr (const char *haystack, const char *needle)
-{
-    char *nee = str_create_search_needle (needle, 0);
-    const char *result = str_search_first (haystack, nee, 0);
-    str_release_search_needle (nee, 0);
-    return result;
-}
-
-const char *
-cstrstr (const char *haystack, const char *needle)
-{
-    return strstr (haystack, needle);
-}
-
-extern char *
-str_unconst (const char *s)
-{
-    return (char *) s;
-}
-
-#define ASCII_A		(0x40 + 1)
-#define ASCII_Z		(0x40 + 26)
-#define ASCII_a		(0x60 + 1)
-#define ASCII_z		(0x60 + 26)
+/* --------------------------------------------------------------------------------------------- */
 
 extern int
 ascii_alpha_to_cntrl (int ch)
@@ -1631,6 +1269,8 @@ ascii_alpha_to_cntrl (int ch)
     return ch;
 }
 
+/* --------------------------------------------------------------------------------------------- */
+
 const char *
 Q_ (const char *s)
 {
@@ -1641,6 +1281,7 @@ Q_ (const char *s)
     return (sep != NULL) ? sep + 1 : result;
 }
 
+/* --------------------------------------------------------------------------------------------- */
 
 gboolean
 mc_util_make_backup_if_possible (const char *file_name, const char *backup_suffix)
@@ -1672,6 +1313,8 @@ mc_util_make_backup_if_possible (const char *file_name, const char *backup_suffi
     return ret;
 }
 
+/* --------------------------------------------------------------------------------------------- */
+
 gboolean
 mc_util_restore_from_backup_if_possible (const char *file_name, const char *backup_suffix)
 {
@@ -1688,6 +1331,8 @@ mc_util_restore_from_backup_if_possible (const char *file_name, const char *back
     return ret;
 }
 
+/* --------------------------------------------------------------------------------------------- */
+
 gboolean
 mc_util_unlink_backup_if_possible (const char *file_name, const char *backup_suffix)
 {
@@ -1698,14 +1343,24 @@ mc_util_unlink_backup_if_possible (const char *file_name, const char *backup_suf
         return FALSE;
 
     if (exist_file (backup_path))
-        mc_unlink (backup_path);
+    {
+        vfs_path_t *vpath;
+
+        vpath = vfs_path_from_str (backup_path);
+        mc_unlink (vpath);
+        vfs_path_free (vpath);
+    }
 
     g_free (backup_path);
     return TRUE;
 }
 
-/* partly taken from dcigettext.c, returns "" for default locale */
-/* value should be freed by calling function g_free() */
+/* --------------------------------------------------------------------------------------------- */
+/**
+ * partly taken from dcigettext.c, returns "" for default locale
+ * value should be freed by calling function g_free()
+ */
+
 char *
 guess_message_value (void)
 {
@@ -1737,3 +1392,5 @@ guess_message_value (void)
 
     return g_strdup (locale);
 }
+
+/* --------------------------------------------------------------------------------------------- */

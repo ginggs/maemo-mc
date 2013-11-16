@@ -22,8 +22,8 @@ AC_DEFUN([MC_UNDELFS_CHECKS], [
     if test x"$ext2fs_ext2fs_h" = xyes; then
       ext2fs_undel=yes
       EXT2FS_UNDEL_LIBS="-lext2fs -lcom_err"
-      AC_CHECK_TYPE(ext2_ino_t, ,
-		    [AC_DEFINE(ext2_ino_t, ino_t,
+      AC_CHECK_TYPE([ext2_ino_t], ,
+		    [AC_DEFINE_UNQUOTED([ext2_ino_t], [ino_t],
 			       [Define to ino_t if undefined.])],
 		    [
 #include <errno.h>
@@ -48,7 +48,7 @@ dnl
 AC_DEFUN([AC_MC_VFS_UNDELFS],
 [
     AC_ARG_ENABLE([vfs-undelfs],
-	AC_HELP_STRING([--enable-vfs-undelfs], [Support for ext2 undelete filesystem [[no]]]),
+	AS_HELP_STRING([--enable-vfs-undelfs], [Support for ext2 undelete filesystem @<:@no@:>@]),
 	[
 	    if test "x$enableval" = "xno"; then
 		enable_vfs_undelfs=no
@@ -58,7 +58,7 @@ AC_DEFUN([AC_MC_VFS_UNDELFS],
 	],
 	[enable_vfs_undelfs="no"])
 
-    if test x"$enable_vfs" != x"no" -a x"$enable_vfs_undelfs" != x"no"; then
+    if test x"$enable_vfs" = x"yes" -a x"$enable_vfs_undelfs" != x"no"; then
 	MC_UNDELFS_CHECKS
 
 	if test x"$ext2fs_undel" = x"yes"; then
@@ -71,5 +71,5 @@ AC_DEFUN([AC_MC_VFS_UNDELFS],
 	    AC_ERROR([Ext2 libraries not found])
 	fi
     fi
-    AM_CONDITIONAL(ENABLE_VFS_UNDELFS, [test x"$enable_vfs_undelfs" = x"yes"])
+    AM_CONDITIONAL(ENABLE_VFS_UNDELFS, [test "$enable_vfs" = "yes" -a x"$enable_vfs_undelfs" = x"yes"])
 ])

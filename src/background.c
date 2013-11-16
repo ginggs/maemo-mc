@@ -1,24 +1,29 @@
 /* {{{ Copyright */
 
 /* Background support.
-   Copyright (C) 1996, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2007
-   Free Software Foundation, Inc.
 
-   Written by: 1996 Miguel de Icaza
+   Copyright (C) 1996, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2007,
+   2011
+   The Free Software Foundation, Inc.
 
-   This program is free software; you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 2 of the License, or
-   (at your option) any later version.
+   Written by:
+   Miguel de Icaza, 1996
 
-   This program is distributed in the hope that it will be useful,
+   This file is part of the Midnight Commander.
+
+   The Midnight Commander is free software: you can redistribute it
+   and/or modify it under the terms of the GNU General Public License as
+   published by the Free Software Foundation, either version 3 of the License,
+   or (at your option) any later version.
+
+   The Midnight Commander is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  */
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 /* }}} */
 
@@ -27,8 +32,6 @@
  */
 
 #include <config.h>
-
-#ifdef WITH_BACKGROUND
 
 #include <stdlib.h>
 #include <errno.h>
@@ -44,11 +47,21 @@
 #include <fcntl.h>
 
 #include "lib/global.h"
-#include "background.h"
-#include "wtools.h"
-#include "layout.h"             /* repaint_screen() */
-#include "fileopctx.h"          /* FileOpContext */
 #include "lib/tty/key.h"        /* add_select_channel(), delete_select_channel() */
+#include "lib/widget.h"         /* message() */
+#include "lib/event-types.h"
+
+#include "filemanager/fileopctx.h"      /* FileOpContext */
+
+#include "background.h"
+
+/*** global variables ****************************************************************************/
+
+#define MAXCALLARGS 4           /* Number of arguments supported */
+
+/*** file scope macro definitions ****************************************************************/
+
+/*** file scope type declarations ****************************************************************/
 
 enum ReturnType
 {
@@ -56,8 +69,7 @@ enum ReturnType
     Return_Integer
 };
 
-/* If true, this is a background process */
-int we_are_background = 0;
+/*** file scope variables ************************************************************************/
 
 /* File descriptor for talking to our parent */
 static int parent_fd;
@@ -65,11 +77,12 @@ static int parent_fd;
 /* File descriptor for messages from our parent */
 static int from_parent_fd;
 
-#define MAXCALLARGS 4           /* Number of arguments supported */
-
 struct TaskList *task_list = NULL;
 
 static int background_attention (int fd, void *closure);
+
+/*** file scope functions ************************************************************************/
+/* --------------------------------------------------------------------------------------------- */
 
 static void
 register_task_running (FileOpContext * ctx, pid_t pid, int fd, int to_child, char *info)
@@ -87,6 +100,8 @@ register_task_running (FileOpContext * ctx, pid_t pid, int fd, int to_child, cha
 
     add_select_channel (fd, background_attention, ctx);
 }
+
+/* --------------------------------------------------------------------------------------------- */
 
 static int
 destroy_task_and_return_fd (pid_t pid)
@@ -114,91 +129,7 @@ destroy_task_and_return_fd (pid_t pid)
     return -1;
 }
 
-void
-unregister_task_running (pid_t pid, int fd)
-{
-    destroy_task_and_return_fd (pid);
-    delete_select_channel (fd);
-}
-
-void
-unregister_task_with_pid (pid_t pid)
-{
-    int fd = destroy_task_and_return_fd (pid);
-    if (fd != -1)
-        delete_select_channel (fd);
-}
-
-/*
- * Try to make the Midnight Commander a background job
- *
- * Returns:
- *  1 for parent
- *  0 for child
- * -1 on failure
- */
-int
-do_background (struct FileOpContext *ctx, char *info)
-{
-    int comm[2];                /* control connection stream */
-    int back_comm[2];           /* back connection */
-    pid_t pid;
-
-    if (pipe (comm) == -1)
-        return -1;
-
-    if (pipe (back_comm) == -1)
-        return -1;
-
-    pid = fork ();
-    if (pid == -1)
-    {
-        int saved_errno = errno;
-
-        (void) close (comm[0]);
-        (void) close (comm[1]);
-        (void) close (back_comm[0]);
-        (void) close (back_comm[1]);
-        errno = saved_errno;
-        return -1;
-    }
-
-    if (pid == 0)
-    {
-        int nullfd;
-
-        parent_fd = comm[1];
-        from_parent_fd = back_comm[0];
-
-        we_are_background = 1;
-        top_dlg = NULL;
-
-        /* Make stdin/stdout/stderr point somewhere */
-        close (0);
-        close (1);
-        close (2);
-
-        nullfd = open ("/dev/null", O_RDWR);
-        if (nullfd != -1)
-        {
-            while (dup2 (nullfd, 0) == -1 && errno == EINTR)
-                ;
-            while (dup2 (nullfd, 1) == -1 && errno == EINTR)
-                ;
-            while (dup2 (nullfd, 2) == -1 && errno == EINTR)
-                ;
-        }
-
-        return 0;
-    }
-    else
-    {
-        ctx->pid = pid;
-        register_task_running (ctx, pid, comm[0], back_comm[1], info);
-        return 1;
-    }
-}
-
+/* --------------------------------------------------------------------------------------------- */
 /* {{{ Parent handlers */
 
 /* Parent/child protocol
@@ -236,7 +167,7 @@ do_background (struct FileOpContext *ctx, char *info)
  */
 /*
  * Receive requests from background process and invoke the
- * specified routine 
+ * specified routine
  */
 
 static int
@@ -449,10 +380,12 @@ background_attention (int fd, void *closure)
         g_free (data[i]);
 
     repaint_screen ();
+    (void) ret;
     return 0;
 }
 
 
+/* --------------------------------------------------------------------------------------------- */
 /* }}} */
 
 /* {{{ client RPC routines */
@@ -461,6 +394,7 @@ background_attention (int fd, void *closure)
  * operation context is not NULL, then it requests that the first parameter of
  * the call be a file operation context.
  */
+
 static void
 parent_call_header (void *routine, int argc, enum ReturnType type, FileOpContext * ctx)
 {
@@ -476,16 +410,18 @@ parent_call_header (void *routine, int argc, enum ReturnType type, FileOpContext
 
     if (have_ctx)
         ret = write (parent_fd, ctx, sizeof (FileOpContext));
+    (void) ret;
 }
 
-int
-parent_call (void *routine, struct FileOpContext *ctx, int argc, ...)
+/* --------------------------------------------------------------------------------------------- */
+
+static int
+parent_va_call (void *routine, gpointer data, int argc, va_list ap)
 {
-    va_list ap;
     int i;
     ssize_t ret;
+    struct FileOpContext *ctx = (struct FileOpContext *) data;
 
-    va_start (ap, argc);
     parent_call_header (routine, argc, Return_Integer, ctx);
     for (i = 0; i < argc; i++)
     {
@@ -502,17 +438,18 @@ parent_call (void *routine, struct FileOpContext *ctx, int argc, ...)
     if (ctx)
         ret = read (from_parent_fd, ctx, sizeof (FileOpContext));
 
+    (void) ret;
     return i;
 }
 
-char *
-parent_call_string (void *routine, int argc, ...)
+/* --------------------------------------------------------------------------------------------- */
+
+static char *
+parent_va_call_string (void *routine, int argc, va_list ap)
 {
-    va_list ap;
     char *str;
     int i;
 
-    va_start (ap, argc);
     parent_call_header (routine, argc, Return_String, NULL);
     for (i = 0; i < argc; i++)
     {
@@ -523,8 +460,11 @@ parent_call_string (void *routine, int argc, ...)
         value = va_arg (ap, void *);
         if ((write (parent_fd, &len, sizeof (int)) != sizeof (int)) ||
             (write (parent_fd, value, len) != len))
+        {
             return NULL;
+        }
     }
+
     if (read (from_parent_fd, &i, sizeof (int)) != sizeof (int))
         return NULL;
     if (!i)
@@ -539,4 +479,165 @@ parent_call_string (void *routine, int argc, ...)
     return str;
 }
 
-#endif /* WITH_BACKGROUND */
+/* --------------------------------------------------------------------------------------------- */
+/*** public functions ****************************************************************************/
+/* --------------------------------------------------------------------------------------------- */
+
+void
+unregister_task_running (pid_t pid, int fd)
+{
+    destroy_task_and_return_fd (pid);
+    delete_select_channel (fd);
+}
+
+/* --------------------------------------------------------------------------------------------- */
+
+void
+unregister_task_with_pid (pid_t pid)
+{
+    int fd = destroy_task_and_return_fd (pid);
+    if (fd != -1)
+        delete_select_channel (fd);
+}
+
+
+/* --------------------------------------------------------------------------------------------- */
+/**
+ * Try to make the Midnight Commander a background job
+ *
+ * Returns:
+ *  1 for parent
+ *  0 for child
+ * -1 on failure
+ */
+int
+do_background (struct FileOpContext *ctx, char *info)
+{
+    int comm[2];                /* control connection stream */
+    int back_comm[2];           /* back connection */
+    pid_t pid;
+
+    if (pipe (comm) == -1)
+        return -1;
+
+    if (pipe (back_comm) == -1)
+        return -1;
+
+    pid = fork ();
+    if (pid == -1)
+    {
+        int saved_errno = errno;
+
+        (void) close (comm[0]);
+        (void) close (comm[1]);
+        (void) close (back_comm[0]);
+        (void) close (back_comm[1]);
+        errno = saved_errno;
+        return -1;
+    }
+
+    if (pid == 0)
+    {
+        int nullfd;
+
+        parent_fd = comm[1];
+        from_parent_fd = back_comm[0];
+
+        mc_global.we_are_background = TRUE;
+        top_dlg = NULL;
+
+        /* Make stdin/stdout/stderr point somewhere */
+        close (0);
+        close (1);
+        close (2);
+
+        nullfd = open ("/dev/null", O_RDWR);
+        if (nullfd != -1)
+        {
+            while (dup2 (nullfd, 0) == -1 && errno == EINTR)
+                ;
+            while (dup2 (nullfd, 1) == -1 && errno == EINTR)
+                ;
+            while (dup2 (nullfd, 2) == -1 && errno == EINTR)
+                ;
+        }
+
+        return 0;
+    }
+    else
+    {
+        ctx->pid = pid;
+        register_task_running (ctx, pid, comm[0], back_comm[1], info);
+        return 1;
+    }
+}
+
+/* --------------------------------------------------------------------------------------------- */
+
+int
+parent_call (void *routine, struct FileOpContext *ctx, int argc, ...)
+{
+    int ret;
+    va_list ap;
+
+    va_start (ap, argc);
+    ret = parent_va_call (routine, (gpointer) ctx, argc, ap);
+    va_end (ap);
+
+    return ret;
+}
+
+/* --------------------------------------------------------------------------------------------- */
+
+char *
+parent_call_string (void *routine, int argc, ...)
+{
+    va_list ap;
+    char *str;
+
+    va_start (ap, argc);
+    str = parent_va_call_string (routine, argc, ap);
+    va_end (ap);
+
+    return str;
+}
+
+/* --------------------------------------------------------------------------------------------- */
+
+/* event callback */
+gboolean
+background_parent_call (const gchar * event_group_name, const gchar * event_name,
+                        gpointer init_data, gpointer data)
+{
+    ev_background_parent_call_t *event_data = (ev_background_parent_call_t *) data;
+
+    (void) event_group_name;
+    (void) event_name;
+    (void) init_data;
+
+    event_data->ret.i =
+        parent_va_call (event_data->routine, event_data->ctx, event_data->argc, event_data->ap);
+
+    return TRUE;
+}
+
+/* --------------------------------------------------------------------------------------------- */
+
+/* event callback */
+gboolean
+background_parent_call_string (const gchar * event_group_name, const gchar * event_name,
+                               gpointer init_data, gpointer data)
+{
+    ev_background_parent_call_t *event_data = (ev_background_parent_call_t *) data;
+
+    (void) event_group_name;
+    (void) event_name;
+    (void) init_data;
+
+    event_data->ret.s =
+        parent_va_call_string (event_data->routine, event_data->argc, event_data->ap);
+
+    return TRUE;
+}
+
+/* --------------------------------------------------------------------------------------------- */

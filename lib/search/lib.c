@@ -2,27 +2,26 @@
    Search text engine.
    Common share code for module.
 
-   Copyright (C) 2009 The Free Software Foundation, Inc.
+   Copyright (C) 2009, 2011
+   The Free Software Foundation, Inc.
 
    Written by:
    Slava Zanko <slavazanko@gmail.com>, 2009.
 
    This file is part of the Midnight Commander.
 
-   The Midnight Commander is free software; you can redistribute it
+   The Midnight Commander is free software: you can redistribute it
    and/or modify it under the terms of the GNU General Public License as
-   published by the Free Software Foundation; either version 2 of the
-   License, or (at your option) any later version.
+   published by the Free Software Foundation, either version 3 of the License,
+   or (at your option) any later version.
 
-   The Midnight Commander is distributed in the hope that it will be
-   useful, but WITHOUT ANY WARRANTY; without even the implied warranty
-   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   General Public License for more details.
+   The Midnight Commander is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-   MA 02110-1301, USA.
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <config.h>
@@ -33,16 +32,19 @@
 #include "lib/global.h"
 #include "lib/strutil.h"
 #include "lib/search.h"
+#ifdef HAVE_CHARSET
+#include "lib/charsets.h"
+#endif
 
 #include "internal.h"
-#include "src/charsets.h"
 
 /*** global variables ****************************************************************************/
 
-const char * STR_E_NOTFOUND = N_("Search string not found");
-const char * STR_E_UNKNOWN_TYPE = N_("Not implemented yet");
-const char * STR_E_RPL_NOT_EQ_TO_FOUND = N_("Num of replace tokens not equal to num of found tokens");
-const char * STR_E_RPL_INVALID_TOKEN = N_("Invalid token number %d");
+const char *STR_E_NOTFOUND = N_("Search string not found");
+const char *STR_E_UNKNOWN_TYPE = N_("Not implemented yet");
+const char *STR_E_RPL_NOT_EQ_TO_FOUND =
+N_("Num of replace tokens not equal to num of found tokens");
+const char *STR_E_RPL_INVALID_TOKEN = N_("Invalid token number %d");
 
 /*** file scope macro definitions ****************************************************************/
 
@@ -62,13 +64,15 @@ mc_search__recode_str (const char *str, gsize str_len,
     gsize bytes_read;
     GIConv conv;
 
-    if (charset_from == NULL || charset_to == NULL  || !strcmp (charset_to, charset_from)) {
+    if (charset_from == NULL || charset_to == NULL || !strcmp (charset_to, charset_from))
+    {
         *bytes_written = str_len;
         return g_strndup (str, str_len);
     }
 
     conv = g_iconv_open (charset_to, charset_from);
-    if (conv == INVALID_CONV) {
+    if (conv == INVALID_CONV)
+    {
         *bytes_written = str_len;
         return g_strndup (str, str_len);
     }
@@ -76,7 +80,8 @@ mc_search__recode_str (const char *str, gsize str_len,
     ret = g_convert_with_iconv (str, str_len, conv, &bytes_read, bytes_written, NULL);
     g_iconv_close (conv);
 
-    if (ret == NULL) {
+    if (ret == NULL)
+    {
         *bytes_written = str_len;
         return g_strndup (str, str_len);
     }
@@ -90,7 +95,6 @@ gchar *
 mc_search__get_one_symbol (const char *charset, const char *str, gsize str_len,
                            gboolean * just_letters)
 {
-
     gchar *converted_str, *next_char;
 
     gsize tmp_len;
@@ -118,7 +122,8 @@ mc_search__get_one_symbol (const char *charset, const char *str, gsize str_len,
     converted_str2 =
         mc_search__recode_str (converted_str, tmp_len, cp_display, charset, &converted_str_len);
 #endif
-    if (just_letters) {
+    if (just_letters)
+    {
         if (str_isalnum (converted_str) && !str_isdigit (converted_str))
             *just_letters = TRUE;
         else
@@ -133,19 +138,22 @@ mc_search__get_one_symbol (const char *charset, const char *str, gsize str_len,
 }
 
 /* --------------------------------------------------------------------------------------------- */
-int
-mc_search__get_char (mc_search_t * lc_mc_search, const void *user_data, gsize current_pos)
-{
-    char *data;
-    if (lc_mc_search->search_fn)
-        return (lc_mc_search->search_fn) (user_data, current_pos);
 
-    data = (char *) user_data;
-    return (int) (unsigned char) data[current_pos];
+mc_search_cbret_t
+mc_search__get_char (mc_search_t * lc_mc_search, const void *user_data, gsize current_pos,
+                     int *current_char)
+{
+    unsigned char *data;
+
+    if (lc_mc_search->search_fn != NULL)
+        return lc_mc_search->search_fn (user_data, current_pos, current_char);
+
+    data = (unsigned char *) user_data;
+    *current_char = (int) data[current_pos];
+    return (*current_char == 0) ? MC_SEARCH_CB_ABORT : MC_SEARCH_CB_OK;
 }
 
 /* --------------------------------------------------------------------------------------------- */
-
 
 GString *
 mc_search__tolower_case_str (const char *charset, const char *str, gsize str_len)
@@ -250,7 +258,7 @@ mc_search__toupper_case_str (const char *charset, const char *str, gsize str_len
 /* --------------------------------------------------------------------------------------------- */
 
 gchar **
-mc_search_get_types_strings_array (size_t *num)
+mc_search_get_types_strings_array (size_t * num)
 {
     gchar **ret;
     int lc_index;
@@ -263,14 +271,12 @@ mc_search_get_types_strings_array (size_t *num)
     if (ret == NULL)
         return NULL;
 
-    for (lc_index = 0, type_str = types_str;
-	    type_str->str != NULL;
-	    type_str++, lc_index++)
+    for (lc_index = 0, type_str = types_str; type_str->str != NULL; type_str++, lc_index++)
         ret[lc_index] = g_strdup (type_str->str);
 
     /* don't count last NULL item */
     if (num != NULL)
-	*num = (size_t) lc_index;
+        *num = (size_t) lc_index;
 
     return ret;
 }

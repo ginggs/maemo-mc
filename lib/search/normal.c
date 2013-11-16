@@ -2,27 +2,26 @@
    Search text engine.
    Plain search
 
-   Copyright (C) 2009 The Free Software Foundation, Inc.
+   Copyright (C) 2009, 2011
+   The Free Software Foundation, Inc.
 
    Written by:
    Slava Zanko <slavazanko@gmail.com>, 2009.
 
    This file is part of the Midnight Commander.
 
-   The Midnight Commander is free software; you can redistribute it
+   The Midnight Commander is free software: you can redistribute it
    and/or modify it under the terms of the GNU General Public License as
-   published by the Free Software Foundation; either version 2 of the
-   License, or (at your option) any later version.
+   published by the Free Software Foundation, either version 3 of the License,
+   or (at your option) any later version.
 
-   The Midnight Commander is distributed in the hope that it will be
-   useful, but WITHOUT ANY WARRANTY; without even the implied warranty
-   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   General Public License for more details.
+   The Midnight Commander is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-   MA 02110-1301, USA.
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <config.h>
@@ -30,8 +29,6 @@
 #include "lib/global.h"
 #include "lib/strutil.h"
 #include "lib/search.h"
-
-#include "src/charsets.h"
 
 #include "internal.h"
 
@@ -46,14 +43,17 @@
 /*** file scope functions ************************************************************************/
 
 static GString *
-mc_search__normal_translate_to_regex (gchar * str, gsize * len)
+mc_search__normal_translate_to_regex (const GString * astr)
 {
-    GString *buff = g_string_new ("");
-    gsize orig_len = *len;
-    gsize loop = 0;
+    const char *str = astr->str;
+    GString *buff;
+    gsize loop;
 
-    while (loop < orig_len) {
-        switch (str[loop]) {
+    buff = g_string_sized_new (32);
+
+    for (loop = 0; loop < astr->len; loop++)
+        switch (str[loop])
+        {
         case '*':
         case '?':
         case ',':
@@ -71,14 +71,12 @@ mc_search__normal_translate_to_regex (gchar * str, gsize * len)
         case '-':
         case '|':
             g_string_append_c (buff, '\\');
+            /* fall through */
+        default:
             g_string_append_c (buff, str[loop]);
-            loop++;
-            continue;
+            break;
         }
-        g_string_append_c (buff, str[loop]);
-        loop++;
-    }
-    *len = buff->len;
+
     return buff;
 }
 
@@ -88,18 +86,21 @@ void
 mc_search__cond_struct_new_init_normal (const char *charset, mc_search_t * lc_mc_search,
                                         mc_search_cond_t * mc_search_cond)
 {
-    GString *tmp =
-        mc_search__normal_translate_to_regex (mc_search_cond->str->str, &mc_search_cond->len);
+    GString *tmp;
 
+    tmp = mc_search__normal_translate_to_regex (mc_search_cond->str);
     g_string_free (mc_search_cond->str, TRUE);
-    if (lc_mc_search->whole_words) {
-        g_string_prepend (tmp, "\\b");
-        g_string_append (tmp, "\\b");
+
+    if (lc_mc_search->whole_words)
+    {
+        /* NOTE: \b as word boundary doesn't allow search
+         * whole words with non-ASCII symbols */
+        g_string_prepend (tmp, "(^|[^\\p{L}\\p{N}_])(");
+        g_string_append (tmp, ")([^\\p{L}\\p{N}_]|$)");
     }
+
     mc_search_cond->str = tmp;
-
     mc_search__cond_struct_new_init_regex (charset, lc_mc_search, mc_search_cond);
-
 }
 
 /* --------------------------------------------------------------------------------------------- */

@@ -1,26 +1,35 @@
-/* Various utilities - Unix variants
+/*
+   Various utilities - Unix variants
+
    Copyright (C) 1994, 1995, 1996, 1998, 1999, 2000, 2001, 2002, 2003,
-   2004, 2005, 2007 Free Software Foundation, Inc.
-   Written 1994, 1995, 1996 by:
-   Miguel de Icaza, Janne Kukonlehto, Dugan Porter,
-   Jakub Jelinek, Mauricio Plaza.
+   2004, 2005, 2007, 2011, 2012, 2013
+   The Free Software Foundation, Inc.
+
+   Written by:
+   Miguel de Icaza, 1994, 1995, 1996
+   Janne Kukonlehto, 1994, 1995, 1996
+   Dugan Porter, 1994, 1995, 1996
+   Jakub Jelinek, 1994, 1995, 1996
+   Mauricio Plaza, 1994, 1995, 1996
 
    The mc_realpath routine is mostly from uClibc package, written
    by Rick Sladkey <jrs@world.std.com>
 
-   This program is free software; you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 2 of the License, or
-   (at your option) any later version.
+   This file is part of the Midnight Commander.
 
-   This program is distributed in the hope that it will be useful,
+   The Midnight Commander is free software: you can redistribute it
+   and/or modify it under the terms of the GNU General Public License as
+   published by the Free Software Foundation, either version 3 of the License,
+   or (at your option) any later version.
+
+   The Midnight Commander is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  */
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 /** \file utilunix.c
  *  \brief Source: various utilities - Unix variant
@@ -37,25 +46,49 @@
 #include <stdlib.h>
 #include <string.h>
 #include <fcntl.h>
+#ifdef HAVE_SYS_PARAM_H
 #include <sys/param.h>
+#endif
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/wait.h>
 #ifdef HAVE_SYS_IOCTL_H
-#   include <sys/ioctl.h>
+#include <sys/ioctl.h>
+#endif
+#ifdef HAVE_GET_PROCESS_STATS
+#include <sys/procstats.h>
 #endif
 #include <unistd.h>
 #include <pwd.h>
 #include <grp.h>
 
 #include "lib/global.h"
-#include "src/execute.h"
-#include "src/wtools.h"         /* message() */
+#include "lib/vfs/vfs.h"        /* VFS_ENCODING_PREFIX */
+#include "lib/strutil.h"        /* str_move() */
+#include "lib/util.h"
+#include "lib/widget.h"         /* message() */
+#include "lib/vfs/xdirentry.h"
+
+#ifdef HAVE_CHARSET
+#include "lib/charsets.h"
+#endif
+
+#include "utilunix.h"
+
+/*** global variables ****************************************************************************/
 
 struct sigaction startup_handler;
 
+/*** file scope macro definitions ****************************************************************/
+
 #define UID_CACHE_SIZE 200
 #define GID_CACHE_SIZE 30
+
+/* Pipes are guaranteed to be able to hold at least 4096 bytes */
+/* More than that would be unportable */
+#define MAX_PIPE_SIZE 4096
+
+/*** file scope type declarations ****************************************************************/
 
 typedef struct
 {
@@ -63,8 +96,30 @@ typedef struct
     char *string;
 } int_cache;
 
+typedef enum
+{
+    FORK_ERROR = -1,
+    FORK_CHILD,
+    FORK_PARENT,
+} my_fork_state_t;
+
+typedef struct
+{
+    struct sigaction intr;
+    struct sigaction quit;
+    struct sigaction stop;
+} my_system_sigactions_t;
+
+/*** file scope variables ************************************************************************/
+
 static int_cache uid_cache[UID_CACHE_SIZE];
 static int_cache gid_cache[GID_CACHE_SIZE];
+
+static int error_pipe[2];       /* File descriptors of error pipe */
+static int old_error;           /* File descriptor of old standard error */
+
+/*** file scope functions ************************************************************************/
+/* --------------------------------------------------------------------------------------------- */
 
 static char *
 i_cache_match (int id, int_cache * cache, int size)
@@ -77,6 +132,8 @@ i_cache_match (int id, int_cache * cache, int size)
     return 0;
 }
 
+/* --------------------------------------------------------------------------------------------- */
+
 static void
 i_cache_add (int id, int_cache * cache, int size, char *text, int *last)
 {
@@ -85,6 +142,99 @@ i_cache_add (int id, int_cache * cache, int size, char *text, int *last)
     cache[*last].index = id;
     *last = ((*last) + 1) % size;
 }
+
+/* --------------------------------------------------------------------------------------------- */
+
+static my_fork_state_t
+my_fork (void)
+{
+    pid_t pid;
+
+    pid = fork ();
+
+    if (pid < 0)
+    {
+        fprintf (stderr, "\n\nfork () = -1\n");
+        return FORK_ERROR;
+    }
+
+    if (pid == 0)
+        return FORK_CHILD;
+
+    while (TRUE)
+    {
+        int status = 0;
+
+        if (waitpid (pid, &status, 0) > 0)
+            return WEXITSTATUS (status) == 0 ? FORK_PARENT : FORK_ERROR;
+
+        if (errno != EINTR)
+            return FORK_ERROR;
+    }
+}
+
+/* --------------------------------------------------------------------------------------------- */
+
+static void
+my_system__save_sigaction_handlers (my_system_sigactions_t * sigactions)
+{
+    struct sigaction ignore;
+
+    ignore.sa_handler = SIG_IGN;
+    sigemptyset (&ignore.sa_mask);
+    ignore.sa_flags = 0;
+
+    sigaction (SIGINT, &ignore, &sigactions->intr);
+    sigaction (SIGQUIT, &ignore, &sigactions->quit);
+
+    /* Restore the original SIGTSTP handler, we don't want ncurses' */
+    /* handler messing the screen after the SIGCONT */
+    sigaction (SIGTSTP, &startup_handler, &sigactions->stop);
+}
+
+/* --------------------------------------------------------------------------------------------- */
+
+static void
+my_system__restore_sigaction_handlers (my_system_sigactions_t * sigactions)
+{
+    sigaction (SIGINT, &sigactions->intr, NULL);
+    sigaction (SIGQUIT, &sigactions->quit, NULL);
+    sigaction (SIGTSTP, &sigactions->stop, NULL);
+}
+
+/* --------------------------------------------------------------------------------------------- */
+
+static GPtrArray *
+my_system_make_arg_array (int flags, const char *shell, char **execute_name)
+{
+    GPtrArray *args_array;
+
+    args_array = g_ptr_array_new ();
+
+    if ((flags & EXECUTE_AS_SHELL) != 0)
+    {
+        g_ptr_array_add (args_array, g_strdup (shell));
+        g_ptr_array_add (args_array, g_strdup ("-c"));
+        *execute_name = g_strdup (shell);
+    }
+    else
+    {
+        char *shell_token;
+
+        shell_token = shell != NULL ? strchr (shell, ' ') : NULL;
+        if (shell_token == NULL)
+            *execute_name = g_strdup (shell);
+        else
+            *execute_name = g_strndup (shell, (gsize) (shell_token - shell));
+
+        g_ptr_array_add (args_array, g_strdup (shell));
+    }
+    return args_array;
+}
+
+/* --------------------------------------------------------------------------------------------- */
+/*** public functions ****************************************************************************/
+/* --------------------------------------------------------------------------------------------- */
 
 char *
 get_owner (int uid)
@@ -111,6 +261,8 @@ get_owner (int uid)
     }
 }
 
+/* --------------------------------------------------------------------------------------------- */
+
 char *
 get_group (int gid)
 {
@@ -136,100 +288,176 @@ get_group (int gid)
     }
 }
 
+/* --------------------------------------------------------------------------------------------- */
 /* Since ncurses uses a handler that automatically refreshes the */
 /* screen after a SIGCONT, and we don't want this behavior when */
 /* spawning a child, we save the original handler here */
+
 void
 save_stop_handler (void)
 {
     sigaction (SIGTSTP, NULL, &startup_handler);
 }
 
+/* --------------------------------------------------------------------------------------------- */
+/**
+ * Wrapper for _exit() system call.
+ * The _exit() function has gcc's attribute 'noreturn', and this is reason why we can't
+ * mock the call.
+ *
+ * @param status exit code
+ */
+
+void
+my_exit (int status)
+{
+    _exit (status);
+}
+
+/* --------------------------------------------------------------------------------------------- */
+/**
+ * Call external programs.
+ *
+ * @parameter flags   addition conditions for running external programs.
+ * @parameter shell   shell (if flags contain EXECUTE_AS_SHELL), command to run otherwise.
+ *                    Shell (or command) will be found in paths described in PATH variable
+ *                    (if shell parameter doesn't begin from path delimiter)
+ * @parameter command Command for shell (or first parameter for command, if flags contain EXECUTE_AS_SHELL)
+ * @return 0 if successfull, -1 otherwise
+ */
+
 int
 my_system (int flags, const char *shell, const char *command)
 {
-    struct sigaction ignore, save_intr, save_quit, save_stop;
-    pid_t pid;
+    return my_systeml (flags, shell, command, NULL);
+}
+
+/* --------------------------------------------------------------------------------------------- */
+/**
+ * Call external programs with various parameters number.
+ *
+ * @parameter flags addition conditions for running external programs.
+ * @parameter shell shell (if flags contain EXECUTE_AS_SHELL), command to run otherwise.
+ *                  Shell (or command) will be found in pathes described in PATH variable
+ *                  (if shell parameter doesn't begin from path delimiter)
+ * @parameter ...   Command for shell with addition parameters for shell
+ *                  (or parameters for command, if flags contain EXECUTE_AS_SHELL).
+ *                  Should be NULL terminated.
+ * @return 0 if successfull, -1 otherwise
+ */
+
+
+int
+my_systeml (int flags, const char *shell, ...)
+{
+    GPtrArray *args_array;
     int status = 0;
+    va_list vargs;
+    char *one_arg;
 
-    ignore.sa_handler = SIG_IGN;
-    sigemptyset (&ignore.sa_mask);
-    ignore.sa_flags = 0;
+    args_array = g_ptr_array_new ();
 
-    sigaction (SIGINT, &ignore, &save_intr);
-    sigaction (SIGQUIT, &ignore, &save_quit);
+    va_start (vargs, shell);
+    while ((one_arg = va_arg (vargs, char *)) != NULL)
+          g_ptr_array_add (args_array, one_arg);
+    va_end (vargs);
 
-    /* Restore the original SIGTSTP handler, we don't want ncurses' */
-    /* handler messing the screen after the SIGCONT */
-    sigaction (SIGTSTP, &startup_handler, &save_stop);
+    g_ptr_array_add (args_array, NULL);
+    status = my_systemv_flags (flags, shell, (char *const *) args_array->pdata);
 
-    pid = fork ();
-    if (pid < 0)
-    {
-        fprintf (stderr, "\n\nfork () = -1\n");
-        status = -1;
-    }
-    else if (pid == 0)
-    {
-        signal (SIGINT, SIG_DFL);
-        signal (SIGQUIT, SIG_DFL);
-        signal (SIGTSTP, SIG_DFL);
-        signal (SIGCHLD, SIG_DFL);
-
-        if (flags & EXECUTE_AS_SHELL)
-            execl (shell, shell, "-c", command, (char *) NULL);
-        else
-        {
-            gchar **shell_tokens;
-            const gchar *only_cmd;
-
-            shell_tokens = g_strsplit (shell, " ", 2);
-            if (shell_tokens == NULL)
-                only_cmd = shell;
-            else
-                only_cmd = (*shell_tokens != NULL) ? *shell_tokens : shell;
-
-            execlp (only_cmd, shell, command, (char *) NULL);
-
-            /*
-               execlp will replace current process,
-               therefore no sence in call of g_strfreev().
-               But this keeped for estetic reason :)
-             */
-            g_strfreev (shell_tokens);
-
-        }
-
-        _exit (127);            /* Exec error */
-    }
-    else
-    {
-        while (TRUE)
-        {
-            if (waitpid (pid, &status, 0) > 0)
-            {
-                status = WEXITSTATUS(status);
-                break;
-            }
-            if (errno != EINTR)
-            {
-                status = -1;
-                break;
-            }
-        }
-    }
-    sigaction (SIGINT, &save_intr, NULL);
-    sigaction (SIGQUIT, &save_quit, NULL);
-    sigaction (SIGTSTP, &save_stop, NULL);
+    g_ptr_array_free (args_array, TRUE);
 
     return status;
 }
 
-
-/*
- * Perform tilde expansion if possible.
- * Always return a newly allocated string, even if it's unchanged.
+/* --------------------------------------------------------------------------------------------- */
+/**
+ * Call external programs with array of strings as parameters.
+ *
+ * @parameter command command to run. Command will be found in paths described in PATH variable
+ *                    (if command parameter doesn't begin from path delimiter)
+ * @parameter argv    Array of strings (NULL-terminated) with parameters for command
+ * @return 0 if successfull, -1 otherwise
  */
+
+int
+my_systemv (const char *command, char *const argv[])
+{
+    my_fork_state_t fork_state;
+    int status = 0;
+    my_system_sigactions_t sigactions;
+
+    my_system__save_sigaction_handlers (&sigactions);
+
+    fork_state = my_fork ();
+    switch (fork_state)
+    {
+    case FORK_ERROR:
+        status = -1;
+        break;
+    case FORK_CHILD:
+        {
+            signal (SIGINT, SIG_DFL);
+            signal (SIGQUIT, SIG_DFL);
+            signal (SIGTSTP, SIG_DFL);
+            signal (SIGCHLD, SIG_DFL);
+
+            execvp (command, argv);
+            my_exit (127);      /* Exec error */
+        }
+        break;
+    default:
+        status = 0;
+        break;
+    }
+    my_system__restore_sigaction_handlers (&sigactions);
+
+    return status;
+}
+
+/* --------------------------------------------------------------------------------------------- */
+/**
+ * Call external programs with flags and with array of strings as parameters.
+ *
+ * @parameter flags   addition conditions for running external programs.
+ * @parameter command shell (if flags contain EXECUTE_AS_SHELL), command to run otherwise.
+ *                    Shell (or command) will be found in paths described in PATH variable
+ *                    (if shell parameter doesn't begin from path delimiter)
+ * @parameter argv    Array of strings (NULL-terminated) with parameters for command
+ * @return 0 if successfull, -1 otherwise
+ */
+
+int
+my_systemv_flags (int flags, const char *command, char *const argv[])
+{
+    char *execute_name = NULL;
+    GPtrArray *args_array;
+    int status = 0;
+
+    args_array = my_system_make_arg_array (flags, command, &execute_name);
+
+    for (; argv != NULL && *argv != NULL; argv++)
+        g_ptr_array_add (args_array, *argv);
+
+    g_ptr_array_add (args_array, NULL);
+    status = my_systemv (execute_name, (char *const *) args_array->pdata);
+
+    g_free (execute_name);
+    g_ptr_array_free (args_array, TRUE);
+
+    return status;
+}
+
+/* --------------------------------------------------------------------------------------------- */
+
+/**
+ * Perform tilde expansion if possible.
+ *
+ * @param directory pointer to the path
+ *
+ * @return newly allocated string, even if it's unchanged.
+ */
+
 char *
 tilde_expand (const char *directory)
 {
@@ -271,125 +499,13 @@ tilde_expand (const char *directory)
     return g_strconcat (passwd->pw_dir, PATH_SEP_STR, q, (char *) NULL);
 }
 
-/*
- * Return the directory where mc should keep its temporary files.
- * This directory is (in Bourne shell terms) "${TMPDIR=/tmp}/mc-$USER"
- * When called the first time, the directory is created if needed.
- * The first call should be done early, since we are using fprintf()
- * and not message() to report possible problems.
+/* --------------------------------------------------------------------------------------------- */
+/**
+ * Creates a pipe to hold standard error for a later analysis.
+ * The pipe can hold 4096 bytes. Make sure no more is written
+ * or a deadlock might occur.
  */
-const char *
-mc_tmpdir (void)
-{
-    static char buffer[64];
-    static const char *tmpdir;
-    const char *sys_tmp;
-    struct passwd *pwd;
-    struct stat st;
-    const char *error = NULL;
 
-    /* Check if already correctly initialized */
-    if (tmpdir && lstat (tmpdir, &st) == 0 && S_ISDIR (st.st_mode) &&
-        st.st_uid == getuid () && (st.st_mode & 0777) == 0700)
-        return tmpdir;
-
-    sys_tmp = getenv ("TMPDIR");
-    if (!sys_tmp || sys_tmp[0] != '/')
-    {
-        sys_tmp = TMPDIR_DEFAULT;
-    }
-
-    pwd = getpwuid (getuid ());
-
-    if (pwd)
-        g_snprintf (buffer, sizeof (buffer), "%s/mc-%s", sys_tmp, pwd->pw_name);
-    else
-        g_snprintf (buffer, sizeof (buffer), "%s/mc-%lu", sys_tmp, (unsigned long) getuid ());
-
-    canonicalize_pathname (buffer);
-
-    if (lstat (buffer, &st) == 0)
-    {
-        /* Sanity check for existing directory */
-        if (!S_ISDIR (st.st_mode))
-            error = _("%s is not a directory\n");
-        else if (st.st_uid != getuid ())
-            error = _("Directory %s is not owned by you\n");
-        else if (((st.st_mode & 0777) != 0700) && (chmod (buffer, 0700) != 0))
-            error = _("Cannot set correct permissions for directory %s\n");
-    }
-    else
-    {
-        /* Need to create directory */
-        if (mkdir (buffer, S_IRWXU) != 0)
-        {
-            fprintf (stderr,
-                     _("Cannot create temporary directory %s: %s\n"),
-                     buffer, unix_error_string (errno));
-            error = "";
-        }
-    }
-
-    if (error != NULL)
-    {
-        int test_fd;
-        char *test_fn, *fallback_prefix;
-        int fallback_ok = 0;
-
-        if (*error)
-            fprintf (stderr, error, buffer);
-
-        /* Test if sys_tmp is suitable for temporary files */
-        fallback_prefix = g_strdup_printf ("%s/mctest", sys_tmp);
-        test_fd = mc_mkstemps (&test_fn, fallback_prefix, NULL);
-        g_free (fallback_prefix);
-        if (test_fd != -1)
-        {
-            close (test_fd);
-            test_fd = open (test_fn, O_RDONLY);
-            if (test_fd != -1)
-            {
-                close (test_fd);
-                unlink (test_fn);
-                fallback_ok = 1;
-            }
-        }
-
-        if (fallback_ok)
-        {
-            fprintf (stderr, _("Temporary files will be created in %s\n"), sys_tmp);
-            g_snprintf (buffer, sizeof (buffer), "%s", sys_tmp);
-            error = NULL;
-        }
-        else
-        {
-            fprintf (stderr, _("Temporary files will not be created\n"));
-            g_snprintf (buffer, sizeof (buffer), "%s", "/dev/null/");
-        }
-
-        fprintf (stderr, "%s\n", _("Press any key to continue..."));
-        getc (stdin);
-    }
-
-    tmpdir = buffer;
-
-    if (!error)
-        g_setenv ("MC_TMPDIR", tmpdir, TRUE);
-
-    return tmpdir;
-}
-
-
-/* Pipes are guaranteed to be able to hold at least 4096 bytes */
-/* More than that would be unportable */
-#define MAX_PIPE_SIZE 4096
-
-static int error_pipe[2];       /* File descriptors of error pipe */
-static int old_error;           /* File descriptor of old standard error */
-
-/* Creates a pipe to hold standard error for a later analysis. */
-/* The pipe can hold 4096 bytes. Make sure no more is written */
-/* or a deadlock might occur. */
 void
 open_error_pipe (void)
 {
@@ -431,11 +547,16 @@ open_error_pipe (void)
     error_pipe[1] = -1;
 }
 
-/*
- * Returns true if an error was displayed
- * error: -1 - ignore errors, 0 - display warning, 1 - display error
- * text is prepended to the error message from the pipe
+/* --------------------------------------------------------------------------------------------- */
+/**
+ * Close a pipe
+ *
+ * @param error '-1' - ignore errors, '0' - display warning, '1' - display error
+ * @param text is prepended to the error message from the pipe
+ *
+ * @return not 0 if an error was displayed
  */
+
 int
 close_error_pipe (int error, const char *text)
 {
@@ -447,7 +568,7 @@ close_error_pipe (int error, const char *text)
     if (error_pipe[0] == -1)
         return 0;
 
-    if (error)
+    if (error < 0 || (error > 0 && (error & D_ERROR) != 0))
         title = MSG_ERROR;
     else
         title = _("Warning");
@@ -455,6 +576,9 @@ close_error_pipe (int error, const char *text)
     {
         if (dup2 (old_error, 2) == -1)
         {
+            if (error < 0)
+                error = D_ERROR;
+
             message (error, MSG_ERROR, _("Error dup'ing old error pipe"));
             return 1;
         }
@@ -484,22 +608,25 @@ close_error_pipe (int error, const char *text)
     return 1;
 }
 
-/*
+/* --------------------------------------------------------------------------------------------- */
+/**
  * Canonicalize path, and return a new path.  Do everything in place.
  * The new path differs from path in:
- *      Multiple `/'s are collapsed to a single `/'.
- *      Leading `./'s and trailing `/.'s are removed.
- *      Trailing `/'s are removed.
- *      Non-leading `../'s and trailing `..'s are handled by removing
+ *      Multiple '/'s are collapsed to a single '/'.
+ *      Leading './'s and trailing '/.'s are removed.
+ *      Trailing '/'s are removed.
+ *      Non-leading '../'s and trailing '..'s are handled by removing
  *      portions of the path.
  * Well formed UNC paths are modified only in the local part.
  */
+
 void
 custom_canonicalize_pathname (char *path, CANON_PATH_FLAGS flags)
 {
     char *p, *s;
-    int len;
+    size_t len;
     char *lpath = path;         /* path without leading UNC part */
+    const size_t url_delim_len = strlen (VFS_PATH_URL_DELIMITER);
 
     /* Detect and preserve UNC paths: //server/... */
     if ((flags & CANON_PATH_GUARDUNC) && path[0] == PATH_SEP && path[1] == PATH_SEP)
@@ -520,7 +647,7 @@ custom_canonicalize_pathname (char *path, CANON_PATH_FLAGS flags)
         p = lpath;
         while (*p)
         {
-            if (p[0] == PATH_SEP && p[1] == PATH_SEP)
+            if (p[0] == PATH_SEP && p[1] == PATH_SEP && (p == lpath || *(p - 1) != ':'))
             {
                 s = p + 1;
                 while (*(++s) == PATH_SEP);
@@ -548,7 +675,12 @@ custom_canonicalize_pathname (char *path, CANON_PATH_FLAGS flags)
         /* Remove trailing slashes */
         p = lpath + strlen (lpath) - 1;
         while (p > lpath && *p == PATH_SEP)
+        {
+            if (p >= lpath - (url_delim_len + 1)
+                && strncmp (p - url_delim_len + 1, VFS_PATH_URL_DELIMITER, url_delim_len) == 0)
+                break;
             *p-- = 0;
+        }
 
         /* Remove leading "./" */
         if (lpath[0] == '.' && lpath[1] == PATH_SEP)
@@ -568,9 +700,12 @@ custom_canonicalize_pathname (char *path, CANON_PATH_FLAGS flags)
         len = strlen (lpath);
         if (len < 2)
             return;
-        if (lpath[len - 1] == PATH_SEP)
+        if (lpath[len - 1] == PATH_SEP
+            && (len < url_delim_len
+                || strncmp (lpath + len - url_delim_len, VFS_PATH_URL_DELIMITER,
+                            url_delim_len) != 0))
         {
-            lpath[len - 1] = 0;
+            lpath[len - 1] = '\0';
         }
         else
         {
@@ -578,12 +713,12 @@ custom_canonicalize_pathname (char *path, CANON_PATH_FLAGS flags)
             {
                 if (len == 2)
                 {
-                    lpath[1] = 0;
+                    lpath[1] = '\0';
                     return;
                 }
                 else
                 {
-                    lpath[len - 2] = 0;
+                    lpath[len - 2] = '\0';
                 }
             }
         }
@@ -591,6 +726,10 @@ custom_canonicalize_pathname (char *path, CANON_PATH_FLAGS flags)
 
     if (flags & CANON_PATH_REMDOUBLEDOTS)
     {
+#ifdef HAVE_CHARSET
+        const size_t enc_prefix_len = strlen (VFS_ENCODING_PREFIX);
+#endif /* HAVE_CHARSET */
+
         /* Collapse "/.." with the previous part of path */
         p = lpath;
         while (p[0] && p[1] && p[2])
@@ -603,8 +742,45 @@ custom_canonicalize_pathname (char *path, CANON_PATH_FLAGS flags)
 
             /* search for the previous token */
             s = p - 1;
-            while (s >= lpath && *s != PATH_SEP)
+            if (s >= lpath + url_delim_len - 2
+                && strncmp (s - url_delim_len + 2, VFS_PATH_URL_DELIMITER, url_delim_len) == 0)
+            {
+                s -= (url_delim_len - 2);
+                while (s >= lpath && *s-- != PATH_SEP);
+            }
+
+            while (s >= lpath)
+            {
+                if (s - url_delim_len > lpath
+                    && strncmp (s - url_delim_len, VFS_PATH_URL_DELIMITER, url_delim_len) == 0)
+                {
+                    char *vfs_prefix = s - url_delim_len;
+                    struct vfs_class *vclass;
+
+                    while (vfs_prefix > lpath && *--vfs_prefix != PATH_SEP);
+                    if (*vfs_prefix == PATH_SEP)
+                        vfs_prefix++;
+                    *(s - url_delim_len) = '\0';
+
+                    vclass = vfs_prefix_to_class (vfs_prefix);
+                    *(s - url_delim_len) = *VFS_PATH_URL_DELIMITER;
+
+                    if (vclass != NULL)
+                    {
+                        struct vfs_s_subclass *sub = (struct vfs_s_subclass *) vclass->data;
+                        if (sub != NULL && sub->flags & VFS_S_REMOTE)
+                        {
+                            s = vfs_prefix;
+                            continue;
+                        }
+                    }
+                }
+
+                if (*s == PATH_SEP)
+                    break;
+
                 s--;
+            }
 
             s++;
 
@@ -625,7 +801,14 @@ custom_canonicalize_pathname (char *path, CANON_PATH_FLAGS flags)
                 else
                 {
                     /* "token/../foo" -> "foo" */
-                    str_move (s, p + 4);
+#ifdef HAVE_CHARSET
+                    if ((strncmp (s, VFS_ENCODING_PREFIX, enc_prefix_len) == 0)
+                        && (is_supported_encoding (s + enc_prefix_len)))
+                        /* special case: remove encoding */
+                        str_move (s, p + 1);
+                    else
+#endif /* HAVE_CHARSET */
+                        str_move (s, p + 4);
                 }
                 p = (s > lpath) ? s - 1 : s;
                 continue;
@@ -646,8 +829,33 @@ custom_canonicalize_pathname (char *path, CANON_PATH_FLAGS flags)
                 /* "foo/token/.." -> "foo" */
                 if (s == lpath + 1)
                     s[0] = 0;
+#ifdef HAVE_CHARSET
+                else if ((strncmp (s, VFS_ENCODING_PREFIX, enc_prefix_len) == 0)
+                         && (is_supported_encoding (s + enc_prefix_len)))
+                {
+                    /* special case: remove encoding */
+                    s[0] = '.';
+                    s[1] = '.';
+                    s[2] = '\0';
+
+                    /* search for the previous token */
+                    /* s[-1] == PATH_SEP */
+                    p = s - 1;
+                    while (p >= lpath && *p != PATH_SEP)
+                        p--;
+
+                    if (p != NULL)
+                        continue;
+                }
+#endif /* HAVE_CHARSET */
                 else
-                    s[-1] = 0;
+                {
+                    if (s >= lpath + url_delim_len
+                        && strncmp (s - url_delim_len, VFS_PATH_URL_DELIMITER, url_delim_len) == 0)
+                        *s = '\0';
+                    else
+                        s[-1] = '\0';
+                }
                 break;
             }
 
@@ -656,21 +864,25 @@ custom_canonicalize_pathname (char *path, CANON_PATH_FLAGS flags)
     }
 }
 
+/* --------------------------------------------------------------------------------------------- */
+
 void
 canonicalize_pathname (char *path)
 {
     custom_canonicalize_pathname (path, CANON_PATH_ALL);
 }
 
-#ifdef HAVE_GET_PROCESS_STATS
-#    include <sys/procstats.h>
+/* --------------------------------------------------------------------------------------------- */
 
+#ifdef HAVE_GET_PROCESS_STATS
 int
 gettimeofday (struct timeval *tp, void *tzp)
 {
     return get_process_stats (tp, PS_SELF, 0, 0);
 }
 #endif /* HAVE_GET_PROCESS_STATS */
+
+/* --------------------------------------------------------------------------------------------- */
 
 #ifndef HAVE_REALPATH
 char *
@@ -814,7 +1026,12 @@ mc_realpath (const char *path, char *resolved_path)
 }
 #endif /* HAVE_REALPATH */
 
-/* Return the index of the permissions triplet */
+/* --------------------------------------------------------------------------------------------- */
+/**
+ * Return the index of the permissions triplet
+ *
+ */
+
 int
 get_user_permissions (struct stat *st)
 {
@@ -861,3 +1078,83 @@ get_user_permissions (struct stat *st)
 
     return 2;
 }
+
+/* --------------------------------------------------------------------------------------------- */
+/**
+ * Build filename from arguments.
+ * Like to g_build_filename(), but respect VFS_PATH_URL_DELIMITER
+ */
+
+char *
+mc_build_filenamev (const char *first_element, va_list args)
+{
+    gboolean absolute;
+    const char *element = first_element;
+    GString *path;
+    char *ret;
+
+    if (element == NULL)
+        return NULL;
+
+    path = g_string_new ("");
+
+    absolute = (*first_element != '\0' && *first_element == PATH_SEP);
+
+    do
+    {
+        if (*element == '\0')
+            element = va_arg (args, char *);
+        else
+        {
+            char *tmp_element;
+            size_t len;
+            const char *start;
+
+            tmp_element = g_strdup (element);
+
+            element = va_arg (args, char *);
+
+            canonicalize_pathname (tmp_element);
+            len = strlen (tmp_element);
+            start = (tmp_element[0] == PATH_SEP) ? tmp_element + 1 : tmp_element;
+
+            g_string_append (path, start);
+            if (tmp_element[len - 1] != PATH_SEP && element != NULL)
+                g_string_append_c (path, PATH_SEP);
+
+            g_free (tmp_element);
+        }
+    }
+    while (element != NULL);
+
+    if (absolute)
+        g_string_prepend_c (path, PATH_SEP);
+
+    ret = g_string_free (path, FALSE);
+    canonicalize_pathname (ret);
+
+    return ret;
+}
+
+/* --------------------------------------------------------------------------------------------- */
+/**
+ * Build filename from arguments.
+ * Like to g_build_filename(), but respect VFS_PATH_URL_DELIMITER
+ */
+
+char *
+mc_build_filename (const char *first_element, ...)
+{
+    va_list args;
+    char *ret;
+
+    if (first_element == NULL)
+        return NULL;
+
+    va_start (args, first_element);
+    ret = mc_build_filenamev (first_element, args);
+    va_end (args);
+    return ret;
+}
+
+/* --------------------------------------------------------------------------------------------- */

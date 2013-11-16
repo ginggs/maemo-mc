@@ -8,9 +8,15 @@
 /* Define to 1 if using `alloca.c'. */
 #undef C_ALLOCA
 
+/* Define to enable background file operations */
+#undef ENABLE_BACKGROUND
+
 /* Define to 1 if translation of program messages to the user's native
    language is requested. */
 #undef ENABLE_NLS
+
+/* Define to enable subshell support */
+#undef ENABLE_SUBSHELL
 
 /* Define to enable VFS support */
 #undef ENABLE_VFS
@@ -29,6 +35,9 @@
 
 /* Support for sfs */
 #undef ENABLE_VFS_SFS
+
+/* Support for SFTP filesystem */
+#undef ENABLE_VFS_SFTP
 
 /* Define to enable VFS over SMB */
 #undef ENABLE_VFS_SMB
@@ -55,14 +64,14 @@
 /* Define to 1 if you have the <arpa/inet.h> header file. */
 #undef HAVE_ARPA_INET_H
 
+/* Define to enable aspell support */
+#undef HAVE_ASPELL
+
+/* Define to 1 if you have the <aspell.h> header file. */
+#undef HAVE_ASPELL_H
+
 /* Define to 1 if you have the `asprintf' function. */
 #undef HAVE_ASPRINTF
-
-/* Define to 1 if you have the `atoll' function. */
-#undef HAVE_ATOLL
-
-/* Define to 1 if you have the `cfgetospeed' function. */
-#undef HAVE_CFGETOSPEED
 
 /* Define to 1 if you have the MacOS X function CFLocaleCopyCurrent in the
    CoreFoundation framework. */
@@ -101,10 +110,6 @@
 /* Define to 1 if you have the declaration of `_snwprintf', and to 0 if you
    don't. */
 #undef HAVE_DECL__SNWPRINTF
-
-/* Define to 1 if you have the <dirent.h> header file, and it defines `DIR'.
-   */
-#undef HAVE_DIRENT_H
 
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #undef HAVE_DLFCN_H
@@ -182,9 +187,6 @@
 /* Define if the list of mounted filesystems can be determined */
 #undef HAVE_INFOMOUNT_LIST
 
-/* Define to 1 if you have the `initgroups' function. */
-#undef HAVE_INITGROUPS
-
 /* Define if you have the 'intmax_t' type in <stdint.h> or <inttypes.h>. */
 #undef HAVE_INTMAX_T
 
@@ -194,9 +196,6 @@
 /* Define if <inttypes.h> exists, doesn't clash with <sys/types.h>, and
    declares uintmax_t. */
 #undef HAVE_INTTYPES_H_WITH_UINTMAX
-
-/* Define to 1 if you have the `isascii' function. */
-#undef HAVE_ISASCII
 
 /* Define if you have <langinfo.h> and nl_langinfo(CODESET). */
 #undef HAVE_LANGINFO_CODESET
@@ -267,14 +266,23 @@
 /* Define to 1 if you have the <ncurses/term.h> header file. */
 #undef HAVE_NCURSES_TERM_H
 
-/* Define to 1 if you have the <ndir.h> header file, and it defines `DIR'. */
-#undef HAVE_NDIR_H
+/* Define to 1 if you have the <netinet/in.h> header file. */
+#undef HAVE_NETINET_IN_H
 
 /* Define to 1 if you have the `next_dev' function. */
 #undef HAVE_NEXT_DEV
 
+/* Define to 1 if you have the <nfs/nfs_client.h> header file. */
+#undef HAVE_NFS_NFS_CLIENT_H
+
+/* Define to 1 if you have the <nfs/vfs.h> header file. */
+#undef HAVE_NFS_VFS_H
+
 /* Define to 1 if you have the <nl_types.h> header file. */
 #undef HAVE_NL_TYPES_H
+
+/* Define to 1 if you have the <OS.h> header file. */
+#undef HAVE_OS_H
 
 /* Define to 1 if you have the `pmap_getmaps' function. */
 #undef HAVE_PMAP_GETMAPS
@@ -284,6 +292,9 @@
 
 /* Define to 1 if you have the `pmap_set' function. */
 #undef HAVE_PMAP_SET
+
+/* Define if you have a working posix_fallocate() */
+#undef HAVE_POSIX_FALLOCATE
 
 /* Define to 1 if you have the `posix_openpt' function. */
 #undef HAVE_POSIX_OPENPT
@@ -306,17 +317,11 @@
 /* Define to 1 if you have the `rresvport' function. */
 #undef HAVE_RRESVPORT
 
-/* Define to 1 if you have the <security/pam_misc.h> header file. */
-#undef HAVE_SECURITY_PAM_MISC_H
-
 /* Define to 1 if you have the `setenv' function. */
 #undef HAVE_SETENV
 
 /* Define to 1 if you have the `setlocale' function. */
 #undef HAVE_SETLOCALE
-
-/* Define to 1 if you have the `setreuid' function. */
-#undef HAVE_SETREUID
 
 /* Define to use S-Lang library for screen management */
 #undef HAVE_SLANG
@@ -333,11 +338,11 @@
 /* Define to 1 if the system has the type `socklen_t'. */
 #undef HAVE_SOCKLEN_T
 
-/* Define to 1 if you have the `statfs' function. */
-#undef HAVE_STATFS
-
 /* Define to 1 if you have the `statlstat' function. */
 #undef HAVE_STATLSTAT
+
+/* Define to 1 if you have the `statvfs' function. */
+#undef HAVE_STATVFS
 
 /* Define to 1 if you have the <stddef.h> header file. */
 #undef HAVE_STDDEF_H
@@ -357,10 +362,6 @@
 
 /* Define to 1 if you have the `strcasecmp' function. */
 #undef HAVE_STRCASECMP
-
-/* Define to 1 if you have the `strcoll' function and it is properly defined.
-   */
-#undef HAVE_STRCOLL
 
 /* Define to 1 if you have the `strdup' function. */
 #undef HAVE_STRDUP
@@ -386,14 +387,29 @@
 /* Define to 1 if `l_linger' is a member of `struct linger'. */
 #undef HAVE_STRUCT_LINGER_L_LINGER
 
+/* Define to 1 if `f_frsize' is a member of `struct statfs'. */
+#undef HAVE_STRUCT_STATFS_F_FRSIZE
+
 /* Define to 1 if `f_fstypename' is a member of `struct statfs'. */
 #undef HAVE_STRUCT_STATFS_F_FSTYPENAME
+
+/* Define to 1 if `f_namelen' is a member of `struct statfs'. */
+#undef HAVE_STRUCT_STATFS_F_NAMELEN
+
+/* Define to 1 if `f_type' is a member of `struct statfs'. */
+#undef HAVE_STRUCT_STATFS_F_TYPE
 
 /* Define to 1 if `f_basetype' is a member of `struct statvfs'. */
 #undef HAVE_STRUCT_STATVFS_F_BASETYPE
 
 /* Define to 1 if `f_fstypename' is a member of `struct statvfs'. */
 #undef HAVE_STRUCT_STATVFS_F_FSTYPENAME
+
+/* Define to 1 if `f_namemax' is a member of `struct statvfs'. */
+#undef HAVE_STRUCT_STATVFS_F_NAMEMAX
+
+/* Define to 1 if `f_type' is a member of `struct statvfs'. */
+#undef HAVE_STRUCT_STATVFS_F_TYPE
 
 /* Define to 1 if `st_blksize' is a member of `struct stat'. */
 #undef HAVE_STRUCT_STAT_ST_BLKSIZE
@@ -411,16 +427,6 @@
    `HAVE_STRUCT_STAT_ST_BLOCKS' instead. */
 #undef HAVE_ST_BLOCKS
 
-/* Define to enable subshell support */
-#undef HAVE_SUBSHELL_SUPPORT
-
-/* Define to 1 if you have the `sysconf' function. */
-#undef HAVE_SYSCONF
-
-/* Define to 1 if you have the <sys/dir.h> header file, and it defines `DIR'.
-   */
-#undef HAVE_SYS_DIR_H
-
 /* Define to 1 if you have the <sys/filsys.h> header file. */
 #undef HAVE_SYS_FILSYS_H
 
@@ -436,12 +442,11 @@
 /* Define to 1 if you have the <sys/mkdev.h> header file. */
 #undef HAVE_SYS_MKDEV_H
 
+/* Define to 1 if you have the <sys/mntent.h> header file. */
+#undef HAVE_SYS_MNTENT_H
+
 /* Define to 1 if you have the <sys/mount.h> header file. */
 #undef HAVE_SYS_MOUNT_H
-
-/* Define to 1 if you have the <sys/ndir.h> header file, and it defines `DIR'.
-   */
-#undef HAVE_SYS_NDIR_H
 
 /* Define to 1 if you have the <sys/param.h> header file. */
 #undef HAVE_SYS_PARAM_H
@@ -464,12 +469,6 @@
 /* Define to 1 if you have the <sys/sysmacros.h> header file. */
 #undef HAVE_SYS_SYSMACROS_H
 
-/* Define to 1 if you have the <sys/timeb.h> header file. */
-#undef HAVE_SYS_TIMEB_H
-
-/* Define to 1 if you have the <sys/time.h> header file. */
-#undef HAVE_SYS_TIME_H
-
 /* Define to 1 if you have the <sys/types.h> header file. */
 #undef HAVE_SYS_TYPES_H
 
@@ -479,17 +478,8 @@
 /* Define to 1 if you have the <sys/vfs.h> header file. */
 #undef HAVE_SYS_VFS_H
 
-/* Define to 1 if you have the `tcgetattr' function. */
-#undef HAVE_TCGETATTR
-
-/* Define to 1 if you have the `tcsetattr' function. */
-#undef HAVE_TCSETATTR
-
 /* Define to enable getting events from X Window System */
 #undef HAVE_TEXTMODE_X11_SUPPORT
-
-/* Define to 1 if you have the `truncate' function. */
-#undef HAVE_TRUNCATE
 
 /* Define to 1 if you have the `tsearch' function. */
 #undef HAVE_TSEARCH
@@ -497,29 +487,23 @@
 /* Define if you have the 'uintmax_t' type in <stdint.h> or <inttypes.h>. */
 #undef HAVE_UINTMAX_T
 
-/* Define if you have the `uintptr_t' type. */
-#undef HAVE_UINTPTR_T
-
 /* Define to 1 if you have the <unistd.h> header file. */
 #undef HAVE_UNISTD_H
 
 /* Define if you have the 'unsigned long long' type. */
 #undef HAVE_UNSIGNED_LONG_LONG
 
+/* Define to 1 if the system has the type `unsigned long long int'. */
+#undef HAVE_UNSIGNED_LONG_LONG_INT
+
 /* Define to 1 if you have the <utime.h> header file. */
 #undef HAVE_UTIME_H
-
-/* Define to 1 if you have the <wchar.h> header file. */
-#undef HAVE_WCHAR_H
 
 /* Define if you have the 'wchar_t' type. */
 #undef HAVE_WCHAR_T
 
 /* Define to 1 if you have the `wcslen' function. */
 #undef HAVE_WCSLEN
-
-/* Define to 1 if you have the <wctype.h> header file. */
-#undef HAVE_WCTYPE_H
 
 /* Define if you have the 'wint_t' type. */
 #undef HAVE_WINT_T
@@ -549,13 +533,14 @@
    */
 #undef LT_OBJDIR
 
-/* Define to 1 if `major', `minor', and `makedev' are declared in <mkdev.h>.
-   */
-#undef MAJOR_IN_MKDEV
+/* MC configure arguments */
+#undef MC_CONFIGURE_ARGS
 
-/* Define to 1 if `major', `minor', and `makedev' are declared in
-   <sysmacros.h>. */
-#undef MAJOR_IN_SYSMACROS
+/* Define to enable XDG standard support */
+#undef MC_HOMEDIR_XDG
+
+/* Where configs will be placed relative to $HOME */
+#undef MC_USERCONF_DIR
 
 /* Define if there is no specific function for reading the list of mounted
    file systems. fread will be used to read /etc/mnttab. (SVR2) */
@@ -597,14 +582,21 @@
    3.0) */
 #undef MOUNTED_GETMNTINFO2
 
+/* Define if we are on interix, and ought to use statvfs plus some special
+   knowledge on where mounted filesystems can be found. (Interix) */
+#undef MOUNTED_INTERIX_STATVFS
+
 /* Define if there is a function named listmntent that can be used to list all
    mounted file systems. (UNICOS) */
 #undef MOUNTED_LISTMNTENT
 
 /* Define if there is a function named mntctl that can be used to read the
    list of mounted file systems, and there is a system header file that
-   declares `struct vmount.' (AIX) */
+   declares 'struct vmount.' (AIX) */
 #undef MOUNTED_VMOUNT
+
+/* Define to 1 if assertions should be disabled. */
+#undef NDEBUG
 
 /* Define to 1 if your C compiler doesn't accept -c and -o together. */
 #undef NO_MINUS_C_MINUS_O
@@ -639,14 +631,19 @@
 /* Define to select 'pcre' search type */
 #undef SEARCH_TYPE_PCRE
 
+/* Some systems declare sig_atomic_t as volatile, some others -- no. This
+   define will have value `sig_atomic_t' or `volatile sig_atomic_t'
+   accordingly. */
+#undef SIG_ATOMIC_VOLATILE_T
+
 /* The size of `long', as computed by sizeof. */
 #undef SIZEOF_LONG
 
-/* The size of `long long', as computed by sizeof. */
-#undef SIZEOF_LONG_LONG
-
 /* The size of `off_t', as computed by sizeof. */
 #undef SIZEOF_OFF_T
+
+/* The size of `uintmax_t', as computed by sizeof. */
+#undef SIZEOF_UINTMAX_T
 
 /* Define as the maximum value of type 'size_t', if the system doesn't define
    it. */
@@ -674,6 +671,10 @@
    (4.3BSD, SunOS 4, HP-UX, AIX PS/2) */
 #undef STAT_STATFS2_BSIZE
 
+/* Define if statfs takes 2 args and struct statfs has a field named f_frsize.
+   (glibc/Linux > 2.6) */
+#undef STAT_STATFS2_FRSIZE
+
 /* Define if statfs takes 2 args and struct statfs has a field named f_fsize.
    (4.4BSD, NetBSD) */
 #undef STAT_STATFS2_FSIZE
@@ -685,26 +686,29 @@
 /* Define if statfs takes 3 args. (DEC Alpha running OSF/1) */
 #undef STAT_STATFS3_OSF1
 
-/* Define if statfs takes 4 args. (SVR3, Dynix, Irix, Dolphin) */
+/* Define if statfs takes 4 args. (SVR3, Dynix, old Irix, old AIX, Dolphin) */
 #undef STAT_STATFS4
 
 /* Define if there is a function named statvfs. (SVR4) */
 #undef STAT_STATVFS
 
+/* Define if statvfs64 should be preferred over statvfs. */
+#undef STAT_STATVFS64
+
 /* Define to 1 if you have the ANSI C header files. */
 #undef STDC_HEADERS
+
+/* Define to 1 if the f_fsid member of struct statfs is an integer. */
+#undef STRUCT_STATFS_F_FSID_IS_INTEGER
+
+/* Define to 1 if the f_fsid member of struct statvfs is an integer. */
+#undef STRUCT_STATVFS_F_FSID_IS_INTEGER
 
 /* Define to make subshell support optional */
 #undef SUBSHELL_OPTIONAL
 
-/* Define to 1 if you can safely include both <sys/time.h> and <time.h>. */
-#undef TIME_WITH_SYS_TIME
-
 /* Define to enable diff viewer */
 #undef USE_DIFF_VIEW
-
-/* Use the regex included here */
-#undef USE_INCLUDED_REGEX
 
 /* Define to enable internal editor */
 #undef USE_INTERNAL_EDIT
@@ -746,11 +750,13 @@
 /* Version number of package */
 #undef VERSION
 
-/* Define to enable background file operations */
-#undef WITH_BACKGROUND
-
 /* Define to 1 if the X Window System is missing or not being used. */
 #undef X_DISPLAY_MISSING
+
+/* Enable large inode numbers on Mac OS X 10.5.  */
+#ifndef _DARWIN_USE_64_BIT_INODE
+# define _DARWIN_USE_64_BIT_INODE 1
+#endif
 
 /* Number of bits in a file offset, on hosts where this is settable. */
 #undef _FILE_OFFSET_BITS
@@ -786,7 +792,7 @@
 /* Define to `int' if <sys/types.h> does not define. */
 #undef mode_t
 
-/* Define to `unsigned int' if <sys/types.h> does not define. */
+/* Define to 'unsigned int' if <sys/types.h> does not define. */
 #undef nlink_t
 
 /* Define to `long int' if <sys/types.h> does not define. */
@@ -798,6 +804,9 @@
 /* Define as the type of the result of subtracting two pointers, if the system
    doesn't define it. */
 #undef ptrdiff_t
+
+/* Define to `int' if <sys/types.h> does not define. */
+#undef sig_atomic_t
 
 /* Define to empty if the C compiler doesn't support this keyword. */
 #undef signed

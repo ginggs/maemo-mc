@@ -1,46 +1,46 @@
-/* common strings utilities
-   Copyright (C) 2007 Free Software Foundation, Inc.
+/*
+   Common strings utilities
 
-   Written 2007 by:
-   Rostislav Benes
+   Copyright (C) 2007, 2011, 2013
+   The Free Software Foundation, Inc.
 
-   The file_date routine is mostly from GNU's fileutils package,
-   written by Richard Stallman and David MacKenzie.
+   Written by:
+   Rostislav Benes, 2007
 
-   This program is free software; you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 2 of the License, or
-   (at your option) any later version.
+   This file is part of the Midnight Commander.
 
-   This program is distributed in the hope that it will be useful,
+   The Midnight Commander is free software: you can redistribute it
+   and/or modify it under the terms of the GNU General Public License as
+   published by the Free Software Foundation, either version 3 of the License,
+   or (at your option) any later version.
+
+   The Midnight Commander is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <config.h>
+
 #include <stdlib.h>
-#include <stdio.h>
 #include <langinfo.h>
 #include <string.h>
 #include <errno.h>
-#include <stdarg.h>
 
 #include "lib/global.h"
 #include "lib/strutil.h"
 
 /*names, that are used for utf-8 */
 static const char *str_utf8_encodings[] = {
-        "utf-8", 
-        "utf8", 
-        NULL
+    "utf-8",
+    "utf8",
+    NULL
 };
 
-/* standard 8bit encodings, no wide or multibytes characters*/
+/* standard 8bit encodings, no wide or multibytes characters */
 static const char *str_8bit_encodings[] = {
     "cp-1251",
     "cp1251",
@@ -60,16 +60,17 @@ static const char *str_8bit_encodings[] = {
     NULL
 };
 
-/* terminal encoding*/
+/* terminal encoding */
 static char *codeset = NULL;
-/* function for encoding specific operations*/
+static char *term_encoding = NULL;
+/* function for encoding specific operations */
 static struct str_class used_class;
 
 GIConv str_cnv_to_term;
 GIConv str_cnv_from_term;
-GIConv str_cnv_not_convert;
+GIConv str_cnv_not_convert = INVALID_CONV;
 
-/* if enc is same encoding like on terminal*/
+/* if enc is same encoding like on terminal */
 static int
 str_test_not_convert (const char *enc)
 {
@@ -79,158 +80,144 @@ str_test_not_convert (const char *enc)
 GIConv
 str_crt_conv_to (const char *to_enc)
 {
-    return (!str_test_not_convert (to_enc))
-	? g_iconv_open (to_enc, codeset) : str_cnv_not_convert;
+    return (!str_test_not_convert (to_enc)) ? g_iconv_open (to_enc, codeset) : str_cnv_not_convert;
 }
 
 GIConv
 str_crt_conv_from (const char *from_enc)
 {
     return (!str_test_not_convert (from_enc))
-	? g_iconv_open (codeset, from_enc) : str_cnv_not_convert;
+        ? g_iconv_open (codeset, from_enc) : str_cnv_not_convert;
 }
 
 void
 str_close_conv (GIConv conv)
 {
     if (conv != str_cnv_not_convert)
-	g_iconv_close (conv);
+        g_iconv_close (conv);
 }
 
 static estr_t
 _str_convert (GIConv coder, const char *string, int size, GString * buffer)
 {
-    estr_t state  = ESTR_SUCCESS;
-    gchar *tmp_buff = NULL;
+    estr_t state = ESTR_SUCCESS;
     gssize left;
     gsize bytes_read = 0;
     gsize bytes_written = 0;
-    GError *error = NULL;
-    errno = 0;
+
+    errno = 0;                  /* FIXME: is it really needed? */
 
     if (coder == INVALID_CONV)
-	return ESTR_FAILURE;
+        return ESTR_FAILURE;
 
     if (string == NULL || buffer == NULL)
-	return ESTR_FAILURE;
+        return ESTR_FAILURE;
 
-/*
-    if (! used_class.is_valid_string (string))
-    {
-	return ESTR_FAILURE;
-    }
-*/
+    /*
+       if (! used_class.is_valid_string (string))
+       {
+       return ESTR_FAILURE;
+       }
+     */
     if (size < 0)
-    {
-	size = strlen (string);
-    }
+        size = strlen (string);
     else
     {
-	left = strlen (string);
-	if (left < size)
-	    size = left;
+        left = strlen (string);
+        if (left < size)
+            size = left;
     }
 
     left = size;
     g_iconv (coder, NULL, NULL, NULL, NULL);
 
-    while (left)
+    while (left != 0)
     {
-	tmp_buff = g_convert_with_iconv ((const gchar *) string,
-					 left,
-					 coder,
-					 &bytes_read,
-					 &bytes_written, &error);
-	if (error)
-	{
-	    int code = error->code;
+        gchar *tmp_buff;
+        GError *error = NULL;
 
-	    g_error_free (error);
-	    error = NULL;
+        tmp_buff = g_convert_with_iconv ((const gchar *) string,
+                                         left, coder, &bytes_read, &bytes_written, &error);
+        if (error != NULL)
+        {
+            int code = error->code;
 
-	    switch (code)
-	    {
-	    case G_CONVERT_ERROR_NO_CONVERSION:
-		/* Conversion between the requested character sets is not supported. */
-		tmp_buff = g_strnfill (strlen (string), '?');
-		g_string_append (buffer, tmp_buff);
-		g_free (tmp_buff);
-		return ESTR_FAILURE;
+            g_error_free (error);
+            error = NULL;
 
-	    case G_CONVERT_ERROR_ILLEGAL_SEQUENCE:
-		/* Invalid byte sequence in conversion input. */
-		if ((tmp_buff == NULL) && (bytes_read != 0))
-		    /* recode valid byte sequence */
-		    tmp_buff = g_convert_with_iconv ((const gchar *) string,
-							bytes_read,
-							coder, NULL, NULL, NULL);
+            switch (code)
+            {
+            case G_CONVERT_ERROR_NO_CONVERSION:
+                /* Conversion between the requested character sets is not supported. */
+                tmp_buff = g_strnfill (strlen (string), '?');
+                g_string_append (buffer, tmp_buff);
+                g_free (tmp_buff);
+                return ESTR_FAILURE;
 
-		if (tmp_buff != NULL)
-		{
-		    g_string_append (buffer, tmp_buff);
-		    g_free (tmp_buff);
-		}
+            case G_CONVERT_ERROR_ILLEGAL_SEQUENCE:
+                /* Invalid byte sequence in conversion input. */
+                if ((tmp_buff == NULL) && (bytes_read != 0))
+                    /* recode valid byte sequence */
+                    tmp_buff = g_convert_with_iconv ((const gchar *) string,
+                                                     bytes_read, coder, NULL, NULL, NULL);
 
-		if ((int)bytes_read < left)
-		{
-		    string += bytes_read + 1;
-		    size -= (bytes_read + 1);
-		    left -= (bytes_read + 1);
-		    g_string_append_c (buffer, *(string-1));
-		}
-		else
-		{
-		    return ESTR_PROBLEM;
-		}
-		state = ESTR_PROBLEM;
-		break;
+                if (tmp_buff != NULL)
+                {
+                    g_string_append (buffer, tmp_buff);
+                    g_free (tmp_buff);
+                }
 
-	    case G_CONVERT_ERROR_PARTIAL_INPUT:
-		/* Partial character sequence at end of input. */
-		g_string_append (buffer, tmp_buff);
-		g_free (tmp_buff);
-		if ((int)bytes_read < left)
-		{
-		    left = left - bytes_read;
-		    tmp_buff = g_strnfill (left, '?');
-		    g_string_append (buffer, tmp_buff);
-		    g_free (tmp_buff);
-		}
-		return ESTR_PROBLEM;
+                if ((int) bytes_read >= left)
+                    return ESTR_PROBLEM;
 
-	    case G_CONVERT_ERROR_BAD_URI:	/* Don't know how handle this error :( */
-	    case G_CONVERT_ERROR_NOT_ABSOLUTE_PATH:	/* Don't know how handle this error :( */
-	    case G_CONVERT_ERROR_FAILED:	/* Conversion failed for some reason. */
-	    default:
-		g_free (tmp_buff);
-		return ESTR_FAILURE;
-	    }
-	}
-	else
-	{
-	    if (tmp_buff != NULL)
-	    {
-		if (*tmp_buff)
-		{
-		    g_string_append (buffer, tmp_buff);
-		    g_free (tmp_buff);
-		    string += bytes_read;
-		    left -= bytes_read;
-		}
-		else
-		{
-		    g_free (tmp_buff);
-		    g_string_append (buffer, string);
-		    return state;
-		}
-	    }
-	    else
-	    {
-		g_string_append (buffer, string);
-		return ESTR_PROBLEM;
-	    }
-	}
+                string += bytes_read + 1;
+                size -= (bytes_read + 1);
+                left -= (bytes_read + 1);
+                g_string_append_c (buffer, *(string - 1));
+                state = ESTR_PROBLEM;
+                break;
+
+            case G_CONVERT_ERROR_PARTIAL_INPUT:
+                /* Partial character sequence at end of input. */
+                g_string_append (buffer, tmp_buff);
+                g_free (tmp_buff);
+                if ((int) bytes_read < left)
+                {
+                    left = left - bytes_read;
+                    tmp_buff = g_strnfill (left, '?');
+                    g_string_append (buffer, tmp_buff);
+                    g_free (tmp_buff);
+                }
+                return ESTR_PROBLEM;
+
+            case G_CONVERT_ERROR_BAD_URI:      /* Don't know how handle this error :( */
+            case G_CONVERT_ERROR_NOT_ABSOLUTE_PATH:    /* Don't know how handle this error :( */
+            case G_CONVERT_ERROR_FAILED:       /* Conversion failed for some reason. */
+            default:
+                g_free (tmp_buff);
+                return ESTR_FAILURE;
+            }
+        }
+        else if (tmp_buff == NULL)
+        {
+            g_string_append (buffer, string);
+            return ESTR_PROBLEM;
+        }
+        else if (*tmp_buff == '\0')
+        {
+            g_free (tmp_buff);
+            g_string_append (buffer, string);
+            return state;
+        }
+        else
+        {
+            g_string_append (buffer, tmp_buff);
+            g_free (tmp_buff);
+            string += bytes_read;
+            left -= bytes_read;
+        }
     }
+
     return state;
 }
 
@@ -247,7 +234,7 @@ str_nconvert (GIConv coder, const char *string, int size, GString * buffer)
 }
 
 gchar *
-str_conv_gerror_message (GError *error, const char *def_msg)
+str_conv_gerror_message (GError * error, const char *def_msg)
 {
     return used_class.conv_gerror_message (error, def_msg);
 }
@@ -255,22 +242,18 @@ str_conv_gerror_message (GError *error, const char *def_msg)
 estr_t
 str_vfs_convert_from (GIConv coder, const char *string, GString * buffer)
 {
-    estr_t result;
+    estr_t result = ESTR_SUCCESS;
 
     if (coder == str_cnv_not_convert)
-    {
-	g_string_append (buffer, string != NULL ? string : "");
-	result = ESTR_SUCCESS;
-    }
+        g_string_append (buffer, string != NULL ? string : "");
     else
-	result = _str_convert (coder, string, -1, buffer);
+        result = _str_convert (coder, string, -1, buffer);
 
     return result;
 }
 
 estr_t
-str_vfs_convert_to (GIConv coder, const char *string, int size,
-		    GString * buffer)
+str_vfs_convert_to (GIConv coder, const char *string, int size, GString * buffer)
 {
     return used_class.vfs_convert_to (coder, string, size, buffer);
 }
@@ -280,14 +263,16 @@ str_printf (GString * buffer, const char *format, ...)
 {
     va_list ap;
     va_start (ap, format);
+
 #if GLIB_CHECK_VERSION (2, 14, 0)
     g_string_append_vprintf (buffer, format, ap);
 #else
     {
-	gchar *tmp;
-	tmp = g_strdup_vprintf (format, ap);
-	g_string_append (buffer, tmp);
-	g_free(tmp);
+        gchar *tmp;
+
+        tmp = g_strdup_vprintf (format, ap);
+        g_string_append (buffer, tmp);
+        g_free (tmp);
     }
 #endif
     va_end (ap);
@@ -300,8 +285,7 @@ str_insert_replace_char (GString * buffer)
 }
 
 estr_t
-str_translate_char (GIConv conv, const char *keys, size_t ch_size,
-		    char *output, size_t out_size)
+str_translate_char (GIConv conv, const char *keys, size_t ch_size, char *output, size_t out_size)
 {
     size_t left;
     size_t cnv;
@@ -310,89 +294,85 @@ str_translate_char (GIConv conv, const char *keys, size_t ch_size,
 
     left = (ch_size == (size_t) (-1)) ? strlen (keys) : ch_size;
 
-    cnv = g_iconv (conv, (gchar **) &keys, &left, &output, &out_size);
-    if (cnv == (size_t)(-1)) {
+    cnv = g_iconv (conv, (gchar **) & keys, &left, &output, &out_size);
+    if (cnv == (size_t) (-1))
         return (errno == EINVAL) ? ESTR_PROBLEM : ESTR_FAILURE;
-    } else {
-        output[0] = '\0';
-        return ESTR_SUCCESS;
-    }
+
+    output[0] = '\0';
+    return ESTR_SUCCESS;
 }
 
 
 const char *
 str_detect_termencoding (void)
 {
-    return (nl_langinfo (CODESET));
+    if (term_encoding == NULL)
+    {
+        /* On Linux, nl_langinfo (CODESET) returns upper case UTF-8 whether the LANG is set
+           to utf-8 or UTF-8.
+           On Mac OS X, it returns the same case as the LANG input.
+           So let tranform result of nl_langinfo (CODESET) to upper case  unconditionally. */
+        term_encoding = g_ascii_strup (nl_langinfo (CODESET), -1);
+    }
+
+    return term_encoding;
 }
 
 static int
 str_test_encoding_class (const char *encoding, const char **table)
 {
-    int t;
     int result = 0;
-    if ( encoding == NULL )
-        return result;
 
-    for (t = 0; table[t] != NULL; t++)
+    if (encoding != NULL)
     {
-	result += (g_ascii_strncasecmp (encoding, table[t],
-					strlen (table[t])) == 0);
+        int t;
+
+        for (t = 0; table[t] != NULL; t++)
+            if (g_ascii_strncasecmp (encoding, table[t], strlen (table[t])) == 0)
+                result++;
     }
+
     return result;
 }
 
 static void
-str_choose_str_functions ()
+str_choose_str_functions (void)
 {
     if (str_test_encoding_class (codeset, str_utf8_encodings))
-    {
-	used_class = str_utf8_init ();
-    }
+        used_class = str_utf8_init ();
     else if (str_test_encoding_class (codeset, str_8bit_encodings))
-    {
-	used_class = str_8bit_init ();
-    }
+        used_class = str_8bit_init ();
     else
-    {
-	used_class = str_ascii_init ();
-    }
+        used_class = str_ascii_init ();
 }
 
-int
+gboolean
 str_isutf8 (const char *codeset_name)
 {
-    int result = 0;
-    if (str_test_encoding_class (codeset_name, str_utf8_encodings))
-    {
-	result = 1;
-    }
-    return result;
+    return (str_test_encoding_class (codeset_name, str_utf8_encodings) != 0);
 }
 
 void
 str_init_strings (const char *termenc)
 {
-    codeset = g_strdup ((termenc != NULL) 
-                        ? termenc 
-                        : str_detect_termencoding ());
+    codeset = termenc != NULL ? g_ascii_strup (termenc, -1) : g_strdup (str_detect_termencoding ());
 
     str_cnv_not_convert = g_iconv_open (codeset, codeset);
     if (str_cnv_not_convert == INVALID_CONV)
     {
-	if (termenc != NULL)
-	{
-	    g_free (codeset);
-	    codeset = g_strdup (str_detect_termencoding ());
-	    str_cnv_not_convert = g_iconv_open (codeset, codeset);
-	}
+        if (termenc != NULL)
+        {
+            g_free (codeset);
+            codeset = g_strdup (str_detect_termencoding ());
+            str_cnv_not_convert = g_iconv_open (codeset, codeset);
+        }
 
-	if (str_cnv_not_convert == INVALID_CONV)
-	{
-	    g_free (codeset);
-	    codeset = g_strdup ("ascii");
-	    str_cnv_not_convert = g_iconv_open (codeset, codeset);
-	}
+        if (str_cnv_not_convert == INVALID_CONV)
+        {
+            g_free (codeset);
+            codeset = g_strdup ("ASCII");
+            str_cnv_not_convert = g_iconv_open (codeset, codeset);
+        }
     }
 
     str_cnv_to_term = str_cnv_not_convert;
@@ -405,7 +385,8 @@ void
 str_uninit_strings (void)
 {
     if (str_cnv_not_convert != INVALID_CONV)
-	g_iconv_close (str_cnv_not_convert);
+        g_iconv_close (str_cnv_not_convert);
+    g_free (term_encoding);
     g_free (codeset);
 }
 
@@ -427,12 +408,6 @@ str_term_trim (const char *text, int width)
     return used_class.term_trim (text, width);
 }
 
-void
-str_msg_term_size (const char *text, int *lines, int *columns)
-{
-    used_class.msg_term_size (text, lines, columns);
-}
-
 const char *
 str_term_substring (const char *text, int start, int width)
 {
@@ -450,7 +425,7 @@ str_get_next_char (char *text)
 const char *
 str_cget_next_char (const char *text)
 {
-    used_class.cnext_char(&text);
+    used_class.cnext_char (&text);
     return text;
 }
 
@@ -607,7 +582,7 @@ str_length (const char *text)
 int
 str_length_char (const char *text)
 {
-    return str_cget_next_char_safe (text)-text;
+    return str_cget_next_char_safe (text) - text;
 }
 
 int
@@ -631,49 +606,49 @@ str_column_to_pos (const char *text, size_t pos)
 int
 str_isspace (const char *ch)
 {
-    return used_class.isspace (ch);
+    return used_class.char_isspace (ch);
 }
 
 int
 str_ispunct (const char *ch)
 {
-    return used_class.ispunct (ch);
+    return used_class.char_ispunct (ch);
 }
 
 int
 str_isalnum (const char *ch)
 {
-    return used_class.isalnum (ch);
+    return used_class.char_isalnum (ch);
 }
 
 int
 str_isdigit (const char *ch)
 {
-    return used_class.isdigit (ch);
+    return used_class.char_isdigit (ch);
 }
 
 int
 str_toupper (const char *ch, char **out, size_t * remain)
 {
-    return used_class.toupper (ch, out, remain);
+    return used_class.char_toupper (ch, out, remain);
 }
 
 int
 str_tolower (const char *ch, char **out, size_t * remain)
 {
-    return used_class.tolower (ch, out, remain);
+    return used_class.char_tolower (ch, out, remain);
 }
 
 int
 str_isprint (const char *ch)
 {
-    return used_class.isprint (ch);
+    return used_class.char_isprint (ch);
 }
 
-int
+gboolean
 str_iscombiningmark (const char *ch)
 {
-    return used_class.iscombiningmark (ch);
+    return used_class.char_iscombiningmark (ch);
 }
 
 const char *
@@ -778,3 +753,104 @@ str_release_key (char *key, int case_sen)
 {
     used_class.release_key (key, case_sen);
 }
+
+void
+str_msg_term_size (const char *text, int *lines, int *columns)
+{
+    char *p, *tmp;
+    char *q;
+    char c = '\0';
+    int width;
+
+    *lines = 1;
+    *columns = 0;
+
+    tmp = g_strdup (text);
+    p = tmp;
+
+    while (TRUE)
+    {
+        q = strchr (p, '\n');
+        if (q != NULL)
+        {
+            c = q[0];
+            q[0] = '\0';
+        }
+
+        width = str_term_width1 (p);
+        if (width > *columns)
+            *columns = width;
+
+        if (q == NULL)
+            break;
+
+        q[0] = c;
+        p = q + 1;
+        (*lines)++;
+    }
+
+    g_free (tmp);
+}
+
+/* --------------------------------------------------------------------------------------------- */
+
+char *
+strrstr_skip_count (const char *haystack, const char *needle, size_t skip_count)
+{
+    char *semi;
+    ssize_t len;
+
+    len = strlen (haystack);
+
+    do
+    {
+        semi = g_strrstr_len (haystack, len, needle);
+        if (semi == NULL)
+            return NULL;
+        len = semi - haystack - 1;
+    }
+    while (skip_count-- != 0);
+
+    return semi;
+}
+
+/* --------------------------------------------------------------------------------------------- */
+/* Interprete string as a non-negative decimal integer, optionally multiplied by various values.
+ *
+ * @param str input value
+ * @param invalid set to TRUE if "str" does not represent a number in this format
+ *
+ * @return non-integer representation of "str", 0 in case of error.
+ */
+
+uintmax_t
+parse_integer (const char *str, gboolean * invalid)
+{
+    uintmax_t n;
+    char *suffix;
+    strtol_error_t e;
+
+    e = xstrtoumax (str, &suffix, 10, &n, "bcEGkKMPTwYZ0");
+    if (e == LONGINT_INVALID_SUFFIX_CHAR && *suffix == 'x')
+    {
+        uintmax_t multiplier;
+
+        multiplier = parse_integer (suffix + 1, invalid);
+        if (multiplier != 0 && n * multiplier / multiplier != n)
+        {
+            *invalid = TRUE;
+            return 0;
+        }
+
+        n *= multiplier;
+    }
+    else if (e != LONGINT_OK)
+    {
+        *invalid = TRUE;
+        n = 0;
+    }
+
+    return n;
+}
+
+/* --------------------------------------------------------------------------------------------- */

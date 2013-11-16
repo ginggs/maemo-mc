@@ -3,36 +3,35 @@
    Functions for handle cursor movement
 
    Copyright (C) 1994, 1995, 1996, 1998, 1999, 2000, 2001, 2002, 2003,
-   2004, 2005, 2006, 2007, 2009 Free Software Foundation, Inc.
+   2004, 2005, 2006, 2007, 2009, 2011, 2013
+   The Free Software Foundation, Inc.
 
-   Written by: 1994, 1995, 1998 Miguel de Icaza
-   1994, 1995 Janne Kukonlehto
-   1995 Jakub Jelinek
-   1996 Joseph M. Hinkle
-   1997 Norbert Warmuth
-   1998 Pavel Machek
-   2004 Roland Illig <roland.illig@gmx.de>
-   2005 Roland Illig <roland.illig@gmx.de>
-   2009 Slava Zanko <slavazanko@google.com>
-   2009 Andrew Borodin <aborodin@vmail.ru>
-   2009, 2010 Ilia Maslakov <il.smind@gmail.com>
+   Written by:
+   Miguel de Icaza, 1994, 1995, 1998
+   Janne Kukonlehto, 1994, 1995
+   Jakub Jelinek, 1995
+   Joseph M. Hinkle, 1996
+   Norbert Warmuth, 1997
+   Pavel Machek, 1998
+   Roland Illig <roland.illig@gmx.de>, 2004, 2005
+   Slava Zanko <slavazanko@google.com>, 2009
+   Andrew Borodin <aborodin@vmail.ru>, 2009, 2013
+   Ilia Maslakov <il.smind@gmail.com>, 2009, 2010
 
    This file is part of the Midnight Commander.
 
-   The Midnight Commander is free software; you can redistribute it
+   The Midnight Commander is free software: you can redistribute it
    and/or modify it under the terms of the GNU General Public License as
-   published by the Free Software Foundation; either version 2 of the
-   License, or (at your option) any later version.
+   published by the Free Software Foundation, either version 3 of the License,
+   or (at your option) any later version.
 
-   The Midnight Commander is distributed in the hope that it will be
-   useful, but WITHOUT ANY WARRANTY; without even the implied warranty
-   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   General Public License for more details.
+   The Midnight Commander is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-   MA 02110-1301, USA.
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /*
@@ -65,7 +64,30 @@
 
 /*** file scope variables ************************************************************************/
 
+/* --------------------------------------------------------------------------------------------- */
 /*** file scope functions ************************************************************************/
+/* --------------------------------------------------------------------------------------------- */
+
+static void
+mcview_scroll_to_cursor (mcview_t * view)
+{
+    if (view->hex_mode)
+    {
+        off_t bytes = view->bytes_per_line;
+        off_t cursor = view->hex_cursor;
+        off_t topleft = view->dpy_start;
+        off_t displaysize;
+
+        displaysize = view->data_area.height * bytes;
+        if (topleft + displaysize <= cursor)
+            topleft = mcview_offset_rounddown (cursor, bytes) - (displaysize - bytes);
+        if (cursor < topleft)
+            topleft = mcview_offset_rounddown (cursor, bytes);
+        view->dpy_start = topleft;
+    }
+}
+
+/* --------------------------------------------------------------------------------------------- */
 
 static void
 mcview_movement_fixups (mcview_t * view, gboolean reset_search)
@@ -73,22 +95,21 @@ mcview_movement_fixups (mcview_t * view, gboolean reset_search)
     mcview_scroll_to_cursor (view);
     if (reset_search)
     {
-        view->search_start = view->dpy_start;
-        view->search_end = view->dpy_start;
+        view->search_start = view->hex_mode ? view->hex_cursor : view->dpy_start;
+        view->search_end = view->search_start;
     }
     view->dirty++;
 }
 
 /* --------------------------------------------------------------------------------------------- */
-
 /*** public functions ****************************************************************************/
-
 /* --------------------------------------------------------------------------------------------- */
 
 void
 mcview_move_up (mcview_t * view, off_t lines)
 {
     off_t new_offset;
+
     if (view->hex_mode)
     {
         off_t bytes = lines * view->bytes_per_line;
@@ -106,24 +127,44 @@ mcview_move_up (mcview_t * view, off_t lines)
     else
     {
         off_t i;
+
         for (i = 0; i < lines; i++)
         {
-            off_t cur_bol;
-            cur_bol = new_offset = mcview_bol (view, view->dpy_start);
-            if (new_offset > 0)
-                new_offset--;
-            new_offset = mcview_bol (view, new_offset);
-            if (new_offset < 0)
-                new_offset = 0;
+            if (view->dpy_start == 0)
+                break;
             if (view->text_wrap_mode)
             {
-                size_t last_row_length = (view->dpy_start - new_offset) % view->data_area.width;
-                if (last_row_length != 0 && cur_bol == view->dpy_start)
-                    new_offset = max (new_offset, (off_t) (view->dpy_start - last_row_length));
+                new_offset = mcview_bol (view, view->dpy_start, view->dpy_start - (off_t) 1);
+                /* check if dpy_start == BOL or not (then new_offset = dpy_start - 1,
+                 * no need to check more) */
+                if (new_offset == view->dpy_start)
+                {
+                    size_t last_row_length;
+
+                    new_offset = mcview_bol (view, new_offset - 1, 0);
+                    last_row_length = (view->dpy_start - new_offset) % view->data_area.width;
+                    if (last_row_length != 0)
+                    {
+                        /* if dpy_start == BOL in wrapped mode, find BOL of previous line
+                         * and move down all but the last rows */
+                        new_offset = view->dpy_start - (off_t) last_row_length;
+                    }
+                }
                 else
-                    new_offset = max (new_offset, view->dpy_start - view->data_area.width);
+                {
+                    /* if dpy_start != BOL in wrapped mode, just move one row up;
+                     * no need to check if > 0 as there is at least exactly one wrap
+                     * between dpy_start and BOL */
+                    new_offset = view->dpy_start - (off_t) view->data_area.width;
+                }
+                view->dpy_start = new_offset;
             }
-            view->dpy_start = new_offset;
+            else
+            {
+                /* if unwrapped -> current BOL equals dpy_start, just find BOL of previous line */
+                new_offset = view->dpy_start - 1;
+                view->dpy_start = mcview_bol (view, new_offset, 0);
+            }
         }
     }
     mcview_movement_fixups (view, TRUE);
@@ -153,36 +194,44 @@ mcview_move_down (mcview_t * view, off_t lines)
     }
     else
     {
-        off_t i;
         off_t new_offset = 0;
 
         if (view->dpy_end - view->dpy_start > last_byte - view->dpy_end)
         {
-            i = 0;
-            new_offset = view->dpy_end;
-            while (view->dpy_end < last_byte && lines-- > 0)
+            while (lines-- > 0)
             {
-                new_offset = mcview_eol (view, view->dpy_end);
                 if (view->text_wrap_mode)
-                    new_offset = min (new_offset, view->dpy_end + view->data_area.width);
-                view->dpy_end = new_offset;
+                    view->dpy_end =
+                        mcview_eol (view, view->dpy_end,
+                                    view->dpy_end + (off_t) view->data_area.width);
+                else
+                    view->dpy_end = mcview_eol (view, view->dpy_end, last_byte);
 
-                new_offset = mcview_eol (view, view->dpy_start);
                 if (view->text_wrap_mode)
-                    new_offset = min (new_offset, view->dpy_start + view->data_area.width);
-                view->dpy_start = new_offset;
+                    new_offset =
+                        mcview_eol (view, view->dpy_start,
+                                    view->dpy_start + (off_t) view->data_area.width);
+                else
+                    new_offset = mcview_eol (view, view->dpy_start, last_byte);
+                if (new_offset < last_byte)
+                    view->dpy_start = new_offset;
+                if (view->dpy_end >= last_byte)
+                    break;
             }
-            view->dpy_end = last_byte;
         }
         else
         {
-
-            for (i = 0; i < lines && view->dpy_end < last_byte && new_offset < last_byte; i++)
+            off_t i;
+            for (i = 0; i < lines && new_offset < last_byte; i++)
             {
-                new_offset = mcview_eol (view, view->dpy_start);
                 if (view->text_wrap_mode)
-                    new_offset = min (new_offset, view->dpy_start + view->data_area.width);
-                view->dpy_start = new_offset;
+                    new_offset =
+                        mcview_eol (view, view->dpy_start,
+                                    view->dpy_start + (off_t) view->data_area.width);
+                else
+                    new_offset = mcview_eol (view, view->dpy_start, last_byte);
+                if (new_offset < last_byte)
+                    view->dpy_start = new_offset;
             }
         }
     }
@@ -197,7 +246,9 @@ mcview_move_left (mcview_t * view, off_t columns)
     if (view->hex_mode)
     {
         off_t old_cursor = view->hex_cursor;
+#ifdef HAVE_ASSERT_H
         assert (columns == 1);
+#endif
         if (view->hexview_in_text || !view->hexedit_lownibble)
         {
             if (view->hex_cursor > 0)
@@ -227,7 +278,9 @@ mcview_move_right (mcview_t * view, off_t columns)
         off_t last_byte;
         off_t old_cursor = view->hex_cursor;
         last_byte = mcview_offset_doz (mcview_get_filesize (view), 1);
+#ifdef HAVE_ASSERT_H
         assert (columns == 1);
+#endif
         if (view->hexview_in_text || view->hexedit_lownibble)
         {
             if (view->hex_cursor < last_byte)
@@ -242,26 +295,6 @@ mcview_move_right (mcview_t * view, off_t columns)
         view->dpy_text_column += columns;
     }
     mcview_movement_fixups (view, FALSE);
-}
-
-/* --------------------------------------------------------------------------------------------- */
-
-void
-mcview_scroll_to_cursor (mcview_t * view)
-{
-    if (view->hex_mode)
-    {
-        const off_t bytes = view->bytes_per_line;
-        const off_t displaysize = view->data_area.height * bytes;
-        const off_t cursor = view->hex_cursor;
-        off_t topleft = view->dpy_start;
-
-        if (topleft + displaysize <= cursor)
-            topleft = mcview_offset_rounddown (cursor, bytes) - (displaysize - bytes);
-        if (cursor < topleft)
-            topleft = mcview_offset_rounddown (cursor, bytes);
-        view->dpy_start = topleft;
-    }
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -314,7 +347,7 @@ mcview_moveto_bol (mcview_t * view)
     }
     else if (!view->text_wrap_mode)
     {
-        view->dpy_start = mcview_bol (view, view->dpy_start);
+        view->dpy_start = mcview_bol (view, view->dpy_start, 0);
     }
     view->dpy_text_column = 0;
     mcview_movement_fixups (view, TRUE);
@@ -344,8 +377,8 @@ mcview_moveto_eol (mcview_t * view)
     else
     {
         off_t eol;
-        bol = mcview_bol (view, view->dpy_start);
-        eol = mcview_eol (view, view->dpy_start);
+        bol = mcview_bol (view, view->dpy_start, 0);
+        eol = mcview_eol (view, view->dpy_start, mcview_get_filesize (view));
         if (!view->utf8)
         {
             if (eol > bol)
@@ -374,7 +407,11 @@ mcview_moveto_eol (mcview_t * view)
             else
                 view->dpy_text_column = eol - bol;
         }
-        view->dpy_text_column = max (0, view->dpy_text_column - view->data_area.width);
+
+        if (view->dpy_text_column < (off_t) view->data_area.width)
+            view->dpy_text_column = 0;
+        else
+            view->dpy_text_column = view->dpy_text_column - (off_t) view->data_area.width;
     }
     mcview_movement_fixups (view, FALSE);
 }
@@ -445,30 +482,26 @@ mcview_place_cursor (mcview_t * view)
     screen_dimen col = view->cursor_col;
     if (!view->hexview_in_text && view->hexedit_lownibble)
         col++;
-    widget_move (&view->widget, top + view->cursor_row, left + col);
+    widget_move (view, top + view->cursor_row, left + col);
 }
 
 /* --------------------------------------------------------------------------------------------- */
-
-/* we have set view->search_start and view->search_end and must set 
+/** we have set view->search_start and view->search_end and must set
  * view->dpy_text_column and view->dpy_start
  * try to display maximum of match */
+
 void
 mcview_moveto_match (mcview_t * view)
 {
-    off_t offset;
-
-    offset = view->search_start;
-
     if (view->hex_mode)
     {
-        view->hex_cursor = offset;
-        view->dpy_start = offset - offset % view->bytes_per_line;
+        view->hex_cursor = view->search_start;
+        view->hexedit_lownibble = FALSE;
+        view->dpy_start = view->search_start - view->search_start % view->bytes_per_line;
+        view->dpy_end = view->search_end - view->search_end % view->bytes_per_line;
     }
     else
-    {
-        view->dpy_start = mcview_bol (view, offset);
-    }
+        view->dpy_start = mcview_bol (view, view->search_start, 0);
 
     mcview_scroll_to_cursor (view);
     view->dirty++;
