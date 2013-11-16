@@ -3,6 +3,10 @@ AUTOMAKE_OPTIONS = 1.5
 
 SUBDIRS = intl po lib src doc contrib misc
 
+if HAVE_TESTS
+    SUBDIRS += tests
+endif
+
 EXTRA_DIST = 
 
 dist_noinst_SCRIPTS = build-glib2.sh
@@ -16,10 +20,13 @@ CONFIG_STATUS_DEPENDENCIES = $(top_srcdir)/version.h
 .PHONY: update-version
 
 update-version:
-	@if test -x $(top_srcdir)/maint/version.sh; then \
-	    $(top_srcdir)/maint/version.sh "$(top_srcdir)" 2>&1 >/dev/null; \
+	@if test -x $(top_srcdir)/maint/utils/version.sh; then \
+	    $(top_srcdir)/maint/utils/version.sh "$(top_srcdir)" 2>&1 >/dev/null; \
 	else \
-	    echo "File not found: $(top_srcdir)/maint/version.sh"; \
+	    if test ! -e $(top_srcdir)/version.h; then \
+	        echo "File not found: $(top_srcdir)/maint/utils/version.sh"; \
+	        exit 1; \
+	    fi; \
 	fi
 
 $(top_srcdir)/version.h: update-version

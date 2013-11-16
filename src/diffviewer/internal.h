@@ -5,8 +5,7 @@
 #include "lib/mcconfig.h"
 #include "lib/search.h"
 #include "lib/tty/color.h"
-
-#include "src/widget.h"
+#include "lib/widget.h"
 
 /*** typedefs(not structures) and defined constants **********************************************/
 
@@ -23,6 +22,13 @@ typedef enum
     DATA_SRC_TMP = 1,
     DATA_SRC_ORG = 2
 } DSRC;
+
+typedef enum
+{
+    DIFF_LEFT = 0,
+    DIFF_RIGHT = 1,
+    DIFF_COUNT = 2
+} diff_place_t;
 
 typedef enum
 {
@@ -55,7 +61,7 @@ typedef struct
 {
     int off;
     int len;
-} BRACKET[2];
+} BRACKET[DIFF_COUNT];
 
 typedef struct
 {
@@ -81,12 +87,12 @@ typedef struct WDiff
     Widget widget;
 
     const char *args;           /* Args passed to diff */
-    const char *file[2];        /* filenames */
-    char *label[2];
-    FBUF *f[2];
+    const char *file[DIFF_COUNT];       /* filenames */
+    char *label[DIFF_COUNT];
+    FBUF *f[DIFF_COUNT];
     const char *backup_sufix;
-    gboolean merged;
-    GArray *a[2];
+    gboolean merged[DIFF_COUNT];
+    GArray *a[DIFF_COUNT];
     GPtrArray *hdiff;
     int ndiff;                  /* number of hunks */
     DSRC dsrc;                  /* data source: memory or temporary file */
@@ -106,7 +112,7 @@ typedef struct WDiff
     int display_numbers;
     int show_cr;
     int tab_size;
-    int ord;
+    diff_place_t ord;
     int full;
     gboolean utf8;
     /* converter for translation of text */
@@ -130,7 +136,6 @@ typedef struct WDiff
         ssize_t last_found_line;
         ssize_t last_accessed_num_line;
     } search;
-
 } WDiff;
 
 /*** global variables defined in .c file *********************************************************/
@@ -140,8 +145,5 @@ typedef struct WDiff
 /* search.c */
 void dview_search_cmd (WDiff * dview);
 void dview_continue_search_cmd (WDiff * dview);
-
-/* ydiff.c */
-void dview_update (WDiff * dview);
 
 #endif /* MC__DIFFVIEW_INTERNAL_H */

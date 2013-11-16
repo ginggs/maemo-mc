@@ -1,27 +1,27 @@
-/* GLIB - Library of useful routines for C programming
-   Copyright (C) 2009
-   Free Software Foundation, Inc.
+/*
+   GLIB - Library of useful routines for C programming
+
+   Copyright (C) 2009, 2011, 2013
+   The Free Software Foundation, Inc.
 
    Written by:
-   Slava Zanko <slavazanko@gmail.com>, 2009.
+   Slava Zanko <slavazanko@gmail.com>, 2009, 2013.
 
    This file is part of the Midnight Commander.
 
-   The Midnight Commander is free software; you can redistribute it
+   The Midnight Commander is free software: you can redistribute it
    and/or modify it under the terms of the GNU General Public License as
-   published by the Free Software Foundation; either version 2 of the
-   License, or (at your option) any later version.
+   published by the Free Software Foundation, either version 3 of the License,
+   or (at your option) any later version.
 
-   The Midnight Commander is distributed in the hope that it will be
-   useful, but WITHOUT ANY WARRANTY; without even the implied warranty
-   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   General Public License for more details.
+   The Midnight Commander is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-   MA 02110-1301, USA.
-*/
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 /** \file glibcompat.c
  *  \brief Source: compatibility with older versions of glib
@@ -31,6 +31,7 @@
  */
 
 #include <config.h>
+#include <string.h>
 
 #include "global.h"
 #include "glibcompat.h"
@@ -50,10 +51,10 @@
 
 #if ! GLIB_CHECK_VERSION (2, 13, 0)
 /*
-    This is incomplete copy of same glib-function.
-    For older glib (less than 2.13) functional is enought.
-    For full version of glib welcome to glib update.
-*/
+   This is incomplete copy of same glib-function.
+   For older glib (less than 2.13) functional is enought.
+   For full version of glib welcome to glib update.
+ */
 gboolean
 g_unichar_iszerowidth (gunichar c)
 {
@@ -69,10 +70,29 @@ g_unichar_iszerowidth (gunichar c)
 
 /* --------------------------------------------------------------------------------------------- */
 
-#if ! GLIB_CHECK_VERSION (2, 7, 0)
-gboolean
-g_file_set_contents (const gchar * filename, const gchar * contents, gssize length, GError ** error)
+#if ! GLIB_CHECK_VERSION (2, 16, 0)
+/**
+ * g_strcmp0:
+ * @str1: (allow-none): a C string or %NULL
+ * @str2: (allow-none): another C string or %NULL
+ *
+ * Compares @str1 and @str2 like strcmp(). Handles %NULL
+ * gracefully by sorting it before non-%NULL strings.
+ * Comparing two %NULL pointers returns 0.
+ *
+ * Returns: an integer less than, equal to, or greater than zero, if @str1 is <, == or > than @str2.
+ *
+ * Since: 2.16
+ */
+int
+g_strcmp0 (const char *str1, const char *str2)
 {
-    return g_file_replace (filename, contents, length, error);
+    if (!str1)
+        return -(str1 != str2);
+    if (!str2)
+        return str1 != str2;
+    return strcmp (str1, str2);
 }
-#endif /* ! GLIB_CHECK_VERSION (2, 7, 0) */
+#endif /* ! GLIB_CHECK_VERSION (2, 16, 0) */
+
+/* --------------------------------------------------------------------------------------------- */

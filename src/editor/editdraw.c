@@ -1,24 +1,29 @@
-/* editor text drawing.
+/*
+   Editor text drawing.
 
    Copyright (C) 1996, 1997, 1998, 2001, 2002, 2003, 2004, 2005, 2006,
-   2007 Free Software Foundation, Inc.
+   2007, 2011, 2012, 2013
+   The Free Software Foundation, Inc.
 
-   Authors: 1996, 1997 Paul Sheer
+   Written by:
+   Paul Sheer, 1996, 1997
+   Andrew Borodin <aborodin@vmail.ru> 2012, 2013
+   Slava Zanko <slavazanko@gmail.com>, 2013
 
-   This program is free software; you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 2 of the License, or
-   (at your option) any later version.
+   This file is part of the Midnight Commander.
 
-   This program is distributed in the hope that it will be useful,
+   The Midnight Commander is free software: you can redistribute it
+   and/or modify it under the terms of the GNU General Public License as
+   published by the Free Software Foundation, either version 3 of the License,
+   or (at your option) any later version.
+
+   The Midnight Commander is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
-   02110-1301, USA.
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /** \file
@@ -43,14 +48,25 @@
 #include "lib/tty/key.h"        /* is_idle() */
 #include "lib/skin.h"
 #include "lib/strutil.h"        /* utf string functions */
+#include "lib/util.h"           /* is_printable() */
+#include "lib/widget.h"
+#ifdef HAVE_CHARSET
+#include "lib/charsets.h"
+#endif
 
-#include "src/widget.h"         /* buttonbar_redraw() */
-#include "src/charsets.h"
-#include "src/main.h"           /* source_codepage */
 #include "src/setup.h"          /* edit_tab_spacing */
 
 #include "edit-impl.h"
-#include "edit-widget.h"
+#include "editwidget.h"
+
+/*** global variables ****************************************************************************/
+
+/* Toggles statusbar draw style */
+int simple_statusbar = 0;
+
+int visible_tabs = 1, visible_tws = 1;
+
+/*** file scope macro definitions ****************************************************************/
 
 #define MAX_LINE_LEN 1024
 
@@ -61,40 +77,52 @@
 #define MOD_CURSOR              (1 << 11)
 #define MOD_WHITESPACE          (1 << 12)
 
-#define FONT_OFFSET_X 0
-#define FONT_OFFSET_Y 0
-#define FIXED_FONT 1
-#define FONT_PIX_PER_LINE 1
-#define FONT_MEAN_WIDTH 1
+#define edit_move(x,y) widget_move(edit, y, x);
 
-/* Toggles statusbar draw style */
-int simple_statusbar = 0;
+#define key_pending(x) (!is_idle())
+
+#define EDITOR_MINIMUM_TERMINAL_WIDTH 30
+
+/*** file scope type declarations ****************************************************************/
+
+struct line_s
+{
+    unsigned int ch;
+    unsigned int style;
+};
+
+/*** file scope variables ************************************************************************/
+
+/*** file scope functions ************************************************************************/
+
+static inline void
+printwstr (const char *s, int len)
+{
+    if (len > 0)
+        tty_printf ("%-*.*s", len, len, s);
+}
+
+/* --------------------------------------------------------------------------------------------- */
 
 static inline void
 status_string (WEdit * edit, char *s, int w)
 {
     char byte_str[16];
-    unsigned char cur_byte = 0;
-    unsigned int cur_utf = 0;
-    int cw = 1;
 
     /*
      * If we are at the end of file, print <EOF>,
      * otherwise print the current character as is (if printable),
      * as decimal and as hex.
      */
-    if (edit->curs1 < edit->last_byte)
+    if (edit->buffer.curs1 < edit->buffer.size)
     {
-        if (!edit->utf8)
+#ifdef HAVE_CHARSET
+        if (edit->utf8)
         {
-            cur_byte = edit_get_byte (edit, edit->curs1);
+            unsigned int cur_utf = 0;
+            int cw = 1;
 
-            g_snprintf (byte_str, sizeof (byte_str), "%4d 0x%03X",
-                        (int) cur_byte, (unsigned) cur_byte);
-        }
-        else
-        {
-            cur_utf = edit_get_utf (edit, edit->curs1, &cw);
+            cur_utf = edit_buffer_get_utf (&edit->buffer, edit->buffer.curs1, &cw);
             if (cw > 0)
             {
                 g_snprintf (byte_str, sizeof (byte_str), "%04d 0x%03X",
@@ -102,11 +130,19 @@ status_string (WEdit * edit, char *s, int w)
             }
             else
             {
-                cur_utf = edit_get_byte (edit, edit->curs1);
+                cur_utf = edit_buffer_get_current_byte (&edit->buffer);
                 g_snprintf (byte_str, sizeof (byte_str), "%04d 0x%03X",
                             (int) cur_utf, (unsigned) cur_utf);
             }
+        }
+        else
+#endif
+        {
+            unsigned char cur_byte = 0;
 
+            cur_byte = edit_buffer_get_current_byte (&edit->buffer);
+            g_snprintf (byte_str, sizeof (byte_str), "%4d 0x%03X",
+                        (int) cur_byte, (unsigned) cur_byte);
         }
     }
     else
@@ -120,51 +156,48 @@ status_string (WEdit * edit, char *s, int w)
                     "%c%c%c%c %3ld %5ld/%ld %6ld/%ld %s %s",
                     edit->mark1 != edit->mark2 ? (edit->column_highlight ? 'C' : 'B') : '-',
                     edit->modified ? 'M' : '-',
-                    edit->macro_i < 0 ? '-' : 'R',
+                    macro_index < 0 ? '-' : 'R',
                     edit->overwrite == 0 ? '-' : 'O',
                     edit->curs_col + edit->over_col,
-                    edit->curs_line + 1,
-                    edit->total_lines + 1, edit->curs1, edit->last_byte, byte_str,
+                    edit->buffer.curs_line + 1,
+                    edit->buffer.lines + 1, (long) edit->buffer.curs1, (long) edit->buffer.size,
+                    byte_str,
 #ifdef HAVE_CHARSET
-                    source_codepage >= 0 ? get_codepage_id (source_codepage) : ""
-#else
-                    ""
+                    mc_global.source_codepage >= 0 ? get_codepage_id (mc_global.source_codepage) :
 #endif
-            );
+                    "");
     else
         g_snprintf (s, w,
                     "[%c%c%c%c] %2ld L:[%3ld+%2ld %3ld/%3ld] *(%-4ld/%4ldb) %s  %s",
                     edit->mark1 != edit->mark2 ? (edit->column_highlight ? 'C' : 'B') : '-',
                     edit->modified ? 'M' : '-',
-                    edit->macro_i < 0 ? '-' : 'R',
+                    macro_index < 0 ? '-' : 'R',
                     edit->overwrite == 0 ? '-' : 'O',
                     edit->curs_col + edit->over_col,
                     edit->start_line + 1,
                     edit->curs_row,
-                    edit->curs_line + 1,
-                    edit->total_lines + 1, edit->curs1, edit->last_byte, byte_str,
+                    edit->buffer.curs_line + 1,
+                    edit->buffer.lines + 1, (long) edit->buffer.curs1, (long) edit->buffer.size,
+                    byte_str,
 #ifdef HAVE_CHARSET
-                    source_codepage >= 0 ? get_codepage_id (source_codepage) : ""
-#else
-                    ""
+                    mc_global.source_codepage >= 0 ? get_codepage_id (mc_global.source_codepage) :
 #endif
-            );
+                    "");
 }
+
+/* --------------------------------------------------------------------------------------------- */
+/**
+ * Draw the status line at the top of the screen for fullscreen editor window.
+ *
+ * @param edit  editor object
+ * @param color color pair
+ */
 
 static inline void
-printwstr (const char *s, int len)
+edit_status_fullscreen (WEdit * edit, int color)
 {
-    if (len > 0)
-        tty_printf ("%-*.*s", len, len, s);
-}
-
-/* Draw the status line at the top of the widget. The size of the filename
- * field varies depending on the width of the screen and the length of
- * the filename. */
-void
-edit_status (WEdit * edit)
-{
-    const int w = edit->widget.cols;
+    Widget *h = WIDGET (WIDGET (edit)->owner);
+    const int w = h->cols;
     const size_t status_size = w + 1;
     char *const status = g_malloc (status_size);
     int status_len;
@@ -177,8 +210,9 @@ edit_status (WEdit * edit)
     status_string (edit, status, status_size);
     status_len = (int) str_term_width1 (status);
 
-    if (edit->filename)
-        fname = edit->filename;
+    if (edit->filename_vpath != NULL)
+        fname = x_basename (vfs_path_get_last_path_str (edit->filename_vpath));
+
     fname_len = str_term_width1 (fname);
     if (fname_len < preferred_fname_len)
         fname_len = preferred_fname_len;
@@ -192,96 +226,168 @@ edit_status (WEdit * edit)
         fname = str_trunc (fname, fname_len);
     }
 
-    widget_move (edit, 0, 0);
-    tty_setcolor (SELECTED_COLOR);
+    widget_move (h, 0, 0);
+    tty_setcolor (color);
     printwstr (fname, fname_len + gap);
     printwstr (status, w - (fname_len + gap));
 
-    if (simple_statusbar && edit->widget.cols > 30)
+    if (simple_statusbar && w > EDITOR_MINIMUM_TERMINAL_WIDTH)
     {
-        size_t percent;
-        if (edit->total_lines + 1 != 0)
-            percent = (edit->curs_line + 1) * 100 / (edit->total_lines + 1);
-        else
-            percent = 100;
-        widget_move (edit, 0, edit->widget.cols - 5);
+        size_t percent = 100;
+
+        if (edit->buffer.lines + 1 != 0)
+            percent = (edit->buffer.curs_line + 1) * 100 / (edit->buffer.lines + 1);
+        widget_move (h, 0, w - 6 - 6);
         tty_printf (" %3d%%", percent);
     }
-    tty_setcolor (EDITOR_NORMAL_COLOR);
 
     g_free (status);
 }
 
-/* this scrolls the text so that cursor is on the screen */
-void
-edit_scroll_screen_over_cursor (WEdit * edit)
+/* --------------------------------------------------------------------------------------------- */
+/**
+ * Draw status line for editor window if window is not in fullscreen mode.
+ *
+ * @param edit editor object
+ */
+
+static inline void
+edit_status_window (WEdit * edit)
 {
-    int p;
-    int outby;
-    int b_extreme, t_extreme, l_extreme, r_extreme;
+    Widget *w = WIDGET (edit);
+    int y, x;
+    int cols = w->cols;
 
-    if (edit->num_widget_lines <= 0 || edit->num_widget_columns <= 0)
-        return;
+    tty_setcolor (STATUSBAR_COLOR);
 
-    edit->num_widget_columns -= EDIT_TEXT_HORIZONTAL_OFFSET + option_line_state_width;
-    edit->num_widget_lines -= EDIT_TEXT_VERTICAL_OFFSET - 1;
-
-    r_extreme = EDIT_RIGHT_EXTREME;
-    l_extreme = EDIT_LEFT_EXTREME;
-    b_extreme = EDIT_BOTTOM_EXTREME;
-    t_extreme = EDIT_TOP_EXTREME;
-    if (edit->found_len)
+    if (cols > 5)
     {
-        b_extreme = max (edit->num_widget_lines / 4, b_extreme);
-        t_extreme = max (edit->num_widget_lines / 4, t_extreme);
-    }
-    if (b_extreme + t_extreme + 1 > edit->num_widget_lines)
-    {
-        int n;
-        n = b_extreme + t_extreme;
-        b_extreme = (b_extreme * (edit->num_widget_lines - 1)) / n;
-        t_extreme = (t_extreme * (edit->num_widget_lines - 1)) / n;
-    }
-    if (l_extreme + r_extreme + 1 > edit->num_widget_columns)
-    {
-        int n;
-        n = l_extreme + t_extreme;
-        l_extreme = (l_extreme * (edit->num_widget_columns - 1)) / n;
-        r_extreme = (r_extreme * (edit->num_widget_columns - 1)) / n;
-    }
-    p = edit_get_col (edit) + edit->over_col;
-    edit_update_curs_row (edit);
-    outby = p + edit->start_col - edit->num_widget_columns + 1 + (r_extreme + edit->found_len);
-    if (outby > 0)
-        edit_scroll_right (edit, outby);
-    outby = l_extreme - p - edit->start_col;
-    if (outby > 0)
-        edit_scroll_left (edit, outby);
-    p = edit->curs_row;
-    outby = p - edit->num_widget_lines + 1 + b_extreme;
-    if (outby > 0)
-        edit_scroll_downward (edit, outby);
-    outby = t_extreme - p;
-    if (outby > 0)
-        edit_scroll_upward (edit, outby);
-    edit_update_curs_row (edit);
+        const char *fname = N_("NoName");
 
-    edit->num_widget_lines += EDIT_TEXT_VERTICAL_OFFSET - 1;
-    edit->num_widget_columns += EDIT_TEXT_HORIZONTAL_OFFSET + option_line_state_width;
+        if (edit->filename_vpath != NULL)
+        {
+            fname = x_basename (vfs_path_as_str (edit->filename_vpath));
+        }
+#ifdef ENABLE_NLS
+        else
+            fname = _(fname);
+#endif
+
+        edit_move (2, 0);
+        tty_printf ("[%s]", str_term_trim (fname, w->cols - 8 - 6));
+    }
+
+    tty_getyx (&y, &x);
+    x -= w->x;
+    x += 4;
+    if (x + 6 <= cols - 2 - 6)
+    {
+        edit_move (x, 0);
+        tty_printf ("[%c%c%c%c]",
+                    edit->mark1 != edit->mark2 ? (edit->column_highlight ? 'C' : 'B') : '-',
+                    edit->modified ? 'M' : '-',
+                    macro_index < 0 ? '-' : 'R', edit->overwrite == 0 ? '-' : 'O');
+    }
+
+    if (cols > 30)
+    {
+        edit_move (2, w->lines - 1);
+        tty_printf ("%3ld %5ld/%ld %6ld/%ld",
+                    edit->curs_col + edit->over_col,
+                    edit->buffer.curs_line + 1, edit->buffer.lines + 1, (long) edit->buffer.curs1,
+                    (long) edit->buffer.size);
+    }
+
+    /*
+     * If we are at the end of file, print <EOF>,
+     * otherwise print the current character as is (if printable),
+     * as decimal and as hex.
+     */
+    if (cols > 46)
+    {
+        edit_move (32, w->lines - 1);
+        if (edit->buffer.curs1 >= edit->buffer.size)
+            tty_print_string ("[<EOF>       ]");
+#ifdef HAVE_CHARSET
+        else if (edit->utf8)
+        {
+            unsigned int cur_utf;
+            int cw = 1;
+
+            cur_utf = edit_buffer_get_utf (&edit->buffer, edit->buffer.curs1, &cw);
+            if (cw <= 0)
+                cur_utf = edit_buffer_get_current_byte (&edit->buffer);
+            tty_printf ("[%05d 0x%04X]", cur_utf, cur_utf);
+        }
+#endif
+        else
+        {
+            unsigned char cur_byte;
+
+            cur_byte = edit_buffer_get_current_byte (&edit->buffer);
+            tty_printf ("[%05d 0x%04X]", (unsigned int) cur_byte, (unsigned int) cur_byte);
+        }
+    }
 }
 
-#define edit_move(x,y) widget_move(edit, y, x);
+/* --------------------------------------------------------------------------------------------- */
+/**
+ * Draw a frame around edit area.
+ *
+ * @param edit   editor object
+ * @param color  color pair
+ * @param active TRUE if editor object is focused
+ */
 
-struct line_s
+static inline void
+edit_draw_frame (const WEdit * edit, int color, gboolean active)
 {
-    unsigned int ch;
-    unsigned int style;
-};
+    const Widget *w = (const Widget *) edit;
+
+    /* draw a frame around edit area */
+    tty_setcolor (color);
+    /* draw double frame for active window if skin supports that */
+    tty_draw_box (w->y, w->x, w->lines, w->cols, !active);
+    /* draw a drag marker */
+    if (edit->drag_state == MCEDIT_DRAG_NORMAL)
+    {
+        tty_setcolor (EDITOR_FRAME_DRAG);
+        widget_move (w, w->lines - 1, w->cols - 1);
+        tty_print_alt_char (ACS_LRCORNER, TRUE);
+    }
+}
+
+/* --------------------------------------------------------------------------------------------- */
+/**
+ * Draw a window control buttons.
+ *
+ * @param edit  editor object
+ * @param color color pair
+ */
+
+static inline void
+edit_draw_window_icons (const WEdit * edit, int color)
+{
+    const Widget *w = WIDGET (edit);
+    char tmp[17];
+
+    tty_setcolor (color);
+    if (edit->fullscreen)
+        widget_move (w->owner, 0, WIDGET (w->owner)->cols - 6);
+    else
+        widget_move (w, 0, w->cols - 8);
+    g_snprintf (tmp, sizeof (tmp), "[%s][%s]", edit_window_state_char, edit_window_close_char);
+    tty_print_string (tmp);
+}
+
+/* --------------------------------------------------------------------------------------------- */
 
 static inline void
 print_to_widget (WEdit * edit, long row, int start_col, int start_col_real,
-                 long end_col, struct line_s line[], char *status)
+                 long end_col, struct line_s line[], char *status, int bookmarked)
 {
+    Widget *w = WIDGET (edit);
+
     struct line_s *p;
 
     int x = start_col_real;
@@ -289,47 +395,67 @@ print_to_widget (WEdit * edit, long row, int start_col, int start_col_real,
     int y = row + EDIT_TEXT_VERTICAL_OFFSET;
     int cols_to_skip = abs (x);
     int i;
+    int wrap_start;
+    int len;
+
+    if (!edit->fullscreen)
+    {
+        x1++;
+        y++;
+    }
 
     tty_setcolor (EDITOR_NORMAL_COLOR);
+    if (bookmarked != 0)
+        tty_setcolor (bookmarked);
 
-    if (!show_right_margin)
-    {
-        tty_draw_hline (edit->widget.y + y, edit->widget.x + x1, ' ', end_col + 1 - start_col);
-    }
-    else if (edit->start_col < option_word_wrap_line_length)
-    {
-        tty_draw_hline (edit->widget.y + y,
-                        edit->widget.x + x1, ' ', option_word_wrap_line_length - edit->start_col);
+    len = end_col + 1 - start_col;
+    wrap_start = option_word_wrap_line_length + edit->start_col;
 
-        tty_setcolor (EDITOR_RIGHT_MARGIN_COLOR);
-        tty_draw_hline (edit->widget.y + y,
-                        edit->widget.x + x1 + option_word_wrap_line_length + edit->start_col,
-                        ' ', end_col + 1 - start_col);
+    if (len > 0 && w->y + y >= 0)
+    {
+        if (!show_right_margin || wrap_start > end_col)
+            tty_draw_hline (w->y + y, w->x + x1, ' ', len);
+        else if (wrap_start < 0)
+        {
+            tty_setcolor (EDITOR_RIGHT_MARGIN_COLOR);
+            tty_draw_hline (w->y + y, w->x + x1, ' ', len);
+        }
+        else
+        {
+            if (wrap_start > 0)
+                tty_draw_hline (w->y + y, w->x + x1, ' ', wrap_start);
+
+            len -= wrap_start;
+            if (len > 0)
+            {
+                tty_setcolor (EDITOR_RIGHT_MARGIN_COLOR);
+                tty_draw_hline (w->y + y, w->x + x1 + wrap_start, ' ', len);
+            }
+        }
     }
 
     if (option_line_state)
     {
+        tty_setcolor (LINE_STATE_COLOR);
         for (i = 0; i < LINE_STATE_WIDTH; i++)
+        {
+            edit_move (x1 + i - option_line_state_width, y);
             if (status[i] == '\0')
                 status[i] = ' ';
-
-        tty_setcolor (LINE_STATE_COLOR);
-        edit_move (x1 + FONT_OFFSET_X - option_line_state_width, y + FONT_OFFSET_Y);
-        tty_print_string (status);
+            tty_print_char (status[i]);
+        }
     }
 
-    edit_move (x1 + FONT_OFFSET_X, y + FONT_OFFSET_Y);
-    p = line;
+    edit_move (x1, y);
     i = 1;
-    while (p->ch)
+    for (p = line; p->ch != 0; p++)
     {
         int style;
         unsigned int textchar;
         int color;
 
-        if (cols_to_skip)
+        if (cols_to_skip != 0)
         {
-            p++;
             cols_to_skip--;
             continue;
         }
@@ -352,65 +478,49 @@ print_to_widget (WEdit * edit, long row, int start_col, int start_col_real,
                 tty_setcolor (EDITOR_MARKED_COLOR);
             }
             else
-            {
-#if 0
-                if (color != EDITOR_NORMAL_COLOR)
-                {
-                    textchar = ' ';
-                    tty_lowlevel_setcolor (color);
-                }
-                else
-#endif
-                    tty_setcolor (EDITOR_WHITESPACE_COLOR);
-            }
+                tty_setcolor (EDITOR_WHITESPACE_COLOR);
         }
+        else if (style & MOD_BOLD)
+            tty_setcolor (EDITOR_BOLD_COLOR);
+        else if (style & MOD_MARKED)
+            tty_setcolor (EDITOR_MARKED_COLOR);
         else
-        {
-            if (style & MOD_BOLD)
-            {
-                tty_setcolor (EDITOR_BOLD_COLOR);
-            }
-            else if (style & MOD_MARKED)
-            {
-                tty_setcolor (EDITOR_MARKED_COLOR);
-            }
-            else
-            {
-                tty_lowlevel_setcolor (color);
-            }
-        }
+            tty_lowlevel_setcolor (color);
+
         if (show_right_margin)
         {
             if (i > option_word_wrap_line_length + edit->start_col)
                 tty_setcolor (EDITOR_RIGHT_MARGIN_COLOR);
             i++;
         }
+
         tty_print_anychar (textchar);
-        p++;
     }
 }
 
-int visible_tabs = 1, visible_tws = 1;
+/* --------------------------------------------------------------------------------------------- */
+/** b is a pointer to the beginning of the line */
 
-/* b is a pointer to the beginning of the line */
 static void
-edit_draw_this_line (WEdit * edit, long b, long row, long start_col, long end_col)
+edit_draw_this_line (WEdit * edit, off_t b, long row, long start_col, long end_col)
 {
+    Widget *w = WIDGET (edit);
+
     struct line_s line[MAX_LINE_LEN];
     struct line_s *p = line;
 
-    long m1 = 0, m2 = 0, q, c1, c2;
+    off_t m1 = 0, m2 = 0, q;
+    long c1, c2;
     int col, start_col_real;
     unsigned int c;
     int color;
     int abn_style;
     int i;
-    int utf8lag = 0;
     unsigned int cur_line = 0;
     int book_mark = 0;
-    char line_stat[LINE_STATE_WIDTH + 1];
+    char line_stat[LINE_STATE_WIDTH + 1] = "\0";
 
-    if (row > edit->num_widget_lines - EDIT_TEXT_VERTICAL_OFFSET)
+    if (row > w->lines - 1 - EDIT_TEXT_VERTICAL_OFFSET - 2 * (edit->fullscreen ? 0 : 1))
         return;
 
     if (book_mark_query_color (edit, edit->start_line + row, BOOK_MARK_COLOR))
@@ -424,14 +534,21 @@ edit_draw_this_line (WEdit * edit, long b, long row, long start_col, long end_co
         abn_style = MOD_ABNORMAL;
 
     end_col -= EDIT_TEXT_HORIZONTAL_OFFSET + option_line_state_width;
+    if (!edit->fullscreen)
+    {
+        end_col--;
+        if (w->x + w->cols <= WIDGET (w->owner)->cols)
+            end_col--;
+    }
 
-    edit_get_syntax_color (edit, b - 1, &color);
+    color = edit_get_syntax_color (edit, b - 1);
     q = edit_move_forward3 (edit, b, start_col - edit->start_col, 0);
     start_col_real = (col = (int) edit_move_forward3 (edit, b, 0, q)) + edit->start_col;
+
     if (option_line_state)
     {
         cur_line = edit->start_line + row;
-        if (cur_line <= (unsigned int) edit->total_lines)
+        if (cur_line <= (unsigned int) edit->buffer.lines)
         {
             g_snprintf (line_stat, LINE_STATE_WIDTH + 1, "%7i ", cur_line + 1);
         }
@@ -450,30 +567,35 @@ edit_draw_this_line (WEdit * edit, long b, long row, long start_col, long end_co
     {
         eval_marks (edit, &m1, &m2);
 
-        if (row <= edit->total_lines - edit->start_line)
+        if (row <= edit->buffer.lines - edit->start_line)
         {
-            long tws = 0;
+            off_t tws = 0;
             if (tty_use_colors () && visible_tws)
             {
-                tws = edit_eol (edit, b);
-                while (tws > b && ((c = edit_get_byte (edit, tws - 1)) == ' ' || c == '\t'))
+                tws = edit_buffer_get_eol (&edit->buffer, b);
+                while (tws > b
+                       && ((c = edit_buffer_get_byte (&edit->buffer, tws - 1)) == ' ' || c == '\t'))
                     tws--;
             }
 
             while (col <= end_col - edit->start_col)
             {
                 int cw = 1;
+                int tab_over = 0;
+                gboolean wide_width_char = FALSE;
+                gboolean control_char = FALSE;
 
                 p->ch = 0;
                 p->style = 0;
-                if (q == edit->curs1)
+                if (q == edit->buffer.curs1)
                     p->style |= MOD_CURSOR;
                 if (q >= m1 && q < m2)
                 {
                     if (edit->column_highlight)
                     {
-                        int x;
-                        x = edit_move_forward3 (edit, b, 0, q);
+                        long x;
+
+                        x = (long) edit_move_forward3 (edit, b, 0, q);
                         c1 = min (edit->column1, edit->column2);
                         c2 = max (edit->column1, edit->column2);
                         if (x >= c1 && x < c2)
@@ -484,17 +606,16 @@ edit_draw_this_line (WEdit * edit, long b, long row, long start_col, long end_co
                 }
                 if (q == edit->bracket)
                     p->style |= MOD_BOLD;
-                if (q >= edit->found_start && q < edit->found_start + edit->found_len)
+                if (q >= edit->found_start && q < (off_t) (edit->found_start + edit->found_len))
                     p->style |= MOD_BOLD;
 
-                if (!edit->utf8)
-                {
-                    c = edit_get_byte (edit, q);
-                }
+#ifdef HAVE_CHARSET
+                if (edit->utf8)
+                    c = edit_buffer_get_utf (&edit->buffer, q, &cw);
                 else
-                {
-                    c = edit_get_utf (edit, q, &cw);
-                }
+#endif
+                    c = edit_buffer_get_byte (&edit->buffer, q);
+
                 /* we don't use bg for mc - fg contains both */
                 if (book_mark)
                 {
@@ -502,16 +623,19 @@ edit_draw_this_line (WEdit * edit, long b, long row, long start_col, long end_co
                 }
                 else
                 {
-                    edit_get_syntax_color (edit, q, &color);
+                    color = edit_get_syntax_color (edit, q);
                     p->style |= color << 16;
                 }
                 switch (c)
                 {
                 case '\n':
-                    col = (end_col + utf8lag) - edit->start_col + 1;    /* quit */
+                    col = end_col - edit->start_col + 1;        /* quit */
                     break;
                 case '\t':
                     i = TAB_SIZE - ((int) col % TAB_SIZE);
+                    tab_over = (end_col - edit->start_col) - (col + i - 1);
+                    if (tab_over < 0)
+                        i += tab_over;
                     col += i;
                     if (tty_use_colors () &&
                         ((visible_tabs || (visible_tws && q >= tws)) && enable_show_tabs_tws))
@@ -591,18 +715,26 @@ edit_draw_this_line (WEdit * edit, long b, long row, long start_col, long end_co
                     /* fallthrough */
                 default:
 #ifdef HAVE_CHARSET
-                    if (utf8_display)
+                    if (mc_global.utf8_display)
                     {
                         if (!edit->utf8)
                         {
                             c = convert_from_8bit_to_utf_c ((unsigned char) c, edit->converter);
                         }
+                        else
+                        {
+                            if (g_unichar_iswide (c))
+                            {
+                                wide_width_char = TRUE;
+                                col++;
+                            }
+                        }
                     }
                     else if (edit->utf8)
                         c = convert_from_utf_to_current_c (c, edit->converter);
                     else
-#endif
                         c = convert_to_display_c (c);
+#endif
 
                     /* Caret notation for control characters */
                     if (c < 32)
@@ -614,6 +746,7 @@ edit_draw_this_line (WEdit * edit, long b, long row, long start_col, long end_co
                         p->style = abn_style;
                         p++;
                         col += 2;
+                        control_char = TRUE;
                         break;
                     }
                     if (c == 127)
@@ -625,26 +758,26 @@ edit_draw_this_line (WEdit * edit, long b, long row, long start_col, long end_co
                         p->style = abn_style;
                         p++;
                         col += 2;
+                        control_char = TRUE;
                         break;
                     }
-                    if (!edit->utf8)
+#ifdef HAVE_CHARSET
+                    if (edit->utf8)
                     {
-                        if ((utf8_display && g_unichar_isprint (c)) ||
-                            (!utf8_display && is_printable (c)))
-                        {
+                        if (g_unichar_isprint (c))
                             p->ch = c;
-                            p++;
-                        }
                         else
                         {
                             p->ch = '.';
                             p->style = abn_style;
-                            p++;
                         }
+                        p++;
                     }
                     else
+#endif
                     {
-                        if (g_unichar_isprint (c))
+                        if ((mc_global.utf8_display && g_unichar_isprint (c)) ||
+                            (!mc_global.utf8_display && is_printable (c)))
                         {
                             p->ch = c;
                             p++;
@@ -665,6 +798,20 @@ edit_draw_this_line (WEdit * edit, long b, long row, long start_col, long end_co
                 {
                     q += cw - 1;
                 }
+
+                if (col > (end_col - edit->start_col + 1))
+                {
+                    if (wide_width_char)
+                    {
+                        p--;
+                        break;
+                    }
+                    if (control_char)
+                    {
+                        p -= 2;
+                        break;
+                    }
+                }
             }
         }
     }
@@ -673,54 +820,99 @@ edit_draw_this_line (WEdit * edit, long b, long row, long start_col, long end_co
         start_col_real = start_col = 0;
     }
 
-    p->ch = '\0';
+    p->ch = 0;
 
-    print_to_widget (edit, row, start_col, start_col_real, end_col, line, line_stat);
+    print_to_widget (edit, row, start_col, start_col_real, end_col, line, line_stat, book_mark);
 }
 
-#define key_pending(x) (!is_idle())
+/* --------------------------------------------------------------------------------------------- */
 
 static inline void
-edit_draw_this_char (WEdit * edit, long curs, long row)
+edit_draw_this_char (WEdit * edit, off_t curs, long row, long start_column, long end_column)
 {
-    int b = edit_bol (edit, curs);
-    edit_draw_this_line (edit, b, row, 0, edit->num_widget_columns - 1);
+    off_t b = edit_buffer_get_bol (&edit->buffer, curs);
+
+    edit_draw_this_line (edit, b, row, start_column, end_column);
 }
 
-/* cursor must be in screen for other than REDRAW_PAGE passed in force */
+/* --------------------------------------------------------------------------------------------- */
+/** cursor must be in screen for other than REDRAW_PAGE passed in force */
+
 static inline void
 render_edit_text (WEdit * edit, long start_row, long start_column, long end_row, long end_column)
 {
-    long row = 0, curs_row;
     static long prev_curs_row = 0;
-    static long prev_curs = 0;
+    static off_t prev_curs = 0;
 
+    Widget *w = WIDGET (edit);
+    Widget *wh = WIDGET (w->owner);
+
+    long row = 0, curs_row;
     int force = edit->force;
     long b;
+    int y1, x1, y2, x2;
+
+    int last_line;
+    int last_column;
+
+    /* draw only visible region */
+
+    last_line = wh->y + wh->lines - 1;
+
+    y1 = w->y;
+    if (y1 > last_line - 1 /* buttonbar */ )
+        return;
+
+    last_column = wh->x + wh->cols - 1;
+
+    x1 = w->x;
+    if (x1 > last_column)
+        return;
+
+    y2 = w->y + w->lines - 1;
+    if (y2 < wh->y + 1 /* menubar */ )
+        return;
+
+    x2 = w->x + w->cols - 1;
+    if (x2 < wh->x)
+        return;
+
+    if ((force & REDRAW_IN_BOUNDS) == 0)
+    {
+        /* !REDRAW_IN_BOUNDS means to ignore bounds and redraw whole rows */
+        /* draw only visible region */
+
+        if (y2 <= last_line - 1 /* buttonbar */ )
+            end_row = w->lines - 1;
+        else if (y1 >= wh->y + 1 /* menubar */ )
+            end_row = wh->lines - 1 - y1 - 1;
+        else
+            end_row = start_row + wh->lines - 1 - 1;
+
+        if (x2 <= last_column)
+            end_column = w->cols - 1;
+        else if (x1 >= wh->x)
+            end_column = wh->cols - 1 - x1;
+        else
+            end_column = start_column + wh->cols - 1;
+    }
 
     /*
      * If the position of the page has not moved then we can draw the cursor
      * character only.  This will prevent line flicker when using arrow keys.
      */
-    if ((!(force & REDRAW_CHAR_ONLY)) || (force & REDRAW_PAGE))
+    if ((force & REDRAW_CHAR_ONLY) == 0 || (force & REDRAW_PAGE) != 0)
     {
-        if (!(force & REDRAW_IN_BOUNDS))
-        {                       /* !REDRAW_IN_BOUNDS means to ignore bounds and redraw whole rows */
-            start_row = 0;
-            end_row = edit->num_widget_lines - 1;
-            start_column = 0;
-            end_column = edit->num_widget_columns - 1;
-        }
-        if (force & REDRAW_PAGE)
+        if ((force & REDRAW_PAGE) != 0)
         {
             row = start_row;
-            b = edit_move_forward (edit, edit->start_display, start_row, 0);
+            b = edit_buffer_move_forward (&edit->buffer, edit->start_display, start_row, 0);
             while (row <= end_row)
             {
                 if (key_pending (edit))
-                    goto exit_render;
+                    return;
                 edit_draw_this_line (edit, b, row, start_column, end_column);
-                b = edit_move_forward (edit, b, 1, 0);
+                b = edit_buffer_move_forward (&edit->buffer, b, 1, 0);
                 row++;
             }
         }
@@ -728,93 +920,90 @@ render_edit_text (WEdit * edit, long start_row, long start_column, long end_row,
         {
             curs_row = edit->curs_row;
 
-            if (force & REDRAW_BEFORE_CURSOR)
+            if ((force & REDRAW_BEFORE_CURSOR) != 0 && start_row < curs_row)
             {
-                if (start_row < curs_row)
+                long upto = curs_row - 1 <= end_row ? curs_row - 1 : end_row;
+
+                row = start_row;
+                b = edit->start_display;
+                while (row <= upto)
                 {
-                    long upto = curs_row - 1 <= end_row ? curs_row - 1 : end_row;
-                    row = start_row;
-                    b = edit->start_display;
-                    while (row <= upto)
-                    {
-                        if (key_pending (edit))
-                            goto exit_render;
-                        edit_draw_this_line (edit, b, row, start_column, end_column);
-                        b = edit_move_forward (edit, b, 1, 0);
-                    }
+                    if (key_pending (edit))
+                        return;
+                    edit_draw_this_line (edit, b, row, start_column, end_column);
+                    b = edit_buffer_move_forward (&edit->buffer, b, 1, 0);
                 }
             }
+
             /*          if (force & REDRAW_LINE)          ---> default */
-            b = edit_bol (edit, edit->curs1);
+            b = edit_buffer_get_current_bol (&edit->buffer);
             if (curs_row >= start_row && curs_row <= end_row)
             {
                 if (key_pending (edit))
-                    goto exit_render;
+                    return;
                 edit_draw_this_line (edit, b, curs_row, start_column, end_column);
             }
-            if (force & REDRAW_AFTER_CURSOR)
+
+            if ((force & REDRAW_AFTER_CURSOR) != 0 && end_row > curs_row)
             {
-                if (end_row > curs_row)
+                row = curs_row + 1 < start_row ? start_row : curs_row + 1;
+                b = edit_buffer_move_forward (&edit->buffer, b, 1, 0);
+                while (row <= end_row)
                 {
-                    row = curs_row + 1 < start_row ? start_row : curs_row + 1;
-                    b = edit_move_forward (edit, b, 1, 0);
-                    while (row <= end_row)
-                    {
-                        if (key_pending (edit))
-                            goto exit_render;
-                        edit_draw_this_line (edit, b, row, start_column, end_column);
-                        b = edit_move_forward (edit, b, 1, 0);
-                        row++;
-                    }
+                    if (key_pending (edit))
+                        return;
+                    edit_draw_this_line (edit, b, row, start_column, end_column);
+                    b = edit_buffer_move_forward (&edit->buffer, b, 1, 0);
+                    row++;
                 }
             }
-            if (force & REDRAW_LINE_ABOVE && curs_row >= 1)
+
+            if ((force & REDRAW_LINE_ABOVE) != 0 && curs_row >= 1)
             {
                 row = curs_row - 1;
-                b = edit_move_backward (edit, edit_bol (edit, edit->curs1), 1);
+                b = edit_buffer_move_backward (&edit->buffer,
+                                               edit_buffer_get_current_bol (&edit->buffer), 1);
                 if (row >= start_row && row <= end_row)
                 {
                     if (key_pending (edit))
-                        goto exit_render;
+                        return;
                     edit_draw_this_line (edit, b, row, start_column, end_column);
                 }
             }
-            if (force & REDRAW_LINE_BELOW && row < edit->num_widget_lines - 1)
+
+            if ((force & REDRAW_LINE_BELOW) != 0 && row < w->lines - 1)
             {
                 row = curs_row + 1;
-                b = edit_bol (edit, edit->curs1);
-                b = edit_move_forward (edit, b, 1, 0);
+                b = edit_buffer_get_current_bol (&edit->buffer);
+                b = edit_buffer_move_forward (&edit->buffer, b, 1, 0);
                 if (row >= start_row && row <= end_row)
                 {
                     if (key_pending (edit))
-                        goto exit_render;
+                        return;
                     edit_draw_this_line (edit, b, row, start_column, end_column);
                 }
             }
         }
     }
+    else if (prev_curs_row < edit->curs_row)
+    {
+        /* with the new text highlighting, we must draw from the top down */
+        edit_draw_this_char (edit, prev_curs, prev_curs_row, start_column, end_column);
+        edit_draw_this_char (edit, edit->buffer.curs1, edit->curs_row, start_column, end_column);
+    }
     else
     {
-        if (prev_curs_row < edit->curs_row)
-        {                       /* with the new text highlighting, we must draw from the top down */
-            edit_draw_this_char (edit, prev_curs, prev_curs_row);
-            edit_draw_this_char (edit, edit->curs1, edit->curs_row);
-        }
-        else
-        {
-            edit_draw_this_char (edit, edit->curs1, edit->curs_row);
-            edit_draw_this_char (edit, prev_curs, prev_curs_row);
-        }
+        edit_draw_this_char (edit, edit->buffer.curs1, edit->curs_row, start_column, end_column);
+        edit_draw_this_char (edit, prev_curs, prev_curs_row, start_column, end_column);
     }
 
     edit->force = 0;
 
     prev_curs_row = edit->curs_row;
-    prev_curs = edit->curs1;
-
-  exit_render:
-    edit->screen_modified = 0;
+    prev_curs = edit->buffer.curs1;
 }
+
+/* --------------------------------------------------------------------------------------------- */
 
 static inline void
 edit_render (WEdit * edit, int page, int row_start, int col_start, int row_end, int col_end)
@@ -822,9 +1011,8 @@ edit_render (WEdit * edit, int page, int row_start, int col_start, int row_end, 
     if (page)                   /* if it was an expose event, 'page' would be set */
         edit->force |= REDRAW_PAGE | REDRAW_IN_BOUNDS;
 
-    if (edit->force & REDRAW_COMPLETELY)
-        buttonbar_redraw (find_buttonbar (edit->widget.owner));
     render_edit_text (edit, row_start, col_start, row_end, col_end);
+
     /*
      * edit->force != 0 means a key was pending and the redraw
      * was halted, so next time we must redraw everything in case stuff
@@ -834,8 +1022,120 @@ edit_render (WEdit * edit, int page, int row_start, int col_start, int row_end, 
         edit->force |= REDRAW_PAGE;
 }
 
+/* --------------------------------------------------------------------------------------------- */
+/*** public functions ****************************************************************************/
+/* --------------------------------------------------------------------------------------------- */
+
+void
+edit_status (WEdit * edit, gboolean active)
+{
+    int color;
+
+    if (edit->fullscreen)
+    {
+        color = STATUSBAR_COLOR;
+        edit_status_fullscreen (edit, color);
+    }
+    else
+    {
+        color = edit->drag_state != MCEDIT_DRAG_NORMAL ? EDITOR_FRAME_DRAG : active ?
+            EDITOR_FRAME_ACTIVE : EDITOR_FRAME;
+        edit_draw_frame (edit, color, active);
+        edit_status_window (edit);
+    }
+
+    edit_draw_window_icons (edit, color);
+}
+
+/* --------------------------------------------------------------------------------------------- */
+
+/** this scrolls the text so that cursor is on the screen */
+void
+edit_scroll_screen_over_cursor (WEdit * edit)
+{
+    Widget *w = WIDGET (edit);
+
+    long p;
+    long outby;
+    int b_extreme, t_extreme, l_extreme, r_extreme;
+
+    if (w->lines <= 0 || w->cols <= 0)
+        return;
+
+    w->lines -= EDIT_TEXT_VERTICAL_OFFSET;
+    w->cols -= EDIT_TEXT_HORIZONTAL_OFFSET + option_line_state_width;
+
+    if (!edit->fullscreen)
+    {
+        w->x++;
+        w->cols -= 2;
+        w->y++;
+        w->lines -= 2;
+    }
+
+    r_extreme = EDIT_RIGHT_EXTREME;
+    l_extreme = EDIT_LEFT_EXTREME;
+    b_extreme = EDIT_BOTTOM_EXTREME;
+    t_extreme = EDIT_TOP_EXTREME;
+    if (edit->found_len != 0)
+    {
+        b_extreme = max (w->lines / 4, b_extreme);
+        t_extreme = max (w->lines / 4, t_extreme);
+    }
+    if (b_extreme + t_extreme + 1 > w->lines)
+    {
+        int n;
+
+        n = b_extreme + t_extreme;
+        if (n == 0)
+            n = 1;
+        b_extreme = (b_extreme * (w->lines - 1)) / n;
+        t_extreme = (t_extreme * (w->lines - 1)) / n;
+    }
+    if (l_extreme + r_extreme + 1 > w->cols)
+    {
+        int n;
+
+        n = l_extreme + t_extreme;
+        if (n == 0)
+            n = 1;
+        l_extreme = (l_extreme * (w->cols - 1)) / n;
+        r_extreme = (r_extreme * (w->cols - 1)) / n;
+    }
+    p = edit_get_col (edit) + edit->over_col;
+    edit_update_curs_row (edit);
+    outby = p + edit->start_col - w->cols + 1 + (r_extreme + edit->found_len);
+    if (outby > 0)
+        edit_scroll_right (edit, outby);
+    outby = l_extreme - p - edit->start_col;
+    if (outby > 0)
+        edit_scroll_left (edit, outby);
+    p = edit->curs_row;
+    outby = p - w->lines + 1 + b_extreme;
+    if (outby > 0)
+        edit_scroll_downward (edit, outby);
+    outby = t_extreme - p;
+    if (outby > 0)
+        edit_scroll_upward (edit, outby);
+    edit_update_curs_row (edit);
+
+    w->lines += EDIT_TEXT_VERTICAL_OFFSET;
+    w->cols += EDIT_TEXT_HORIZONTAL_OFFSET + option_line_state_width;
+    if (!edit->fullscreen)
+    {
+        w->x--;
+        w->cols += 2;
+        w->y--;
+        w->lines += 2;
+    }
+}
+
+/* --------------------------------------------------------------------------------------------- */
+
 void
 edit_render_keypress (WEdit * edit)
 {
     edit_render (edit, 0, 0, 0, 0, 0);
 }
+
+/* --------------------------------------------------------------------------------------------- */

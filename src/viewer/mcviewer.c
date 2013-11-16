@@ -3,36 +3,35 @@
    Interface functions
 
    Copyright (C) 1994, 1995, 1996, 1998, 1999, 2000, 2001, 2002, 2003,
-   2004, 2005, 2006, 2007, 2009 Free Software Foundation, Inc.
+   2004, 2005, 2006, 2007, 2009, 2011, 2013
+   The Free Software Foundation, Inc.
 
-   Written by: 1994, 1995, 1998 Miguel de Icaza
-   1994, 1995 Janne Kukonlehto
-   1995 Jakub Jelinek
-   1996 Joseph M. Hinkle
-   1997 Norbert Warmuth
-   1998 Pavel Machek
-   2004 Roland Illig <roland.illig@gmx.de>
-   2005 Roland Illig <roland.illig@gmx.de>
-   2009 Slava Zanko <slavazanko@google.com>
-   2009 Andrew Borodin <aborodin@vmail.ru>
-   2009 Ilia Maslakov <il.smind@gmail.com>
+   Written by:
+   Miguel de Icaza, 1994, 1995, 1998
+   Janne Kukonlehto, 1994, 1995
+   Jakub Jelinek, 1995
+   Joseph M. Hinkle, 1996
+   Norbert Warmuth, 1997
+   Pavel Machek, 1998
+   Roland Illig <roland.illig@gmx.de>, 2004, 2005
+   Slava Zanko <slavazanko@google.com>, 2009, 2013
+   Andrew Borodin <aborodin@vmail.ru>, 2009, 2013
+   Ilia Maslakov <il.smind@gmail.com>, 2009
 
    This file is part of the Midnight Commander.
 
-   The Midnight Commander is free software; you can redistribute it
+   The Midnight Commander is free software: you can redistribute it
    and/or modify it under the terms of the GNU General Public License as
-   published by the Free Software Foundation; either version 2 of the
-   License, or (at your option) any later version.
+   published by the Free Software Foundation, either version 3 of the License,
+   or (at your option) any later version.
 
-   The Midnight Commander is distributed in the hope that it will be
-   useful, but WITHOUT ANY WARRANTY; without even the implied warranty
-   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   General Public License for more details.
+   The Midnight Commander is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-   MA 02110-1301, USA.
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <config.h>
@@ -42,17 +41,15 @@
 #include "lib/global.h"
 #include "lib/tty/tty.h"
 #include "lib/tty/mouse.h"
-#include "lib/vfs/mc-vfs/vfs.h"
+#include "lib/vfs/vfs.h"
 #include "lib/strutil.h"
+#include "lib/util.h"           /* load_file_position() */
+#include "lib/widget.h"
 
-#include "src/main.h"
-#include "src/charsets.h"
-#include "src/main-widgets.h"   /* the_menubar */
-#include "src/menu.h"           /* menubar_visible */
-#include "src/widget.h"
+#include "src/filemanager/layout.h"     /* menubar_visible */
+#include "src/filemanager/midnight.h"   /* the_menubar */
 
 #include "internal.h"
-#include "mcviewer.h"
 
 /*** global variables ****************************************************************************/
 
@@ -84,43 +81,46 @@ char *mcview_show_eof = NULL;
 
 
 /*** file scope functions ************************************************************************/
-
 /* --------------------------------------------------------------------------------------------- */
 
-/* Both views */
-static int
-mcview_event (mcview_t * view, Gpm_Event * event, int *result)
+/** Both views */
+static gboolean
+do_mcview_event (mcview_t * view, Gpm_Event * event, int *result)
 {
     screen_dimen y, x;
+    Gpm_Event local;
+    Widget *w = WIDGET (view);
+
+    /* rest of the upper frame - call menu */
+    if (mcview_is_in_panel (view) && (event->type & GPM_DOWN) != 0 &&
+        event->y == WIDGET (w->owner)->y + 1)
+    {
+        *result = MOU_UNHANDLED;
+        return FALSE;           /* don't draw viewer over menu */
+    }
 
     *result = MOU_NORMAL;
 
-    /* rest of the upper frame, the menu is invisible - call menu */
-    if (mcview_is_in_panel (view) && (event->type & GPM_DOWN) && event->y == 1 && !menubar_visible)
-    {
-        event->x += view->widget.x;
-        *result = the_menubar->widget.mouse (event, the_menubar);
-        return 0;               /* don't draw viewer over menu */
-    }
+    local = mouse_get_local (event, w);
 
     /* We are not interested in the release events */
-    if (!(event->type & (GPM_DOWN | GPM_DRAG)))
-        return 0;
+    if ((local.type & (GPM_DOWN | GPM_DRAG)) == 0)
+        return FALSE;
 
     /* Wheel events */
-    if ((event->buttons & GPM_B_UP) && (event->type & GPM_DOWN))
+    if ((local.buttons & GPM_B_UP) != 0 && (local.type & GPM_DOWN) != 0)
     {
         mcview_move_up (view, 2);
-        return 1;
+        return TRUE;
     }
-    if ((event->buttons & GPM_B_DOWN) && (event->type & GPM_DOWN))
+    if ((local.buttons & GPM_B_DOWN) != 0 && (local.type & GPM_DOWN) != 0)
     {
         mcview_move_down (view, 2);
-        return 1;
+        return TRUE;
     }
 
-    x = event->x;
-    y = event->y;
+    x = local.x;
+    y = local.y;
 
     /* Scrolling left and right */
     if (!view->text_wrap_mode)
@@ -130,7 +130,8 @@ mcview_event (mcview_t * view, Gpm_Event * event, int *result)
             mcview_move_left (view, 1);
             goto processed;
         }
-        else if (x < view->data_area.width * 3 / 4)
+
+        if (x < view->data_area.width * 3 / 4)
         {
             /* ignore the click */
         }
@@ -163,53 +164,41 @@ mcview_event (mcview_t * view, Gpm_Event * event, int *result)
         goto processed;
     }
 
-    return 0;
+    return FALSE;
 
   processed:
     *result = MOU_REPEAT;
-    return 1;
+    return TRUE;
 }
 
 /* --------------------------------------------------------------------------------------------- */
 
-/* Real view only */
+/** Real view only */
 static int
-mcview_real_event (Gpm_Event * event, void *x)
+mcview_event (Gpm_Event * event, void *data)
 {
-    mcview_t *view = (mcview_t *) x;
+    mcview_t *view = (mcview_t *) data;
     int result;
 
-    if (mcview_event (view, event, &result))
+    if (!mouse_global_in_widget (event, WIDGET (data)))
+        return MOU_UNHANDLED;
+
+    if (do_mcview_event (view, event, &result))
         mcview_update (view);
     return result;
 }
 
-static void
-mcview_set_keymap (mcview_t * view)
-{
-    view->plain_map = default_viewer_keymap;
-    if (viewer_keymap && viewer_keymap->len > 0)
-        view->plain_map = (global_keymap_t *) viewer_keymap->data;
-
-    view->hex_map = default_viewer_hex_keymap;
-    if (viewer_hex_keymap && viewer_hex_keymap->len > 0)
-        view->hex_map = (global_keymap_t *) viewer_hex_keymap->data;
-}
-
 /* --------------------------------------------------------------------------------------------- */
-
 /*** public functions ****************************************************************************/
-
 /* --------------------------------------------------------------------------------------------- */
 
 mcview_t *
 mcview_new (int y, int x, int lines, int cols, gboolean is_panel)
 {
-    mcview_t *view = g_new0 (mcview_t, 1);
+    mcview_t *view;
 
-    init_widget (&view->widget, y, x, lines, cols, mcview_callback, mcview_real_event);
-
-    mcview_set_keymap (view);
+    view = g_new0 (mcview_t, 1);
+    widget_init (WIDGET (view), y, x, lines, cols, mcview_callback, mcview_event);
 
     view->hex_mode = FALSE;
     view->hexedit_mode = FALSE;
@@ -237,18 +226,17 @@ mcview_new (int y, int x, int lines, int cols, gboolean is_panel)
 }
 
 /* --------------------------------------------------------------------------------------------- */
+/** Real view only */
 
-/* Real view only */
-mcview_ret_t
-mcview_viewer (const char *command, const char *file, int start_line)
+gboolean
+mcview_viewer (const char *command, const vfs_path_t * file_vpath, int start_line)
 {
     gboolean succeeded;
     mcview_t *lc_mcview;
-    Dlg_head *view_dlg;
-    mcview_ret_t ret;
+    WDialog *view_dlg;
 
     /* Create dialog and widgets, put them on the dialog */
-    view_dlg = create_dlg (FALSE, 0, 0, LINES, COLS, NULL, mcview_dialog_callback,
+    view_dlg = dlg_create (FALSE, 0, 0, LINES, COLS, NULL, mcview_dialog_callback, NULL,
                            "[Internal File Viewer]", NULL, DLG_WANT_TAB);
 
     lc_mcview = mcview_new (0, 0, LINES - 1, COLS, FALSE);
@@ -258,25 +246,17 @@ mcview_viewer (const char *command, const char *file, int start_line)
 
     view_dlg->get_title = mcview_get_title;
 
-    succeeded = mcview_load (lc_mcview, command, file, start_line);
+    succeeded = mcview_load (lc_mcview, command, vfs_path_as_str (file_vpath), start_line);
 
     if (succeeded)
-    {
-        run_dlg (view_dlg);
-
-        ret = lc_mcview->move_dir == 0 ? MCVIEW_EXIT_OK :
-            lc_mcview->move_dir > 0 ? MCVIEW_WANT_NEXT : MCVIEW_WANT_PREV;
-    }
+        dlg_run (view_dlg);
     else
-    {
         view_dlg->state = DLG_CLOSED;
-        ret = MCVIEW_EXIT_FAILURE;
-    }
 
     if (view_dlg->state == DLG_CLOSED)
-        destroy_dlg (view_dlg);
+        dlg_destroy (view_dlg);
 
-    return ret;
+    return succeeded;
 }
 
 /* {{{ Miscellaneous functions }}} */
@@ -287,38 +267,37 @@ gboolean
 mcview_load (mcview_t * view, const char *command, const char *file, int start_line)
 {
     gboolean retval = FALSE;
+    vfs_path_t *vpath = NULL;
 
+#ifdef HAVE_ASSERT_H
     assert (view->bytes_per_line != 0);
+#endif
 
-    view->filename = g_strdup (file);
+    view->filename_vpath = vfs_path_from_str (file);
 
-    if ((view->workdir == NULL) && (file != NULL))
+    /* get working dir */
+    if (file != NULL && file[0] != '\0')
     {
+        vfs_path_free (view->workdir_vpath);
+
         if (!g_path_is_absolute (file))
         {
-#ifdef ENABLE_VFS
-            view->workdir = g_strdup (vfs_get_current_dir ());
-#else /* ENABLE_VFS */
-            view->workdir = g_get_current_dir ();
-#endif /* ENABLE_VFS */
+            vfs_path_t *p;
+
+            p = vfs_path_clone (vfs_get_raw_current_dir ());
+            view->workdir_vpath = vfs_path_append_new (p, file, (char *) NULL);
+            vfs_path_free (p);
         }
         else
         {
             /* try extract path form filename */
-            char *dirname;
+            const char *fname;
+            char *dir;
 
-            dirname = g_path_get_dirname (file);
-            if (strcmp (dirname, ".") != 0)
-                view->workdir = dirname;
-            else
-            {
-                g_free (dirname);
-#ifdef ENABLE_VFS
-                view->workdir = g_strdup (vfs_get_current_dir ());
-#else /* ENABLE_VFS */
-                view->workdir = g_get_current_dir ();
-#endif /* ENABLE_VFS */
-            }
+            fname = x_basename (file);
+            dir = g_strndup (file, (size_t) (fname - file));
+            view->workdir_vpath = vfs_path_from_str (dir);
+            g_free (dir);
         }
     }
 
@@ -336,16 +315,17 @@ mcview_load (mcview_t * view, const char *command, const char *file, int start_l
         struct stat st;
 
         /* Open the file */
-        fd = mc_open (file, O_RDONLY | O_NONBLOCK);
+        vpath = vfs_path_from_str (file);
+        fd = mc_open (vpath, O_RDONLY | O_NONBLOCK);
         if (fd == -1)
         {
             g_snprintf (tmp, sizeof (tmp), _("Cannot open \"%s\"\n%s"),
                         file, unix_error_string (errno));
             mcview_show_error (view, tmp);
-            g_free (view->filename);
-            view->filename = NULL;
-            g_free (view->workdir);
-            view->workdir = NULL;
+            vfs_path_free (view->filename_vpath);
+            view->filename_vpath = NULL;
+            vfs_path_free (view->workdir_vpath);
+            view->workdir_vpath = NULL;
             goto finish;
         }
 
@@ -356,10 +336,10 @@ mcview_load (mcview_t * view, const char *command, const char *file, int start_l
             g_snprintf (tmp, sizeof (tmp), _("Cannot stat \"%s\"\n%s"),
                         file, unix_error_string (errno));
             mcview_show_error (view, tmp);
-            g_free (view->filename);
-            view->filename = NULL;
-            g_free (view->workdir);
-            view->workdir = NULL;
+            vfs_path_free (view->filename_vpath);
+            view->filename_vpath = NULL;
+            vfs_path_free (view->workdir_vpath);
+            view->workdir_vpath = NULL;
             goto finish;
         }
 
@@ -367,10 +347,10 @@ mcview_load (mcview_t * view, const char *command, const char *file, int start_l
         {
             mc_close (fd);
             mcview_show_error (view, _("Cannot view: not a regular file"));
-            g_free (view->filename);
-            view->filename = NULL;
-            g_free (view->workdir);
-            view->workdir = NULL;
+            vfs_path_free (view->filename_vpath);
+            view->filename_vpath = NULL;
+            vfs_path_free (view->workdir_vpath);
+            view->workdir_vpath = NULL;
             goto finish;
         }
 
@@ -387,8 +367,28 @@ mcview_load (mcview_t * view, const char *command, const char *file, int start_l
 
             if (view->magic_mode && (type != COMPRESSION_NONE))
             {
-                g_free (view->filename);
-                view->filename = g_strconcat (file, decompress_extension (type), (char *) NULL);
+                char *tmp_filename;
+                vfs_path_t *vpath1;
+                int fd1;
+
+                tmp_filename = g_strconcat (file, decompress_extension (type), (char *) NULL);
+                vpath1 = vfs_path_from_str (tmp_filename);
+                fd1 = mc_open (vpath1, O_RDONLY | O_NONBLOCK);
+                if (fd1 == -1)
+                {
+                    g_snprintf (tmp, sizeof (tmp), _("Cannot open \"%s\" in parse mode\n%s"),
+                                file, unix_error_string (errno));
+                    mcview_show_error (view, tmp);
+                }
+                else
+                {
+                    mc_close (fd);
+                    fd = fd1;
+                    mc_fstat (fd, &st);
+                }
+                vfs_path_free (vpath1);
+
+                g_free (tmp_filename);
             }
             mcview_set_datasource_file (view, fd, &st);
         }
@@ -405,17 +405,24 @@ mcview_load (mcview_t * view, const char *command, const char *file, int start_l
     mcview_compute_areas (view);
     mcview_update_bytes_per_line (view);
 
-    if (mcview_remember_file_position && view->filename != NULL && start_line == 0)
+    if (mcview_remember_file_position && view->filename_vpath != NULL && start_line == 0)
     {
-        char *canon_fname;
         long line, col;
-        off_t new_offset;
+        off_t new_offset, max_offset;
 
-        canon_fname = vfs_canon (view->filename);
-        load_file_position (canon_fname, &line, &col, &new_offset);
-        new_offset = min (new_offset, mcview_get_filesize (view));
-        view->dpy_start = mcview_bol (view, new_offset);
-        g_free (canon_fname);
+        load_file_position (view->filename_vpath, &line, &col, &new_offset, &view->saved_bookmarks);
+        max_offset = mcview_get_filesize (view) - 1;
+        if (max_offset < 0)
+            new_offset = 0;
+        else
+            new_offset = min (new_offset, max_offset);
+        if (!view->hex_mode)
+            view->dpy_start = mcview_bol (view, new_offset, 0);
+        else
+        {
+            view->dpy_start = new_offset - new_offset % view->bytes_per_line;
+            view->hex_cursor = new_offset;
+        }
     }
     else if (start_line > 0)
         mcview_moveto (view, start_line - 1, 0);
@@ -423,6 +430,7 @@ mcview_load (mcview_t * view, const char *command, const char *file, int start_l
     view->hexedit_lownibble = FALSE;
     view->hexview_in_text = FALSE;
     view->change_list = NULL;
+    vfs_path_free (vpath);
     return retval;
 }
 

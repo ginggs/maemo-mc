@@ -2,38 +2,34 @@
    Search text engine.
    Glob-style pattern matching
 
-   Copyright (C) 2009 The Free Software Foundation, Inc.
+   Copyright (C) 2009, 2011
+   The Free Software Foundation, Inc.
 
    Written by:
    Slava Zanko <slavazanko@gmail.com>, 2009.
 
    This file is part of the Midnight Commander.
 
-   The Midnight Commander is free software; you can redistribute it
+   The Midnight Commander is free software: you can redistribute it
    and/or modify it under the terms of the GNU General Public License as
-   published by the Free Software Foundation; either version 2 of the
-   License, or (at your option) any later version.
+   published by the Free Software Foundation, either version 3 of the License,
+   or (at your option) any later version.
 
-   The Midnight Commander is distributed in the hope that it will be
-   useful, but WITHOUT ANY WARRANTY; without even the implied warranty
-   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   General Public License for more details.
+   The Midnight Commander is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-   MA 02110-1301, USA.
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <config.h>
-
 
 #include "lib/global.h"
 #include "lib/strutil.h"
 #include "lib/search.h"
 #include "lib/strescape.h"
-
-#include "src/charsets.h"
 
 #include "internal.h"
 
@@ -48,56 +44,42 @@
 /*** file scope functions ************************************************************************/
 
 static GString *
-mc_search__glob_translate_to_regex (gchar * str, gsize * len)
+mc_search__glob_translate_to_regex (const GString * astr)
 {
-    GString *buff = g_string_new ("");
-    gsize orig_len = *len;
-    gsize loop = 0;
+    const char *str = astr->str;
+    GString *buff;
+    gsize loop;
     gboolean inside_group = FALSE;
-    while (loop < orig_len)
-    {
+
+    buff = g_string_sized_new (32);
+
+    for (loop = 0; loop < astr->len; loop++)
         switch (str[loop])
         {
         case '*':
             if (!strutils_is_char_escaped (str, &(str[loop])))
-            {
-                g_string_append (buff, (inside_group) ? ".*" : "(.*)");
-                loop++;
-                continue;
-            }
+                g_string_append (buff, inside_group ? ".*" : "(.*)");
             break;
         case '?':
             if (!strutils_is_char_escaped (str, &(str[loop])))
-            {
-                g_string_append (buff, (inside_group) ? "." : "(.)");
-                loop++;
-                continue;
-            }
+                g_string_append (buff, inside_group ? "." : "(.)");
             break;
         case ',':
             if (!strutils_is_char_escaped (str, &(str[loop])))
-            {
-                g_string_append (buff, "|");
-                loop++;
-                continue;
-            }
+                g_string_append_c (buff, '|');
             break;
         case '{':
             if (!strutils_is_char_escaped (str, &(str[loop])))
             {
-                g_string_append (buff, "(");
+                g_string_append_c (buff, '(');
                 inside_group = TRUE;
-                loop++;
-                continue;
             }
             break;
         case '}':
             if (!strutils_is_char_escaped (str, &(str[loop])))
             {
-                g_string_append (buff, ")");
+                g_string_append_c (buff, ')');
                 inside_group = FALSE;
-                loop++;
-                continue;
             }
             break;
         case '+':
@@ -107,25 +89,26 @@ mc_search__glob_translate_to_regex (gchar * str, gsize * len)
         case ')':
         case '^':
             g_string_append_c (buff, '\\');
+            /* fall through */
+        default:
             g_string_append_c (buff, str[loop]);
-            loop++;
-            continue;
+            break;
         }
-        g_string_append_c (buff, str[loop]);
-        loop++;
-    }
-    *len = buff->len;
+
     return buff;
 }
 
 /* --------------------------------------------------------------------------------------------- */
 
 static GString *
-mc_search__translate_replace_glob_to_regex (gchar * str)
+mc_search__translate_replace_glob_to_regex (const char *str)
 {
-    GString *buff = g_string_sized_new (32);
+    GString *buff;
     int cnt = '0';
     gboolean escaped_mode = FALSE;
+
+    buff = g_string_sized_new (32);
+
     while (*str)
     {
         char c = *str++;
@@ -135,22 +118,21 @@ mc_search__translate_replace_glob_to_regex (gchar * str)
             if (!escaped_mode)
             {
                 escaped_mode = TRUE;
+                g_string_append_c (buff, '\\');
+                continue;
             }
-            g_string_append_c (buff, c);
-            continue;
+            break;
         case '*':
         case '?':
             if (!escaped_mode)
             {
                 g_string_append_c (buff, '\\');
                 c = ++cnt;
-                continue;
             }
             break;
-            /* breaks copying: mc uses "\0" internally, it must not be changed */
-            /*case '\\': */
         case '&':
-            g_string_append_c (buff, '\\');
+            if (!escaped_mode)
+                g_string_append_c (buff, '\\');
             break;
         }
         g_string_append_c (buff, c);
@@ -165,9 +147,9 @@ void
 mc_search__cond_struct_new_init_glob (const char *charset, mc_search_t * lc_mc_search,
                                       mc_search_cond_t * mc_search_cond)
 {
-    GString *tmp =
-        mc_search__glob_translate_to_regex (mc_search_cond->str->str, &mc_search_cond->len);
+    GString *tmp;
 
+    tmp = mc_search__glob_translate_to_regex (mc_search_cond->str);
     g_string_free (mc_search_cond->str, TRUE);
 
     if (lc_mc_search->is_entire_line)
@@ -178,7 +160,6 @@ mc_search__cond_struct_new_init_glob (const char *charset, mc_search_t * lc_mc_s
     mc_search_cond->str = tmp;
 
     mc_search__cond_struct_new_init_regex (charset, lc_mc_search, mc_search_cond);
-
 }
 
 /* --------------------------------------------------------------------------------------------- */

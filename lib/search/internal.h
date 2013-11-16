@@ -11,7 +11,8 @@
 
 /*** enums ***************************************************************************************/
 
-typedef enum {
+typedef enum
+{
     COND__NOT_FOUND,
     COND__NOT_ALL_FOUND,
     COND__FOUND_CHAR,
@@ -22,23 +23,23 @@ typedef enum {
 
 /*** structures declarations (and typedefs of structures)*****************************************/
 
-typedef struct mc_search_cond_struct {
+typedef struct mc_search_cond_struct
+{
     GString *str;
     GString *upper;
     GString *lower;
     mc_search_regex_t *regex_handle;
-    gsize len;
     gchar *charset;
 } mc_search_cond_t;
 
 /*** global variables defined in .c file *********************************************************/
 
-extern const char * STR_E_NOTFOUND;
-extern const char * STR_E_UNKNOWN_TYPE;
-extern const char * STR_E_RPL_NOT_EQ_TO_FOUND;
-extern const char * STR_E_RPL_INVALID_TOKEN;
-/*** declarations of public functions ************************************************************/
+extern const char *STR_E_NOTFOUND;
+extern const char *STR_E_UNKNOWN_TYPE;
+extern const char *STR_E_RPL_NOT_EQ_TO_FOUND;
+extern const char *STR_E_RPL_INVALID_TOKEN;
 
+/*** declarations of public functions ************************************************************/
 
 /* search/lib.c : */
 
@@ -46,7 +47,7 @@ gchar *mc_search__recode_str (const char *, gsize, const char *, const char *, g
 
 gchar *mc_search__get_one_symbol (const char *, const char *, gsize, gboolean *);
 
-int mc_search__get_char (mc_search_t *, const void *, gsize);
+mc_search_cbret_t mc_search__get_char (mc_search_t *, const void *, gsize, int *);
 
 GString *mc_search__tolower_case_str (const char *, const char *, gsize);
 
@@ -83,5 +84,7 @@ void mc_search__cond_struct_new_init_hex (const char *, mc_search_t *, mc_search
 gboolean mc_search__run_hex (mc_search_t *, const void *, gsize, gsize, gsize *);
 
 GString *mc_search_hex_prepare_replace_str (mc_search_t *, GString *);
+
+/*** inline functions ****************************************************************************/
 
 #endif

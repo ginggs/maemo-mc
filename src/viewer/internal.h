@@ -1,6 +1,5 @@
-
-#ifndef MC_VIEWER_INTERNAL_H
-#define MC_VIEWER_INTERNAL_H
+#ifndef MC__VIEWER_INTERNAL_H
+#define MC__VIEWER_INTERNAL_H
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -9,25 +8,25 @@
 #include "lib/global.h"
 
 #include "lib/search.h"
+#include "lib/widget.h"
+#include "lib/vfs/vfs.h"        /* vfs_path_t */
 
-#include "src/dialog.h"
-#include "src/widget.h"
-#include "src/keybind.h"        /* global_keymap_t */
+#include "src/keybind-defaults.h"       /* global_keymap_t */
+#include "src/filemanager/dir.h"        /* dir_list */
 
-/*** typedefs(not structures) and defined constants ********************/
+#include "mcviewer.h"
+
+/*** typedefs(not structures) and defined constants **********************************************/
 
 typedef unsigned char byte;
 
 /* A width or height on the screen */
 typedef unsigned int screen_dimen;
 
-#define OFFSETTYPE_PRIX "lX"
-#define OFFSETTYPE_PRId "lu"
-
 extern const off_t INVALID_OFFSET;
 extern const off_t OFFSETTYPE_MAX;
 
-/*** enums *************************************************************/
+/*** enums ***************************************************************************************/
 
 /* data sources of the view */
 enum view_ds
@@ -52,7 +51,7 @@ typedef enum
     NROFF_TYPE_UNDERLINE = 2
 } nroff_type_t;
 
-/*** structures declarations (and typedefs of structures)***************/
+/*** structures declarations (and typedefs of structures)*****************************************/
 
 /* A node for building a change list on change_list */
 struct hexedit_change_node
@@ -90,12 +89,12 @@ typedef struct
 
 struct mcview_nroff_struct;
 
-typedef struct mcview_struct
+struct mcview_struct
 {
     Widget widget;
 
-    char *filename;             /* Name of the file */
-    char *workdir;              /* Name of the working directory */
+    vfs_path_t *filename_vpath; /* Name of the file */
+    vfs_path_t *workdir_vpath;  /* Name of the working directory */
     char *command;              /* Command used to pipe data in */
 
     enum view_ds datasource;    /* Where the displayed data comes from */
@@ -167,12 +166,6 @@ typedef struct mcview_struct
     int marker;                 /* mark to use */
     off_t marks[10];            /* 10 marks: 0..9 */
 
-    int move_dir;               /* return value from widget:
-                                 * 0 do nothing
-                                 * -1 view previous file
-                                 * 1 view next file
-                                 */
-
     off_t update_steps;         /* The number of bytes between percent
                                  * increments */
     off_t update_activate;      /* Last point where we updated the status */
@@ -180,17 +173,23 @@ typedef struct mcview_struct
     /* converter for translation of text */
     GIConv converter;
 
-    /* keymaps */
-    const global_keymap_t *plain_map;
-    const global_keymap_t *hex_map;
-
     /* handle of search engine */
     mc_search_t *search;
     gchar *last_search_string;
     struct mcview_nroff_struct *search_nroff_seq;
 
     int search_numNeedSkipChar;
-} mcview_t;
+
+    GArray *saved_bookmarks;
+
+    dir_list *dir;              /* List of current directory files
+                                 * to handle CK_FileNext and CK_FilePrev commands */
+    int *dir_count;             /* Number of files in dir structure.
+                                 * Pointer is used here as reference to WPanel::count */
+    int *dir_idx;               /* Index of current file in dir structure.
+                                 * Pointer is used here as reference to WPanel::count */
+    vfs_path_t *ext_script;     /* Temporary script file created by regex_command_for() */
+};
 
 typedef struct mcview_nroff_struct
 {
@@ -211,16 +210,16 @@ typedef struct mcview_search_options_t
     gboolean all_codepages;
 } mcview_search_options_t;
 
-/*** global variables defined in .c file *******************************/
+/*** global variables defined in .c file *********************************************************/
 
 extern mcview_search_options_t mcview_search_options;
 
-/*** declarations of public functions **********************************/
+/*** declarations of public functions ************************************************************/
 
 /* actions_cmd.c:  */
-cb_ret_t mcview_callback (Widget * w, widget_msg_t msg, int parm);
-cb_ret_t mcview_dialog_callback (Dlg_head * h, Widget * sender,
-                                 dlg_msg_t msg, int parm, void *data);
+cb_ret_t mcview_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *data);
+cb_ret_t mcview_dialog_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm,
+                                 void *data);
 
 /* coord_cache.c: */
 coord_cache_t *coord_cache_new (void);
@@ -284,24 +283,20 @@ void mcview_toggle_magic_mode (mcview_t * view);
 void mcview_toggle_wrap_mode (mcview_t * view);
 void mcview_toggle_nroff_mode (mcview_t * view);
 void mcview_toggle_hex_mode (mcview_t * view);
-gboolean mcview_ok_to_quit (mcview_t * view);
 void mcview_init (mcview_t * view);
 void mcview_done (mcview_t * view);
 void mcview_select_encoding (mcview_t * view);
 void mcview_set_codeset (mcview_t * view);
 void mcview_show_error (mcview_t * view, const char *error);
-off_t mcview_bol (mcview_t * view, off_t current);
-off_t mcview_eol (mcview_t * view, off_t current);
-char *mcview_get_title (const Dlg_head * h, size_t len);
-gboolean mcview_lock_file (mcview_t * view);
-gboolean mcview_unlock_file (mcview_t * view);
+off_t mcview_bol (mcview_t * view, off_t current, off_t limit);
+off_t mcview_eol (mcview_t * view, off_t current, off_t limit);
+char *mcview_get_title (const WDialog * h, size_t len);
 
 /* move.c */
 void mcview_move_up (mcview_t *, off_t);
 void mcview_move_down (mcview_t *, off_t);
 void mcview_move_left (mcview_t *, off_t);
 void mcview_move_right (mcview_t *, off_t);
-void mcview_scroll_to_cursor (mcview_t *);
 void mcview_moveto_top (mcview_t *);
 void mcview_moveto_bottom (mcview_t *);
 void mcview_moveto_bol (mcview_t *);
@@ -322,18 +317,20 @@ mcview_nroff_t *mcview_nroff_seq_new (mcview_t * view);
 void mcview_nroff_seq_free (mcview_nroff_t **);
 nroff_type_t mcview_nroff_seq_info (mcview_nroff_t *);
 int mcview_nroff_seq_next (mcview_nroff_t *);
+int mcview_nroff_seq_prev (mcview_nroff_t *);
+
 
 /* plain.c: */
 void mcview_display_text (mcview_t *);
 
 /* search.c: */
-int mcview_search_cmd_callback (const void *user_data, gsize char_offset);
-int mcview_search_update_cmd_callback (const void *, gsize);
+mc_search_cbret_t mcview_search_cmd_callback (const void *user_data, gsize char_offset,
+                                              int *current_char);
+mc_search_cbret_t mcview_search_update_cmd_callback (const void *user_data, gsize char_offset);
 void mcview_do_search (mcview_t * view);
-
 
 /*** inline functions ****************************************************************************/
 
 #include "inlines.h"
 
-#endif /* MC_VIEWER_INTERNAL_H */
+#endif /* MC__VIEWER_INTERNAL_H */

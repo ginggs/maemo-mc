@@ -12,6 +12,7 @@ m4_include([m4.include/vfs/socket.m4])
 m4_include([m4.include/vfs/mc-vfs-extfs.m4])
 m4_include([m4.include/vfs/mc-vfs-sfs.m4])
 m4_include([m4.include/vfs/mc-vfs-ftp.m4])
+m4_include([m4.include/vfs/mc-vfs-sftp.m4])
 m4_include([m4.include/vfs/mc-vfs-fish.m4])
 m4_include([m4.include/vfs/mc-vfs-undelfs.m4])
 m4_include([m4.include/vfs/mc-vfs-tarfs.m4])
@@ -32,7 +33,9 @@ AC_DEFUN([MC_ENABLE_VFS_NET],
     dnl FIXME: network checks should probably be in their own macro.
     AC_REQUIRE_SOCKET
     if test x"$have_socket" = xyes; then
-	AC_CHECK_TYPE(nlink_t, unsigned int)
+        AC_CHECK_TYPE([nlink_t], ,
+                        [AC_DEFINE_UNQUOTED([nlink_t], [unsigned int],
+                            [Define to 'unsigned int' if <sys/types.h> does not define.])])
 	AC_CHECK_TYPES([socklen_t],,,
 	    [
 #include <sys/types.h>
@@ -48,13 +51,19 @@ AC_DEFUN([MC_ENABLE_VFS_NET],
 AC_DEFUN([AC_MC_VFS_CHECKS],
 [
     vfs_type="normal"
-    enable_vfs_net=no
 
     AC_ARG_ENABLE([vfs],
-		AC_HELP_STRING([--disable-vfs], [Disable VFS]))
+	AS_HELP_STRING([--disable-vfs], [Disable VFS]),
+	[
+	    if test "x$enableval" = "xno"; then
+		enable_vfs=no
+	    else
+		enable_vfs=yes
+	    fi
+	],
+	[enable_vfs=yes])
 
-    if test x"$enable_vfs" != x"no" ; then
-	enable_vfs="yes"
+    if test x"$enable_vfs" = x"yes" ; then
 	vfs_type="Midnight Commander Virtual Filesystem"
 	AC_MSG_NOTICE([Enabling VFS code])
 	AC_DEFINE(ENABLE_VFS, [1], [Define to enable VFS support])
@@ -66,6 +75,7 @@ AC_DEFUN([AC_MC_VFS_CHECKS],
     AC_MC_VFS_EXTFS
     AC_MC_VFS_UNDELFS
     AC_MC_VFS_FTP
+    AC_MC_VFS_SFTP
     AC_MC_VFS_FISH
     AC_MC_VFS_SMB
 

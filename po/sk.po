@@ -1,30 +1,63 @@
-# Copyright (C) 1999,2001,2002 Free Software Foundation, Inc.
-# Miroslav Baranko <destin@dec.upjs.sk>, 1999.
-# Stanislav Visnovsky <visnovsky@nenya.ms.mff.cuni.cz>, 2001,2002.
-# Marcel Telka <marcel@telka.sk>, 2002, 2003.
-# Ivan Masár <helix84@centrum.sk>, 2009.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# This file is distributed under the same license as the PACKAGE package.
 #
+# Translators:
+# Dušan Lago <dusan.lago@gmail.com>, 2011
+# Jose Riha <jose1711@gmail.com>, 2012
+# Jose Riha <jose1711@gmail.com>, 2012
+# Slava Zanko <slavazanko@gmail.com>, 2011
 msgid ""
 msgstr ""
-"Project-Id-Version: mc\n"
+"Project-Id-Version: Midnight Commander\n"
 "Report-Msgid-Bugs-To: http://www.midnight-commander.org/\n"
-"POT-Creation-Date: 2010-09-07 10:18+0300\n"
-"PO-Revision-Date: 2009-12-03 12:42+0100\n"
-"Last-Translator: Ivan Masár <helix84@centrum.sk>\n"
-"Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
+"POT-Creation-Date: 2013-08-02 22:06+0300\n"
+"PO-Revision-Date: 2013-07-05 08:44+0000\n"
+"Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
+"Language-Team: Slovak (http://www.transifex.com/projects/p/mc/language/sk/)\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#, fuzzy, c-format
+msgid "Warning: cannot load codepages list"
+msgstr "Upozornenie: nie je možné nahrať zoznam znakových sád"
+
+msgid "7-bit ASCII"
+msgstr "7-bitový ASCII"
+
+#, c-format
+msgid "Cannot translate from %s to %s"
+msgstr "Nepodarilo sa preložiť z %s do %s"
+
+msgid "Event system already initialized"
+msgstr ""
+
+msgid "Failed to initialize event system"
+msgstr ""
+
+msgid "Event system not initialized"
+msgstr ""
+
+msgid "Check input data! Some of parameters are NULL!"
+msgstr ""
+
+#, c-format
+msgid "Unable to create group '%s' for events!"
+msgstr ""
+
+#, c-format
+msgid "Unable to create event '%s'!"
+msgstr ""
+
+#, c-format
 msgid ""
 "File \"%s\" is already being edited.\n"
 "User: %s\n"
 "Process ID: %d"
 msgstr ""
-"Na súbore \"%s\" už prebiehajú úpravy\n"
+"Súbor \"%s\" je už editovaný.\n"
 "Používateľ: %s\n"
 "ID procesu: %d"
 
@@ -37,33 +70,59 @@ msgstr "&Získať zámok"
 msgid "&Ignore lock"
 msgstr "&Ignorovať zámok"
 
-#, fuzzy
+#, c-format
+msgid "Cannot create %s directory"
+msgstr "Nepodarilo sa vytvoriť adresár %s"
+
+msgid "FATAL: not a directory:"
+msgstr ""
+
+#, c-format
+msgid "An error occurred while migrating user settings: %s"
+msgstr ""
+
+#, c-format
+msgid ""
+"Your old settings were migrated from %s\n"
+"to Freedesktop recommended dirs.\n"
+"To get more info, please visit\n"
+"http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html"
+msgstr ""
+
+#, c-format
+msgid ""
+"Your old settings were migrated from %s\n"
+"to %s\n"
+msgstr ""
+
 msgid "Search string not found"
-msgstr " Hľadaný reťazec nebol nájdený "
+msgstr "Hľadaný znak nebol nájdený"
 
-#, fuzzy
 msgid "Not implemented yet"
-msgstr " Zatiaľ neimplementované"
+msgstr "Zatiaľ neimplementované"
 
-#, fuzzy
 msgid "Num of replace tokens not equal to num of found tokens"
-msgstr " Počet tokenov nahradiť nezodpovedá počtu tokenov nájdené "
+msgstr ""
+"Počet tokenov určených k nahradeniu nezodpovedá počtu nájdených tokenov"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid token number %d"
-msgstr " Neplatné číslo tokenu %d "
+msgstr "Chybné číslo tokenu %d"
 
-msgid "Normal"
-msgstr "Normálny"
+msgid "Regular expression error"
+msgstr ""
 
-msgid "&Regular expression"
-msgstr "&Regulárny výraz"
+msgid "No&rmal"
+msgstr ""
 
-msgid "Hexadecimal"
-msgstr "Hexadecimálne"
+msgid "Re&gular expression"
+msgstr "Re&gulárny výraz"
 
-msgid "Wildcard search"
-msgstr "Vyhľadávanie pomocou zástupných znakov"
+msgid "He&xadecimal"
+msgstr ""
+
+msgid "Wil&dcard search"
+msgstr ""
 
 #, c-format
 msgid ""
@@ -80,6 +139,13 @@ msgid ""
 msgstr ""
 "Nepodarilo sa spracovať tému vzhľadu „%s“.\n"
 "Bola načítaná predvolená téma"
+
+#, c-format
+msgid ""
+"Unable to use '%s' skin with 256 colors support\n"
+"on non-256 colors terminal.\n"
+"Default skin has been loaded"
+msgstr ""
 
 msgid "Function key 1"
 msgstr "Funkčný klá. 1"
@@ -177,6 +243,9 @@ msgstr "Klávesa Delete"
 msgid "Completion/M-tab"
 msgstr "Doplnenie/M-tab"
 
+msgid "Back Tabulation S-tab"
+msgstr ""
+
 msgid "+ on keypad"
 msgstr "+ na num. kláves."
 
@@ -189,9 +258,8 @@ msgstr "Lomka na kláves."
 msgid "* on keypad"
 msgstr "* na num. kláves."
 
-#, fuzzy
 msgid "Escape key"
-msgstr "Lomka na kláves."
+msgstr "Klávesa escape"
 
 msgid "Left arrow keypad"
 msgstr "Ľava šípka na kláv."
@@ -238,13 +306,11 @@ msgstr "Funkčný klá. 23"
 msgid "Function key 24"
 msgstr "Funkčný klá. 24"
 
-#, fuzzy
 msgid "A1 key"
-msgstr "Klávesa End"
+msgstr "Klávesa A1"
 
-#, fuzzy
 msgid "C1 key"
-msgstr "Klávesa End"
+msgstr "Klávesa C1"
 
 msgid "Plus"
 msgstr "Plus"
@@ -291,6 +357,9 @@ msgstr "Znak dolára"
 msgid "Quotation mark"
 msgstr "Úvodzovky"
 
+msgid "Percent sign"
+msgstr ""
+
 msgid "Caret"
 msgstr "Vokáň"
 
@@ -310,26 +379,22 @@ msgid "Pipe"
 msgstr "Rúra"
 
 msgid "Left parenthesis"
-msgstr ""
+msgstr "Ľavá zátvorka"
 
-#, fuzzy
 msgid "Right parenthesis"
-msgstr "Šípka vpravo"
+msgstr "Pravá zátvorka"
 
-#, fuzzy
 msgid "Left bracket"
-msgstr "Šípka vľavo"
+msgstr "Ľavá hranatá zátvorka"
 
-#, fuzzy
 msgid "Right bracket"
-msgstr "Šípka vpravo"
+msgstr "Pravá hranatá zátvorka"
 
 msgid "Left brace"
-msgstr ""
+msgstr "Ľavá zložená zátvorka"
 
-#, fuzzy
 msgid "Right brace"
-msgstr "Šípka vpravo"
+msgstr "Pravá zložená zátvorka"
 
 msgid "Enter"
 msgstr "Enter"
@@ -349,6 +414,10 @@ msgstr "Spät. lomka"
 msgid "Number sign #"
 msgstr "Krížik"
 
+#. TRANSLATORS: Please translate as in "at sign" (@).
+msgid "At sign"
+msgstr "Zavináč"
+
 msgid "Ctrl"
 msgstr "Ctrl"
 
@@ -358,6 +427,9 @@ msgstr "Alt"
 msgid "Shift"
 msgstr "Shift"
 
+msgid "The TERM environment variable is unset!\n"
+msgstr "Premenlivé prostredie TERM je vymazané!\n"
+
 #, c-format
 msgid ""
 "Screen size %dx%d is not supported.\n"
@@ -365,6 +437,34 @@ msgid ""
 msgstr ""
 "Veľkosť obrazovky %dx%d nie je podporovaná.\n"
 "Skontrolujte premennú prostredia TERM.\n"
+
+msgid "Warning"
+msgstr "Varovanie"
+
+msgid "Pipe failed"
+msgstr "Pipe zlyhalo"
+
+msgid "Dup failed"
+msgstr "Dup zlyhalo"
+
+msgid "Error dup'ing old error pipe"
+msgstr "Chyba pri duplikácií starej chybovej rúry"
+
+#, c-format
+msgid "Directory cache expired for %s"
+msgstr "Vyrovnávacia pamäť adresárov vypršala pre %s"
+
+msgid "bytes transferred"
+msgstr "prenesených bajtov"
+
+msgid "Starting linear transfer..."
+msgstr "Začína sa lineárny prenos..."
+
+msgid "Getting file"
+msgstr "Získavam súbor"
+
+msgid "Changes to file lost"
+msgstr "Zmeny súboru stratené"
 
 #, c-format
 msgid "%s is not a directory\n"
@@ -394,20 +494,3077 @@ msgstr "Dočasné súbory nebudú vytvorené\n"
 msgid "Press any key to continue..."
 msgstr "Pokračujte stlačením ľubovoľného klávesu..."
 
-msgid "Warning"
-msgstr "Varovanie"
+msgid "Cannot parse:"
+msgstr "Nie je možné spracovať:"
 
-#, fuzzy
-msgid "Pipe failed"
-msgstr " Zlyhanie pipe "
+msgid "More parsing errors will be ignored."
+msgstr "Ďalšie chyby spracovania budú ignorované."
 
-#, fuzzy
-msgid "Dup failed"
-msgstr " Zlyhanie dup "
+msgid "Internal error:"
+msgstr "Vnútorná chyba:"
 
-#, fuzzy
-msgid "Error dup'ing old error pipe"
-msgstr " Chyba pri čítaní z rúry: %s "
+msgid "Password:"
+msgstr "Heslo:"
+
+msgid "Screens"
+msgstr ""
+
+msgid "History"
+msgstr "História"
+
+#. TRANSLATORS: no need to translate 'DialogTitle', it's just a context prefix
+msgid "DialogTitle|History cleanup"
+msgstr ""
+
+msgid "Do you want clean this history?"
+msgstr "Naozaj si prajete vymazať túto históriu?"
+
+msgid "&Yes"
+msgstr "Án&o"
+
+msgid "&No"
+msgstr "&Nie"
+
+msgid "&OK"
+msgstr "Án&o"
+
+msgid "&Cancel"
+msgstr "&Zrušiť"
+
+msgid "Background process:"
+msgstr "Proces v pozadí:"
+
+msgid "Error"
+msgstr "Chyba"
+
+msgid "Displays the current version"
+msgstr "Zobrazí aktuálnu verziu"
+
+msgid "Print data directory"
+msgstr "Adresár tlačových dát"
+
+msgid "Print extended info about used data directories"
+msgstr ""
+
+msgid "Print configure options"
+msgstr ""
+
+msgid "Print last working directory to specified file"
+msgstr "Tlačiť posledný pracovný adresár do zadaného súboru"
+
+msgid "Enables subshell support (default)"
+msgstr "Zapnutá podpora pre subshell (štandardne)"
+
+msgid "Disables subshell support"
+msgstr "Vypína podporu pre subshell"
+
+msgid "Log ftp dialog to specified file"
+msgstr "Prihlasovacie ftp okno k určenému súboru"
+
+msgid "Set debug level"
+msgstr "Nastaviť ladiacu úroveň"
+
+msgid "Launches the file viewer on a file"
+msgstr "Spúšťa prehliadač súborov na súbore"
+
+msgid "Edit files"
+msgstr ""
+
+msgid "Forces xterm features"
+msgstr "Vynúti funkcie xterm"
+
+msgid "Disable X11 support"
+msgstr ""
+
+msgid "Tries to use an old highlight mouse tracking"
+msgstr ""
+
+msgid "Disable mouse support in text version"
+msgstr "Vypína podporu myši v textovej verzii"
+
+msgid "Tries to use termcap instead of terminfo"
+msgstr "Pokúsi sa použiť termcap namiesto terminfo"
+
+msgid "To run on slow terminals"
+msgstr "Na spúšťanie na pomalých termináloch"
+
+msgid "Use stickchars to draw"
+msgstr "Použiť na kreslenie čiarovú grafiku"
+
+msgid "Resets soft keys on HP terminals"
+msgstr "Resetuje mäkké klávesy na termináloch HP"
+
+msgid "Load definitions of key bindings from specified file"
+msgstr "Načítať definície klívesových väzieb z určeného súboru"
+
+msgid "Don't load definitions of key bindings from file, use defaults"
+msgstr ""
+
+msgid "Requests to run in black and white"
+msgstr "Požiadať o spustenie v čiernobielom režime"
+
+msgid "Request to run in color mode"
+msgstr "Požiadať o spustenie vo farebnom režime"
+
+msgid "Specifies a color configuration"
+msgstr "Určuje farebnú konfiguráciu"
+
+msgid "Show mc with specified skin"
+msgstr "Zobraziť mc s uvedenou témou vzhľadu"
+
+#. TRANSLATORS: don't translate keywords
+msgid ""
+"--colors KEYWORD={FORE},{BACK},{ATTR}:KEYWORD2=...\n"
+"\n"
+"{FORE}, {BACK} and {ATTR} can be omitted, and the default will be used\n"
+"\n"
+" Keywords:\n"
+"   Global:       errors, disabled, reverse, gauge, header\n"
+"                 input, inputmark, inputunchanged, commandlinemark\n"
+"                 bbarhotkey, bbarbutton, statusbar\n"
+"   File display: normal, selected, marked, markselect\n"
+"   Dialog boxes: dnormal, dfocus, dhotnormal, dhotfocus, errdhotnormal,\n"
+"                 errdhotfocus\n"
+"   Menus:        menunormal, menuhot, menusel, menuhotsel, menuinactive\n"
+"   Popup menus:  pmenunormal, pmenusel, pmenutitle\n"
+"   Editor:       editnormal, editbold, editmarked, editwhitespace,\n"
+"                 editlinestate, editbg, editframe, editframeactive\n"
+"                 editframedrag\n"
+"   Viewer:       viewbold, viewunderline, viewselected\n"
+"   Help:         helpnormal, helpitalic, helpbold, helplink, helpslink\n"
+msgstr ""
+
+#. TRANSLATORS: don't translate color names and attributes
+msgid ""
+"Standard Colors:\n"
+"   black, gray, red, brightred, green, brightgreen, brown,\n"
+"   yellow, blue, brightblue, magenta, brightmagenta, cyan,\n"
+"   brightcyan, lightgray and white\n"
+"\n"
+"Extended colors, when 256 colors are available:\n"
+"   color16 to color255, or rgb000 to rgb555 and gray0 to gray23\n"
+"\n"
+"Attributes:\n"
+"   bold, underline, reverse, blink; append more with '+'\n"
+msgstr ""
+
+msgid "Color options"
+msgstr "Možnosti farieb"
+
+msgid "+number"
+msgstr "+číslo"
+
+msgid "[this_dir] [other_panel_dir]"
+msgstr "[tento_adresár] [adresár_v_druhom_paneli]"
+
+msgid "Set initial line number for the internal editor"
+msgstr "Nastaviť počiatočné číslo riadka pre interný editor"
+
+msgid ""
+"\n"
+"Please send any bug reports (including the output of 'mc -V')\n"
+"as tickets at www.midnight-commander.org\n"
+msgstr ""
+
+#, c-format
+msgid "GNU Midnight Commander %s\n"
+msgstr "GNU Midnight Commander %s\n"
+
+msgid "Main options"
+msgstr "Hlavné možnosti"
+
+msgid "Terminal options"
+msgstr "Možnosti terminálu"
+
+msgid "Arguments parse error!"
+msgstr ""
+
+msgid "No arguments given to the viewer."
+msgstr ""
+
+msgid "Two files are required to evoke the diffviewer."
+msgstr ""
+
+msgid "Background process error"
+msgstr ""
+
+msgid "Unknown error in child"
+msgstr ""
+
+msgid "Child died unexpectedly"
+msgstr ""
+
+msgid "Background protocol error"
+msgstr ""
+
+msgid "Reading failed"
+msgstr ""
+
+msgid ""
+"Background process sent us a request for more arguments\n"
+"than we can handle."
+msgstr ""
+
+msgid "&Dismiss"
+msgstr "&Odmietnuť"
+
+msgid "Enter search string:"
+msgstr ""
+
+msgid "Cas&e sensitive"
+msgstr "Rozlišovať v&eľkosť"
+
+msgid "&Backwards"
+msgstr "&Späť"
+
+msgid "&Whole words"
+msgstr "&Celé slová"
+
+msgid "&All charsets"
+msgstr "Všetky zn&akové sady"
+
+msgid "Search"
+msgstr "Hľadať"
+
+msgid "Search is disabled"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot create temporary diff file\n"
+"%s"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot create backup file\n"
+"%s%s\n"
+"%s"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot create temporary merge file\n"
+"%s"
+msgstr ""
+
+msgid "&Fastest (Assume large files)"
+msgstr ""
+
+msgid "&Minimal (Find a smaller set of change)"
+msgstr ""
+
+msgid "Diff algorithm"
+msgstr ""
+
+msgid "Diff extra options"
+msgstr ""
+
+msgid "&Ignore case"
+msgstr ""
+
+msgid "Ignore tab &expansion"
+msgstr ""
+
+msgid "Ignore &space change"
+msgstr ""
+
+msgid "Ignore all &whitespace"
+msgstr ""
+
+msgid "Strip &trailing carriage return"
+msgstr ""
+
+msgid "Diff Options"
+msgstr ""
+
+msgid "Edit"
+msgstr ""
+
+msgid "Edit is disabled"
+msgstr ""
+
+msgid "Goto line (left)"
+msgstr ""
+
+msgid "Goto line (right)"
+msgstr ""
+
+msgid "Enter line:"
+msgstr ""
+
+msgid "ButtonBar|Help"
+msgstr "ButtonBar|Pomoc"
+
+msgid "ButtonBar|Save"
+msgstr "ButtonBar|Uložiť"
+
+msgid "ButtonBar|Edit"
+msgstr "ButtonBar|Upravi"
+
+msgid "ButtonBar|Merge"
+msgstr ""
+
+msgid "ButtonBar|Search"
+msgstr "ButtonBar|Hľad"
+
+msgid "ButtonBar|Options"
+msgstr ""
+
+msgid "ButtonBar|Quit"
+msgstr "ButtonBar|Ukončiť"
+
+msgid "Quit"
+msgstr "Skončiť"
+
+msgid "File(s) was modified. Save with exit?"
+msgstr ""
+
+msgid ""
+"Midnight Commander is being shut down.\n"
+"Save modified file(s)?"
+msgstr ""
+
+msgid "Diff:"
+msgstr ""
+
+#, c-format
+msgid "\"%s\" is a directory"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot stat \"%s\"\n"
+"%s"
+msgstr ""
+
+msgid "Diff viewer: invalid mode"
+msgstr ""
+
+msgid "Two files are needed to compare"
+msgstr ""
+
+msgid "Choose syntax highlighting"
+msgstr ""
+
+msgid "< Auto >"
+msgstr "< Auto >"
+
+msgid "< Reload Current Syntax >"
+msgstr "< Znovu načítať aktuálnu syntax >"
+
+#, c-format
+msgid "Cannot open %s for reading"
+msgstr ""
+
+#, c-format
+msgid "Error reading %s"
+msgstr ""
+
+#, c-format
+msgid "Cannot get size/permissions for %s"
+msgstr ""
+
+#, c-format
+msgid "\"%s\" is not a regular file"
+msgstr ""
+
+#, c-format
+msgid ""
+"File \"%s\" is too large.\n"
+"Open it anyway?"
+msgstr ""
+
+#, c-format
+msgid "Error reading from pipe: %s"
+msgstr ""
+
+#, c-format
+msgid "Cannot open pipe for reading: %s"
+msgstr ""
+
+msgid "File has hard-links. Detach before saving?"
+msgstr ""
+
+msgid "The file has been modified in the meantime. Save anyway?"
+msgstr "Súbor bol medzitým zmenený. Uložiť napriek tomu?"
+
+#, c-format
+msgid "Error writing to pipe: %s"
+msgstr ""
+
+#, c-format
+msgid "Cannot open pipe for writing: %s"
+msgstr ""
+
+#, c-format
+msgid "Cannot open file for writing: %s"
+msgstr ""
+
+msgid "The file you are saving is not finished with a newline"
+msgstr "Súbor, ktorý ukladáte nie je ukončený znakom nového riadka"
+
+msgid "C&ontinue"
+msgstr "P&okračovať"
+
+msgid "&Do not change"
+msgstr "&Nemeniť"
+
+msgid "&Unix format (LF)"
+msgstr "Formát &Unix (LF)"
+
+msgid "&Windows/DOS format (CR LF)"
+msgstr "Formát &Windows/DOS (CR LF)"
+
+msgid "&Macintosh format (CR)"
+msgstr "Formát &Macintosh (CR)"
+
+msgid "Enter file name:"
+msgstr ""
+
+msgid "Change line breaks to:"
+msgstr "Zmeniť konce riadkov na:"
+
+msgid "Save As"
+msgstr ""
+
+msgid "Block is large, you may not be able to undo this action"
+msgstr ""
+
+msgid "&Quick save"
+msgstr "&Rýchle uloženie"
+
+msgid "&Safe save"
+msgstr "&Bezpečné uloženie"
+
+msgid "&Do backups with following extension:"
+msgstr "&Robiť zálohy s príponou:"
+
+msgid "Check &POSIX new line"
+msgstr "Kontrolovať nový riadok &POSIX"
+
+msgid "Edit Save Mode"
+msgstr ""
+
+msgid "Save as"
+msgstr ""
+
+msgid "Cannot save: destination is not a regular file"
+msgstr ""
+
+msgid "A file already exists with this name"
+msgstr ""
+
+msgid "&Overwrite"
+msgstr "&Prepísať"
+
+msgid "Cannot save file"
+msgstr ""
+
+msgid "Delete macro"
+msgstr ""
+
+msgid "Press macro hotkey:"
+msgstr ""
+
+msgid "Macro not deleted"
+msgstr ""
+
+msgid "Save macro"
+msgstr ""
+
+msgid "Press the macro's new hotkey:"
+msgstr ""
+
+msgid "Repeat last commands"
+msgstr ""
+
+msgid "Repeat times:"
+msgstr ""
+
+#, c-format
+msgid "Confirm save file: \"%s\""
+msgstr ""
+
+msgid "Save file"
+msgstr ""
+
+msgid "&Save"
+msgstr "&Uložiť"
+
+msgid "Load"
+msgstr ""
+
+msgid "Syntax file edit"
+msgstr "Upraviť súbor so syntaxou"
+
+msgid "Which syntax file you want to edit?"
+msgstr ""
+
+msgid "&User"
+msgstr "&Používateľ"
+
+msgid "&System wide"
+msgstr ""
+
+msgid "Menu edit"
+msgstr ""
+
+msgid "Which menu file do you want to edit?"
+msgstr ""
+
+msgid "&Local"
+msgstr "&Miestny"
+
+msgid "Replace"
+msgstr "Nahradiť"
+
+#, c-format
+msgid "%ld replacements made"
+msgstr ""
+
+msgid "[NoName]"
+msgstr ""
+
+#, c-format
+msgid ""
+"File %s was modified.\n"
+"Save before close?"
+msgstr ""
+
+msgid "Close file"
+msgstr ""
+
+#, c-format
+msgid ""
+"Midnight Commander is being shut down.\n"
+"Save modified file %s?"
+msgstr ""
+
+msgid "This function is not implemented"
+msgstr ""
+
+msgid "Copy to clipboard"
+msgstr ""
+
+msgid "Unable to save to file"
+msgstr ""
+
+msgid "Cut to clipboard"
+msgstr ""
+
+msgid "Goto line"
+msgstr ""
+
+msgid "Save block"
+msgstr ""
+
+msgid "Insert file"
+msgstr ""
+
+msgid "Cannot insert file"
+msgstr ""
+
+msgid "Sort block"
+msgstr ""
+
+msgid "You must first highlight a block of text"
+msgstr ""
+
+msgid "Run sort"
+msgstr ""
+
+msgid "Enter sort options (see manpage) separated by whitespace:"
+msgstr ""
+
+msgid "Sort"
+msgstr ""
+
+msgid "Cannot execute sort command"
+msgstr ""
+
+#, c-format
+msgid "Sort returned non-zero: %s"
+msgstr ""
+
+msgid "Paste output of external command"
+msgstr "Vložiť výstup externého príkazu"
+
+msgid "Enter shell command(s):"
+msgstr "Zadajte príkaz shellu:"
+
+msgid "External command"
+msgstr "Externý príkaz"
+
+msgid "Cannot execute command"
+msgstr "Nie je možné vykonať príkaz"
+
+msgid "mail -s <subject> -c <cc> <to>"
+msgstr ""
+
+msgid "To"
+msgstr ""
+
+msgid "Subject"
+msgstr ""
+
+msgid "Copies to"
+msgstr ""
+
+msgid "Mail"
+msgstr ""
+
+msgid "Insert literal"
+msgstr ""
+
+msgid "Press any key:"
+msgstr ""
+
+msgid ""
+"Current text was modified without a file save.\n"
+"Continue discards these changes"
+msgstr ""
+
+msgid "In se&lection"
+msgstr "&Vo výbere"
+
+msgid "&Find all"
+msgstr "&Nájsť všetky"
+
+msgid "Enter replacement string:"
+msgstr ""
+
+msgid "Replace with:"
+msgstr ""
+
+msgid "&Replace"
+msgstr "&Nahradiť"
+
+msgid "A&ll"
+msgstr "&Všetko"
+
+msgid "&Skip"
+msgstr "&Preskočiť"
+
+msgid "Confirm replace"
+msgstr ""
+
+msgid "Cancel"
+msgstr "Zruš"
+
+msgid ""
+"Current text was modified without a file save.\n"
+"Continue discards these changes."
+msgstr ""
+
+msgid "NoName"
+msgstr ""
+
+msgid "&Open file..."
+msgstr "Otvoriť sú&bor..."
+
+msgid "&New"
+msgstr "&Nové"
+
+msgid "&Close"
+msgstr ""
+
+msgid "Save &as..."
+msgstr "Uložiť &ako..."
+
+msgid "&Insert file..."
+msgstr "V&Ložiť súbor..."
+
+msgid "Cop&y to file..."
+msgstr "&Kopírovať do súboru..."
+
+msgid "&User menu..."
+msgstr "&Používateľské menu..."
+
+msgid "A&bout..."
+msgstr "&O aplikácii..."
+
+msgid "&Quit"
+msgstr "&Ukončiť"
+
+msgid "&Undo"
+msgstr "&Späť"
+
+msgid "&Redo"
+msgstr ""
+
+msgid "&Toggle ins/overw"
+msgstr ""
+
+msgid "To&ggle mark"
+msgstr ""
+
+msgid "&Mark columns"
+msgstr "&Označiť stĺpce"
+
+msgid "Mark &all"
+msgstr ""
+
+msgid "Unmar&k"
+msgstr ""
+
+msgid "Cop&y"
+msgstr ""
+
+msgid "Mo&ve"
+msgstr ""
+
+msgid "&Delete"
+msgstr "&Zmazať"
+
+msgid "Co&py to clipfile"
+msgstr ""
+
+msgid "&Cut to clipfile"
+msgstr ""
+
+msgid "Pa&ste from clipfile"
+msgstr ""
+
+msgid "&Beginning"
+msgstr "&Začiatok"
+
+msgid "&End"
+msgstr "Koni&Ec"
+
+msgid "&Search..."
+msgstr "&Hľadať..."
+
+msgid "Search &again"
+msgstr "Hľ&Adať znova"
+
+msgid "&Replace..."
+msgstr "&Nahradiť..."
+
+msgid "&Toggle bookmark"
+msgstr ""
+
+msgid "&Next bookmark"
+msgstr "Ď&Alšia záložka"
+
+msgid "&Prev bookmark"
+msgstr ""
+
+msgid "&Flush bookmarks"
+msgstr ""
+
+msgid "&Go to line..."
+msgstr "&Prejsť na riadok..."
+
+msgid "&Toggle line state"
+msgstr ""
+
+msgid "Go to matching &bracket"
+msgstr "Prejsť na odpovedajúcu &zátvorku"
+
+msgid "Toggle s&yntax highlighting"
+msgstr ""
+
+msgid "&Find declaration"
+msgstr ""
+
+msgid "Back from &declaration"
+msgstr ""
+
+msgid "For&ward to declaration"
+msgstr ""
+
+msgid "Encod&ing..."
+msgstr "Kódovan&Ie..."
+
+msgid "&Refresh screen"
+msgstr "Obnoviť ob&Razovku"
+
+msgid "&Start/Stop record macro"
+msgstr ""
+
+msgid "Delete macr&o..."
+msgstr "Zmazať makr&O..."
+
+msgid "Record/Repeat &actions"
+msgstr ""
+
+msgid "S&pell check"
+msgstr ""
+
+msgid "C&heck word"
+msgstr ""
+
+msgid "Change spelling &language..."
+msgstr ""
+
+msgid "&Mail..."
+msgstr "&Pošta..."
+
+msgid "Insert &literal..."
+msgstr "V&Ložiť znak..."
+
+msgid "Insert &date/time"
+msgstr "Vložiť &Dátum/čas"
+
+msgid "&Format paragraph"
+msgstr ""
+
+msgid "&Sort..."
+msgstr ""
+
+msgid "&Paste output of..."
+msgstr ""
+
+msgid "&External formatter"
+msgstr ""
+
+msgid "&Move"
+msgstr "pres&Unúť"
+
+msgid "&Resize"
+msgstr ""
+
+msgid "&Toggle fullscreen"
+msgstr ""
+
+msgid "&Next"
+msgstr ""
+
+msgid "&Previous"
+msgstr ""
+
+msgid "&List..."
+msgstr ""
+
+msgid "&General..."
+msgstr ""
+
+msgid "Save &mode..."
+msgstr "Reži&M ukladania..."
+
+msgid "Learn &keys..."
+msgstr "Učenie &Kláves..."
+
+msgid "Syntax &highlighting..."
+msgstr "Zvýraznenie s&Yntaxe..."
+
+msgid "S&yntax file"
+msgstr "súbor so s&Yntaxou"
+
+msgid "&Menu file"
+msgstr "súbor s &Menu"
+
+msgid "&Save setup"
+msgstr "&Uložiť nastavenie"
+
+msgid "&File"
+msgstr "&Súbor"
+
+msgid "&Edit"
+msgstr "&Upraviť"
+
+msgid "&Search"
+msgstr "&Hľadať"
+
+msgid "&Command"
+msgstr "&Príkaz"
+
+msgid "For&mat"
+msgstr "For&mát"
+
+msgid "&Window"
+msgstr ""
+
+msgid "&Options"
+msgstr "M&Ožnosti"
+
+msgid "&None"
+msgstr ""
+
+msgid "&Dynamic paragraphing"
+msgstr ""
+
+msgid "Type &writer wrap"
+msgstr ""
+
+msgid "Wrap mode"
+msgstr "Zalamovanie riadkov"
+
+msgid "Tabulation"
+msgstr ""
+
+msgid "&Fake half tabs"
+msgstr "&Emulovať polovičný tabulátor"
+
+msgid "&Backspace through tabs"
+msgstr "&Backspace po tabulátoroch"
+
+msgid "Fill tabs with &spaces"
+msgstr "Naplniť tabulátor &medzerami"
+
+msgid "Tab spacing:"
+msgstr ""
+
+msgid "Other options"
+msgstr ""
+
+msgid "&Return does autoindent"
+msgstr "ente&R vykoná autom. odsad."
+
+msgid "Confir&m before saving"
+msgstr "&Potvrdiť pred uložením"
+
+msgid "Save file &position"
+msgstr "Uložiť &polohu súboru"
+
+msgid "&Visible trailing spaces"
+msgstr ""
+
+msgid "Visible &tabs"
+msgstr ""
+
+msgid "Synta&x highlighting"
+msgstr "Zvýraznenie s&Yntaxe"
+
+msgid "C&ursor after inserted block"
+msgstr ""
+
+msgid "Pers&istent selection"
+msgstr "&Trvalý výber"
+
+msgid "Cursor be&yond end of line"
+msgstr ""
+
+msgid "&Group undo"
+msgstr ""
+
+msgid "Word wrap line length:"
+msgstr ""
+
+msgid "Editor options"
+msgstr ""
+
+msgid ""
+"A user friendly text editor\n"
+"written for the Midnight Commander."
+msgstr ""
+
+msgid "Copyright (C) 1996-2013 the Free Software Foundation"
+msgstr ""
+
+msgid "About"
+msgstr ""
+
+msgid "Open files"
+msgstr ""
+
+msgid "Edit: "
+msgstr ""
+
+msgid "ButtonBar|Mark"
+msgstr "ButtonBar|Označ"
+
+msgid "ButtonBar|Replac"
+msgstr "ButtonBar|Nahra"
+
+msgid "ButtonBar|Copy"
+msgstr "ButtonBar|Kopír"
+
+msgid "ButtonBar|Move"
+msgstr "ButtonBar|Presu"
+
+msgid "ButtonBar|Delete"
+msgstr "ButtonBar|Zmaza"
+
+msgid "ButtonBar|PullDn"
+msgstr "ButtonBar|H.menu"
+
+msgid "&Add word"
+msgstr ""
+
+msgid "Language"
+msgstr ""
+
+msgid "Misspelled"
+msgstr ""
+
+msgid "Check word"
+msgstr ""
+
+msgid "Suggest"
+msgstr ""
+
+msgid "Select language"
+msgstr ""
+
+msgid "Load syntax file"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot open file %s\n"
+"%s"
+msgstr ""
+
+#, c-format
+msgid "Error in file %s on line %d"
+msgstr ""
+
+msgid ""
+"The Commander can't change to the directory that\n"
+"the subshell claims you are in. Perhaps you have\n"
+"deleted your working directory, or given yourself\n"
+"extra access permissions with the \"su\" command?"
+msgstr ""
+
+#, c-format
+msgid "Cannot fetch a local copy of %s"
+msgstr ""
+
+msgid "The shell is already running a command"
+msgstr ""
+
+#, c-format
+msgid "Type 'exit' to return to the Midnight Commander"
+msgstr ""
+
+msgid "Set &all"
+msgstr "Nastaviť &všetko"
+
+msgid "S&kip"
+msgstr "&Preskočiť"
+
+msgid "&Set"
+msgstr "&Nastaviť"
+
+msgid "owner"
+msgstr "vlast."
+
+msgid "group"
+msgstr "skupina"
+
+msgid "other"
+msgstr "ostatní"
+
+msgid "Flag"
+msgstr "Označ"
+
+msgid "Chown advanced command"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot chmod \"%s\"\n"
+"%s"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot chown \"%s\"\n"
+"%s"
+msgstr ""
+
+msgid "Other 8 bit"
+msgstr "Iné 8-bitové"
+
+msgid "Running"
+msgstr ""
+
+msgid "Stopped"
+msgstr "Zastavený"
+
+msgid "&Never"
+msgstr "n&Ikdy"
+
+msgid "On dum&b terminals"
+msgstr ""
+
+msgid "Alwa&ys"
+msgstr "&Vždy"
+
+msgid "File operations"
+msgstr ""
+
+msgid "&Verbose operation"
+msgstr "&Výrečná prevádzka"
+
+msgid "Compute tota&ls"
+msgstr ""
+
+msgid "Classic pro&gressbar"
+msgstr ""
+
+msgid "Mkdi&r autoname"
+msgstr ""
+
+msgid "&Preallocate space"
+msgstr ""
+
+msgid "Esc key mode"
+msgstr ""
+
+msgid "S&ingle press"
+msgstr ""
+
+msgid "Timeout:"
+msgstr ""
+
+msgid "Pause after run"
+msgstr ""
+
+msgid "Use internal edi&t"
+msgstr ""
+
+msgid "Use internal vie&w"
+msgstr ""
+
+msgid "A&sk new file name"
+msgstr ""
+
+msgid "Auto m&enus"
+msgstr ""
+
+msgid "&Drop down menus"
+msgstr "rolova&Ť ponuky nadol"
+
+msgid "S&hell patterns"
+msgstr ""
+
+msgid "Co&mplete: show all"
+msgstr ""
+
+msgid "Rotating d&ash"
+msgstr ""
+
+msgid "Cd follows lin&ks"
+msgstr ""
+
+msgid "Sa&fe delete"
+msgstr ""
+
+msgid "A&uto save setup"
+msgstr ""
+
+msgid "Configure options"
+msgstr "Nastavovateľne voľby"
+
+msgid "Case &insensitive"
+msgstr ""
+
+msgid "Use panel sort mo&de"
+msgstr ""
+
+msgid "Show mi&ni-status"
+msgstr ""
+
+msgid "Use SI si&ze units"
+msgstr "Používať &SI jednotky veľkosti"
+
+msgid "Mi&x all files"
+msgstr ""
+
+msgid "Show &backup files"
+msgstr ""
+
+msgid "Show &hidden files"
+msgstr ""
+
+msgid "&Fast dir reload"
+msgstr "rýc&Hle načítanie adresára"
+
+msgid "Ma&rk moves down"
+msgstr ""
+
+msgid "Re&verse files only"
+msgstr ""
+
+msgid "Simple s&wap"
+msgstr ""
+
+msgid "A&uto save panels setup"
+msgstr ""
+
+msgid "Navigation"
+msgstr ""
+
+msgid "L&ynx-like motion"
+msgstr "Pohyb štýlom lyn&Xu"
+
+msgid "Pa&ge scrolling"
+msgstr ""
+
+msgid "&Mouse page scrolling"
+msgstr ""
+
+msgid "File highlight"
+msgstr ""
+
+msgid "File &types"
+msgstr ""
+
+msgid "&Permissions"
+msgstr ""
+
+msgid "Quick search"
+msgstr ""
+
+msgid "Panel options"
+msgstr ""
+
+msgid "Information"
+msgstr ""
+
+msgid ""
+"Using the fast reload option may not reflect the exact\n"
+"directory contents. In this case you'll need to do a\n"
+"manual reload of the directory. See the man page for\n"
+"the details."
+msgstr ""
+
+msgid "&Full file list"
+msgstr "&Plný výpis súborov"
+
+msgid "&Brief file list"
+msgstr "&Stručný výpis súborov "
+
+msgid "&Long file list"
+msgstr "&Dlhý výpis súborov"
+
+msgid "&User defined:"
+msgstr "d&Efinovaný používateľom:"
+
+msgid "User &mini status"
+msgstr ""
+
+msgid "Listing mode"
+msgstr "Režim výpisu"
+
+msgid "Executable &first"
+msgstr "N&Ajprv spustiteľné"
+
+msgid "&Reverse"
+msgstr "o&Brátený"
+
+msgid "Sort order"
+msgstr "Poradie triedenia"
+
+#. TRANSLATORS: no need to translate 'Confirmation', it's just a context prefix
+msgid "Confirmation|&Delete"
+msgstr ""
+
+msgid "Confirmation|O&verwrite"
+msgstr ""
+
+msgid "Confirmation|&Execute"
+msgstr ""
+
+msgid "Confirmation|E&xit"
+msgstr ""
+
+msgid "Confirmation|Di&rectory hotlist delete"
+msgstr ""
+
+msgid "Confirmation|&History cleanup"
+msgstr ""
+
+msgid "Confirmation"
+msgstr ""
+
+msgid "&UTF-8 output"
+msgstr ""
+
+msgid "&Full 8 bits output"
+msgstr ""
+
+msgid "&ISO 8859-1"
+msgstr ""
+
+msgid "7 &bits"
+msgstr ""
+
+msgid "F&ull 8 bits input"
+msgstr "p&Lný 8 bitový vstup"
+
+msgid "Display bits"
+msgstr ""
+
+msgid "Input / display codepage:"
+msgstr "Vstupná/Zobrazovacia znaková sada:"
+
+msgid "&Select"
+msgstr "&Vybrať"
+
+msgid "Directory tree"
+msgstr ""
+
+msgid "Timeout for freeing VFSs (sec):"
+msgstr ""
+
+msgid "FTP anonymous password:"
+msgstr ""
+
+msgid "FTP directory cache timeout (sec):"
+msgstr ""
+
+msgid "&Always use ftp proxy:"
+msgstr ""
+
+msgid "&Use ~/.netrc"
+msgstr "Po&užiť ~/.netrc"
+
+msgid "Use &passive mode"
+msgstr "Použiť &pasívny režim"
+
+msgid "Use passive mode over pro&xy"
+msgstr "Použiť pasívny režim pri pro&xy"
+
+msgid "Virtual File System Setting"
+msgstr ""
+
+msgid "cd"
+msgstr "cd"
+
+msgid "Quick cd"
+msgstr "Rýchly cd"
+
+msgid "Existing filename (filename symlink will point to):"
+msgstr "Existujúce meno súboru (meno symb. odkazu odkazuje na):"
+
+msgid "Symbolic link filename:"
+msgstr "Meno symbolického odkazu:"
+
+msgid "Symbolic link"
+msgstr "Symbolický odkaz"
+
+msgid "&Stop"
+msgstr "&Zastaviť"
+
+msgid "&Resume"
+msgstr "&Pokračovať"
+
+msgid "&Kill"
+msgstr "&Ukončiť"
+
+msgid "Background jobs"
+msgstr ""
+
+#, c-format
+msgid "Password for \\\\%s\\%s"
+msgstr "Heslo pre \\\\%s\\%s"
+
+msgid "Domain:"
+msgstr "Doména:"
+
+msgid "Username:"
+msgstr "Meno použivateľa:"
+
+msgid "SMB authentication"
+msgstr ""
+
+msgid "set &user ID on execution"
+msgstr ""
+
+msgid "set &group ID on execution"
+msgstr ""
+
+msgid "stick&y bit"
+msgstr ""
+
+msgid "&read by owner"
+msgstr ""
+
+msgid "&write by owner"
+msgstr ""
+
+msgid "e&xecute/search by owner"
+msgstr ""
+
+msgid "rea&d by group"
+msgstr ""
+
+msgid "write by grou&p"
+msgstr ""
+
+msgid "execu&te/search by group"
+msgstr ""
+
+msgid "read &by others"
+msgstr ""
+
+msgid "wr&ite by others"
+msgstr ""
+
+msgid "execute/searc&h by others"
+msgstr ""
+
+msgid "Name:"
+msgstr ""
+
+msgid "Permissions (octal):"
+msgstr ""
+
+msgid "Owner name:"
+msgstr ""
+
+msgid "Group name:"
+msgstr ""
+
+msgid "&Marked all"
+msgstr "&Označiť všetko"
+
+msgid "S&et marked"
+msgstr "n&Astaviť označ."
+
+msgid "C&lear marked"
+msgstr "z&Mazať označ."
+
+msgid "Chmod command"
+msgstr "Príkaz zmeny práv"
+
+msgid "Permission"
+msgstr "Práva"
+
+msgid "File"
+msgstr "Súbor"
+
+msgid "Set &groups"
+msgstr "Nastaviť &skup."
+
+msgid "Set &users"
+msgstr "Nastaviť &použ."
+
+msgid "Name"
+msgstr "Meno"
+
+msgid "Owner name"
+msgstr "Meno vlastníka"
+
+msgid "Group name"
+msgstr "Meno skupiny"
+
+msgid "Size"
+msgstr "Veľkosť"
+
+msgid "Chown command"
+msgstr ""
+
+msgid "User name"
+msgstr ""
+
+msgid "<Unknown user>"
+msgstr "<Neznámy použ.>"
+
+msgid "<Unknown group>"
+msgstr "<Neznáma skupina>"
+
+msgid "Enter machine name (F1 for details):"
+msgstr ""
+
+msgid "Files tagged, want to cd?"
+msgstr "Označené súbory chcú cd?"
+
+msgid "Cannot change directory"
+msgstr "Nemohol som zmeniť adresár"
+
+msgid "Filter"
+msgstr ""
+
+msgid "Set expression for filtering filenames"
+msgstr ""
+
+msgid "&Files only"
+msgstr "&Iba súbory"
+
+msgid "&Using shell patterns"
+msgstr "po&Užiť shell vzory"
+
+msgid "&Case sensitive"
+msgstr "&Rozlišovať veľkosť"
+
+#, c-format
+msgid "Link %s to:"
+msgstr "Odkaz %s na:"
+
+msgid "Link"
+msgstr ""
+
+#, c-format
+msgid "link: %s"
+msgstr ""
+
+#, c-format
+msgid "symlink: %s"
+msgstr ""
+
+#, c-format
+msgid "Cannot chdir to \"%s\""
+msgstr ""
+
+msgid "View file"
+msgstr ""
+
+msgid "Filename:"
+msgstr ""
+
+msgid "Filtered view"
+msgstr ""
+
+msgid "Filter command and arguments:"
+msgstr ""
+
+msgid "Edit file"
+msgstr ""
+
+msgid "Create a new Directory"
+msgstr "Vytvoriť nový adresár"
+
+msgid "Enter directory name:"
+msgstr ""
+
+msgid "Select"
+msgstr ""
+
+msgid "Unselect"
+msgstr ""
+
+msgid "Extension file edit"
+msgstr "Upraviť príponu názvu súboru"
+
+msgid "Which extension file you want to edit?"
+msgstr ""
+
+msgid "&System Wide"
+msgstr "&Systémový"
+
+msgid "Highlighting groups file edit"
+msgstr "Úprava súboru zvýrazňovacích skupín"
+
+msgid "Which highlighting file you want to edit?"
+msgstr ""
+
+msgid "Compare directories"
+msgstr ""
+
+msgid "Select compare method:"
+msgstr ""
+
+msgid "&Quick"
+msgstr "&Rýchla"
+
+msgid "&Size only"
+msgstr "&Iba veľkosť"
+
+msgid "&Thorough"
+msgstr "ú&Plná"
+
+msgid ""
+"Both panels should be in the listing mode\n"
+"to use this command"
+msgstr ""
+
+msgid ""
+"Not an xterm or Linux console;\n"
+"the panels cannot be toggled."
+msgstr ""
+
+#, c-format
+msgid "Symlink '%s' points to:"
+msgstr ""
+
+msgid "Edit symlink"
+msgstr ""
+
+#, c-format
+msgid "edit symlink, unable to remove %s: %s"
+msgstr ""
+
+#, c-format
+msgid "edit symlink: %s"
+msgstr ""
+
+#, c-format
+msgid "'%s' is not a symbolic link"
+msgstr ""
+
+msgid "FTP to machine"
+msgstr ""
+
+msgid "SFTP to machine"
+msgstr ""
+
+msgid "Shell link to machine"
+msgstr ""
+
+msgid "SMB link to machine"
+msgstr ""
+
+msgid "Undelete files on an ext2 file system"
+msgstr ""
+
+msgid ""
+"Enter device (without /dev/) to undelete\n"
+"files on: (F1 for details)"
+msgstr ""
+
+msgid "Setup"
+msgstr ""
+
+#, c-format
+msgid "Setup saved to %s"
+msgstr ""
+
+#, c-format
+msgid "Unable to save setup to %s"
+msgstr ""
+
+msgid "Cannot execute commands on non-local filesystems"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot chdir to \"%s\"\n"
+"%s"
+msgstr ""
+
+msgid "Cannot read directory contents"
+msgstr "Nepodarilo sa načítať obsah adresára"
+
+msgid "Parameter"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot create temporary command file\n"
+"%s"
+msgstr ""
+
+#, c-format
+msgid " %s%s file error"
+msgstr " %s%s chyba v súbore"
+
+#, c-format
+msgid ""
+"The format of the %smc.ext file has changed with version 3.0. It seems that "
+"the installation failed. Please fetch a fresh copy from the Midnight "
+"Commander package."
+msgstr ""
+
+#, c-format
+msgid "%s file error"
+msgstr ""
+
+#, c-format
+msgid ""
+"The format of the %s file has changed with version 3.0. You may either want "
+"to copy it from %smc.ext or use that file as an example of how to write it."
+msgstr ""
+
+msgid "DialogTitle|Copy"
+msgstr "DialogTitle|Kopírovať"
+
+msgid "DialogTitle|Move"
+msgstr "DialogTitle|Presunúť"
+
+msgid "DialogTitle|Delete"
+msgstr "DialogTitle|Zmazať"
+
+msgid "FileOperation|Copy"
+msgstr "FileOperation|Kopírovať"
+
+msgid "FileOperation|Move"
+msgstr "FileOperation|Presunúť"
+
+msgid "FileOperation|Delete"
+msgstr "FileOperation|Zmazať"
+
+#, no-c-format
+msgid "%o %f \"%s\"%m"
+msgstr "%o %f \"%s\"%m"
+
+#, no-c-format
+msgid "%o %d %f%m"
+msgstr "%o %d %f%m"
+
+msgid "file"
+msgstr "súbor"
+
+msgid "files"
+msgstr "súbory"
+
+msgid "directory"
+msgstr "adresár"
+
+msgid "directories"
+msgstr "adresáre"
+
+msgid "files/directories"
+msgstr "súbory/adresáre"
+
+#. TRANSLATORS: keep leading space here to split words in Copy/Move dialog
+msgid " with source mask:"
+msgstr " so zdrojovou maskou:"
+
+msgid "to:"
+msgstr "k:"
+
+#, c-format
+msgid "%s?"
+msgstr "%s?"
+
+msgid "Cannot make the hardlink"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot read source link \"%s\"\n"
+"%s"
+msgstr ""
+
+msgid ""
+"Cannot make stable symlinks acrossnon-local filesystems:\n"
+"\n"
+"Option Stable Symlinks will be disabled"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot create target symlink \"%s\"\n"
+"%s"
+msgstr ""
+
+msgid "&Abort"
+msgstr "p&Rerušiť"
+
+msgid "Ski&p all"
+msgstr ""
+
+msgid "&Retry"
+msgstr "&Zopakovať"
+
+#, c-format
+msgid ""
+"Directory \"%s\" not empty.\n"
+"Delete it recursively?"
+msgstr ""
+
+#, c-format
+msgid ""
+"Background process:\n"
+"Directory \"%s\" not empty.\n"
+"Delete it recursively?"
+msgstr ""
+
+msgid "Non&e"
+msgstr "žia&Dne"
+
+#, c-format
+msgid ""
+"Cannot stat file \"%s\"\n"
+"%s"
+msgstr ""
+
+#, c-format
+msgid ""
+"\"%s\"\n"
+"and\n"
+"\"%s\"\n"
+"are the same file"
+msgstr ""
+
+#, c-format
+msgid "Cannot overwrite directory \"%s\""
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot move file \"%s\" to \"%s\"\n"
+"%s"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot remove file \"%s\"\n"
+"%s"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot delete file \"%s\"\n"
+"%s"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot remove directory \"%s\"\n"
+"%s"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot overwrite directory \"%s\"\n"
+"%s"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot stat source file \"%s\"\n"
+"%s"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot create special file \"%s\"\n"
+"%s"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot chown target file \"%s\"\n"
+"%s"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot chmod target file \"%s\"\n"
+"%s"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot open source file \"%s\"\n"
+"%s"
+msgstr ""
+
+msgid "Reget failed, about to overwrite file"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot fstat source file \"%s\"\n"
+"%s"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot create target file \"%s\"\n"
+"%s"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot fstat target file \"%s\"\n"
+"%s"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot preallocate space for target file \"%s\"\n"
+"%s"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot read source file\"%s\"\n"
+"%s"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot write target file \"%s\"\n"
+"%s"
+msgstr ""
+
+msgid "(stalled)"
+msgstr "(zastavený)"
+
+#, c-format
+msgid ""
+"Cannot close source file \"%s\"\n"
+"%s"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot close target file \"%s\"\n"
+"%s"
+msgstr ""
+
+msgid "Incomplete file was retrieved. Keep it?"
+msgstr "Bol získaný neúplný súbor. Ponechať ho?"
+
+msgid "&Keep"
+msgstr "pO&nechať"
+
+#, c-format
+msgid ""
+"Cannot stat source directory \"%s\"\n"
+"%s"
+msgstr ""
+
+#, c-format
+msgid ""
+"Source \"%s\" is not a directory\n"
+"%s"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot copy cyclic symbolic link\n"
+"\"%s\""
+msgstr ""
+
+#, c-format
+msgid ""
+"Destination \"%s\" must be a directory\n"
+"%s"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot create target directory \"%s\"\n"
+"%s"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot chown target directory \"%s\"\n"
+"%s"
+msgstr ""
+
+#, c-format
+msgid ""
+"\"%s\"\n"
+"and\n"
+"\"%s\"\n"
+"are the same directory"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot overwrite file \"%s\"\n"
+"%s"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot move directory \"%s\" to \"%s\"\n"
+"%s"
+msgstr ""
+
+msgid "Directory scanning"
+msgstr "Prehľadávanie adresára"
+
+#, c-format
+msgid ""
+"%s\n"
+"Directories: %zd, total size: %s"
+msgstr ""
+
+msgid "Cannot operate on \"..\"!"
+msgstr ""
+
+msgid "Sorry, I could not put the job in background"
+msgstr ""
+
+msgid "S&uspend"
+msgstr ""
+
+msgid "Con&tinue"
+msgstr "po&Kračovať"
+
+#, c-format
+msgid "%d:%02d.%02d"
+msgstr ""
+
+#, c-format
+msgid "ETA %s"
+msgstr ""
+
+#, c-format
+msgid "%.2f MB/s"
+msgstr "%.2f MB/s"
+
+#, c-format
+msgid "%.2f KB/s"
+msgstr "%.2f KB/s"
+
+#, c-format
+msgid "%ld B/s"
+msgstr "%ld B/s"
+
+msgid "Target file already exists!"
+msgstr "Cieľový súbor už existuje!"
+
+#, c-format
+msgid "New     : %s, size %s"
+msgstr ""
+
+#, c-format
+msgid "Existing: %s, size %s"
+msgstr ""
+
+msgid "Overwrite this target?"
+msgstr "Prepísať tento cieľ?"
+
+msgid "A&ppend"
+msgstr "&Pridať"
+
+msgid "&Reget"
+msgstr "re&Get"
+
+msgid "Overwrite all targets?"
+msgstr "Prepísať všetky ciele?"
+
+msgid "&Update"
+msgstr "&Aktualizovať"
+
+msgid "If &size differs"
+msgstr "Ak sa líši v&eľkosť"
+
+msgid "File exists"
+msgstr ""
+
+msgid "Background process: File exists"
+msgstr ""
+
+#, c-format
+msgid "Files processed: %zu/%zu"
+msgstr ""
+
+#, c-format
+msgid "Files processed: %zu"
+msgstr ""
+
+#, c-format
+msgid "Time: %s %s"
+msgstr ""
+
+#, c-format
+msgid "Time: %s %s (%s)"
+msgstr ""
+
+#, c-format
+msgid "Time: %s"
+msgstr ""
+
+#, c-format
+msgid "Time: %s (%s)"
+msgstr ""
+
+#, c-format
+msgid " Total: %s "
+msgstr ""
+
+#, c-format
+msgid " Total: %s/%s "
+msgstr ""
+
+msgid "Source"
+msgstr "Zdroj"
+
+msgid "Target"
+msgstr "Cieľ"
+
+msgid "Follow &links"
+msgstr ""
+
+msgid "Preserve &attributes"
+msgstr ""
+
+msgid "Di&ve into subdir if exists"
+msgstr ""
+
+msgid "&Stable symlinks"
+msgstr ""
+
+msgid "&Background"
+msgstr "&Pozadie"
+
+#, c-format
+msgid "Invalid source pattern '%s'"
+msgstr ""
+
+msgid "&Chdir"
+msgstr "&Chdir"
+
+msgid "&Again"
+msgstr "&Znovu"
+
+msgid "Pane&lize"
+msgstr "pane&Lizovať"
+
+msgid "&View - F3"
+msgstr "&Zobrazenie - F3"
+
+msgid "&Edit - F4"
+msgstr "&Editácia - F4"
+
+#, c-format
+msgid "Found: %ld"
+msgstr "Nájdené: %ld"
+
+msgid "Malformed regular expression"
+msgstr ""
+
+msgid "File name:"
+msgstr "Názov súboru:"
+
+msgid "&Find recursively"
+msgstr "&Hľadať rekurzívne"
+
+msgid "S&kip hidden"
+msgstr "Pres&kočiť skryté"
+
+msgid "Content:"
+msgstr "Obsah:"
+
+msgid "Sea&rch for content"
+msgstr ""
+
+msgid "Case sens&itive"
+msgstr "Rozl&išovať veľkosť"
+
+msgid "A&ll charsets"
+msgstr ""
+
+msgid "Fir&st hit"
+msgstr "Prvý vý&skyt"
+
+msgid "&Tree"
+msgstr "&Strom"
+
+msgid "Find File"
+msgstr "Nájsť súbor"
+
+msgid "Start at:"
+msgstr "Začať na:"
+
+msgid "Ena&ble ignore directories:"
+msgstr ""
+
+#, c-format
+msgid "Grepping in %s"
+msgstr "Grepping v %s"
+
+msgid "Finished"
+msgstr "Skončené"
+
+#, c-format
+msgid "Finished (ignored %zd directory)"
+msgid_plural "Finished (ignored %zd directories)"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#, c-format
+msgid "Searching %s"
+msgstr "Hľadanie %s"
+
+msgid "Searching"
+msgstr "Hľadanie"
+
+msgid "Change &to"
+msgstr ""
+
+msgid "&Free VFSs now"
+msgstr ""
+
+msgid "&Refresh"
+msgstr "&Obnoviť"
+
+msgid "&Add current"
+msgstr "&Pridať aktuálny"
+
+msgid "&Up"
+msgstr "&Hore"
+
+msgid "New &group"
+msgstr ""
+
+msgid "New &entry"
+msgstr ""
+
+msgid "&Insert"
+msgstr "v&Ložiť"
+
+msgid "&Remove"
+msgstr "&Odstrániť"
+
+msgid "Subgroup - press ENTER to see list"
+msgstr "Podskupina - stlačte ENTER, ak chcete vidieť zoznam"
+
+msgid "Active VFS directories"
+msgstr "Aktívne VFS adresáre"
+
+msgid "Directory hotlist"
+msgstr "Hotlist adresára"
+
+msgid "Top level group"
+msgstr ""
+
+msgid "Directory path"
+msgstr "Cesta k adresáru"
+
+#, c-format
+msgid "Moving %s"
+msgstr "Presun %s"
+
+msgid "Directory label"
+msgstr "Označenie adresára"
+
+msgid "&Append"
+msgstr "p&Ridať"
+
+msgid "New hotlist entry"
+msgstr "Nový hotlist vstupov"
+
+msgid "Directory label:"
+msgstr ""
+
+msgid "Directory path:"
+msgstr ""
+
+msgid "New hotlist group"
+msgstr ""
+
+msgid "Name of new group:"
+msgstr ""
+
+#, c-format
+msgid "Are you sure you want to remove entry \"%s\"?"
+msgstr ""
+
+#, c-format
+msgid ""
+"Group \"%s\" is not empty.\n"
+"Remove it?"
+msgstr ""
+
+msgid "Hotlist Load"
+msgstr ""
+
+#, c-format
+msgid ""
+"MC was unable to write %s file,\n"
+"your old hotlist entries were not deleted"
+msgstr ""
+
+#, c-format
+msgid "Label for \"%s\":"
+msgstr "Označenie pre \"%s\":"
+
+msgid "Add to hotlist"
+msgstr ""
+
+#, c-format
+msgid "Midnight Commander %s"
+msgstr "Midnight Commander %s"
+
+#, c-format
+msgid "File: %s"
+msgstr "Súbor: %s"
+
+msgid "No node information"
+msgstr "Žiadne informácie o uzle"
+
+msgid "Free nodes:"
+msgstr ""
+
+msgid "No space information"
+msgstr "Žiadne informácie o mieste"
+
+#, c-format
+msgid "Free space: %s/%s (%d%%)"
+msgstr ""
+
+#, c-format
+msgid "Type:      %s"
+msgstr ""
+
+msgid "non-local vfs"
+msgstr "nie je to lokálny vfs"
+
+#, c-format
+msgid "Device:    %s"
+msgstr "Zariadenie:  %s"
+
+#, c-format
+msgid "Filesystem: %s"
+msgstr "Súborový systém: %s"
+
+#, c-format
+msgid "Accessed:  %s"
+msgstr "Prístupný:  %s"
+
+#, c-format
+msgid "Modified:  %s"
+msgstr "Zmenený:  %s"
+
+#. TRANSLATORS: Time of last status change as in stat(2) man.
+#, c-format
+msgid "Changed:   %s"
+msgstr ""
+
+#, c-format
+msgid "Dev. type: major %lu, minor %lu"
+msgstr "Typ zariad.: major %lu, minor %lu"
+
+#, c-format
+msgid "Size:      %s"
+msgstr "Veľkosť:     %s"
+
+#, c-format
+msgid " (%ld block)"
+msgid_plural " (%ld blocks)"
+msgstr[0] " (%ld block)"
+msgstr[1] " (%ld blocks)"
+msgstr[2] " (%ld blokov)"
+
+#, c-format
+msgid "Owner:     %s/%s"
+msgstr "Vlastník    %s/%s"
+
+#, c-format
+msgid "Links:     %d"
+msgstr "Odkazy:    %d"
+
+#, c-format
+msgid "Mode:      %s (%04o)"
+msgstr "Režim:    %s (%04o)"
+
+#, c-format
+msgid "Location:  %Xh:%Xh"
+msgstr "Umiestnenie:  %Xh:%Xh"
+
+msgid "&Equal split"
+msgstr "&Rovnako rozdeliť"
+
+msgid "&Menubar visible"
+msgstr ""
+
+msgid "Command &prompt"
+msgstr ""
+
+msgid "&Keybar visible"
+msgstr "vid&Iteľná tabuľka klávesov"
+
+msgid "H&intbar visible"
+msgstr ""
+
+msgid "&XTerm window title"
+msgstr ""
+
+msgid "&Show free space"
+msgstr ""
+
+msgid "Panel split"
+msgstr ""
+
+msgid "Console output"
+msgstr ""
+
+msgid "&Vertical"
+msgstr "&Vertikálne"
+
+msgid "&Horizontal"
+msgstr "&Horizontálne"
+
+msgid "Output lines:"
+msgstr ""
+
+msgid "Layout"
+msgstr "Schéma výstupu"
+
+msgid "File listin&g"
+msgstr ""
+
+msgid "&Quick view"
+msgstr "&Rýchle zobrazenie"
+
+msgid "&Info"
+msgstr "&Info"
+
+msgid "&Listing mode..."
+msgstr "&Režim výpisu..."
+
+msgid "&Sort order..."
+msgstr "&Poradie výpisu..."
+
+msgid "&Filter..."
+msgstr "fi&Lter..."
+
+msgid "&Encoding..."
+msgstr "Kódovani&E..."
+
+msgid "FT&P link..."
+msgstr "&FTP pripojenie..."
+
+msgid "S&hell link..."
+msgstr "S&hell pripojenie..."
+
+msgid "S&FTP link..."
+msgstr ""
+
+msgid "SM&B link..."
+msgstr "SM&B pripojenie..."
+
+msgid "Paneli&ze"
+msgstr ""
+
+msgid "&Rescan"
+msgstr "&Obnoviť"
+
+msgid "&View"
+msgstr "&Zobraziť"
+
+msgid "Vie&w file..."
+msgstr "Zo&Braziť súbor..."
+
+msgid "&Filtered view"
+msgstr "&Filtrované zobrazenie"
+
+msgid "&Copy"
+msgstr "&Kopírovať"
+
+msgid "C&hmod"
+msgstr "C&hmod"
+
+msgid "&Link"
+msgstr "&Odkaz"
+
+msgid "&Symlink"
+msgstr ""
+
+msgid "Relative symlin&k"
+msgstr ""
+
+msgid "Edit s&ymlink"
+msgstr "Upraviť s&Ymb. odkaz "
+
+msgid "Ch&own"
+msgstr "Ch&own"
+
+msgid "&Advanced chown"
+msgstr "Rozšírená zmen&A vlastníka"
+
+msgid "&Rename/Move"
+msgstr "&Premenovať/presunúť"
+
+msgid "&Mkdir"
+msgstr "&Vytvoriť adr."
+
+msgid "&Quick cd"
+msgstr "&Rýchly cd"
+
+msgid "Select &group"
+msgstr "Vybrať &skup."
+
+msgid "U&nselect group"
+msgstr "Zrušiť výber &skup."
+
+msgid "&Invert selection"
+msgstr ""
+
+msgid "E&xit"
+msgstr "&Ukončiť"
+
+msgid "&User menu"
+msgstr "Po&Užívateľské menu "
+
+msgid "&Directory tree"
+msgstr "adr&Esárový strom"
+
+msgid "&Find file"
+msgstr "&Nájsť súbor"
+
+msgid "S&wap panels"
+msgstr "&Vymeniť panely"
+
+msgid "Switch &panels on/off"
+msgstr "&Panely zap./vyp."
+
+msgid "&Compare directories"
+msgstr "&Porovnanie adresárov "
+
+msgid "C&ompare files"
+msgstr ""
+
+msgid "E&xternal panelize"
+msgstr "Panelizovať e&Xterným"
+
+msgid "Show directory s&izes"
+msgstr "Zobraz&Iť veľkosť adresárov"
+
+msgid "Command &history"
+msgstr "&História príkazov"
+
+msgid "Di&rectory hotlist"
+msgstr "Hotlist ad&Resára"
+
+msgid "&Active VFS list"
+msgstr "&Aktívny VFS zoznam"
+
+msgid "&Background jobs"
+msgstr "Úlohy v &Pozadí"
+
+msgid "Screen lis&t"
+msgstr ""
+
+msgid "&Undelete files (ext2fs only)"
+msgstr "Obnoviť &Súbory (iba ext2fs)"
+
+msgid "&Listing format edit"
+msgstr "&Upraviť formát výpisu"
+
+msgid "Edit &extension file"
+msgstr "Upraviť priradenie sú&boru"
+
+msgid "Edit &menu file"
+msgstr "Upraviť súborové me&nu"
+
+msgid "Edit hi&ghlighting group file"
+msgstr "Úprava súboru &zvýrazňovacích skupín"
+
+msgid "&Configuration..."
+msgstr "&Konfigurácia..."
+
+msgid "&Layout..."
+msgstr "&Rozmiestnenie..."
+
+msgid "&Panel options..."
+msgstr ""
+
+msgid "C&onfirmation..."
+msgstr "P&Otvrdenie..."
+
+msgid "&Display bits..."
+msgstr "&Zobrazené bity..."
+
+msgid "&Virtual FS..."
+msgstr "&Virtuálny FS..."
+
+msgid "Panels:"
+msgstr ""
+
+#, c-format
+msgid "You have %zd opened screen. Quit anyway?"
+msgid_plural "You have %zd opened screens. Quit anyway?"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+msgid "The Midnight Commander"
+msgstr ""
+
+msgid "Do you really want to quit the Midnight Commander?"
+msgstr "Naozaj chcete ukončiť Midnight Commander?"
+
+msgid "&Above"
+msgstr "n&Ad"
+
+msgid "&Left"
+msgstr "Ľ&Avý"
+
+msgid "&Below"
+msgstr "&Pod"
+
+msgid "&Right"
+msgstr "P&Ravý"
+
+msgid "ButtonBar|Menu"
+msgstr "ButtonBar|Menu"
+
+msgid "ButtonBar|View"
+msgstr "ButtonBar|Zobraz"
+
+msgid "ButtonBar|RenMov"
+msgstr "ButtonBar|PremPres"
+
+msgid "ButtonBar|Mkdir"
+msgstr "ButtonBar|VytAdr"
+
+msgid "Memory exhausted!"
+msgstr ""
+
+#. TRANSLATORS: one single character to represent 'unsorted' sort mode
+#. TRANSLATORS: no need to translate 'sort', it's just a context prefix
+msgid "sort|u"
+msgstr "sort|u"
+
+msgid "&Unsorted"
+msgstr "&Netriedené"
+
+#. TRANSLATORS: one single character to represent 'name' sort mode
+#. TRANSLATORS: no need to translate 'sort', it's just a context prefix
+msgid "sort|n"
+msgstr "sort|n"
+
+msgid "&Name"
+msgstr "&Meno"
+
+#. TRANSLATORS: one single character to represent 'version' sort mode
+#. TRANSLATORS: no need to translate 'sort', it's just a context prefix
+msgid "sort|v"
+msgstr ""
+
+msgid "&Version"
+msgstr "V&erzia"
+
+#. TRANSLATORS: one single character to represent 'extension' sort mode
+#. TRANSLATORS: no need to translate 'sort', it's just a context prefix
+msgid "sort|e"
+msgstr "sort|e"
+
+msgid "E&xtension"
+msgstr ""
+
+#. TRANSLATORS: one single character to represent 'size' sort mode
+#. TRANSLATORS: no need to translate 'sort', it's just a context prefix
+msgid "sort|s"
+msgstr "sort|s"
+
+msgid "&Size"
+msgstr "&Veľkosť"
+
+msgid "Block Size"
+msgstr "Veľkosť bloku"
+
+#. TRANSLATORS: one single character to represent 'Modify time' sort mode
+#. TRANSLATORS: no need to translate 'sort', it's just a context prefix
+msgid "sort|m"
+msgstr "sort|m"
+
+msgid "&Modify time"
+msgstr "čas úp&Ravy"
+
+#. TRANSLATORS: one single character to represent 'Access time' sort mode
+#. TRANSLATORS: no need to translate 'sort', it's just a context prefix
+msgid "sort|a"
+msgstr "sort|a"
+
+msgid "&Access time"
+msgstr "ča&S prístupu "
+
+#. TRANSLATORS: one single character to represent 'Change time' sort mode
+#. TRANSLATORS: no need to translate 'sort', it's just a context prefix
+msgid "sort|h"
+msgstr "sort|h"
+
+msgid "C&hange time"
+msgstr ""
+
+msgid "Perm"
+msgstr "Perm"
+
+msgid "Nl"
+msgstr "Nl"
+
+#. TRANSLATORS: one single character to represent 'inode' sort mode
+#. TRANSLATORS: no need to translate 'sort', it's just a context prefix
+msgid "sort|i"
+msgstr "sort|i"
+
+msgid "&Inode"
+msgstr "&I-uzol"
+
+msgid "UID"
+msgstr "UID"
+
+msgid "GID"
+msgstr "GID"
+
+msgid "Owner"
+msgstr "Vlastník"
+
+msgid "Group"
+msgstr "Skupina"
+
+msgid "[dev]"
+msgstr "[dev]"
+
+msgid "UP--DIR"
+msgstr "UP--DIR"
+
+msgid "SYMLINK"
+msgstr "SYMLINK"
+
+msgid "SUB-DIR"
+msgstr "SUB-DIR"
+
+msgid "<readlink failed>"
+msgstr "<čítanie odkazu zlyhalo>"
+
+#, c-format
+msgid "%s byte"
+msgid_plural "%s bytes"
+msgstr[0] "%s bajt"
+msgstr[1] "%s bajty"
+msgstr[2] "%s bajtov"
+
+#, c-format
+msgid "%s in %d file"
+msgid_plural "%s in %d files"
+msgstr[0] "%s bajt v %d súboroch"
+msgstr[1] "%s bajty v %d súboroch"
+msgstr[2] "%s bajtov v %d súboroch"
+
+msgid "Panelize"
+msgstr ""
+
+msgid "Unknown tag on display format:"
+msgstr ""
+
+msgid "Do you really want to execute?"
+msgstr ""
+
+msgid "User supplied format looks invalid, reverting to default."
+msgstr "Používateľom dodaný formát výzerá neplatný, vraciam sa k predvoleným."
+
+msgid "&Add new"
+msgstr "&Pridať nové"
+
+msgid "External panelize"
+msgstr "Panelizovať externým príkazom"
+
+msgid "Other command"
+msgstr "Další príkaz"
+
+msgid "Command"
+msgstr "Príkaz"
+
+msgid "Add to external panelize"
+msgstr ""
+
+msgid "Enter command label:"
+msgstr ""
+
+msgid "Cannot invoke command."
+msgstr "Nepodarilo sa vyvolať príkaz."
+
+msgid "Pipe close failed"
+msgstr "Pipe, neúspešné uzavretie"
+
+msgid "Cannot run external panelize in a non-local directory"
+msgstr ""
+
+msgid "Modified git files"
+msgstr ""
+
+msgid "Find rejects after patching"
+msgstr "Nájsť súbory po oprave"
+
+msgid "Find *.orig after patching"
+msgstr "Nájsť *.orig po oprave"
+
+msgid "Find SUID and SGID programs"
+msgstr "Nájsť SUID a SGID programy"
+
+#, c-format
+msgid ""
+"Cannot open the %s file for writing:\n"
+"%s\n"
+msgstr ""
+"Nepodarilo sa otvoriť súbor %s pre zápis:\n"
+"%s\n"
+
+#, c-format
+msgid "Copy \"%s\" directory to:"
+msgstr "Kopíruje sa adresár \"%s\" do:"
+
+#, c-format
+msgid "Move \"%s\" directory to:"
+msgstr "Presúvam \"%s\" adresár do:"
+
+#, c-format
+msgid ""
+"Cannot stat the destination\n"
+"%s"
+msgstr ""
+
+#, c-format
+msgid "Delete %s?"
+msgstr ""
+
+msgid "ButtonBar|Static"
+msgstr "ButtonBar|Static"
+
+msgid "ButtonBar|Dynamc"
+msgstr "ButtonBar|Dynamc"
+
+msgid "ButtonBar|Rescan"
+msgstr "ButtonBar|Obnoviť"
+
+msgid "ButtonBar|Forget"
+msgstr "ButtonBar|Zabudn"
+
+msgid "ButtonBar|Rmdir"
+msgstr "ButtonBar|OdsAdr"
+
+#, c-format
+msgid ""
+"Cannot write to the %s file:\n"
+"%s\n"
+msgstr ""
+"Nepodarilo sa zapísať do súboru %s:\n"
+"%s\n"
+
+msgid "Debug"
+msgstr ""
+
+msgid "ERROR:"
+msgstr ""
+
+msgid "True:"
+msgstr ""
+
+msgid "False:"
+msgstr ""
+
+msgid "Error calling program"
+msgstr ""
+
+msgid "Warning -- ignoring file"
+msgstr ""
+
+#, c-format
+msgid ""
+"File %s is not owned by root or you or is world writable.\n"
+"Using it may compromise your security"
+msgstr ""
+"Súbor %s nevlastní root ani vy alebo nie je zapisovateľný pre ostatných.\n"
+"Ak ho použijete, môže to kompromitovať vašu bezpečnosť"
+
+msgid "Format error on file Extensions File"
+msgstr ""
+
+#, c-format
+msgid "The %%var macro has no default"
+msgstr ""
+
+#, c-format
+msgid "The %%var macro has no variable"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot open file%s\n"
+"%s"
+msgstr ""
+
+#, c-format
+msgid "No suitable entries found in %s"
+msgstr ""
+
+msgid "User menu"
+msgstr ""
+
+msgid "Help file format error\n"
+msgstr ""
+
+msgid "Internal bug: Double start of link area"
+msgstr ""
+
+#, c-format
+msgid "Cannot find node %s in help file"
+msgstr ""
+
+msgid "Help"
+msgstr "Pomoc"
+
+msgid "ButtonBar|Index"
+msgstr "ButtonBar|Index"
+
+msgid "ButtonBar|Prev"
+msgstr "ButtonBar|Pred"
+
+msgid "Learn keys"
+msgstr "Učenie klávesov"
+
+msgid "Teach me a key"
+msgstr ""
+
+#, c-format
+msgid ""
+"Please press the %s\n"
+"and then wait until this message disappears.\n"
+"\n"
+"Then, press it again to see if OK appears\n"
+"next to its button.\n"
+"\n"
+"If you want to escape, press a single Escape key\n"
+"and wait as well."
+msgstr ""
+"Prosím stlačte %s\n"
+"a potom čakajte pokiaľ toto hlásenie zmizne.\n"
+"\n"
+"Potom to stlačte znova, ak uvidíte Áno objaví sa\n"
+"vedľa neho jeho tlačidlo.\n"
+"\n"
+"Ak chcete skončiť, stlačte jediný kláves Esc\n"
+"a taktiež počkajte."
+
+msgid "Cannot accept this key"
+msgstr ""
+
+#, c-format
+msgid "You have entered \"%s\""
+msgstr ""
+
+#. TRANSLATORS: This label appears near learned keys.  Keep it short.
+msgid "OK"
+msgstr "Áno"
+
+msgid ""
+"It seems that all your keys already\n"
+"work fine. That's great."
+msgstr ""
+"Vyzerá to, že všetky vaše klávesy už\n"
+"pracujú dobre. To je skvelé."
+
+msgid "&Discard"
+msgstr "&Vymazať"
+
+msgid ""
+"Great! You have a complete terminal database!\n"
+"All your keys work well."
+msgstr ""
+"Výborne! Máte kompletnú terminálovú databázu!\n"
+"Všetky vaše klávesy pracujú správne."
+
+msgid ""
+"Press all the keys mentioned here. After you have done it, check\n"
+"which keys are not marked with OK. Press space on the missing\n"
+"key, or click with the mouse to define it. Move around with Tab."
+msgstr ""
+
+#, c-format
+msgid ""
+"Failed to run:\n"
+"%s\n"
+msgstr ""
+
+msgid "Home directory path is not absolute"
+msgstr ""
+
+#, c-format
+msgid ""
+"\n"
+"Failed while close:\n"
+"%s\n"
+msgstr ""
+
+msgid "Choose codepage"
+msgstr "Zvoľte kódovú stránku"
+
+msgid "-  < No translation >"
+msgstr "-  < Žiadny preklad >"
+
+msgid "%b %e  %Y"
+msgstr "%b %e  %Y"
+
+msgid "%b %e %H:%M"
+msgstr "%b %e %H:%M"
+
+#, c-format
+msgid ""
+"Cannot save file %s:\n"
+"%s"
+msgstr ""
+"Nebolo možné uložiť súbor %s:\n"
+"%s "
+
+msgid ""
+"GNU Midnight Commander is already\n"
+"running on this terminal.\n"
+"Subshell support will be disabled."
+msgstr ""
+"GNU Midnight Commander už na tomto\n"
+"termináli beží.\n"
+"Podpora subshell bude vypnutá."
+
+#, c-format
+msgid "Cannot open named pipe %s\n"
+msgstr "Nemohol som otvoriť pipe %s\n"
+
+msgid "The shell is still active. Quit anyway?"
+msgstr ""
+
+#, c-format
+msgid "Warning: Cannot change to %s.\n"
+msgstr "Upozornenie: Nemohol som zmeniť na %s.\n"
+
+msgid "Using the S-Lang library with terminfo database\n"
+msgstr ""
+
+msgid "Using the ncurses library\n"
+msgstr ""
+
+msgid "Using the ncursesw library\n"
+msgstr ""
+
+msgid "With builtin Editor\n"
+msgstr "So zabudovaným editorom\n"
+
+msgid "With optional subshell support\n"
+msgstr ""
+
+msgid "With subshell support as default\n"
+msgstr ""
+
+msgid "With support for background operations\n"
+msgstr "S podporou operácií na pozadí\n"
+
+msgid "With mouse support on xterm and Linux console\n"
+msgstr "S podporou pre myš v xterme a Linuxovej konzole\n"
+
+msgid "With mouse support on xterm\n"
+msgstr "S podporou pre myš v xterme\n"
+
+msgid "With support for X11 events\n"
+msgstr "S podporou udalostí X11\n"
+
+msgid "With internationalization support\n"
+msgstr "S podporou internacionalizácie\n"
+
+msgid "With multiple codepages support\n"
+msgstr "S podporou znakových sád\n"
+
+#, c-format
+msgid "Built with GLib %d.%d.%d\n"
+msgstr ""
+
+#, c-format
+msgid "Virtual File Systems:"
+msgstr ""
+
+#, c-format
+msgid "Data types:"
+msgstr ""
+
+msgid "Root directory:"
+msgstr ""
+
+msgid "System data"
+msgstr ""
+
+msgid "Config directory:"
+msgstr ""
+
+msgid "Data directory:"
+msgstr ""
+
+msgid "File extension handlers:"
+msgstr ""
+
+msgid "VFS plugins and scripts:"
+msgstr ""
+
+msgid "User data"
+msgstr ""
+
+msgid "Cache directory:"
+msgstr ""
 
 #, c-format
 msgid ""
@@ -458,24 +3615,6 @@ msgstr ""
 "%s"
 
 #, c-format
-msgid "Directory cache expired for %s"
-msgstr "Vyrovnávacia pamäť adresárov vypršala pre %s"
-
-msgid "Starting linear transfer..."
-msgstr "Začína sa lineárny prenos..."
-
-#, fuzzy, c-format
-msgid "%s: %s: %s %3d%% (%ju bytes transferred)"
-msgstr "%s: %s: %s %3d%% (%lu bajtov prenesených)"
-
-#, fuzzy, c-format
-msgid "%s: %s: %s %ju bytes transferred"
-msgstr "%s: %s: %s %lu bajtov prenesených"
-
-msgid "Getting file"
-msgstr "Získavam súbor"
-
-#, c-format
 msgid ""
 "Cannot open %s archive\n"
 "%s"
@@ -486,9 +3625,9 @@ msgstr ""
 msgid "Inconsistent extfs archive"
 msgstr "Neúplný extfs archív"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: cannot open %s directory\n"
-msgstr "Nepodarilo sa vytvoriť adresár %s"
+msgstr "Upozornenie: nemožno otvoriť adresár %s\n"
 
 #, c-format
 msgid "fish: Disconnecting from %s"
@@ -500,9 +3639,9 @@ msgstr "fish: Čakám na inicializačný riadok..."
 msgid "Sorry, we cannot do password authenticated connections for now."
 msgstr "Ľutujem, nemôžeme overiť heslo pre terajšie spojenie."
 
-#, fuzzy, c-format
+#, c-format
 msgid "fish: Password is required for %s"
-msgstr " fish: Vyžaduje heslo "
+msgstr "fish: %s sa vyžaduje heslo"
 
 msgid "fish: Sending password..."
 msgstr "fish: Posiela sa heslo..."
@@ -513,16 +3652,8 @@ msgstr "fish: Posiela sa inicializačný riadok..."
 msgid "fish: Handshaking version..."
 msgstr "fish: Preberá sa verzia..."
 
-#, fuzzy
 msgid "fish: Getting host info..."
-msgstr "fish: Posiela sa inicializačný riadok..."
-
-msgid "fish: Setting up current directory..."
-msgstr "fish: Nastavenie aktuálneho adresár..."
-
-#, c-format
-msgid "fish: Connected, home %s."
-msgstr "fish: Pripojený, domáci %s."
+msgstr "fish: Získavam informácie o hostiteľovi"
 
 #, c-format
 msgid "fish: Reading directory %s..."
@@ -543,15 +3674,8 @@ msgstr "fish: store %s: posiela sa príkaz..."
 msgid "fish: Local read failed, sending zeros"
 msgstr "fish: Miestne čítanie zlyhalo, posielajú sa nuly"
 
-#, fuzzy, c-format
-msgid "fish: storing %s %d (%ju)"
-msgstr "fish: skladám %s %d (%lu)"
-
-msgid "zeros"
-msgstr "nuly"
-
-msgid "file"
-msgstr "súbor"
+msgid "fish: storing file"
+msgstr "fish: ukladám súbor"
 
 msgid "Aborting transfer..."
 msgstr "Prerušuje sa prenos..."
@@ -566,9 +3690,9 @@ msgstr "Prerušenie prenosu bolo úspešné."
 msgid "ftpfs: Disconnecting from %s"
 msgstr "ftpfs: Odpája sa z %s"
 
-#, fuzzy, c-format
+#, c-format
 msgid "FTP: Password required for %s"
-msgstr " FTP: Vyžaduje sa heslo pre"
+msgstr "FTP: Heslo vyžadované pre %s"
 
 msgid "ftpfs: sending login name"
 msgstr "ftpfs: posiela sa prihlasovacie meno"
@@ -612,15 +3736,11 @@ msgid "ftpfs: connection to server failed: %s"
 msgstr "ftpfs: pripojenie k serveru neúspešné: %s"
 
 #, c-format
-msgid "Waiting to retry... %d (Control-C to cancel)"
-msgstr "Vyčkávam na zopakovanie... %d (Control-C pre zrušenie)"
+msgid "Waiting to retry... %d (Control-G to cancel)"
+msgstr ""
 
 msgid "ftpfs: invalid address family"
 msgstr "ftpfs: neplatná rodina adries"
-
-#, c-format
-msgid "ftpfs: could not setup passive mode: %s"
-msgstr "ftpfs: nepodarilo sa nastaviť pasívny režim: %s"
 
 #, c-format
 msgid "ftpfs: could not create socket: %s"
@@ -661,21 +3781,19 @@ msgstr "(naprv cd)"
 msgid "ftpfs: failed; nowhere to fallback to"
 msgstr "ftpfs: zlyhanie; niet kam sa vrátiť"
 
-#, fuzzy, c-format
-msgid "ftpfs: storing file %ju (%ju)"
-msgstr "ftpfs: ukladá sa súbor %lu (%lu)"
+msgid "ftpfs: storing file"
+msgstr "ftpfs: ukladám súbor"
 
-#, fuzzy
 msgid ""
 "~/.netrc file has incorrect mode\n"
 "Remove password or correct mode"
 msgstr ""
-"~/.netrc súbor nemá správny režim.\n"
-"Odstráňte heslo alebo opravte režim."
+"súbor ~/.netrc nemá správne prístupové práva\n"
+"Odstráňte heslo alebo zmeňte práva"
 
 #, c-format
-msgid "Warning: file %s not found\n"
-msgstr "Upozornenie: súbor %s nenájdený\n"
+msgid "%s: Warning: file %s not found\n"
+msgstr ""
 
 #, c-format
 msgid ""
@@ -693,35 +3811,88 @@ msgstr ""
 "Upozornenie: Neplatný príznak %c v %s:\n"
 "%s\n"
 
-#, fuzzy, c-format
-msgid "reconnect to %s failed"
+#, c-format
+msgid "sftp: an error occurred while reading %s: %s"
 msgstr ""
-" prepájanie na %s zlyhalo\n"
-" "
 
-#, fuzzy
+msgid "sftp: Unable to get current user name."
+msgstr ""
+
+msgid "sftp: Invalid host name."
+msgstr ""
+
+msgid "sftp: Invalid port value."
+msgstr ""
+
+#, c-format
+msgid "sftp: %s"
+msgstr ""
+
+#, c-format
+msgid "sftp: making connection to %s"
+msgstr ""
+
+msgid "sftp: connection interrupted by user"
+msgstr ""
+
+#, c-format
+msgid "sftp: connection to server failed: %s"
+msgstr ""
+
+#, c-format
+msgid "sftp: Enter passphrase for %s "
+msgstr ""
+
+msgid "sftp: Passphrase is empty."
+msgstr ""
+
+#, c-format
+msgid "sftp: Enter password for %s "
+msgstr ""
+
+msgid "sftp: Password is empty."
+msgstr ""
+
+#, c-format
+msgid "sftp: Failure establishing SSH session: (%d)"
+msgstr ""
+
+msgid "sftp: No file handler data present for reading file"
+msgstr ""
+
+#, c-format
+msgid "sftp: (Ctrl-G break) Listing... %s"
+msgstr ""
+
+msgid "sftp: Listing done."
+msgstr ""
+
+#, c-format
+msgid "reconnect to %s failed"
+msgstr "obnova pripojenia k %s zlyhala"
+
 msgid "Authentication failed"
-msgstr " Overenie zlyhalo "
+msgstr "Autentifikácia zlyhala"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Error %s creating directory %s"
-msgstr " Chyba %s pri vytváraní adresára %s "
+msgstr "Chyba %s pri vytváraní adresáru %s"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Error %s removing directory %s"
-msgstr " Chyba %s pri odstraňovaní adresára %s "
+msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s opening remote file %s"
-msgstr " %s otvára sa vzdialený súbor %s "
+msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s removing remote file %s"
-msgstr " %s odstraňuje sa vzdialený súbor %s "
+msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s renaming files\n"
-msgstr " %s premenúvajú sa súbory\n"
+msgstr ""
 
 #, c-format
 msgid ""
@@ -737,3421 +3908,100 @@ msgstr "Poškodený archív tar"
 msgid "Unexpected EOF on archive file"
 msgstr "Neočakávaný koniec archívneho súboru"
 
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s\n"
 "doesn't look like a tar archive."
 msgstr ""
-"Hmm,...\n"
 "%s\n"
-"to nevyzerá ako tar archív."
+"nevyzerá ako archív .tar."
 
-#, fuzzy
 msgid "undelfs: error"
-msgstr " undelfs: chyba"
+msgstr "undelfs: chyba"
 
-#, fuzzy
 msgid "not enough memory"
-msgstr " nedostatok pamäte"
+msgstr "nedostatok pamäte"
 
-#, fuzzy
 msgid "while allocating block buffer"
-msgstr " počas alokovania bufferu pre bloky "
+msgstr "počas alokovania bloku buffera"
 
-#, fuzzy, c-format
+#, c-format
 msgid "open_inode_scan: %d"
-msgstr " open_inode_scan: %d "
+msgstr "open_inode_scan: %d"
 
-#, fuzzy, c-format
+#, c-format
 msgid "while starting inode scan %d"
-msgstr " počas štartovania prechodu i-uzlov %d "
+msgstr ""
 
 #, c-format
 msgid "undelfs: loading deleted files information %d inodes"
 msgstr "undelfs: načítavajú sa informácie o odstránených súboroch %d i-uzlov"
 
-#, fuzzy, c-format
+#, c-format
 msgid "while calling ext2_block_iterate %d"
-msgstr " počas volania ext2_block_iterate %d "
+msgstr ""
 
-#, fuzzy
 msgid "no more memory while reallocating array"
-msgstr " nedostatok pamäte počas zmeny alokácie poľa "
+msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "while doing inode scan %d"
-msgstr " počas prechádzania inode %d "
+msgstr ""
 
-#, fuzzy
-msgid "Ext2lib error"
-msgstr " Ext2lib: chyba "
-
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot open file %s"
-msgstr " Nie je možné otvoriť súbor %s "
+msgstr "Nemôžem otvoriť súbor %s"
 
 msgid "undelfs: reading inode bitmap..."
 msgstr "undelfs: číta sa bitová mapa inode..."
 
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Cannot load inode bitmap from:\n"
 "%s"
 msgstr ""
-" Nie je možné načítať bitmapu inode z: \n"
-" %s \n"
 
 msgid "undelfs: reading block bitmap..."
 msgstr "undelfs: číta sa bitová mapa blokov..."
 
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Cannot load block bitmap from:\n"
 "%s"
 msgstr ""
-" Nie je možné načítať bitovú mapu blokov z: \n"
-" %s \n"
 
-#, fuzzy
 msgid "vfs_info is not fs!"
-msgstr " vfs_info nie je fs! "
+msgstr ""
 
-#, fuzzy
 msgid "You have to chdir to extract files first"
-msgstr " Ak chcete rozbaliť súbory, musíte najprv zmeniť aktuálny adresár"
+msgstr ""
 
-#, fuzzy
 msgid "while iterating over blocks"
-msgstr " počas prechodu cez bloky "
+msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot open file \"%s\""
-msgstr " Nie je možné otvoriť súbor %s "
+msgstr "Nemôžem otvoriť súbor \"%s\""
 
-msgid "Cannot parse:"
-msgstr "Nie je možné spracovať:"
-
-msgid "More parsing errors will be ignored."
-msgstr "Ďalšie chyby spracovania budú ignorované."
-
-msgid "Internal error:"
-msgstr "Vnútorná chyba:"
-
-msgid "Password:"
-msgstr "Heslo:"
-
-msgid "Changes to file lost"
-msgstr "Zmeny súboru stratené"
-
-msgid "&Cancel"
-msgstr "&Zrušiť"
-
-msgid "&Set"
-msgstr "&Nastaviť"
-
-msgid "S&kip"
-msgstr "&Preskočiť"
-
-msgid "Set &all"
-msgstr "Nastaviť &všetko"
-
-msgid "owner"
-msgstr "vlast."
-
-msgid "group"
-msgstr "skupina"
-
-msgid "other"
-msgstr "ostatní"
-
-msgid "On"
-msgstr "na"
-
-msgid "Flag"
-msgstr "Označ"
-
-msgid "Mode"
-msgstr "Režim"
-
-#, c-format
-msgid "%6d of %d"
-msgstr "%6d z %d"
-
-#, fuzzy
-msgid "Chown advanced command"
-msgstr " Rozšírená zmena vlastníka "
-
-#, fuzzy, c-format
-msgid ""
-"Cannot chmod \"%s\"\n"
-"%s"
-msgstr ""
-" Nepodarilo sa zmeniť práva \"%s\" \n"
-" %s "
-
-#, fuzzy, c-format
-msgid ""
-"Cannot chown \"%s\"\n"
-"%s"
-msgstr ""
-" Nepodarilo sa zmeniť vlastníka \"%s\" \n"
-" %s "
-
-msgid "Displays the current version"
-msgstr "Zobrazí aktuálnu verziu"
-
-msgid "Print data directory"
-msgstr "Adresár tlačových dát"
-
-msgid "Print last working directory to specified file"
-msgstr "Tlačiť posledný pracovný adresár do zadaného súboru"
-
-msgid "Enables subshell support (default)"
-msgstr "Zapnutá podpora pre subshell (štandardne)"
-
-msgid "Disables subshell support"
-msgstr "Vypína podporu pre subshell"
-
-msgid "Log ftp dialog to specified file"
-msgstr "Prihlasovacie ftp okno k určenému súboru"
-
-msgid "Set debug level"
-msgstr "Nastaviť ladiacu úroveň"
-
-msgid "Launches the file viewer on a file"
-msgstr "Spúšťa prehliadač súborov na súbore"
-
-msgid "Edits one file"
-msgstr "Upraví jeden súbor"
-
-msgid "Forces xterm features"
-msgstr "Vynúti funkcie xterm"
-
-msgid "Disable mouse support in text version"
-msgstr "Vypína podporu myši v textovej verzii"
-
-msgid "Tries to use termcap instead of terminfo"
-msgstr "Pokúsi sa použiť termcap namiesto terminfo"
-
-msgid "To run on slow terminals"
-msgstr "Na spúšťanie na pomalých termináloch"
-
-msgid "Use stickchars to draw"
-msgstr "Použiť na kreslenie čiarovú grafiku"
-
-msgid "Resets soft keys on HP terminals"
-msgstr "Resetuje mäkké klávesy na termináloch HP"
-
-msgid "Load definitions of key bindings from specified file"
-msgstr "Načítať definície klívesových väzieb z určeného súboru"
-
-msgid "Requests to run in black and white"
-msgstr "Požiadať o spustenie v čiernobielom režime"
-
-msgid "Request to run in color mode"
-msgstr "Požiadať o spustenie vo farebnom režime"
-
-msgid "Specifies a color configuration"
-msgstr "Určuje farebnú konfiguráciu"
-
-msgid "Show mc with specified skin"
-msgstr "Zobraziť mc s uvedenou témou vzhľadu"
-
-#. TRANSLATORS: don't translate keywords and names of colors
-#, fuzzy
-msgid ""
-"--colors KEYWORD={FORE},{BACK}\n"
-"\n"
-"{FORE} and {BACK} can be omitted, and the default will be used\n"
-"\n"
-"Keywords:\n"
-"   Global:       errors, disabled, reverse, gauge, viewunderline\n"
-"                 input, inputmark, inputunchanged, commandlinemark\n"
-"   File display: normal, selected, marked, markselect\n"
-"   Dialog boxes: dnormal, dfocus, dhotnormal, dhotfocus, errdhotnormal,\n"
-"                 errdhotfocus\n"
-"   Menus:        menunormal, menuhot, menusel, menuhotsel, menuinactive\n"
-"   Editor:       editnormal, editbold, editmarked, editwhitespace,\n"
-"                 editlinestate\n"
-msgstr ""
-"--colors KĽÚČ={POPR},{POZA}\n"
-"\n"
-"{POPR} a {POZA} je možné vynechať a bude použitá štandardná hodnota\n"
-"\n"
-"Kľúčové slová:\n"
-"   Globálne:          errors, reverse, gauge, input, viewunderline\n"
-"   Zobrazenie súboru: normal, selected, marked, markselect\n"
-"   Dialógy:           dnormal, dfocus, dhotnormal, dhotfocus,\n"
-"                      errdhotnormal, errdhotfocus\n"
-"   Menu:              menu, menuhot, menusel, menuhotsel\n"
-"   Editor:            editnormal, editbold, editmarked,\n"
-"                      editwhitespace, editlinestate\n"
-
-msgid ""
-"   Help:         helpnormal, helpitalic, helpbold, helplink, helpslink\n"
-"\n"
-"Colors:\n"
-"   black, gray, red, brightred, green, brightgreen, brown,\n"
-"   yellow, blue, brightblue, magenta, brightmagenta, cyan,\n"
-"   brightcyan, lightgray and white\n"
-"\n"
-msgstr ""
-"   Pomoc:        helpnormal, helpitalic, helpbold, helplink, helpslink\n"
-"\n"
-"Farby:\n"
-"   black, gray, red, brightred, green, brightgreen, brown,\n"
-"   yellow, blue, brightblue, magenta, brightmagenta, cyan,\n"
-"   brightcyan, lightgray and white\n"
-"\n"
-
-msgid "Color options"
-msgstr "Možnosti farieb"
-
-msgid "+number"
-msgstr "+číslo"
-
-msgid "[this_dir] [other_panel_dir]"
-msgstr "[tento_adresár] [adresár_v_druhom_paneli]"
-
-msgid "Set initial line number for the internal editor"
-msgstr "Nastaviť počiatočné číslo riadka pre interný editor"
-
-#, fuzzy
-msgid ""
-"\n"
-"Please send any bug reports (including the output of `mc -V')\n"
-"as tickets at www.midnight-commander.org\n"
-msgstr ""
-"\n"
-"Správy o chybách posielajte (vrátane výpisu `mc -V')\n"
-"na adresu mc-devel@gnome.org\n"
-
-#, c-format
-msgid "GNU Midnight Commander %s\n"
-msgstr "GNU Midnight Commander %s\n"
-
-msgid "No arguments given to the viewer."
+msgid "Ext2lib error"
 msgstr ""
 
-msgid "Two files are required to evoke the diffviewer."
+msgid "Invalid value"
 msgstr ""
 
-msgid "Main options"
-msgstr "Hlavné možnosti"
-
-msgid "Terminal options"
-msgstr "Možnosti terminálu"
-
-#, fuzzy
-msgid "Background process error"
-msgstr " Chyba v procese na pozadí "
-
-#, fuzzy
-msgid "Unknown error in child"
-msgstr " Neznáma chyba v potomku procesu "
-
-#, fuzzy
-msgid "Child died unexpectedly"
-msgstr " Potomok procesu nečakane umrel "
-
-#, fuzzy
-msgid "Background protocol error"
-msgstr " Chyba v protokole pozadia "
-
-#, fuzzy
-msgid "Reading failed"
-msgstr "<čítanie odkazu zlyhalo>"
-
-#, fuzzy
-msgid ""
-"Background process sent us a request for more arguments\n"
-"than we can handle."
-msgstr ""
-" Proces v pozadí poslal požiadavku pre viac argumentov, \n"
-" s ktorými môžete manipulovať. \n"
-
-msgid "&Full file list"
-msgstr "&Plný výpis súborov"
-
-msgid "&Brief file list"
-msgstr "&Stručný výpis súborov "
-
-msgid "&Long file list"
-msgstr "&Dlhý výpis súborov"
-
-msgid "&User defined:"
-msgstr "d&Efinovaný používateľom:"
-
-msgid "Listing mode"
-msgstr "Režim výpisu"
-
-#, fuzzy
-msgid "User &mini status"
-msgstr "používateľský &Mini stav"
-
-msgid "&OK"
-msgstr "Án&o"
-
-msgid "&Reverse"
-msgstr "o&Brátený"
-
-msgid "Case sensi&tive"
-msgstr "&Rozlišovať veľkosť"
-
-msgid "Executable &first"
-msgstr "Najprv &Spustiteľné"
-
-msgid "Sort order"
-msgstr "Poradie triedenia"
-
-#, fuzzy
-msgid "Confirmation"
-msgstr " Potvrdenie "
-
-#. TRANSLATORS: no need to translate 'Confirmation', it's just a context prefix
-#. 2
-#, fuzzy
-msgid "Confirmation|&History cleanup"
-msgstr " Potvrdenie "
-
-#, fuzzy
-msgid "Confirmation|Di&rectory hotlist delete"
-msgstr " potvrdiť zmazanie hotlistu ad&Resára "
-
-#, fuzzy
-msgid "Confirmation|E&xit"
-msgstr " Potvrdenie "
-
-#, fuzzy
-msgid "Confirmation|&Execute"
-msgstr " Potvrdenie "
-
-#, fuzzy
-msgid "Confirmation|O&verwrite"
-msgstr " potvrdiť p&Repísanie "
-
-#, fuzzy
-msgid "Confirmation|&Delete"
-msgstr " Potvrdenie "
-
-msgid "UTF-8 output"
-msgstr "Výstup v UTF-8"
-
-msgid "Full 8 bits output"
-msgstr "Plný 8-bitový výstup"
-
-msgid "ISO 8859-1"
-msgstr "ISO 8859-1"
-
-msgid "7 bits"
-msgstr "7 bitov"
-
-msgid "F&ull 8 bits input"
-msgstr "p&Lný 8 bitový vstup"
-
-#, fuzzy
-msgid "Display bits"
-msgstr " Zobrazené bity "
-
-msgid "Other 8 bit"
-msgstr "Iné 8-bitové"
-
-msgid "Input / display codepage:"
-msgstr "Vstupná/Zobrazovacia znaková sada:"
-
-msgid "&Select"
-msgstr "&Vybrať"
-
-#, fuzzy
-msgid "Directory tree"
-msgstr "adr&Esárový strom"
-
-msgid "Use passive mode over pro&xy"
-msgstr "Použiť pasívny režim pri pro&xy"
-
-msgid "Use &passive mode"
-msgstr "Použiť &pasívny režim"
-
-msgid "&Use ~/.netrc"
-msgstr "Po&užiť ~/.netrc"
-
-msgid "&Always use ftp proxy"
-msgstr "&Vždy použiť ftp proxy"
-
-msgid "sec"
-msgstr "sekúnd"
-
-msgid "ftpfs directory cache timeout:"
-msgstr "ftpfs časový limit pre cache:"
-
-msgid "ftp anonymous password:"
-msgstr "ftp anonymné heslo:"
-
-msgid "Timeout for freeing VFSs:"
-msgstr "Časový limit pre uvoľnenie VFS:"
-
-#, fuzzy
-msgid "Virtual File System Setting"
-msgstr " Nastavenie virtuálneho súborového systému "
-
-msgid "cd"
-msgstr "cd"
-
-msgid "Quick cd"
-msgstr "Rýchly cd"
-
-msgid "Symbolic link filename:"
-msgstr "Meno symbolického odkazu:"
-
-msgid "Existing filename (filename symlink will point to):"
-msgstr "Existujúce meno súboru (meno symb. odkazu odkazuje na):"
-
-msgid "Symbolic link"
-msgstr "Symbolický odkaz"
-
-#, fuzzy
-msgid "Running"
-msgstr "Spustenie "
-
-msgid "Stopped"
-msgstr "Zastavený"
-
-msgid "&Stop"
-msgstr "&Zastaviť"
-
-msgid "&Resume"
-msgstr "&Pokračovať"
-
-msgid "&Kill"
-msgstr "&Ukončiť"
-
-msgid "Background Jobs"
-msgstr "Úlohy v pozadí"
-
-msgid "Domain:"
-msgstr "Doména:"
-
-msgid "Username:"
-msgstr "Meno použivateľa:"
-
-#, c-format
-msgid "Password for \\\\%s\\%s"
-msgstr "Heslo pre \\\\%s\\%s"
-
-msgid "7-bit ASCII"
-msgstr "7-bitový ASCII"
-
-#, c-format
-msgid "Cannot translate from %s to %s"
-msgstr "Nepodarilo sa preložiť z %s do %s"
-
-msgid "execute/search by others"
-msgstr "vykonávaný/hľadaný ostat."
-
-msgid "write by others"
-msgstr "zapisovaný ostatnými"
-
-msgid "read by others"
-msgstr "čítaný ostatnými"
-
-msgid "execute/search by group"
-msgstr "vykonávaný/hľadaný skup."
-
-msgid "write by group"
-msgstr "zapisovaný skupinou"
-
-msgid "read by group"
-msgstr "čítaný skupinou"
-
-msgid "execute/search by owner"
-msgstr "vykonávaný/hľadaný vlast."
-
-msgid "write by owner"
-msgstr "zapisovaný vlastníkom"
-
-msgid "read by owner"
-msgstr "čítaný vlastníkom"
-
-msgid "sticky bit"
-msgstr "sticky bit"
-
-msgid "set group ID on execution"
-msgstr "nastav skup. ID pre vykon."
-
-msgid "set user ID on execution"
-msgstr "nastav použ. ID pre vykon."
-
-msgid "C&lear marked"
-msgstr "z&Mazať označ."
-
-msgid "S&et marked"
-msgstr "n&Astaviť označ."
-
-msgid "&Marked all"
-msgstr "&Označiť všetko"
-
-msgid "Name"
-msgstr "Meno"
-
-msgid "Permissions (Octal)"
-msgstr "Práva (Osmičkové)"
-
-msgid "Owner name"
-msgstr "Meno vlastníka"
-
-msgid "Group name"
-msgstr "Meno skupiny"
-
-msgid "Use SPACE to change"
-msgstr "Použite medzeru pre zmenu"
-
-msgid "an option, ARROW KEYS"
-msgstr "voľby, KURZOROVÉ KLÁVESY"
-
-msgid "to move between options"
-msgstr "na presun medzi voľbami"
-
-msgid "and T or INS to mark"
-msgstr "a T alebo INS pre označ."
-
-msgid "Chmod command"
-msgstr "Príkaz zmeny práv"
-
-msgid "File"
-msgstr "Súbor"
-
-msgid "Permission"
-msgstr "Práva"
-
-msgid "Set &users"
-msgstr "Nastaviť &použ."
-
-msgid "Set &groups"
-msgstr "Nastaviť &skup."
-
-msgid "Size"
-msgstr "Veľkosť"
-
-#, fuzzy
-msgid "Chown command"
-msgstr " Príkaz zmeny vlastníka "
-
-msgid "<Unknown user>"
-msgstr "<Neznámy použ.>"
-
-msgid "<Unknown group>"
-msgstr "<Neznáma skupina>"
-
-#, fuzzy
-msgid "User name"
-msgstr " Meno používateľa "
-
-msgid "Files tagged, want to cd?"
-msgstr "Označené súbory chcú cd?"
-
-msgid "&Yes"
-msgstr "Án&o"
-
-msgid "&No"
-msgstr "&Nie"
-
-msgid "Cannot change directory"
-msgstr "Nemohol som zmeniť adresár"
-
-#, fuzzy
-msgid "View file"
-msgstr " Prezrieť si súbor "
-
-#, fuzzy
-msgid "Filename:"
-msgstr " Meno súboru:"
-
-#, fuzzy
-msgid "Filtered view"
-msgstr "&Filtrované zobrazenie"
-
-#, fuzzy
-msgid "Filter command and arguments:"
-msgstr " Príkaz a argumenty pre filtrovanie:"
-
-msgid "Create a new Directory"
-msgstr "Vytvoriť nový adresár"
-
-#, fuzzy
-msgid "Enter directory name:"
-msgstr " Zadajte meno adresára:"
-
-#, fuzzy
-msgid "Filter"
-msgstr " Filter "
-
-#, fuzzy
-msgid "Set expression for filtering filenames"
-msgstr " Nastaviť výraz pre filtrovanie mien súborov"
-
-msgid "&Using shell patterns"
-msgstr "po&Užiť shell vzory"
-
-msgid "&Case sensitive"
-msgstr "&Rozlišovať veľkosť"
-
-msgid "&Files only"
-msgstr "&Iba súbory"
-
-#, fuzzy
-msgid "Select"
-msgstr "&Vybrať"
-
-#, fuzzy
-msgid "Unselect"
-msgstr " Odobrať "
-
-msgid "Extension file edit"
-msgstr "Upraviť príponu názvu súboru"
-
-#, fuzzy
-msgid "Which extension file you want to edit?"
-msgstr " Ktorú príponu názvu súboru chcete upraviť? "
-
-msgid "&User"
-msgstr "&Používateľ"
-
-msgid "&System Wide"
-msgstr "&Systémový"
-
-#, fuzzy
-msgid "Menu edit"
-msgstr " Editor menu "
-
-#, fuzzy
-msgid "Which menu file do you want to edit?"
-msgstr " Ktorý súbor menu chcete upraviť? "
-
-msgid "&Local"
-msgstr "&Miestny"
-
-msgid "Highlighting groups file edit"
-msgstr "Úprava súboru zvýrazňovacích skupín"
-
-#, fuzzy
-msgid "Which highlighting file you want to edit?"
-msgstr " Ktorý zvýrazňovací súbor chcete upraviť? "
-
-#, fuzzy
-msgid "Compare directories"
-msgstr "&Porovnanie adresárov "
-
-#, fuzzy
-msgid "Select compare method:"
-msgstr " Vyberte porovnávaciu metódu: "
-
-msgid "&Quick"
-msgstr "&Rýchla"
-
-msgid "&Size only"
-msgstr "&Iba veľkosť"
-
-msgid "&Thorough"
-msgstr "ú&Plná"
-
-#, fuzzy
-msgid ""
-"Both panels should be in the listing mode\n"
-"to use this command"
-msgstr " Oba panely môžu použiť pre režim prezerania tento príkaz "
-
-#, fuzzy
-msgid ""
-"Not an xterm or Linux console;\n"
-"the panels cannot be toggled."
-msgstr ""
-" Nie je to xterm alebo Linuxovsky terminál; \n"
-" medzi panelmi nemôže byť prepínané.  "
-
-#, c-format
-msgid "Link %s to:"
-msgstr "Odkaz %s na:"
-
-#, fuzzy
-msgid "Link"
-msgstr "&Odkaz"
-
-#, fuzzy, c-format
-msgid "link: %s"
-msgstr " odkaz: %s "
-
-#, fuzzy, c-format
-msgid "symlink: %s"
-msgstr " symb. odkaz: %s "
-
-#, fuzzy, c-format
-msgid "Symlink `%s' points to:"
-msgstr " Symb. odkaz '%s' odkazuje: "
-
-#, fuzzy
-msgid "Edit symlink"
-msgstr "Upraviť s&Ymb. odkaz "
-
-#, fuzzy, c-format
-msgid "edit symlink, unable to remove %s: %s"
-msgstr " upraviť symb.odkaz, nepodarilo sa odstrániť %s: %s "
-
-#, fuzzy, c-format
-msgid "edit symlink: %s"
-msgstr " upraviť symb. odkaz: %s "
-
-#, c-format
-msgid "`%s' is not a symbolic link"
-msgstr "`%s' nie je symbolický odkaz"
-
-#, fuzzy, c-format
-msgid "Cannot chdir to %s"
-msgstr " Nemohol som chdir do %s "
-
-#, fuzzy
-msgid "Enter machine name (F1 for details):"
-msgstr " Zadajte meno počítača (F1 pre detaily): "
-
-#, fuzzy
-msgid "FTP to machine"
-msgstr " FTP k počítaču "
-
-#, fuzzy
-msgid "Shell link to machine"
-msgstr " Shell pripojenie k počítaču "
-
-#, fuzzy
-msgid "SMB link to machine"
-msgstr " SMB pripojenie k počítaču "
-
-#, fuzzy
-msgid "Undelete files on an ext2 file system"
-msgstr " Obnoviť súbory na súborovom systéme ext2 "
-
-#, fuzzy
-msgid ""
-"Enter device (without /dev/) to undelete\n"
-"files on: (F1 for details)"
-msgstr ""
-" Zadajte zariadenie (bez /dev/) pre obnovenie\n"
-"   súborov na: (F1 pre detaily)"
-
-#, fuzzy
-msgid "Setup"
-msgstr " Nastavenie "
-
-#, fuzzy, c-format
-msgid "Setup saved to ~/%s"
-msgstr " Nastavenie bolo uložené do ~/%s"
-
-#, fuzzy, c-format
-msgid ""
-"Cannot chdir to \"%s\"\n"
-"%s"
-msgstr ""
-" Nepodarilo sa zmeniť adresár na \"%s\" \n"
-" %s "
-
-#, fuzzy
-msgid "Cannot execute commands on non-local filesystems"
-msgstr " Nemôžete spustiť príkazy na nelokálnych súborových systémoch"
-
-#, fuzzy
-msgid "The shell is already running a command"
-msgstr " Shell už spustil príkaz "
-
-msgid "Screens"
-msgstr ""
-
-msgid "&Dismiss"
-msgstr "&Odmietnuť"
-
-msgid "All charsets"
-msgstr "Všetky znakové sady"
-
-msgid "&Whole words"
-msgstr "&Celé slová"
-
-msgid "&Backwards"
-msgstr "&Späť"
-
-#, fuzzy
-msgid "Case &sensitive"
-msgstr "&Rozlišovať veľkosť"
-
-#, fuzzy
-msgid "Enter search string:"
-msgstr " Zadajte reťazec pre hľadanie:"
-
-msgid "Search"
-msgstr "Hľadať"
-
-#, fuzzy
-msgid "Search is disabled"
-msgstr "Hľadať"
-
-#, fuzzy, c-format
-msgid ""
-"Cannot create temporary diff file\n"
-"%s"
-msgstr ""
-" Nepodarilo sa vytvoriť dočasný príkazový súbor \n"
-" %s "
-
-#, fuzzy, c-format
-msgid ""
-"Cannot create backup file\n"
-"%s%s\n"
-"%s"
-msgstr ""
-" Nepodarilo sa vytvoriť cieľový súbor \"%s\" \n"
-" %s "
-
-#, fuzzy, c-format
-msgid ""
-"Cannot create temporary merge file\n"
-"%s"
-msgstr ""
-" Nepodarilo sa vytvoriť dočasný príkazový súbor \n"
-" %s "
-
-#, fuzzy
-msgid "&Normal"
-msgstr "Normálny"
-
-msgid "&Fastest (Assume large files)"
-msgstr ""
-
-msgid "&Minimal (Find a smaller set of change)"
-msgstr ""
-
-msgid "Strip &trailing carriage return"
-msgstr ""
-
-msgid "Ignore all &whitespace"
-msgstr ""
-
-msgid "Ignore &space change"
-msgstr ""
-
-msgid "Ignore tab &expansion"
-msgstr ""
-
-#, fuzzy
-msgid "&Ignore case"
-msgstr "&Ignorovať zámok"
-
-#, fuzzy
-msgid "Diff extra options"
-msgstr " Ďalšie voľby "
-
-msgid "Diff algorithm"
-msgstr ""
-
-#, fuzzy
-msgid "Diff Options"
-msgstr " Voľby "
-
-#, fuzzy
-msgid "Edit"
-msgstr "&Upraviť"
-
-#, fuzzy
-msgid "Edit is disabled"
-msgstr "Upraviť súbor so &Syntaxou"
-
-#, fuzzy
-msgid "Goto line (left)"
-msgstr " Prejsť na riadok "
-
-#, fuzzy
-msgid "Goto line (right)"
-msgstr " Prejsť na riadok "
-
-#, fuzzy
-msgid "Enter line:"
-msgstr " Zadajte riadok: "
-
-msgid "ButtonBar|Help"
-msgstr "ButtonBar|Pomoc"
-
-msgid "ButtonBar|Save"
-msgstr "ButtonBar|Uložiť"
-
-msgid "ButtonBar|Edit"
-msgstr "ButtonBar|Upravi"
-
-#, fuzzy
-msgid "ButtonBar|Merge"
-msgstr "ButtonBar|Zabudn"
-
-msgid "ButtonBar|Search"
-msgstr "ButtonBar|Hľad"
-
-#, fuzzy
-msgid "ButtonBar|Options"
-msgstr "ButtonBar|Riadok"
-
-msgid "ButtonBar|Quit"
-msgstr "ButtonBar|Ukončiť"
-
-msgid "Quit"
-msgstr "Skončiť"
-
-#, fuzzy
 msgid "File was modified. Save with exit?"
-msgstr " Súbor bol zmenený, uložiť a skončiť? "
+msgstr ""
+
+msgid "&Cancel quit"
+msgstr "&Zrušiť ukončenie"
 
 msgid ""
 "Midnight Commander is being shut down.\n"
 "Save modified file?"
 msgstr ""
 
-msgid "Diff:"
-msgstr ""
-
-msgid "Two files are needed to compare"
-msgstr ""
-
-msgid "Cannot read directory contents"
-msgstr "Nepodarilo sa načítať obsah adresára"
-
-#, fuzzy
-msgid "Choose syntax highlighting"
-msgstr " Vyberte zvýraznenie syntaxe"
-
-msgid "< Auto >"
-msgstr "< Auto >"
-
-msgid "< Reload Current Syntax >"
-msgstr "< Znovu načítať aktuálnu syntax >"
-
-#, fuzzy
-msgid "About"
-msgstr " O aplikácii "
-
-#, fuzzy
-msgid ""
-"Copyright (C) 1996-2010 the Free Software Foundation\n"
-"\n"
-"            A user friendly text editor\n"
-"         written for the Midnight Commander"
-msgstr ""
-"\n"
-"                 Cooledit  v3.11.5\n"
-"\n"
-" Copyright (C) 1996 the Free Software Foundation\n"
-"\n"
-"  Používateľsky prívetivý textový editor napísaný\n"
-"           pre Midnight Commander.\n"
-
-#, fuzzy, c-format
-msgid "Cannot open %s for reading"
-msgstr " Nepodarilo sa otvoriť %s na čítanie "
-
-msgid "Error"
-msgstr "Chyba"
-
-#, fuzzy, c-format
-msgid "Error reading %s"
-msgstr "Chyba pri čítaní skriptu:"
-
-#, fuzzy, c-format
-msgid "Error reading from pipe: %s"
-msgstr " Chyba pri čítaní z rúry: %s "
-
-#, fuzzy, c-format
-msgid "Cannot open pipe for reading: %s"
-msgstr " Nepodarilo sa otvoriť rúru na čítanie: %s "
-
-#, fuzzy, c-format
-msgid "Cannot get size/permissions for %s"
-msgstr " Nepodarilo sa zistiť veľkosti/práva %s "
-
-#, fuzzy, c-format
-msgid "\"%s\" is not a regular file"
-msgstr " %s nie je normálny súbor "
-
-#, fuzzy, c-format
-msgid "File \"%s\" is too large"
-msgstr " Súbor %s je príliš veľký"
-
-msgid "Macro recursion is too deep"
-msgstr "Rekurzia makra je príliš hlboká"
-
-#, fuzzy
-msgid "File has hard-links. Detach before saving?"
-msgstr " Súbor má pevné odkazy. Odpojiť pred uložením? "
-
-msgid "The file has been modified in the meantime. Save anyway?"
-msgstr "Súbor bol medzitým zmenený. Uložiť napriek tomu?"
-
-#, fuzzy, c-format
-msgid "Error writing to pipe: %s"
-msgstr " Chyba počas zápisu do rúry: "
-
-#, fuzzy, c-format
-msgid "Cannot open pipe for writing: %s"
-msgstr " Neúspešný pokus o otvorenie rúry pre zápis: "
-
-#, fuzzy, c-format
-msgid "Cannot open file for writing: %s"
-msgstr " Nedá sa otvoriť súbor na zápis: %s "
-
-msgid "&Quick save"
-msgstr "&Rýchle uloženie"
-
-msgid "&Safe save"
-msgstr "&Bezpečné uloženie"
-
-msgid "&Do backups with following extension:"
-msgstr "&Robiť zálohy s príponou:"
-
-msgid "Check &POSIX new line"
-msgstr "Kontrolovať nový riadok &POSIX"
-
-#, fuzzy
-msgid "Edit Save Mode"
-msgstr " Upraviť režim ukladania "
-
-msgid "The file you are saving is not finished with a newline"
-msgstr "Súbor, ktorý ukladáte nie je ukončený znakom nového riadka"
-
-msgid "C&ontinue"
-msgstr "P&okračovať"
-
-msgid "&Do not change"
-msgstr "&Nemeniť"
-
-msgid "&Unix format (LF)"
-msgstr "Formát &Unix (LF)"
-
-msgid "&Windows/DOS format (CR LF)"
-msgstr "Formát &Windows/DOS (CR LF)"
-
-msgid "&Macintosh format (CR)"
-msgstr "Formát &Macintosh (CR)"
-
-msgid "Change line breaks to:"
-msgstr "Zmeniť konce riadkov na:"
-
-#, fuzzy
-msgid "Enter file name:"
-msgstr " Zadajte meno súboru: "
-
-#, fuzzy
-msgid "Save As"
-msgstr " Uložiť ako "
-
-#, fuzzy
-msgid "A file already exists with this name"
-msgstr " Súbor s daným meno už existuje. "
-
-msgid "&Overwrite"
-msgstr "&Prepísať"
-
-#, fuzzy
-msgid "Save as"
-msgstr "Uložiť &ako..."
-
-#, fuzzy
-msgid "Cannot save file"
-msgstr " Chyba počas ukladania súboru. "
-
-#, fuzzy
-msgid "Delete macro"
-msgstr " Zmazať makro "
-
-#, fuzzy
-msgid "Cannot open temp file"
-msgstr " Chyba počas otvárania temp súboru "
-
-#, fuzzy
-msgid "Cannot open macro file"
-msgstr " Chyba počas otvárania makro súboru "
-
-#, fuzzy
-msgid "Cannot overwrite macro file"
-msgstr " Chyba počas prepisovania makro súboru "
-
-#, fuzzy
-msgid "Save macro"
-msgstr " Uložiť makro "
-
-#, fuzzy
-msgid "Press the macro's new hotkey:"
-msgstr " Stlačte nový kláves pre makro: "
-
-#, fuzzy
-msgid "Press macro hotkey:"
-msgstr " Stlačte kláves pre makro: "
-
-#, fuzzy
-msgid "Load macro"
-msgstr " Načítať makro "
-
-#, fuzzy, c-format
-msgid "Confirm save file: \"%s\""
-msgstr " Potvrdiť uloženie súboru? : "
-
-#, fuzzy
-msgid "Save file"
-msgstr " Uložiť súbor "
-
-msgid "&Save"
-msgstr "&Uložiť"
-
-#, fuzzy
-msgid ""
-"Current text was modified without a file save.\n"
-"Continue discards these changes"
-msgstr ""
-" Aktuálny text bol modifikovaný bez uloženia súboru. \n"
-" Pokračovať zrušením týchto zmien. "
-
-msgid "Syntax file edit"
-msgstr "Upraviť súbor so syntaxou"
-
-#, fuzzy
-msgid "Which syntax file you want to edit?"
-msgstr " Ktorý súbor so syntaxou chcete upraviť? "
-
-#, fuzzy
-msgid "Load"
-msgstr " Nahrať "
-
-#, fuzzy
-msgid "Block is large, you may not be able to undo this action"
-msgstr " Blok je príliš veľký, možno nebude možné stornovať túto akciu. "
-
-msgid "Replace"
-msgstr "Nahradiť"
-
-#, fuzzy, c-format
-msgid "%ld replacements made"
-msgstr " %ld náhrad urobených. "
-
-msgid "&Cancel quit"
-msgstr "&Zrušiť ukončenie"
-
-#, fuzzy
-msgid "This function is not implemented"
-msgstr " Táto funkcia nie je implementovaná. "
-
-#, fuzzy
-msgid "Copy to clipboard"
-msgstr " Kopírovať do schránky "
-
-#, fuzzy
-msgid "Unable to save to file"
-msgstr " Nepodarilo sa uložiť do súboru. "
-
-#, fuzzy
-msgid "Cut to clipboard"
-msgstr " Vystrihnúť do schránky "
-
-#, fuzzy
-msgid "Goto line"
-msgstr " Prejsť na riadok "
-
-#, fuzzy
-msgid "Save block"
-msgstr " Uložiť blok "
-
-#, fuzzy
-msgid "Insert file"
-msgstr "V&Ložiť súbor..."
-
-#, fuzzy
-msgid "Cannot insert file"
-msgstr " Chyba počas vkladania do súboru. "
-
-#, fuzzy
-msgid "Sort block"
-msgstr " Usporiadať blok "
-
-#, fuzzy
-msgid "You must first highlight a block of text"
-msgstr " Najskôr musíte zvýrazniť blok textu. "
-
-#, fuzzy
-msgid "Run sort"
-msgstr " Spustiť triedenie "
-
-#, fuzzy
-msgid "Enter sort options (see manpage) separated by whitespace:"
-msgstr ""
-" Zadajte voľby pre triedenie oddelené prázdnym miestom (pozri man stránku): "
-
-#, fuzzy
-msgid "Sort"
-msgstr " Triediť "
-
-#, fuzzy
-msgid "Cannot execute sort command"
-msgstr " Chyba počas pokusu vykonať príkaz pre triedenie "
-
-#, fuzzy, c-format
-msgid "Sort returned non-zero: %s"
-msgstr " Triedenie vrátilo nenulovú hodnotu: "
-
-msgid "Paste output of external command"
-msgstr "Vložiť výstup externého príkazu"
-
-msgid "Enter shell command(s):"
-msgstr "Zadajte príkaz shellu:"
-
-msgid "External command"
-msgstr "Externý príkaz"
-
-msgid "Cannot execute command"
-msgstr "Nie je možné vykonať príkaz"
-
-msgid "Error creating script:"
-msgstr "Chyba pri vytváraní skriptu:"
-
-msgid "Error reading script:"
-msgstr "Chyba pri čítaní skriptu:"
-
-msgid "Error closing script:"
-msgstr "Chyba pri zatváraní skriptu:"
-
-msgid "Script created:"
-msgstr "Vytvorený skript:"
-
-msgid "Process block"
-msgstr "Spracovať blok "
-
-#, fuzzy
-msgid "Error calling program"
-msgstr "Chyba pri zatváraní skriptu:"
-
-#, fuzzy
-msgid "Copies to"
-msgstr " Kopie komu"
-
-#, fuzzy
-msgid "Subject"
-msgstr " Predmet"
-
-#, fuzzy
-msgid "To"
-msgstr " Komu"
-
-#, fuzzy
-msgid "mail -s <subject> -c <cc> <to>"
-msgstr " mail -s <predmet> -c <cc> <pre>"
-
-#, fuzzy
-msgid "Mail"
-msgstr " Pošta "
-
-#, fuzzy
-msgid "Insert literal"
-msgstr "V&Ložiť znak..."
-
-#, fuzzy
-msgid "Press any key:"
-msgstr " Stlačte ľubovoľný kláves: "
-
-#, fuzzy
-msgid "Execute macro"
-msgstr "&Vykonať makro..."
-
-#, fuzzy
-msgid ""
-"Current text was modified without a file save\n"
-"Continue discards these changes"
-msgstr ""
-" Aktuálny text bol modifikovaný bez uloženia súboru. \n"
-" Pokračovať zrušením týchto zmien. "
-
-msgid "In se&lection"
-msgstr "&Vo výbere"
-
-#, fuzzy
-msgid "Enter replacement string:"
-msgstr " Zadajte reťazec pre nahradenie:"
-
-msgid "&Find all"
-msgstr "&Nájsť všetky"
-
-msgid "Cancel"
-msgstr "Zruš"
-
-#, fuzzy
-msgid ""
-"Current text was modified without a file save.\n"
-"Continue discards these changes."
-msgstr ""
-" Aktuálny text bol modifikovaný bez uloženia súboru. \n"
-" Pokračovať zrušením týchto zmien. "
-
-msgid "&Skip"
-msgstr "&Preskočiť"
-
-msgid "A&ll"
-msgstr "&Všetko"
-
-msgid "&Replace"
-msgstr "&Nahradiť"
-
-#, fuzzy
-msgid "Replace with:"
-msgstr " Nahradiť s: "
-
-#, fuzzy
-msgid "Confirm replace"
-msgstr " Potvrdiť nahradenie "
-
-msgid "&Open file..."
-msgstr "Otvoriť sú&bor..."
-
-msgid "&New"
-msgstr "&Nové"
-
-msgid "Save &as..."
-msgstr "Uložiť &ako..."
-
-msgid "&Insert file..."
-msgstr "V&Ložiť súbor..."
-
-msgid "Cop&y to file..."
-msgstr "&Kopírovať do súboru..."
-
-msgid "&User menu..."
-msgstr "&Používateľské menu..."
-
-msgid "A&bout..."
-msgstr "&O aplikácii..."
-
-msgid "&Quit"
-msgstr "&Ukončiť"
-
-msgid "&Undo"
-msgstr "&Späť"
-
-#, fuzzy
-msgid "&Toggle ins/overw"
-msgstr "Prepnúť &vklad/pre"
-
-#, fuzzy
-msgid "To&ggle mark"
-msgstr "&Prepnúť označ."
-
-msgid "&Mark columns"
-msgstr "&Označiť stĺpce"
-
-#, fuzzy
-msgid "Mark &all"
-msgstr "&Označiť všetko"
-
-msgid "Unmar&k"
-msgstr ""
-
-#, fuzzy
-msgid "Cop&y"
-msgstr "&Kopírovať"
-
-#, fuzzy
-msgid "Mo&ve"
-msgstr "Presunúť"
-
-msgid "&Delete"
-msgstr "&Zmazať"
-
-#, fuzzy
-msgid "Co&py to clipfile"
-msgstr "K&Opírovať do ústrižku"
-
-#, fuzzy
-msgid "&Cut to clipfile"
-msgstr "&Vystrihnúť do ústrižku"
-
-#, fuzzy
-msgid "Pa&ste from clipfile"
-msgstr "&Vložiť z ústrižku"
-
-msgid "&Beginning"
-msgstr "&Začiatok"
-
-msgid "&End"
-msgstr "Koni&Ec"
-
-msgid "&Search..."
-msgstr "&Hľadať..."
-
-msgid "Search &again"
-msgstr "Hľ&Adať znova"
-
-msgid "&Replace..."
-msgstr "&Nahradiť..."
-
-#, fuzzy
-msgid "&Toggle bookmark"
-msgstr "Prepnúť zálož&Ku"
-
-msgid "&Next bookmark"
-msgstr "Ď&Alšia záložka"
-
-#, fuzzy
-msgid "&Prev bookmark"
-msgstr "&Predošlá záložka"
-
-msgid "&Flush bookmark"
-msgstr "&Zrušiť záložku"
-
-msgid "&Go to line..."
-msgstr "&Prejsť na riadok..."
-
-#, fuzzy
-msgid "&Toggle line state"
-msgstr "&Prepnúť stav riadka"
-
-msgid "Go to matching &bracket"
-msgstr "Prejsť na odpovedajúcu &zátvorku"
-
-#, fuzzy
-msgid "Toggle s&yntax highlighting"
-msgstr " Vyberte zvýraznenie syntaxe"
-
-#, fuzzy
-msgid "&Find declaration"
-msgstr "Nájsť deklaráciu"
-
-#, fuzzy
-msgid "Back from &declaration"
-msgstr "Späť z deklarácie"
-
-#, fuzzy
-msgid "For&ward to declaration"
-msgstr "Vpred na deklaráciu"
-
-msgid "Encod&ing..."
-msgstr "Kódovan&Ie..."
-
-msgid "&Refresh screen"
-msgstr "Obnoviť ob&Razovku"
-
-msgid "&Start record macro"
-msgstr "&Začať nahrávať makro"
-
-#, fuzzy
-msgid "Finis&h record macro..."
-msgstr "&Skončiť nahrávať makra..."
-
-msgid "&Execute macro..."
-msgstr "&Vykonať makro..."
-
-msgid "Delete macr&o..."
-msgstr "Zmazať makr&O..."
-
-msgid "'ispell' s&pell check"
-msgstr "Kontrola &Pravopisu ispell"
-
-msgid "&Mail..."
-msgstr "&Pošta..."
-
-msgid "Insert &literal..."
-msgstr "V&Ložiť znak..."
-
-msgid "Insert &date/time"
-msgstr "Vložiť &Dátum/čas"
-
-#, fuzzy
-msgid "&Format paragraph"
-msgstr "Formátovať odst&Avec"
-
-#, fuzzy
-msgid "&Sort..."
-msgstr "&Poradie výpisu..."
-
-#, fuzzy
-msgid "&Paste output of..."
-msgstr "Vložiť výst&Up..."
-
-#, fuzzy
-msgid "&External formatter"
-msgstr "E&Xterný formátovač"
-
-#, fuzzy
-msgid "&General..."
-msgstr "&Všeobecné...  "
-
-msgid "Save &mode..."
-msgstr "Reži&M ukladania..."
-
-msgid "Learn &keys..."
-msgstr "Učenie &Kláves..."
-
-msgid "Syntax &highlighting..."
-msgstr "Zvýraznenie s&Yntaxe..."
-
-msgid "S&yntax file"
-msgstr "súbor so s&Yntaxou"
-
-msgid "&Menu file"
-msgstr "súbor s &Menu"
-
-msgid "&Save setup"
-msgstr "&Uložiť nastavenie"
-
-msgid "&File"
-msgstr "&Súbor"
-
-msgid "&Edit"
-msgstr "&Upraviť"
-
-msgid "&Search"
-msgstr "&Hľadať"
-
-msgid "&Command"
-msgstr "&Príkaz"
-
-msgid "For&mat"
-msgstr "For&mát"
-
-msgid "&Options"
-msgstr "M&Ožnosti"
-
-msgid "None"
-msgstr "Žiaden"
-
-msgid "Dynamic paragraphing"
-msgstr "Dynamické rob. odstavcov"
-
-msgid "Type writer wrap"
-msgstr "Zalamovanie písacieho stroja"
-
-#, fuzzy
-msgid "Word wrap line length:"
-msgstr "Zalamovanie od dĺžky riadka: "
-
-msgid "Cursor beyond end of line"
-msgstr "Kurzor za koncom riadka"
-
-msgid "Pers&istent selection"
-msgstr "&Trvalý výber"
-
-msgid "Synta&x highlighting"
-msgstr "Zvýraznenie s&Yntaxe"
-
-msgid "Visible tabs"
-msgstr "Viditeľné tabulátory"
-
-msgid "Visible trailing spaces"
-msgstr "Viditeľné medzery na konci"
-
-msgid "Save file &position"
-msgstr "Uložiť &polohu súboru"
-
-msgid "Confir&m before saving"
-msgstr "&Potvrdiť pred uložením"
-
-msgid "&Return does autoindent"
-msgstr "ente&R vykoná autom. odsad."
-
-#, fuzzy
-msgid "Tab spacing:"
-msgstr "Rozostupy tabulátora: "
-
-msgid "Fill tabs with &spaces"
-msgstr "Naplniť tabulátor &medzerami"
-
-msgid "&Backspace through tabs"
-msgstr "&Backspace po tabulátoroch"
-
-msgid "&Fake half tabs"
-msgstr "&Emulovať polovičný tabulátor"
-
-msgid "Wrap mode"
-msgstr "Zalamovanie riadkov"
-
-#, fuzzy
-msgid "Editor options"
-msgstr " Nastavenie editora "
-
-#, fuzzy
-msgid "Edit: "
-msgstr " Upraviť"
-
-msgid "ButtonBar|Mark"
-msgstr "ButtonBar|Označ"
-
-msgid "ButtonBar|Replac"
-msgstr "ButtonBar|Nahra"
-
-msgid "ButtonBar|Copy"
-msgstr "ButtonBar|Kopír"
-
-msgid "ButtonBar|Move"
-msgstr "ButtonBar|Presu"
-
-msgid "ButtonBar|Delete"
-msgstr "ButtonBar|Zmaza"
-
-msgid "ButtonBar|PullDn"
-msgstr "ButtonBar|H.menu"
-
-#, fuzzy
-msgid "Load syntax file"
-msgstr " Načítať súbor so syntaxou "
-
-#, fuzzy, c-format
-msgid ""
-"Cannot open file %s\n"
-"%s"
-msgstr ""
-" Nemožno otvoriť súbor %s \n"
-" %s "
-
-#, fuzzy, c-format
-msgid "Error in file %s on line %d"
-msgstr " Chyba v súbore %s na riadku %d "
-
-#, fuzzy
-msgid ""
-"The Commander can't change to the directory that\n"
-"the subshell claims you are in. Perhaps you have\n"
-"deleted your working directory, or given yourself\n"
-"extra access permissions with the \"su\" command?"
-msgstr ""
-" Commander nemôže modifikovať tento adresár, \n"
-" kedže subshell tvrdí, že ste v ňom.  Možno ste \n"
-" zmazali svoj pracovný adresár alebo ste si udelili \n"
-" špeciálne prístupové práva príkazom \"su\"? "
-
-#, c-format
-msgid "Type `exit' to return to the Midnight Commander"
-msgstr "Napíšte `exit' ak sa chcete vrátiť do Midnight Commandera"
-
-#, fuzzy, c-format
-msgid "Cannot fetch a local copy of %s"
-msgstr " Nepodarilo sa získať miestnu kópiu %s "
-
-#, fuzzy, c-format
-msgid ""
-"Cannot create temporary command file\n"
-"%s"
-msgstr ""
-" Nepodarilo sa vytvoriť dočasný príkazový súbor \n"
-" %s "
-
-#, fuzzy
-msgid "Parameter"
-msgstr " Parameter "
-
-#, c-format
-msgid " %s%s file error"
-msgstr " %s%s chyba v súbore"
-
-#, fuzzy, c-format
-msgid ""
-"The format of the %smc.ext file has changed with version 3.0. It seems that "
-"the installation failed. Please fetch a fresh copy from the Midnight "
-"Commander package."
-msgstr ""
-"Formát súboru %smc.ext sa vo verzii 3.0 zmenil. Vyzerá to, že inštalácia "
-"zlyhala. Prosím, vezmite si novú kópiu z balíka Midnight Commander."
-
-#, fuzzy, c-format
-msgid "~/%s file error"
-msgstr " ~/%s chyba v súbore "
-
-#, fuzzy, c-format
-msgid ""
-"The format of the ~/%s file has changed with version 3.0. You may either "
-"want to copy it from %smc.ext or use that file as an example of how to write "
-"it."
-msgstr ""
-"Formát súboru ~/%s sa vo verzii 3.0 zmenil. Buď si ho skopírujte z %smc.ext "
-"alebo ho použite ako vzor."
-
-msgid "DialogTitle|Copy"
-msgstr "DialogTitle|Kopírovať"
-
-msgid "DialogTitle|Move"
-msgstr "DialogTitle|Presunúť"
-
-msgid "DialogTitle|Delete"
-msgstr "DialogTitle|Zmazať"
-
-#, fuzzy
-msgid "Cannot make the hardlink"
-msgstr " Nepodarilo sa vytvoriť pevný odkaz "
-
-#, fuzzy, c-format
-msgid ""
-"Cannot read source link \"%s\"\n"
-"%s"
-msgstr ""
-" Nepodarilo sa prečítať zdrojový odkaz \"%s\" \n"
-" %s "
-
-#, fuzzy
-msgid ""
-"Cannot make stable symlinks acrossnon-local filesystems:\n"
-"\n"
-"Option Stable Symlinks will be disabled"
-msgstr ""
-" Nepodarilo sa vyrobiť pevný symb. odkaz naprieč nelokálnymi súb. "
-"systémami: \n"
-"\n"
-" Voľba stáleho Symbolického odkazu bude vypnutá "
-
-#, fuzzy, c-format
-msgid ""
-"Cannot create target symlink \"%s\"\n"
-"%s"
-msgstr ""
-" Nepodarilo sa vytvoriť cieľový symbolický odkaz \"%s\" \n"
-" %s "
-
-msgid "&Abort"
-msgstr "p&Rerušiť"
-
-#, fuzzy, c-format
-msgid ""
-"Cannot overwrite directory\"%s\"\n"
-"%s"
-msgstr ""
-" Nepodarilo sa prepísať adresár \"%s\" \n"
-" %s "
-
-#, fuzzy, c-format
-msgid ""
-"Cannot stat source file \"%s\"\n"
-"%s"
-msgstr ""
-" Nepodarilo sa zistiť stav zdrojový súbor \"%s\" \n"
-" %s "
-
-#, fuzzy, c-format
-msgid ""
-"\"%s\"\n"
-"and\n"
-"\"%s\"\n"
-"are the same file"
-msgstr ""
-" `%s' \n"
-" a \n"
-" `%s' \n"
-" sú rovnaký súbor "
-
-#, fuzzy, c-format
-msgid ""
-"Cannot create special file \"%s\"\n"
-"%s"
-msgstr ""
-" Nepodarilo sa vytvoriť špeciálny súbor \"%s\" \n"
-" %s "
-
-#, fuzzy, c-format
-msgid ""
-"Cannot chown target file \"%s\"\n"
-"%s"
-msgstr ""
-" Nepodarilo sa zmeniť vlastníka cieľového súboru \"%s\" \n"
-" %s "
-
-#, fuzzy, c-format
-msgid ""
-"Cannot chmod target file \"%s\"\n"
-"%s"
-msgstr ""
-" Nepodarilo sa zmeniť práva cieľového súboru \"%s\" \n"
-" %s "
-
-#, fuzzy, c-format
-msgid ""
-"Cannot open source file \"%s\"\n"
-"%s"
-msgstr ""
-" Nepodarilo sa otvoriť zdrojový súbor \"%s\" \n"
-" %s "
-
-#, fuzzy
-msgid "Reget failed, about to overwrite file"
-msgstr " Reget zlyhal, chystá sa prepísanie súboru"
-
-#, fuzzy, c-format
-msgid ""
-"Cannot fstat source file \"%s\"\n"
-"%s"
-msgstr ""
-" Nepodarilo sa vykonať fstat zdrojového súboru \"%s\" \n"
-" %s "
-
-#, fuzzy, c-format
-msgid ""
-"Cannot create target file \"%s\"\n"
-"%s"
-msgstr ""
-" Nepodarilo sa vytvoriť cieľový súbor \"%s\" \n"
-" %s "
-
-#, fuzzy, c-format
-msgid ""
-"Cannot fstat target file \"%s\"\n"
-"%s"
-msgstr ""
-" Nepodarilo sa vykonať fstat cieľového súboru \"%s\" \n"
-" %s "
-
-#, fuzzy, c-format
-msgid ""
-"Cannot read source file\"%s\"\n"
-"%s"
-msgstr ""
-" Nepodarilo sa prečítať zdrojový súbor \"%s\" \n"
-" %s "
-
-#, fuzzy, c-format
-msgid ""
-"Cannot write target file \"%s\"\n"
-"%s"
-msgstr ""
-" Nepodarilo sa zapísať do cieľového súboru \"%s\" \n"
-" %s "
-
-msgid "(stalled)"
-msgstr "(zastavený)"
-
-#, fuzzy, c-format
-msgid ""
-"Cannot close source file \"%s\"\n"
-"%s"
-msgstr ""
-" Nepodarilo sa zavrieť zdrojový súbor \"%s\" \n"
-" %s "
-
-#, fuzzy, c-format
-msgid ""
-"Cannot close target file \"%s\"\n"
-"%s"
-msgstr ""
-" Nepodarilo sa zavrieť cieľový súbor \"%s\" \n"
-" %s "
-
-msgid "Incomplete file was retrieved. Keep it?"
-msgstr "Bol získaný neúplný súbor. Ponechať ho?"
-
-msgid "&Keep"
-msgstr "pO&nechať"
-
-#, fuzzy, c-format
-msgid ""
-"Cannot stat source directory \"%s\"\n"
-"%s"
-msgstr ""
-" Nepodarilo sa zistiť stav zdrojového adresára \"%s\" \n"
-" %s "
-
-#, fuzzy, c-format
-msgid ""
-"Source \"%s\" is not a directory\n"
-"%s"
-msgstr ""
-" Zdrojový adresár \"%s\" nie je adresárom \n"
-" %s "
-
-#, fuzzy, c-format
-msgid ""
-"Cannot copy cyclic symbolic link\n"
-"\"%s\""
-msgstr ""
-" Nepodarilo sa kopírovať cyklický symbolický odkaz \n"
-" `%s' "
-
-#, fuzzy, c-format
-msgid ""
-"Destination \"%s\" must be a directory\n"
-"%s"
-msgstr ""
-" Cieľ \"%s\" musí byť adresár \n"
-" %s "
-
-#, fuzzy, c-format
-msgid ""
-"Cannot create target directory \"%s\"\n"
-"%s"
-msgstr ""
-" Nepodarilo sa vytvoriť cieľový adresár \"%s\" \n"
-" %s "
-
-#, fuzzy, c-format
-msgid ""
-"Cannot chown target directory \"%s\"\n"
-"%s"
-msgstr ""
-" Nepodarilo sa zmeniť vlastníka cieľového adresára \"%s\" \n"
-" %s "
-
-#, fuzzy, c-format
-msgid ""
-"Cannot stat file \"%s\"\n"
-"%s"
-msgstr ""
-" Nepodarilo sa zistiť stav súboru \"%s\" \n"
-" %s "
-
-#, fuzzy, c-format
-msgid "Cannot overwrite directory \"%s\""
-msgstr " Nepodarilo sa prepísať adresár \"%s\" %s "
-
-#, fuzzy, c-format
-msgid ""
-"Cannot move file \"%s\" to \"%s\"\n"
-"%s"
-msgstr ""
-" Nepodarilo sa presunúť súbor \"%s\" do \"%s\" \n"
-" %s "
-
-#, fuzzy, c-format
-msgid ""
-"Cannot remove file \"%s\"\n"
-"%s"
-msgstr ""
-" Nepodarilo sa odstrániť súbor \"%s\" \n"
-" %s "
-
-#, fuzzy, c-format
-msgid ""
-"\"%s\"\n"
-"and\n"
-"\"%s\"\n"
-"are the same directory"
-msgstr ""
-" `%s' \n"
-" a \n"
-" `%s' \n"
-" sú rovnaký adresár "
-
-#, fuzzy, c-format
-msgid ""
-"Cannot overwrite directory \"%s\"\n"
-"%s"
-msgstr ""
-" Nepodarilo sa prepísať adresár \"%s\" \n"
-" %s "
-
-#, fuzzy, c-format
-msgid ""
-"Cannot overwrite file \"%s\"\n"
-"%s"
-msgstr " Nepodarilo sa prepísať súbor \"%s\" %s "
-
-#, fuzzy, c-format
-msgid ""
-"Cannot move directory \"%s\" to \"%s\"\n"
-"%s"
-msgstr ""
-" Nepodarilo sa presunúť adresár \"%s\" do \"%s\" \n"
-" %s "
-
-#, fuzzy, c-format
-msgid ""
-"Cannot delete file \"%s\"\n"
-"%s"
-msgstr ""
-" Nepodarilo sa zmazať súbor \"%s\" \n"
-" %s "
-
-#, fuzzy, c-format
-msgid ""
-"Cannot remove directory \"%s\"\n"
-"%s"
-msgstr ""
-" Nepodarilo sa odstrániť adresár \"%s\" \n"
-" %s "
-
-msgid "Directory scanning"
-msgstr "Prehľadávanie adresára"
-
-msgid "FileOperation|Copy"
-msgstr "FileOperation|Kopírovať"
-
-msgid "FileOperation|Move"
-msgstr "FileOperation|Presunúť"
-
-msgid "FileOperation|Delete"
-msgstr "FileOperation|Zmazať"
-
-#, no-c-format
-msgid "%o %f \"%s\"%m"
-msgstr "%o %f \"%s\"%m"
-
-#, no-c-format
-msgid "%o %d %f%m"
-msgstr "%o %d %f%m"
-
-msgid "files"
-msgstr "súbory"
-
-msgid "directory"
-msgstr "adresár"
-
-msgid "directories"
-msgstr "adresáre"
-
-msgid "files/directories"
-msgstr "súbory/adresáre"
-
-#. TRANSLATORS: keep leading space here to split words in Copy/Move dialog
-msgid " with source mask:"
-msgstr " so zdrojovou maskou:"
-
-msgid "to:"
-msgstr "k:"
-
-#, c-format
-msgid "%s?"
-msgstr "%s?"
-
-#, fuzzy
-msgid "Cannot operate on \"..\"!"
-msgstr " Nie je možné pracovať na \"..\"! "
-
-#, fuzzy
-msgid "Sorry, I could not put the job in background"
-msgstr " Bohužiaľ, nebolo možné presunúť úlohu do pozadia "
-
-msgid "&Retry"
-msgstr "&Zopakovať"
-
-#, fuzzy
-msgid ""
-"\n"
-"Directory not empty.\n"
-"Delete it recursively?"
-msgstr ""
-"\n"
-"   Adresár nie je prázdny.  \n"
-"   Vymazať ho rekurzívne? "
-
-#, fuzzy
-msgid ""
-"\n"
-"Background process: Directory not empty.\n"
-"Delete it recursively?"
-msgstr ""
-"\n"
-"   Proces v pozadí: Adresár nie je prázdny \n"
-"   Vymazať ho rekurzívne? "
-
-#, fuzzy
-msgid "Delete:"
-msgstr "Zmazať"
-
-msgid "Non&e"
-msgstr "žia&Dne"
-
-#, fuzzy, c-format
-msgid "%d:%02d.%02d"
-msgstr "Zostáva %d:%02d.%02d"
-
-#, c-format
-msgid "ETA %s"
-msgstr ""
-
-#, c-format
-msgid "%.2f MB/s"
-msgstr "%.2f MB/s"
-
-#, c-format
-msgid "%.2f KB/s"
-msgstr "%.2f KB/s"
-
-#, c-format
-msgid "%ld B/s"
-msgstr "%ld B/s"
-
-#, c-format
-msgid "Files processed: %llu of %llu"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "Time: %s  %s (%s)"
-msgstr "Veľkosť:     %s"
-
-#, c-format
-msgid "Total: %s of %s"
-msgstr ""
-
-msgid "Source"
-msgstr "Zdroj"
-
-msgid "Target"
-msgstr "Cieľ"
-
-msgid "Deleting"
-msgstr "Deleting"
-
-msgid "Target file already exists!"
-msgstr "Cieľový súbor už existuje!"
-
-#, c-format
-msgid "Source date: %s, size %llu"
-msgstr "Dátum zdroja: %s, veľkosť %llu"
-
-#, c-format
-msgid "Target date: %s, size %llu"
-msgstr "Dátum cieľa: %s, veľkosť %llu"
-
-#, c-format
-msgid "Source date: %s, size %u"
-msgstr "Dátum zdroja: %s, veľkosť %u"
-
-#, c-format
-msgid "Target date: %s, size %u"
-msgstr "Dátum cieľa: %s, veľkosť %u"
-
-msgid "If &size differs"
-msgstr "Ak sa líši v&eľkosť"
-
-msgid "&Update"
-msgstr "&Aktualizovať"
-
-msgid "Overwrite all targets?"
-msgstr "Prepísať všetky ciele?"
-
-msgid "&Reget"
-msgstr "re&Get"
-
-msgid "A&ppend"
-msgstr "&Pridať"
-
-msgid "Overwrite this target?"
-msgstr "Prepísať tento cieľ?"
-
-#, fuzzy
-msgid "File exists"
-msgstr " Súbor existuje "
-
-#, fuzzy
-msgid "Background process: File exists"
-msgstr " Proces v pozadí: Súbor existuje "
-
-msgid "&Background"
-msgstr "&Pozadie"
-
-msgid "&Stable Symlinks"
-msgstr "&Stále Sym. odkazy"
-
-#, fuzzy
-msgid "Di&ve into subdir if exists"
-msgstr "&Vnoriť sa do podadr. ak existuje"
-
-#, fuzzy
-msgid "Preserve &attributes"
-msgstr "uchovať a&Tribúty"
-
-#, fuzzy
-msgid "Follow &links"
-msgstr "nasledovať o&Dkazy"
-
-#, c-format
-msgid "Invalid source pattern `%s'"
-msgstr "Neplatný zdrojový vzor `%s'"
-
-msgid "&Suspend"
-msgstr "z&Astaviť"
-
-msgid "Con&tinue"
-msgstr "po&Kračovať"
-
-msgid "&Chdir"
-msgstr "&Chdir"
-
-msgid "&Again"
-msgstr "&Znovu"
-
-msgid "Pane&lize"
-msgstr "pane&Lizovať"
-
-msgid "&View - F3"
-msgstr "&Zobrazenie - F3"
-
-msgid "&Edit - F4"
-msgstr "&Editácia - F4"
-
-#, c-format
-msgid "Found: %ld"
-msgstr "Nájdené: %ld"
-
-#, fuzzy
-msgid "Malformed regular expression"
-msgstr " Chybne vytvorený regulárny výraz "
-
-msgid "Cas&e sensitive"
-msgstr "Rozlišovať v&eľkosť"
-
-msgid "&Find recursively"
-msgstr "&Hľadať rekurzívne"
-
-msgid "S&kip hidden"
-msgstr "Pres&kočiť skryté"
-
-msgid "&All charsets"
-msgstr "Všetky zn&akové sady"
-
-msgid "Case sens&itive"
-msgstr "Rozl&išovať veľkosť"
-
-msgid "Re&gular expression"
-msgstr "Re&gulárny výraz"
-
-msgid "Fir&st hit"
-msgstr "Prvý vý&skyt"
-
-msgid "All cha&rsets"
-msgstr "Všetky &znakové sady"
-
-msgid "&Tree"
-msgstr "&Strom"
-
-msgid "Find File"
-msgstr "Nájsť súbor"
-
-msgid "Content:"
-msgstr "Obsah:"
-
-msgid "File name:"
-msgstr "Názov súboru:"
-
-msgid "Start at:"
-msgstr "Začať na:"
-
-#, c-format
-msgid "Grepping in %s"
-msgstr "Grepping v %s"
-
-msgid "Finished"
-msgstr "Skončené"
-
-#, c-format
-msgid "Searching %s"
-msgstr "Hľadanie %s"
-
-msgid "Searching"
-msgstr "Hľadanie"
-
-#, fuzzy
-msgid "Help file format error\n"
-msgstr " Chyba vo formáte súboru pomocníka\n"
-
-#, fuzzy
-msgid "Internal bug: Double start of link area"
-msgstr " Vnútorná chyba: Dvojité spustenie pripojenej oblasti "
-
-#, fuzzy, c-format
-msgid "Cannot find node %s in help file"
-msgstr " Nepodarilo sa nájsť uzol %s v súbore pomocníka "
-
-msgid "Help"
-msgstr "Pomoc"
-
-msgid "ButtonBar|Index"
-msgstr "ButtonBar|Index"
-
-msgid "ButtonBar|Prev"
-msgstr "ButtonBar|Pred"
-
-msgid "&Move"
-msgstr "pres&Unúť"
-
-msgid "&Remove"
-msgstr "&Odstrániť"
-
-msgid "&Append"
-msgstr "p&Ridať"
-
-msgid "&Insert"
-msgstr "v&Ložiť"
-
-#, fuzzy
-msgid "New &entry"
-msgstr "Nový &Vstup"
-
-#, fuzzy
-msgid "New &group"
-msgstr "Nová &Skupina"
-
-msgid "&Up"
-msgstr "&Hore"
-
-msgid "&Add current"
-msgstr "&Pridať aktuálny"
-
-msgid "&Refresh"
-msgstr "&Obnoviť"
-
-msgid "Fr&ee VFSs now"
-msgstr "&Uvoľniť VFS teraz"
-
-#, fuzzy
-msgid "Change &to"
-msgstr "Zmeniť &Do"
-
-msgid "Subgroup - press ENTER to see list"
-msgstr "Podskupina - stlačte ENTER, ak chcete vidieť zoznam"
-
-msgid "Active VFS directories"
-msgstr "Aktívne VFS adresáre"
-
-msgid "Directory hotlist"
-msgstr "Hotlist adresára"
-
-msgid "Directory path"
-msgstr "Cesta k adresáru"
-
-msgid "Directory label"
-msgstr "Označenie adresára"
-
-#, c-format
-msgid "Moving %s"
-msgstr "Presun %s"
-
-msgid "New hotlist entry"
-msgstr "Nový hotlist vstupov"
-
-#, fuzzy
-msgid "Directory label:"
-msgstr "Označenie adresára"
-
-#, fuzzy
-msgid "Directory path:"
-msgstr "Cesta k adresáru"
-
-#, fuzzy
-msgid "New hotlist group"
-msgstr " Nová hotlist skupina "
-
-#, fuzzy
-msgid "Name of new group:"
-msgstr "Názov novej skupiny"
-
-#, c-format
-msgid "Label for \"%s\":"
-msgstr "Označenie pre \"%s\":"
-
-#, fuzzy
-msgid "Add to hotlist"
-msgstr " Pridať do hotlistu "
-
-#, fuzzy
-msgid "Remove:"
-msgstr " Odstrániť: "
-
-#, fuzzy
-msgid "Are you sure you want to remove this entry?"
-msgstr ""
-"\n"
-" Ste si istý, že chcete odstrániť túto položku?"
-
-#, fuzzy
-msgid ""
-"Group not empty.\n"
-"Remove it?"
-msgstr ""
-"\n"
-" Skupina nie je prázdna.\n"
-" Odstrániť ju?"
-
-#, fuzzy
-msgid "Top level group"
-msgstr " Skupina vrchného stupňa "
-
-#, fuzzy
-msgid "Hotlist Load"
-msgstr " Nahrať Hotlistu "
-
-#, fuzzy, c-format
-msgid ""
-"MC was unable to write ~/%s file,\n"
-"your old hotlist entries were not deleted"
-msgstr ""
-"MC nedokázal zapísať súbor ~/%s, vaše staré položky hotlistu neboli zmazané"
-
-#, fuzzy
-msgid "Information"
-msgstr " Informácie "
-
-#, c-format
-msgid "Midnight Commander %s"
-msgstr "Midnight Commander %s"
-
-#, c-format
-msgid "File: %s"
-msgstr "Súbor: %s"
-
-#, fuzzy, c-format
-msgid "Free nodes: %ld (%ld%%) of %ld"
-msgstr "Voľné uzly %d (%d%%) z %d"
-
-msgid "No node information"
-msgstr "Žiadne informácie o uzle"
-
-#, c-format
-msgid "Free space: %s (%d%%) of %s"
-msgstr "Voľné miesto: %s (%d%%) z %s"
-
-msgid "No space information"
-msgstr "Žiadne informácie o mieste"
-
-#, fuzzy, c-format
-msgid "Type:      %s"
-msgstr "Typ:        %s"
-
-msgid "non-local vfs"
-msgstr "nie je to lokálny vfs"
-
-#, c-format
-msgid "Device:    %s"
-msgstr "Zariadenie:  %s"
-
-#, c-format
-msgid "Filesystem: %s"
-msgstr "Súborový systém: %s"
-
-#, c-format
-msgid "Accessed:  %s"
-msgstr "Prístupný:  %s"
-
-#, c-format
-msgid "Modified:  %s"
-msgstr "Zmenený:  %s"
-
-#. TRANSLATORS: Time of last status change as in stat(2) man.
-#, fuzzy, c-format
-msgid "Changed:   %s"
-msgstr "Zmeniť &Do"
-
-#, c-format
-msgid "Dev. type: major %lu, minor %lu"
-msgstr "Typ zariad.: major %lu, minor %lu"
-
-#, c-format
-msgid "Size:      %s"
-msgstr "Veľkosť:     %s"
-
-#, c-format
-msgid " (%ld block)"
-msgid_plural " (%ld blocks)"
-msgstr[0] " (%ld block)"
-msgstr[1] " (%ld blocks)"
-msgstr[2] " (%ld blokov)"
-
-#, c-format
-msgid "Owner:     %s/%s"
-msgstr "Vlastník    %s/%s"
-
-#, c-format
-msgid "Links:     %d"
-msgstr "Odkazy:    %d"
-
-#, c-format
-msgid "Mode:      %s (%04o)"
-msgstr "Režim:    %s (%04o)"
-
-#, c-format
-msgid "Location:  %Xh:%Xh"
-msgstr "Umiestnenie:  %Xh:%Xh"
-
-msgid "&Vertical"
-msgstr "&Vertikálne"
-
-msgid "&Horizontal"
-msgstr "&Horizontálne"
-
-#, fuzzy
-msgid "Show free sp&ace"
-msgstr "zobr&Aziť voľné miesto"
-
-#, fuzzy
-msgid "&XTerm window title"
-msgstr "Titulok okna &Xterm"
-
-#, fuzzy
-msgid "H&intbar visible"
-msgstr "vi&Diteľná pomocná tabuľka"
-
-msgid "&Keybar visible"
-msgstr "vid&Iteľná tabuľka klávesov"
-
-#, fuzzy
-msgid "Command &prompt"
-msgstr "prík&Azový riadok"
-
-#, fuzzy
-msgid "Show &mini status"
-msgstr "ukázať mi&Ni Stav"
-
-#, fuzzy
-msgid "Menu&bar visible"
-msgstr "vidit&Eľné pomocné menu"
-
-msgid "&Equal split"
-msgstr "&Rovnako rozdeliť"
-
-#, fuzzy
-msgid "Panel split"
-msgstr " Rozdelenie panela "
-
-msgid "Console output"
-msgstr ""
-
-#, fuzzy
-msgid "Other options"
-msgstr " Ďalšie voľby "
-
-#, fuzzy
-msgid "Output lines:"
-msgstr "výstupné riadky"
-
-msgid "Layout"
-msgstr "Schéma výstupu"
-
-msgid "Learn keys"
-msgstr "Učenie klávesov"
-
-#, fuzzy
-msgid "Teach me a key"
-msgstr " Nauč ma kláves "
-
-#, c-format
-msgid ""
-"Please press the %s\n"
-"and then wait until this message disappears.\n"
-"\n"
-"Then, press it again to see if OK appears\n"
-"next to its button.\n"
-"\n"
-"If you want to escape, press a single Escape key\n"
-"and wait as well."
-msgstr ""
-"Prosím stlačte %s\n"
-"a potom čakajte pokiaľ toto hlásenie zmizne.\n"
-"\n"
-"Potom to stlačte znova, ak uvidíte Áno objaví sa\n"
-"vedľa neho jeho tlačidlo.\n"
-"\n"
-"Ak chcete skončiť, stlačte jediný kláves Esc\n"
-"a taktiež počkajte."
-
-#, fuzzy
-msgid "Cannot accept this key"
-msgstr " Nepodarilo sa akceptovať tento kláves "
-
-#, fuzzy, c-format
-msgid "You have entered \"%s\""
-msgstr " Zadali ste \"%s\""
-
-#. TRANSLATORS: This label appears near learned keys.  Keep it short.
-msgid "OK"
-msgstr "Áno"
-
-msgid ""
-"It seems that all your keys already\n"
-"work fine. That's great."
-msgstr ""
-"Vyzerá to, že všetky vaše klávesy už\n"
-"pracujú dobre. To je skvelé."
-
-msgid "&Discard"
-msgstr "&Vymazať"
-
-msgid ""
-"Great! You have a complete terminal database!\n"
-"All your keys work well."
-msgstr ""
-"Výborne! Máte kompletnú terminálovú databázu!\n"
-"Všetky vaše klávesy pracujú správne."
-
-msgid "Press all the keys mentioned here. After you have done it, check"
-msgstr "Stlačte všetky tu spomenuté klávesy a skontrolujte, ktoré klávesy"
-
-msgid "which keys are not marked with OK.  Press space on the missing"
-msgstr "nie sú označené s Áno. Stlačte medzeru pre vynechanie klávesy,"
-
-msgid "key, or click with the mouse to define it. Move around with Tab."
-msgstr "alebo kliknite myšou pre jeho definovanie. Pohybujte sa pomocou Tab."
-
-#, c-format
-msgid "You have %zd opened screen. Quit anyway?"
-msgid_plural "You have %zd opened screens. Quit anyway?"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#, fuzzy
-msgid "The Midnight Commander"
-msgstr " Midnight Commander "
-
-#, fuzzy
-msgid "Do you really want to quit the Midnight Commander?"
-msgstr " Naozaj chcete ukončiť Midnight Commander? "
-
-#, fuzzy
-msgid "File listin&g"
-msgstr "&Plný výpis súborov"
-
-msgid "&Quick view"
-msgstr "&Rýchle zobrazenie"
-
-msgid "&Info"
-msgstr "&Info"
-
-msgid "&Listing mode..."
-msgstr "&Režim výpisu..."
-
-msgid "&Sort order..."
-msgstr "&Poradie výpisu..."
-
-msgid "&Filter..."
-msgstr "fi&Lter..."
-
-msgid "&Encoding..."
-msgstr "Kódovani&E..."
-
-msgid "FT&P link..."
-msgstr "FT&P pripojenie..."
-
-msgid "S&hell link..."
-msgstr "S&hell pripojenie..."
-
-msgid "SM&B link..."
-msgstr "SM&B pripojenie..."
-
-msgid "&Rescan"
-msgstr "&Obnoviť"
-
-msgid "&View"
-msgstr "&Zobraziť"
-
-msgid "Vie&w file..."
-msgstr "Zo&Braziť súbor..."
-
-msgid "&Filtered view"
-msgstr "&Filtrované zobrazenie"
-
-msgid "&Copy"
-msgstr "&Kopírovať"
-
-msgid "C&hmod"
-msgstr "C&hmod"
-
-msgid "&Link"
-msgstr "&Odkaz"
-
-#, fuzzy
-msgid "&Symlink"
-msgstr "&SymOdkaz"
-
-#, fuzzy
-msgid "Relative symlin&k"
-msgstr "Prekladá sa symb. odkaz..."
-
-msgid "Edit s&ymlink"
-msgstr "Upraviť s&Ymb. odkaz "
-
-msgid "Ch&own"
-msgstr "Ch&own"
-
-msgid "&Advanced chown"
-msgstr "Rozšírená zmen&A vlastníka"
-
-msgid "&Rename/Move"
-msgstr "&Premenovať/presunúť"
-
-msgid "&Mkdir"
-msgstr "&Vytvoriť adr."
-
-msgid "&Quick cd"
-msgstr "&Rýchly cd"
-
-msgid "Select &group"
-msgstr "Vybrať &skup."
-
-msgid "U&nselect group"
-msgstr "Zrušiť výber &skup."
-
-msgid "Reverse selec&tion"
-msgstr "Inver&Tovať označenie"
-
-msgid "E&xit"
-msgstr "&Ukončiť"
-
-msgid "&User menu"
-msgstr "Po&Užívateľské menu "
-
-msgid "&Directory tree"
-msgstr "adr&Esárový strom"
-
-msgid "&Find file"
-msgstr "&Nájsť súbor"
-
-msgid "S&wap panels"
-msgstr "&Vymeniť panely"
-
-msgid "Switch &panels on/off"
-msgstr "&Panely zap./vyp."
-
-msgid "&Compare directories"
-msgstr "&Porovnanie adresárov "
-
-#, fuzzy
-msgid "&View diff files"
-msgstr " Prezrieť si súbor "
-
-msgid "E&xternal panelize"
-msgstr "Panelizovať e&Xterným"
-
-msgid "Show directory s&izes"
-msgstr "Zobraz&Iť veľkosť adresárov"
-
-msgid "Command &history"
-msgstr "&História príkazov"
-
-msgid "Di&rectory hotlist"
-msgstr "Hotlist ad&Resára"
-
-msgid "&Active VFS list"
-msgstr "&Aktívny VFS zoznam"
-
-msgid "&Background jobs"
-msgstr "Úlohy v &Pozadí"
-
-msgid "Screen lis&t"
-msgstr ""
-
-msgid "&Undelete files (ext2fs only)"
-msgstr "Obnoviť &Súbory (iba ext2fs)"
-
-msgid "&Listing format edit"
-msgstr "&Upraviť formát výpisu"
-
-msgid "Edit &extension file"
-msgstr "Upraviť priradenie sú&boru"
-
-msgid "Edit &menu file"
-msgstr "Upraviť súborové me&nu"
-
-msgid "Edit hi&ghlighting group file"
-msgstr "Úprava súboru &zvýrazňovacích skupín"
-
-msgid "&Configuration..."
-msgstr "&Konfigurácia..."
-
-msgid "&Layout..."
-msgstr "&Rozmiestnenie..."
-
-#, fuzzy
-msgid "&Panel options..."
-msgstr " Voľby panela "
-
-msgid "C&onfirmation..."
-msgstr "P&Otvrdenie..."
-
-msgid "&Display bits..."
-msgstr "&Zobrazené bity..."
-
-msgid "&Virtual FS..."
-msgstr "&Virtuálny FS..."
-
-msgid "&Above"
-msgstr "n&Ad"
-
-msgid "&Left"
-msgstr "Ľ&Avý"
-
-msgid "&Below"
-msgstr "&Pod"
-
-msgid "&Right"
-msgstr "P&Ravý"
-
-#, fuzzy
-msgid "Panels:"
-msgstr " Rozdelenie panela "
-
-msgid "ButtonBar|Menu"
-msgstr "ButtonBar|Menu"
-
-msgid "ButtonBar|View"
-msgstr "ButtonBar|Zobraz"
-
-msgid "ButtonBar|RenMov"
-msgstr "ButtonBar|PremPres"
-
-msgid "ButtonBar|Mkdir"
-msgstr "ButtonBar|VytAdr"
-
-msgid "The TERM environment variable is unset!\n"
-msgstr "Premenlivé prostredie TERM je vymazané!\n"
-
-#, c-format
-msgid "Cannot create %s directory"
-msgstr "Nepodarilo sa vytvoriť adresár %s"
-
-msgid "&Never"
-msgstr "n&Ikdy"
-
-#, fuzzy
-msgid "On dum&b terminals"
-msgstr "na &Termináloch"
-
-msgid "Alwa&ys"
-msgstr "&Vždy"
-
-#, fuzzy
-msgid "A&uto save setup"
-msgstr "&Autom. ukladanie nastav."
-
-#, fuzzy
-msgid "Sa&fe delete"
-msgstr "bezpečn&É mazanie"
-
-#, fuzzy
-msgid "Cd follows lin&ks"
-msgstr "c&D nasleduje odkazy"
-
-#, fuzzy
-msgid "Rotating d&ash"
-msgstr "To&Čiaca sa palička"
-
-#, fuzzy
-msgid "Co&mplete: show all"
-msgstr "ukončené: &Zobraziť všetko"
-
-#, fuzzy
-msgid "Shell &patterns"
-msgstr "shel&L vzorov"
-
-msgid "&Drop down menus"
-msgstr "rolova&Ť ponuky nadol"
-
-#, fuzzy
-msgid "Auto m&enus"
-msgstr "Automatické m&Enu"
-
-#, fuzzy
-msgid "Use internal vie&w"
-msgstr "po&Užiť vstavaný prehliadač"
-
-#, fuzzy
-msgid "Use internal edi&t"
-msgstr "použiť vstavaný ed&Itor"
-
-#, fuzzy
-msgid "Pause after run"
-msgstr " Pauza po spustení..."
-
-#, fuzzy
-msgid "Timeout:"
-msgstr "ČasMod"
-
-#, fuzzy
-msgid "S&ingle press"
-msgstr "&Typ súboru"
-
-#, fuzzy
-msgid "Esc key mode"
-msgstr "Lomka na kláves."
-
-#, fuzzy
-msgid "Mkdi&r autoname"
-msgstr "Mkdir autonázov"
-
-msgid "Classic pro&gressbar"
-msgstr ""
-
-#, fuzzy
-msgid "Compute tota&ls"
-msgstr "vypočí&Tať súčty"
-
-msgid "&Verbose operation"
-msgstr "&Výrečná prevádzka"
-
-#, fuzzy
-msgid "File operation options"
-msgstr "FileOperation|Kopírovať"
-
-msgid "Configure options"
-msgstr "Nastavovateľne voľby"
-
-#, fuzzy
-msgid "Case &insensitive"
-msgstr "&Rozlišovať veľkosť"
-
-#, fuzzy
-msgid "Case s&ensitive"
-msgstr "&Rozlišovať veľkosť"
-
-#, fuzzy
-msgid "Use panel sort mo&de"
-msgstr "Použiť &pasívny režim"
-
-#, fuzzy
-msgid "Quick search"
-msgstr "Rýchly cd"
-
-#, fuzzy
-msgid "&Permissions"
-msgstr "Práva"
-
-#, fuzzy
-msgid "File &types"
-msgstr "&Typ súboru"
-
-#, fuzzy
-msgid "File highlight"
-msgstr " Zvýraznenie... "
-
-msgid "&Mouse page scrolling"
-msgstr ""
-
-msgid "Pa&ge scrolling"
-msgstr ""
-
-msgid "L&ynx-like motion"
-msgstr "Pohyb štýlom lyn&Xu"
-
-msgid "Navigation"
-msgstr ""
-
-#, fuzzy
-msgid "A&uto save panels setup"
-msgstr "&Autom. ukladanie nastav."
-
-#, fuzzy
-msgid "Re&verse files only"
-msgstr "&Iba súbory"
-
-#, fuzzy
-msgid "Ma&rk moves down"
-msgstr "z&Načiť pohybom dole"
-
-msgid "&Fast dir reload"
-msgstr "rýc&Hle načítanie adresára"
-
-#, fuzzy
-msgid "Show &hidden files"
-msgstr "ukázať &Skryté súbory"
-
-#, fuzzy
-msgid "Show &backup files"
-msgstr "u&Kázať zálohované súbory"
-
-#, fuzzy
-msgid "Mi&x all files"
-msgstr "mi&Ešať všetky súbory"
-
-msgid "Use SI si&ze units"
-msgstr "Používať &SI jednotky veľkosti"
-
-#, fuzzy
-msgid "Main panel options"
-msgstr "Hlavné možnosti"
-
-#, fuzzy
-msgid "Panel options"
-msgstr " Voľby panela "
-
-#, fuzzy
-msgid ""
-"Using the fast reload option may not reflect the exact\n"
-"directory contents. In this case you'll need to do a\n"
-"manual reload of the directory. See the man page for\n"
-"the details."
-msgstr ""
-" Použitie nastavenia rýchleho načítania nemusí presne   \n"
-" odrážať obsah adresára. V týchto prípadoch budete      \n"
-" musieť znovu načítať adresár manuálne. Podrobnosti \n"
-" nájdete v manuálovej stránke.                          "
-
-msgid "&Add new"
-msgstr "&Pridať nové"
-
-msgid "External panelize"
-msgstr "Panelizovať externým príkazom"
-
-msgid "Command"
-msgstr "Príkaz"
-
-msgid "Other command"
-msgstr "Další príkaz"
-
-#, fuzzy
-msgid "Add to external panelize"
-msgstr " Pridať k panelizovaniu externým príkazom"
-
-#, fuzzy
-msgid "Enter command label:"
-msgstr " Zadajte návestie pre príkaz: "
-
-#, fuzzy
-msgid "Cannot run external panelize in a non-local directory"
-msgstr ""
-" Nepodarilo sa spustiť panelizovanie externým príkazom v nelokálnom adresári "
-
-msgid "Find rejects after patching"
-msgstr "Nájsť súbory po oprave"
-
-msgid "Find *.orig after patching"
-msgstr "Nájsť *.orig po oprave"
-
-msgid "Find SUID and SGID programs"
-msgstr "Nájsť SUID a SGID programy"
-
-msgid "Cannot invoke command."
-msgstr "Nepodarilo sa vyvolať príkaz."
-
-msgid "Pipe close failed"
-msgstr "Pipe, neúspešné uzavretie"
-
-msgid "[dev]"
-msgstr "[dev]"
-
-msgid "UP--DIR"
-msgstr "UP--DIR"
-
-msgid "SYMLINK"
-msgstr "SYMLINK"
-
-msgid "SUB-DIR"
-msgstr "SUB-DIR"
-
-#. TRANSLATORS: one single character to represent 'unsorted' sort mode
-#. TRANSLATORS: no need to translate 'sort', it's just a context prefix
-msgid "sort|u"
-msgstr "sort|u"
-
-msgid "&Unsorted"
-msgstr "&Netriedené"
-
-#. TRANSLATORS: one single character to represent 'name' sort mode
-#. TRANSLATORS: no need to translate 'sort', it's just a context prefix
-msgid "sort|n"
-msgstr "sort|n"
-
-msgid "&Name"
-msgstr "&Meno"
-
-#. TRANSLATORS: one single character to represent 'version' sort mode
-#. TRANSLATORS: no need to translate 'sort', it's just a context prefix
-#, fuzzy
-msgid "sort|v"
-msgstr "sort|u"
-
-#, fuzzy
-msgid "&Version"
-msgstr "Práva"
-
-#. TRANSLATORS: one single character to represent 'extension' sort mode
-#. TRANSLATORS: no need to translate 'sort', it's just a context prefix
-msgid "sort|e"
-msgstr "sort|e"
-
-msgid "&Extension"
-msgstr "&Prípona súboru"
-
-#. TRANSLATORS: one single character to represent 'size' sort mode
-#. TRANSLATORS: no need to translate 'sort', it's just a context prefix
-msgid "sort|s"
-msgstr "sort|s"
-
-msgid "&Size"
-msgstr "&Veľkosť"
-
-msgid "Block Size"
-msgstr "Veľkosť bloku"
-
-#. TRANSLATORS: one single character to represent 'Modify time' sort mode
-#. TRANSLATORS: no need to translate 'sort', it's just a context prefix
-msgid "sort|m"
-msgstr "sort|m"
-
-msgid "&Modify time"
-msgstr "čas úp&Ravy"
-
-#. TRANSLATORS: one single character to represent 'Access time' sort mode
-#. TRANSLATORS: no need to translate 'sort', it's just a context prefix
-msgid "sort|a"
-msgstr "sort|a"
-
-msgid "&Access time"
-msgstr "ča&S prístupu "
-
-#. TRANSLATORS: one single character to represent 'Change time' sort mode
-#. TRANSLATORS: no need to translate 'sort', it's just a context prefix
-msgid "sort|h"
-msgstr "sort|h"
-
-#, fuzzy
-msgid "C&hange time"
-msgstr "čas zmen&Y "
-
-msgid "Perm"
-msgstr "Perm"
-
-msgid "Nl"
-msgstr "Nl"
-
-#. TRANSLATORS: one single character to represent 'inode' sort mode
-#. TRANSLATORS: no need to translate 'sort', it's just a context prefix
-msgid "sort|i"
-msgstr "sort|i"
-
-msgid "&Inode"
-msgstr "&I-uzol"
-
-msgid "UID"
-msgstr "UID"
-
-msgid "GID"
-msgstr "GID"
-
-msgid "Owner"
-msgstr "Vlastník"
-
-msgid "Group"
-msgstr "Skupina"
-
-msgid "<readlink failed>"
-msgstr "<čítanie odkazu zlyhalo>"
-
-#, c-format
-msgid "%s byte"
-msgid_plural "%s bytes"
-msgstr[0] "%s bajt"
-msgstr[1] "%s bajty"
-msgstr[2] "%s bajtov"
-
-#, c-format
-msgid "%s in %d file"
-msgid_plural "%s in %d files"
-msgstr[0] "%s bajt v %d súboroch"
-msgstr[1] "%s bajty v %d súboroch"
-msgstr[2] "%s bajtov v %d súboroch"
-
-#, fuzzy
-msgid "Unknown tag on display format:"
-msgstr "Neznámy tag v zobrazenom formáte: "
-
-msgid "User supplied format looks invalid, reverting to default."
-msgstr "Používateľom dodaný formát výzerá neplatný, vraciam sa k predvoleným."
-
-#, fuzzy
-msgid "Do you really want to execute?"
-msgstr " Naozaj chcete spustiť? "
-
-#, fuzzy, c-format
-msgid "Cannot chdir to \"%s\""
-msgstr " Nemohol som chdir do %s "
-
-msgid "Choose codepage"
-msgstr "Zvoľte kódovú stránku"
-
-msgid "-  < No translation >"
-msgstr "-  < Žiadny preklad >"
-
-msgid "%b %e  %Y"
-msgstr "%b %e  %Y"
-
-msgid "%b %e %H:%M"
-msgstr "%b %e %H:%M"
-
-#, c-format
-msgid ""
-"Cannot save file %s:\n"
-"%s"
-msgstr ""
-"Nebolo možné uložiť súbor %s:\n"
-"%s "
-
-msgid ""
-"GNU Midnight Commander is already\n"
-"running on this terminal.\n"
-"Subshell support will be disabled."
-msgstr ""
-"GNU Midnight Commander už na tomto\n"
-"termináli beží.\n"
-"Podpora subshell bude vypnutá."
-
-#, c-format
-msgid "Cannot open named pipe %s\n"
-msgstr "Nemohol som otvoriť pipe %s\n"
-
-#, fuzzy
-msgid "The shell is still active. Quit anyway?"
-msgstr " Shell je ešte stále aktívny. Skončiť napriek tomu? "
-
-#, c-format
-msgid "Warning: Cannot change to %s.\n"
-msgstr "Upozornenie: Nemohol som zmeniť na %s.\n"
-
-msgid "With builtin Editor\n"
-msgstr "So zabudovaným editorom\n"
-
-msgid "Using system-installed S-Lang library"
-msgstr "Použiť nainštalovaná knižnicu S-Lang"
-
-msgid "with terminfo database"
-msgstr "s databázou terminfo"
-
-msgid "Using the ncurses library"
-msgstr "Použiť knižnicu ncurses"
-
-msgid "Using the ncursesw library"
-msgstr "Pomocou knižnice ncursesw"
-
-msgid "With optional subshell support"
-msgstr "S nepovinnou podporou subshellu"
-
-msgid "With subshell support as default"
-msgstr "So štandardnou podporou subshellu"
-
-msgid "With support for background operations\n"
-msgstr "S podporou operácií na pozadí\n"
-
-msgid "With mouse support on xterm and Linux console\n"
-msgstr "S podporou pre myš v xterme a Linuxovej konzole\n"
-
-msgid "With mouse support on xterm\n"
-msgstr "S podporou pre myš v xterme\n"
-
-msgid "With support for X11 events\n"
-msgstr "S podporou udalostí X11\n"
-
-msgid "With internationalization support\n"
-msgstr "S podporou internacionalizácie\n"
-
-msgid "With multiple codepages support\n"
-msgstr "S podporou znakových sád\n"
-
-#, fuzzy, c-format
-msgid "Virtual File Systems:"
-msgstr "Virtuálny súborový systém:"
-
-#, c-format
-msgid "Data types:"
-msgstr ""
-
-#, c-format
-msgid ""
-"Cannot open the %s file for writing:\n"
-"%s\n"
-msgstr ""
-"Nepodarilo sa otvoriť súbor %s pre zápis:\n"
-"%s\n"
-
-#, c-format
-msgid "Copy \"%s\" directory to:"
-msgstr "Kopíruje sa adresár \"%s\" do:"
-
-#, c-format
-msgid "Move \"%s\" directory to:"
-msgstr "Presúvam \"%s\" adresár do:"
-
-#, fuzzy, c-format
-msgid ""
-"Cannot stat the destination\n"
-"%s"
-msgstr ""
-" Nepodarilo sa určiť cieľ \n"
-" %s "
-
-#, fuzzy, c-format
-msgid "Delete %s?"
-msgstr " Zmazať %s?  "
-
-msgid "ButtonBar|Static"
-msgstr "ButtonBar|Static"
-
-msgid "ButtonBar|Dynamc"
-msgstr "ButtonBar|Dynamc"
-
-msgid "ButtonBar|Rescan"
-msgstr "ButtonBar|Obnoviť"
-
-msgid "ButtonBar|Forget"
-msgstr "ButtonBar|Zabudn"
-
-msgid "ButtonBar|Rmdir"
-msgstr "ButtonBar|OdsAdr"
-
-#, c-format
-msgid ""
-"Cannot write to the %s file:\n"
-"%s\n"
-msgstr ""
-"Nepodarilo sa zapísať do súboru %s:\n"
-"%s\n"
-
-#, fuzzy
-msgid "Format error on file Extensions File"
-msgstr " Chyba formátu v súbore prípon "
-
-#, fuzzy, c-format
-msgid "The %%var macro has no default"
-msgstr " Makro %%var nemá štandardnú hodnotu"
-
-#, fuzzy, c-format
-msgid "The %%var macro has no variable"
-msgstr " Makro %%var nemá premennú "
-
-#, fuzzy
-msgid "Debug"
-msgstr " Ladenie "
-
-#, fuzzy
-msgid "ERROR:"
-msgstr " CHYBA: "
-
-#, fuzzy
-msgid "True:"
-msgstr " Pravda: "
-
-#, fuzzy
-msgid "False:"
-msgstr " Nepravda: "
-
-#, fuzzy
-msgid "Warning -- ignoring file"
-msgstr " Upozornenie -- ignoruje sa súbor "
-
-#, c-format
-msgid ""
-"File %s is not owned by root or you or is world writable.\n"
-"Using it may compromise your security"
-msgstr ""
-"Súbor %s nevlastní root ani vy alebo nie je zapisovateľný pre ostatných.\n"
-"Ak ho použijete, môže to kompromitovať vašu bezpečnosť"
-
-#, fuzzy, c-format
-msgid ""
-"Cannot open file%s\n"
-"%s"
-msgstr ""
-" Nemožno otvoriť súbor %s \n"
-" %s "
-
-#, fuzzy, c-format
-msgid "No suitable entries found in %s"
-msgstr " Nenájdené žiadne zodpovedajúce položky v %s "
-
-#, fuzzy
-msgid "User menu"
-msgstr "Po&Užívateľské menu "
-
-#, fuzzy
-msgid "Invalid value"
-msgstr "neplatná číselná hodnota"
-
-#, fuzzy
 msgid "Cannot spawn child process"
-msgstr " Nepodarilo sa spustiť proces potomka "
+msgstr ""
 
 msgid "Empty output from child filter"
 msgstr "Prázdny výstup z filtra potomka"
@@ -4165,9 +4015,8 @@ msgstr ""
 msgid "&Decimal offset"
 msgstr ""
 
-#, fuzzy
 msgid "He&xadecimal offset"
-msgstr "Hexadecimálne"
+msgstr ""
 
 msgid "Goto"
 msgstr "Choď"
@@ -4202,857 +4051,48 @@ msgstr "ButtonBar|Neform"
 msgid "ButtonBar|Format"
 msgstr "ButtonBar|Formát"
 
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Error while closing the file:\n"
 "%s\n"
 "Data may have been written or not"
 msgstr ""
-" Chyba pri zatváraní súboru: \n"
-" %s \n"
-" Údaje nemuseli byť zapísané. "
 
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Cannot save file:\n"
 "%s"
 msgstr ""
-"Nebolo možné uložiť súbor %s:\n"
-"%s "
 
-#, fuzzy
 msgid "View: "
-msgstr "&Zobraziť"
+msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Cannot open \"%s\"\n"
 "%s"
 msgstr ""
-" Nepodarilo sa otvoriť \"%s\"\n"
-" %s "
 
-#, fuzzy, c-format
+msgid "Cannot view: not a regular file"
+msgstr ""
+
+#, c-format
 msgid ""
-"Cannot stat \"%s\"\n"
+"Cannot open \"%s\" in parse mode\n"
 "%s"
 msgstr ""
-" Nepodrilo sa zistiť stav \"%s\"\n"
-" %s "
-
-#, fuzzy
-msgid "Cannot view: not a regular file"
-msgstr " Nepodarilo sa zobraziť: toto nie je normálny súbor "
 
 msgid "Seeking to search result"
 msgstr "Presúva sa na pozíciu výsledku vyhľadávania"
 
-#, fuzzy
 msgid "Search done"
-msgstr "Hľadať"
-
-msgid "Continue from begining?"
 msgstr ""
 
-#, fuzzy
-msgid "History"
-msgstr " História "
-
-#. TRANSLATORS: no need to translate 'DialogTitle', it's just a context prefix
-#, fuzzy
-msgid "DialogTitle|History cleanup"
-msgstr "DialogTitle|Kopírovať"
-
-msgid "Do you want clean this history?"
+msgid "Continue from beginning?"
 msgstr ""
 
-msgid "Background process:"
-msgstr "Proces v pozadí:"
-
-#, fuzzy
-#~ msgid "MCFS"
-#~ msgstr " MCFS "
-
-#, fuzzy
-#~ msgid "The server does not support this version"
-#~ msgstr " Server nepodporuje túto verziu "
-
-#, fuzzy
-#~ msgid ""
-#~ "The remote server is not running on a system port\n"
-#~ "you need a password to log in, but the information may\n"
-#~ "not be safe on the remote side.  Continue?\n"
-#~ msgstr ""
-#~ " Vzdialený server nebeží na systémovom porte \n"
-#~ " potrebujete heslo k prihláseniu sa, ale informácia nemusí \n"
-#~ " byť na vzdialenej strane v bezpečí. Pokračovať? \n"
-
-#, fuzzy
-#~ msgid "MCFS Password required"
-#~ msgstr " MCFS požaduje Heslo "
-
-#, fuzzy
-#~ msgid "Invalid password"
-#~ msgstr " Neplatné heslo "
-
-#, fuzzy
-#~ msgid "Cannot locate hostname: %s"
-#~ msgstr " Nie je možné určiť hostiteľa: %s "
-
-#, fuzzy
-#~ msgid "Cannot create socket: %s"
-#~ msgstr " Nie je možné vytvoriť socket: %s "
-
-#, fuzzy
-#~ msgid "Cannot connect to server: %s"
-#~ msgstr " Nie je možné pripojiť sa k serveru: %s"
-
-#, fuzzy
-#~ msgid "Too many open connections"
-#~ msgstr " Príliš veľa otvorených spojení "
-
-#, fuzzy
-#~ msgid "Link to a remote machine"
-#~ msgstr " Pripojenie k vzdialenému počítaču "
-
-#~ msgid "&Network link..."
-#~ msgstr "si&Eťové pripojenie..."
-
-#, fuzzy
-#~ msgid "File was modified, save with exit?"
-#~ msgstr " Súbor bol zmenený, uložiť a skončiť? "
-
-#~ msgid " Permission "
-#~ msgstr " Práva "
-
-#~ msgid " File "
-#~ msgstr " Súbor "
-
-#~ msgid " Name "
-#~ msgstr " Meno "
-
-#~ msgid " Owner name "
-#~ msgstr " Meno vlastníka "
-
-#~ msgid " Group name "
-#~ msgstr " Meno skupiny "
-
-#~ msgid " Size "
-#~ msgstr " Veľkosť "
-
-#~ msgid " Confirmation "
-#~ msgstr " Potvrdenie "
-
-#~ msgid " Filtered view "
-#~ msgstr " Filtrované zobrazenie"
-
-#~ msgid " Select "
-#~ msgstr " Vyber "
-
-#~ msgid " Compare directories "
-#~ msgstr " Porovnanie dvoch adresárov "
-
-#~ msgid " Link "
-#~ msgstr " Odkaz "
-
-#~ msgid " Edit symlink "
-#~ msgstr " Upraviť symb. odkaz "
-
-#~ msgid "case &Sensitive"
-#~ msgstr "&Citlivý na veľkosť"
-
-#~ msgid " Replace "
-#~ msgstr " Nahradiť "
-
-#~ msgid " Error "
-#~ msgstr " Chyba"
-
-#~ msgid " Insert File "
-#~ msgstr " Vložiť Súbor "
-
-#~ msgid " Insert Literal "
-#~ msgstr " Vložiť znak "
-
-#~ msgid " Execute Macro "
-#~ msgstr " Spustiť makro "
-
-#~ msgid " Cannot overwrite directory `%s' "
-#~ msgstr " Nepodarilo sa prepísať adresár `%s' "
-
-#~ msgid " to:"
-#~ msgstr " na:"
-
-#~ msgid " Delete: "
-#~ msgstr " Zmazať: "
-
-#~ msgid " Directory path "
-#~ msgstr " Cesta k adresáru "
-
-#~ msgid " Directory label "
-#~ msgstr " Označenie adresára "
-
-#~ msgid "File:       %s"
-#~ msgstr "Súbor:     %s"
-
-#~ msgid "pe&Rmissions"
-#~ msgstr "&Práva"
-
-#~ msgid " User menu "
-#~ msgstr " Používateľské menu "
-
-#~ msgid ""
-#~ " Cannot save file: \n"
-#~ " %s "
-#~ msgstr ""
-#~ " Nebolo možné uložiť súbor: \n"
-#~ " %s "
-
-#~ msgid "Status:    %s"
-#~ msgstr "Stav:      %s"
-
-#~ msgid "Count"
-#~ msgstr "Počet"
-
-#~ msgid "Bytes"
-#~ msgstr "Bajtov"
-
-#~ msgid " confirm &Exit "
-#~ msgstr " potvrdiť &Koniec "
-
-#~ msgid " confirm e&Xecute "
-#~ msgstr " potvrdiť v&Ykonanie "
-
-#~ msgid " confirm &Delete "
-#~ msgstr " potvrdiť z&Mazanie "
-
-#~ msgid ""
-#~ " The current line number is %lld.\n"
-#~ " Enter the new line number:"
-#~ msgstr ""
-#~ " Aktuálne číslo riadka je %lld.\n"
-#~ " Zadajte nové číslo riadka:"
-
-#~ msgid ""
-#~ " The current address is %s.\n"
-#~ " Enter the new address:"
-#~ msgstr ""
-#~ " Aktuálna adresa je %s.\n"
-#~ " Zadajte novú adresu:"
-
-#~ msgid " Goto Address "
-#~ msgstr " Ísť na adresu "
-
-#~ msgid " Invalid address "
-#~ msgstr " Neplatná adresa"
-
-#~ msgid "Offset 0x%08lx"
-#~ msgstr "Offset 0x%08lx"
-
-#~ msgid "Line %lu Col %lu"
-#~ msgstr "Riad. %lu Stĺ. %lu"
-
-#~ msgid "%s bytes"
-#~ msgstr "%s bajtov"
-
-#~ msgid ">= %s bytes"
-#~ msgstr ">= %s bajtov"
-
-#~ msgid "File:       None"
-#~ msgstr "Súbor:     Žiaden"
-
-#~ msgid "&Fix it"
-#~ msgstr "&Opraviť"
-
-#~ msgid "don't ask again"
-#~ msgstr "znova sa nepýtať"
-
-#~ msgid ""
-#~ "Chosen display charset (Settings->Display bits)\n"
-#~ "or source codeset (in mcedit ctrl-t) \n"
-#~ "does not match one set via locale. \n"
-#~ "Set correct codeset manually or press <<Fix it>> \n"
-#~ "to set locale default.\n"
-#~ "\n"
-#~ "Or set 'don't ask again' and press <<Skip>>"
-#~ msgstr ""
-#~ "Zvolená zobrazovacia znaková sada (Nastavenia->Zobrazené bity)\n"
-#~ "alebo zdrojová kódová sada (v mcedit ctrl-t) \n"
-#~ "sa nezhoduje s tou, ktorá je nastavená prostredníctvom locale.\n"
-#~ "Nastavte správnu kódovú sada manuálne alebo nastavte \n"
-#~ "predvolenú hodnotu locale stlačením <<Opraviť>>.\n"
-#~ "\n"
-#~ "Alebo označte 'znova sa nepýtať' a stlačte <<Preskočiť>>"
-
-#~ msgid "Do backups -->"
-#~ msgstr "Zálož. kópiu do"
-
-#~ msgid "Extension:"
-#~ msgstr "Prípona:"
-
-#~ msgid "&New              C-n"
-#~ msgstr "&Nový                 C-n"
-
-#~ msgid "&Save              F2"
-#~ msgstr "&Uložiť                F2"
-
-#~ msgid "Save &as...       F12"
-#~ msgstr "uložiť &Ako           F12"
-
-#~ msgid "A&bout...            "
-#~ msgstr "&O aplikácii...     "
-
-#~ msgid "&Quit             F10"
-#~ msgstr "&Skončiť              F10"
-
-#~ msgid "&New            C-x k"
-#~ msgstr "&Nový           C-x k"
-
-#~ msgid "Copy to &file...     "
-#~ msgstr "kopírovať do &Súboru... "
-
-#~ msgid "&Toggle mark                 F3"
-#~ msgstr "&Prepnúť označenie           F3"
-
-#~ msgid "Mar&k columns              S-F3"
-#~ msgstr "&Označiť stĺpce            S-F3"
-
-#~ msgid "&Copy                        F5"
-#~ msgstr "&Kopírovať                   F5"
-
-#~ msgid "&Move                        F6"
-#~ msgstr "p&Resnúť                     F6"
-
-#~ msgid "&Delete                      F8"
-#~ msgstr "z&Mazať                      F8"
-
-#, fuzzy
-#~ msgid "&Next bookmark              M-j"
-#~ msgstr "ď&alšia záložka"
-
-#~ msgid "&Undo                       C-u"
-#~ msgstr "&Vrátiť                     C-u"
-
-#~ msgid "&Beginning               C-PgUp"
-#~ msgstr "z&Ačiatok                C-PgUp"
-
-#~ msgid "&End                     C-PgDn"
-#~ msgstr "koni&Ec                  C-PgDn"
-
-#~ msgid "C&opy to clipfile           M-w"
-#~ msgstr "k&Opírovať do ústrižku      M-w"
-
-#~ msgid "C&ut to clipfile            C-w"
-#~ msgstr "&Vystrihnúť do ústrižku     C-w"
-
-#~ msgid "&Paste from clipfile        C-y"
-#~ msgstr "&Vložiť z ústrižku          C-y"
-
-#~ msgid "Toggle bookmar&k               "
-#~ msgstr "prepnúť zálož&Ku"
-
-#~ msgid "&Next bookmark                 "
-#~ msgstr "ď&alšia záložka"
-
-#~ msgid "Pre&v bookmark                 "
-#~ msgstr "&Predošlá záložka"
-
-#~ msgid "&Flush bookmark                "
-#~ msgstr "&Zrušiť záložku"
-
-#~ msgid "&Search...         F7"
-#~ msgstr "&Hľadať...           F7"
-
-#~ msgid "&Replace...        F4"
-#~ msgstr "&Nahradiť...         F4"
-
-#~ msgid "&Go to line...            M-l"
-#~ msgstr "&Choď na riadok...           M-1"
-
-#, fuzzy
-#~ msgid "Encod&ing...             M-e"
-#~ msgstr "kódovan&Ie...            C-t"
-
-#~ msgid "Delete macr&o...            "
-#~ msgstr "z&Mazať makro...    "
-
-#~ msgid "Sor&t...                 M-t"
-#~ msgstr "&Usporiadať...               M-t"
-
-#~ msgid "&Mail...                    "
-#~ msgstr "&Pošta...                    "
-
-#~ msgid "&Execute macro... C-x e, KEY"
-#~ msgstr "&Vykonať makro... C-x e, KEY"
-
-#~ msgid "'ispell' s&pell check    M-$"
-#~ msgstr "kontrola &Pravopisu isp&ell M-$"
-
-#~ msgid "Save setu&p"
-#~ msgstr "&Uložiť nastavenie"
-
-#~ msgid " Sear/Repl "
-#~ msgstr " Hľad/Nahr "
-
-#~ msgid " Command "
-#~ msgstr " Príkaz "
-
-#~ msgid "Intuitive"
-#~ msgstr "Intuitívne"
-
-#~ msgid "Emacs"
-#~ msgstr "Emacs"
-
-#~ msgid "User-defined"
-#~ msgstr "d&Efinovaný používateľom"
-
-#~ msgid "Key emulation"
-#~ msgstr "Emulácia kláves"
-
-#~ msgid "Save"
-#~ msgstr "Uložiť"
-
-#~ msgid "Mark"
-#~ msgstr "Označiť"
-
-#~ msgid "Replac"
-#~ msgstr "Nahradiť"
-
-#~ msgid "PullDn"
-#~ msgstr "H.menu"
-
-#~ msgid " Copy "
-#~ msgstr " Kopírovať "
-
-#~ msgid " Move "
-#~ msgstr " Presunúť "
-
-#~ msgid " Delete "
-#~ msgstr " Zmazať "
-
-#~ msgid "1Copy"
-#~ msgstr "1Skopírovať"
-
-#~ msgid "1Move"
-#~ msgstr "1Presunúť"
-
-#~ msgid "1Delete"
-#~ msgstr "1Zmazať"
-
-#~ msgid "Index"
-#~ msgstr "Index"
-
-#~ msgid "Prev"
-#~ msgstr "Pred"
-
-#~ msgid "&Quick view     C-x q"
-#~ msgstr "&Rýchle zobrazenie  C-x q"
-
-#~ msgid "&Info           C-x i"
-#~ msgstr "&Informácie     C-x i"
-
-#~ msgid "&Rescan         C-r"
-#~ msgstr "ob&Noviť          C-r"
-
-#~ msgid "&View               F3"
-#~ msgstr "p&Ohľad                   F3"
-
-#~ msgid "Vie&w file...         "
-#~ msgstr "Po&zrieť súbor...           "
-
-#~ msgid "&Filtered view     M-!"
-#~ msgstr "&Filtrovaný pohľad       M-!"
-
-#~ msgid "&Edit               F4"
-#~ msgstr "Upr&aviť                  F4"
-
-#~ msgid "&Copy               F5"
-#~ msgstr "&Kopírovať                F5"
-
-#~ msgid "c&Hmod           C-x c"
-#~ msgstr "Zmeniť prá&Va          C-x c"
-
-#~ msgid "&Link            C-x l"
-#~ msgstr "o&Dkaz                 C-x l"
-
-#~ msgid "&SymLink         C-x s"
-#~ msgstr "&Symb. odkaz           C-x s"
-
-#~ msgid "edit s&Ymlink  C-x C-s"
-#~ msgstr "upraviť s&Ymb. odkaz C-x C-s"
-
-#~ msgid "ch&Own           C-x o"
-#~ msgstr "&Zmeniť vlastníka      C-x o"
-
-#~ msgid "&Rename/Move        F6"
-#~ msgstr "pr&Emenovať/Presunúť      F6"
-
-#~ msgid "&Mkdir              F7"
-#~ msgstr "vy&Tvoriť adresár         F7"
-
-#~ msgid "&Delete             F8"
-#~ msgstr "z&Mazať                   F8"
-
-#~ msgid "&Quick cd          M-c"
-#~ msgstr "rých&Ly cd               M-c"
-
-#~ msgid "select &Group      M-+"
-#~ msgstr "oz&Načiť skupinu         M-+"
-
-#~ msgid "u&Nselect group    M-\\"
-#~ msgstr "odzna&Čiť skupinu        M-\\"
-
-#~ msgid "e&Xit              F10"
-#~ msgstr "&Ukončiť                 F10"
-
-#~ msgid "&User menu          F2"
-#~ msgstr "&Používateľské menu       F2"
-
-#~ msgid "&Find file            M-?"
-#~ msgstr "ná&Jsť súbor              M-?"
-
-#~ msgid "s&Wap panels          C-u"
-#~ msgstr "&Prepnúť panely           C-u"
-
-#~ msgid "&Compare directories  C-x d"
-#~ msgstr "po&Rovnať adresáre      C-x d"
-
-#~ msgid "e&Xternal panelize    C-x !"
-#~ msgstr "v&Onkajšia panelizácia  C-x !"
-
-#~ msgid "Command &history      M-h"
-#~ msgstr "&História príkazov    M-h"
-
-#~ msgid "di&Rectory hotlist    C-\\"
-#~ msgstr "&Adresárový hotlist      C-\\"
-
-#~ msgid "&Background jobs      C-x j"
-#~ msgstr "prá&Ca v pozadí         C-x j"
-
-#~ msgid "learn &Keys..."
-#~ msgstr "uč&Enie kláves..."
-
-#~ msgid " &File "
-#~ msgstr " &Súbor "
-
-#~ msgid " &Command "
-#~ msgstr " &Príkaz "
-
-#~ msgid "Menu"
-#~ msgstr "Menu"
-
-#, fuzzy
-#~ msgid "n"
-#~ msgstr "na"
-
-#, fuzzy
-#~ msgid "Extension"
-#~ msgstr "Prípona:"
-
-#~ msgid "ATime"
-#~ msgstr "ČasPri"
-
-#~ msgid "CTime"
-#~ msgstr "ČasVyt"
-
-#~ msgid "Inode"
-#~ msgstr "I-uzol"
-
-#~ msgid "RenMov"
-#~ msgstr "Presunúť/premenovať"
-
-#~ msgid "Static"
-#~ msgstr "Statický"
-
-#~ msgid "Dynamc"
-#~ msgstr "Dynamický"
-
-#~ msgid "Forget"
-#~ msgstr "Zabudnúť"
-
-#~ msgid "Rmdir"
-#~ msgstr "Zmazať adr."
-
-#~ msgid "bind: Wrong argument number, bind <key> <command>"
-#~ msgstr "bind: Nesprávne číslo argumentu, bind <kláv.> <príkaz>"
-
-#~ msgid "bind: Bad key value `%s'"
-#~ msgstr "bind: Zlá hodnota klávesu `%s'"
-
-#~ msgid "bind: Ehh...no key?"
-#~ msgstr "bind: Hmm... žiaden kláves?"
-
-#~ msgid "bind: Unknown key: `%s'"
-#~ msgstr "bind: neznámy kláves: `%s'"
-
-#~ msgid "bind: Unknown command: `%s'"
-#~ msgstr "bind: neznámy príkaz: `%s'"
-
-#~ msgid "%s: Syntax: %s <n> <command> <label>"
-#~ msgstr "%s: Syntax: %s <n> <príkaz> <menovka>"
-
-#~ msgid "%s: Unknown command: `%s'"
-#~ msgstr "%s: Neznámy príkaz: `%s'"
-
-#~ msgid "%s: fn should be 1-10"
-#~ msgstr "%s: fn by malo byť 1-10"
-
-#~ msgid "%s: fopen(): %s"
-#~ msgstr "%s: fopen(): %s"
-
-#~ msgid "%s:%d: unknown command `%s'"
-#~ msgstr "%s:%d: neznámy príkaz `%s'"
-
-#~ msgid "%s:%d: %s"
-#~ msgstr "%s:%d: %s"
-
-#~ msgid "%s not found!"
-#~ msgstr "%s nenájdené!"
-
-#~ msgid "NumLock on keypad"
-#~ msgstr "NumLock na kláves."
-
-#~ msgid " Emacs key: "
-#~ msgstr " Emacs kláves: "
-
-#~ msgid " %d items found, %d bookmarks added "
-#~ msgstr " %d nájdených, %d pridaných záložiek "
-
-#~ msgid "Displays this help message"
-#~ msgstr "Zobrazí tento pomocný odkaz"
-
-#~ msgid "Displays a help screen on how to change the color scheme"
-#~ msgstr "Zobrazí pomocníka o tom ako zmeniť farebnú schému"
-
-#~ msgid "missing argument"
-#~ msgstr "chýbajúci parameter"
-
-#~ msgid "unknown option"
-#~ msgstr "neznáma voľba"
-
-#~ msgid "Show this help message"
-#~ msgstr "Ukázať túto správu pomocníka"
-
-#~ msgid "Display brief usage message"
-#~ msgstr "Zobraziť stručnú správu o používaní"
-
-#~ msgid "ARG"
-#~ msgstr "PAR"
-
-#~ msgid "Usage:"
-#~ msgstr "Použitie:"
-
-#~ msgid "pro&Mpt on replace"
-#~ msgstr "&Vyzvať pri nahradení"
-
-#~ msgid "replace &All"
-#~ msgstr "nahradiť vš&Etko"
-
-#~ msgid "O&ne"
-#~ msgstr "Jede&N"
-
-#~ msgid "%b %d %H:%M"
-#~ msgstr "%b %e %H:%M"
-
-#~ msgid "%b %d %Y"
-#~ msgstr "%b %e %Y"
-
-#~ msgid " The current address is 0x%08"
-#~ msgstr " Momentálna adresa je 0x%08"
-
-#~ msgid "scanf &Expression"
-#~ msgstr "&Výraz pre scanf"
-
-#~ msgid " Enter replacement argument order eg. 3,2,1,4 "
-#~ msgstr " Zadajte poradie nahradenia argumentov, napr. 3,2,1,4"
-
-#~ msgid ""
-#~ " Invalid regular expression, or scanf expression with too many "
-#~ "conversions "
-#~ msgstr " Nesprávny výraz, alebo scanf výraz s mnohými zmenami "
-
-#~ msgid " Error in replacement format string. "
-#~ msgstr " Chyba vo formáte nahradzovaného reťazca. "
-
-#~ msgid " Replacement too long. "
-#~ msgstr " Reťazec pre nahradenie je príliš dlhý."
-
-#~ msgid "&Copy              F5"
-#~ msgstr "&Kopírovať          F5"
-
-#~ msgid "&Delete            F8"
-#~ msgstr "&Zmazať             F8"
-
-#~ msgid " The command history is empty "
-#~ msgstr " História príkazov je prázdna "
-
-#~ msgid "Edit edi&tor menu file"
-#~ msgstr "Editor používateľského menu"
-
-#~ msgid ""
-#~ "To use this feature select your codepage in\n"
-#~ "Setup / Display Bits dialog!\n"
-#~ "Do not forget to save options."
-#~ msgstr ""
-#~ "Pre túto funkciu vyberte znakovú sadu\n"
-#~ "v Nastavenie / Zobrazené bity!\n"
-#~ "A nezabudnite nastavenie uložiť."
-
-#~ msgid "Invalid hex search expression"
-#~ msgstr "Neplatný hexadecimány vyhľadávací výraz"
-
-#~ msgid " Invalid regular expression "
-#~ msgstr " Neplatný regulárny výraz "
-
-#~ msgid " Enter regexp:"
-#~ msgstr " Zadajte regexp:"
-
-#~ msgid "ButtonBar|RxSrch"
-#~ msgstr "ButtonBar|RegHľ"
-
-#~ msgid "Using included S-Lang library"
-#~ msgstr "Použiť vloženú S-lang knižnicu"
-
-#~ msgid "with termcap database"
-#~ msgstr "s databázou termcap"
-
-#~ msgid "&Home"
-#~ msgstr "&Domáci"
-
-#~ msgid "&Type"
-#~ msgstr "&Typ"
-
-#~ msgid "N&GID"
-#~ msgstr "N&GID"
-
-#~ msgid "N&UID"
-#~ msgstr "N&UID"
-
-#~ msgid "&Owner"
-#~ msgstr "&Vlastník"
-
-#~ msgid "&Group"
-#~ msgstr "s&Kupina"
-
-#~ msgid "MC was unable to write ~/"
-#~ msgstr "MC nebol schopný zapísať ~/"
-
-#~ msgid " (%ld blocks)"
-#~ msgstr " (%ld blokov)"
-
-#~ msgid " Notice "
-#~ msgstr " Správa "
-
-#~ msgid ""
-#~ " The Midnight Commander configuration files \n"
-#~ " are now stored in the ~/.mc directory, the \n"
-#~ " files have been moved now\n"
-#~ msgstr ""
-#~ " Konfiguračné súbory pre Midnight Commander \n"
-#~ " sú teraz uložené v adresári ~/.mc, súbory  \n"
-#~ " boli teraz presunuté\n"
-
-#~ msgid "%s bytes in %d files"
-#~ msgstr "%s bytov v %d súboroch"
-
-#~ msgid " Cannot open file for reading: "
-#~ msgstr " Neúspešný pokus o otvorenie súboru pre čítanie: "
-
-#~ msgid " Not an ordinary file: "
-#~ msgstr " Toto nie je súbor ordinálneho typu: "
-
-#~ msgid "Format of the "
-#~ msgstr "Formát "
-
-#~ msgid ""
-#~ " file has changed\n"
-#~ "with version 3.0. You may want either to\n"
-#~ "copy it from "
-#~ msgstr ""
-#~ " súbor bol zmemený\n"
-#~ "verziou 3.0. Môžno ho tiež budete chcieť\n"
-#~ "kopírovať z "
-
-#~ msgid ""
-#~ "mc.ext or use that\n"
-#~ "file as an example of how to write it.\n"
-#~ msgstr ""
-#~ "mc.ext, alebo použite ten\n"
-#~ "súbor ako príklad, ako to napísať.\n"
-
-#~ msgid "mc.ext will be used for this moment."
-#~ msgstr "mc.ext bude používaný v tejto chvíli."
-
-#~ msgid " Cannot open file "
-#~ msgstr " Nemohol som otvoriť súbor "
-
-#~ msgid "Col %d"
-#~ msgstr "Col %d"
-
-#~ msgid "  [grow]"
-#~ msgstr "  [rásť]"
-
-#~ msgid "Ascii"
-#~ msgstr "Ascii"
-
-#~ msgid "Hex"
-#~ msgstr "Hex"
-
-#~ msgid "Line"
-#~ msgstr "Riadok"
-
-#~ msgid "RxSrch"
-#~ msgstr "RxSrch"
-
-#~ msgid "EdHex"
-#~ msgstr "EdHex"
-
-#~ msgid "EdText"
-#~ msgstr "EdText"
-
-#~ msgid "UnWrap"
-#~ msgstr "Rozbaľ"
-
-#~ msgid "Wrap"
-#~ msgstr "Zabaľ"
-
-#~ msgid "HxSrch"
-#~ msgstr "HxSrch"
-
-#~ msgid "Raw"
-#~ msgstr "Prvotný"
-
-#~ msgid "User menu available only in mcedit invoked from mc"
-#~ msgstr "Používateľské menu k dispozícii iba v mcedit spustenom z mc"
-
-#~ msgid " Error while looking up IP address "
-#~ msgstr "Nastala chyba počas vyhľadávania IP adresy "
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "\n"
-#~ "refresh stack underflow!\n"
-#~ "\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "\n"
-#~ "obnovovací pamäťový zásobník nie je naplnený!\n"
-#~ "\n"
-#~ "\n"
-
-#~ msgid " Listing format edit "
-#~ msgstr " Upraviť formát výpisu "
-
-#~ msgid "&Drive...       M-d"
-#~ msgstr "&Jednotka...      M-d"
-
-#~ msgid "Use to debug the background code"
-#~ msgstr "Pre ladenie použite kód na pozadí"
-
-#~ msgid "Force subshell execution"
-#~ msgstr "vynútiť vykonanie v subshelli"
-
-#~ msgid " No action taken "
-#~ msgstr " Nie je zadaná činnosť "
+msgid "Cannot fetch a local copy of /ftp://some.host/editme.txt"
+msgstr ""
+
+#~ msgid "Deleting"
+#~ msgstr "Deleting"

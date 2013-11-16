@@ -1,39 +1,39 @@
 /*
    Skins engine.
-   Work with colors - backward compability
+   Work with colors - backward compatibility
 
-   Copyright (C) 2009 The Free Software Foundation, Inc.
+   Copyright (C) 2009, 2010, 2011, 2012
+   The Free Software Foundation, Inc.
 
    Written by:
-   Slava Zanko <slavazanko@gmail.com>, 2009.
+   Slava Zanko <slavazanko@gmail.com>, 2009
+   Egmont Koblinger <egmont@gmail.com>, 2010
+   Andrew Borodin <aborodin@vmail.ru>, 2012
 
    This file is part of the Midnight Commander.
 
-   The Midnight Commander is free software; you can redistribute it
+   The Midnight Commander is free software: you can redistribute it
    and/or modify it under the terms of the GNU General Public License as
-   published by the Free Software Foundation; either version 2 of the
-   License, or (at your option) any later version.
+   published by the Free Software Foundation, either version 3 of the License,
+   or (at your option) any later version.
 
-   The Midnight Commander is distributed in the hope that it will be
-   useful, but WITHOUT ANY WARRANTY; without even the implied warranty
-   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   General Public License for more details.
+   The Midnight Commander is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-   MA 02110-1301, USA.
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <config.h>
 #include <stdlib.h>
+#include <string.h>             /* strcmp() */
 #include <sys/types.h>          /* size_t */
-#include "lib/tty/color.h"
 
 #include "internal.h"
 
-#include "src/setup.h"
-
+#include "lib/tty/color.h"
 
 /*** global variables ****************************************************************************/
 
@@ -50,64 +50,92 @@ typedef struct mc_skin_colors_old_struct
 
 /*** file scope variables ************************************************************************/
 
+/* keep this table alphabetically sorted */
 static const mc_skin_colors_old_t old_colors[] = {
-    {"normal", "core", "_default_"},
-    {"marked", "core", "marked"},
-    {"selected", "core", "selected"},
-    {"markselect", "core", "markselect"},
-    {"disabled", "core", "disabled"},
-    {"reverse", "core", "reverse"},
-    {"dnormal", "dialog", "_default_"},
+    {"bbarbutton", "buttonbar", "button"},
+    {"bbarhotkey", "buttonbar", "hotkey"},
+    {"commandlinemark", "core", "commandlinemark"},
     {"dfocus", "dialog", "dfocus"},
-    {"dhotnormal", "dialog", "dhotnormal"},
     {"dhotfocus", "dialog", "dhotfocus"},
-    {"errors", "error", "_default_"},
-    {"errdhotnormal", "error", "errdhotnormal"},
+    {"dhotnormal", "dialog", "dhotnormal"},
+    {"disabled", "core", "disabled"},
+    {"dnormal", "dialog", "_default_"},
+    {"editbg", "editor", "editbg"},
+    {"editbold", "editor", "editbold"},
+    {"editframe", "editor", "editframe"},
+    {"editframeactive", "editor", "editframeactive"},
+    {"editframedrag", "editor", "editframedrag"},
+    {"editlinestate", "editor", "editlinestate"},
+    {"editmarked", "editor", "editmarked"},
+    {"editnormal", "editor", "_default_"},
+    {"editwhitespace", "editor", "editwhitespace"},
     {"errdhotfocus", "error", "errdhotfocus"},
-    {"menunormal", "menu", "_default_"},
-    {"menuhot", "menu", "menuhot"},
-    {"menusel", "menu", "menusel"},
-    {"menuhotsel", "menu", "menuhotsel"},
-    {"menuinactive", "menu", "menuinactive"},
+    {"errdhotnormal", "error", "errdhotnormal"},
+    {"errors", "error", "_default_"},
     {"gauge", "core", "gauge"},
+    {"header", "core", "header"},
+    {"helpbold", "help", "helpbold"},
+    {"helpitalic", "help", "helpitalic"},
+    {"helplink", "help", "helplink"},
+    {"helpnormal", "help", "_default_"},
+    {"helpslink", "help", "helpslink"},
     {"input", "core", "input"},
     {"inputmark", "core", "inputmark"},
     {"inputunchanged", "core", "inputunchanged"},
-    {"commandlinemark", "core", "commandlinemark"},
-    {"helpnormal", "help", "_default_"},
-    {"helpitalic", "help", "helpitalic"},
-    {"helpbold", "help", "helpbold"},
-    {"helplink", "help", "helplink"},
-    {"helpslink", "help", "helpslink"},
-    {"viewunderline", "viewer", "viewunderline"},
-    {"editnormal", "editor", "_default_"},
-    {"editbold", "editor", "editbold"},
-    {"editmarked", "editor", "editmarked"},
-    {"editwhitespace", "editor", "editwhitespace"},
-    {"editlinestate", "editor", "editlinestate"},
-    {NULL, NULL, NULL}
+    {"marked", "core", "marked"},
+    {"markselect", "core", "markselect"},
+    {"menuhot", "menu", "menuhot"},
+    {"menuhotsel", "menu", "menuhotsel"},
+    {"menuinactive", "menu", "menuinactive"},
+    {"menunormal", "menu", "_default_"},
+    {"menusel", "menu", "menusel"},
+    {"normal", "core", "_default_"},
+    {"pmenunormal", "popupmenu", "_default_"},
+    {"pmenusel", "popupmenu", "menusel"},
+    {"pmenutitle", "popupmenu", "menutitle"},
+    {"reverse", "core", "reverse"},
+    {"selected", "core", "selected"},
+    {"statusbar", "statusbar", "_default_"},
+    {"viewbold", "viewer", "viewbold"},
+    {"viewselected", "viewer", "viewselected"},
+    {"viewunderline", "viewer", "viewunderline"}
 };
 
+static const size_t num_old_colors = G_N_ELEMENTS (old_colors);
 
 /*** file scope functions ************************************************************************/
+
+static int
+old_color_comparator (const void *p1, const void *p2)
+{
+    const mc_skin_colors_old_t *m1 = (const mc_skin_colors_old_t *) p1;
+    const mc_skin_colors_old_t *m2 = (const mc_skin_colors_old_t *) p2;
+
+    return strcmp (m1->old_color, m2->old_color);
+}
+
 /* --------------------------------------------------------------------------------------------- */
 
 static gboolean
 mc_skin_colors_old_transform (const char *old_color, const char **group, const char **key)
 {
-    int lc_index;
+    const mc_skin_colors_old_t oc = { old_color, NULL, NULL };
+    mc_skin_colors_old_t *res;
 
-    if (old_color != NULL)
-        for (lc_index = 0; old_colors[lc_index].old_color; lc_index++)
-            if (strcasecmp (old_color, old_colors[lc_index].old_color) == 0)
-            {
-                if (group != NULL)
-                    *group = old_colors[lc_index].group;
-                if (key != NULL)
-                    *key = old_colors[lc_index].key;
-                return TRUE;
-            }
-    return FALSE;
+    if (old_color == NULL)
+        return FALSE;
+
+    res = (mc_skin_colors_old_t *) bsearch (&oc, old_colors, num_old_colors,
+                                            sizeof (old_colors[0]), old_color_comparator);
+
+    if (res == NULL)
+        return FALSE;
+
+    if (group != NULL)
+        *group = res->group;
+    if (key != NULL)
+        *key = res->key;
+    return TRUE;
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -116,9 +144,6 @@ static void
 mc_skin_colors_old_configure_one (mc_skin_t * mc_skin, const char *the_color_string)
 {
     gchar **colors, **orig_colors;
-    gchar **key_val;
-    const gchar *skin_group, *skin_key;
-    gchar *skin_val;
 
     if (the_color_string == NULL)
         return;
@@ -127,27 +152,30 @@ mc_skin_colors_old_configure_one (mc_skin_t * mc_skin, const char *the_color_str
     if (colors == NULL)
         return;
 
-    for (; *colors; colors++)
+    for (; *colors != NULL; colors++)
     {
-        key_val = g_strsplit_set (*colors, "=,", 3);
+        gchar **key_val;
+        const gchar *skin_group, *skin_key;
 
-        if (!key_val)
+        key_val = g_strsplit_set (*colors, "=,", 4);
+
+        if (key_val == NULL)
             continue;
 
-        if (key_val[1] == NULL
-            || !mc_skin_colors_old_transform (key_val[0], &skin_group, &skin_key))
+        if (key_val[1] != NULL && mc_skin_colors_old_transform (key_val[0], &skin_group, &skin_key))
         {
-            g_strfreev (key_val);
-            continue;
+            gchar *skin_val;
+
+            if (key_val[2] == NULL)
+                skin_val = g_strdup_printf ("%s;", key_val[1]);
+            else if (key_val[3] == NULL)
+                skin_val = g_strdup_printf ("%s;%s", key_val[1], key_val[2]);
+            else
+                skin_val = g_strdup_printf ("%s;%s;%s", key_val[1], key_val[2], key_val[3]);
+
+            mc_config_set_string (mc_skin->config, skin_group, skin_key, skin_val);
+            g_free (skin_val);
         }
-
-        if (key_val[2] != NULL)
-            skin_val = g_strdup_printf ("%s;%s", key_val[1], key_val[2]);
-        else
-            skin_val = g_strdup_printf ("%s;", key_val[1]);
-        mc_config_set_string (mc_skin->config, skin_group, skin_key, skin_val);
-
-        g_free (skin_val);
 
         g_strfreev (key_val);
     }
@@ -161,10 +189,10 @@ mc_skin_colors_old_configure_one (mc_skin_t * mc_skin, const char *the_color_str
 void
 mc_skin_colors_old_configure (mc_skin_t * mc_skin)
 {
-    mc_skin_colors_old_configure_one (mc_skin, setup_color_string);
-    mc_skin_colors_old_configure_one (mc_skin, term_color_string);
+    mc_skin_colors_old_configure_one (mc_skin, mc_global.tty.setup_color_string);
+    mc_skin_colors_old_configure_one (mc_skin, mc_global.tty.term_color_string);
     mc_skin_colors_old_configure_one (mc_skin, getenv ("MC_COLOR_TABLE"));
-    mc_skin_colors_old_configure_one (mc_skin, command_line_colors);
+    mc_skin_colors_old_configure_one (mc_skin, mc_global.tty.command_line_colors);
 }
 
 /* --------------------------------------------------------------------------------------------- */

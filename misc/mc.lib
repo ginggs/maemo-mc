@@ -1,3 +1,14 @@
+[External editor or viewer parameters]
+    vi=%filename +%lineno
+    vim=%filename +%lineno
+    view=%filename +%lineno
+    emacs=%filename +%lineno
+    nano=%filename +%lineno
+    joe=%filename +%lineno
+    more=%filename +%lineno
+    less=%filename +%linenog
+    mcedit=%filename:%lineno
+
 [Special dirs]
 list=/afs;/coda;/:;/...;/net;/#smb
 
@@ -98,6 +109,12 @@ right=\\e[C
 right=\\eOC
 left=\\e[D
 left=\\eOD
+
+# arrows with modifiers
+alt-shift-right=\\e[1\;4C
+alt-shift-left=\\e[1\;4D
+alt-shift-up=\\e[1\;4A
+alt-shift-down=\\e[1\;4B
 
 [terminal:gnome]
 copy=xterm

@@ -1,20 +1,24 @@
-/* Hypertext file browser.
+/*
+   Hypertext file browser.
+
    Copyright (C) 1994, 1995, 1998, 1999, 2000, 2001, 2002, 2003, 2004,
-   2005, 2006, 2007 Free Software Foundation, Inc.
+   2005, 2006, 2007, 2011, 2013
+   The Free Software Foundation, Inc.
 
-   This program is free software; you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 2 of the License, or
-   (at your option) any later version.
+   This file is part of the Midnight Commander.
 
-   This program is distributed in the hope that it will be useful,
+   The Midnight Commander is free software: you can redistribute it
+   and/or modify it under the terms of the GNU General Public License as
+   published by the Free Software Foundation, either version 3 of the License,
+   or (at your option) any later version.
+
+   The Midnight Commander is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 
@@ -40,7 +44,7 @@
  *  Lazyness/widgeting attack: This file does use the dialog manager
  *  and uses mainly the dialog to achieve the help work.  there is only
  *  one specialized widget and it's only used to forward the mouse messages
- *  to the appropiate routine.
+ *  to the appropriate routine.
  */
 
 
@@ -57,14 +61,17 @@
 #include "lib/tty/mouse.h"
 #include "lib/skin.h"
 #include "lib/strutil.h"
+#include "lib/fileloc.h"
+#include "lib/util.h"
+#include "lib/widget.h"
+#include "lib/event-types.h"
 
-#include "dialog.h"             /* For Dlg_head */
-#include "widget.h"             /* For Widget */
-#include "wtools.h"             /* For common_dialog_repaint() */
-#include "cmddef.h"
-#include "keybind.h"
+#include "keybind-defaults.h"
 #include "help.h"
-#include "main.h"
+
+/*** global variables ****************************************************************************/
+
+/*** file scope macro definitions ****************************************************************/
 
 #define MAXLINKNAME 80
 #define HISTORY_SIZE 20
@@ -75,6 +82,16 @@
 #define STRING_LINK_END         "\03"
 #define STRING_NODE_END         "\04"
 
+/*** file scope type declarations ****************************************************************/
+
+/* Link areas for the mouse */
+typedef struct Link_Area
+{
+    int x1, y1, x2, y2;
+    const char *link_name;
+} Link_Area;
+
+/*** file scope variables ************************************************************************/
 
 static char *fdata = NULL;      /* Pointer to the loaded data file */
 static int help_lines;          /* Lines in help viewer */
@@ -86,7 +103,7 @@ static const char *currentpoint;
 static const char *selected_item;
 
 /* The widget variables */
-static Dlg_head *whelp;
+static WDialog *whelp;
 
 static struct
 {
@@ -94,20 +111,17 @@ static struct
     const char *link;           /* Pointer to the selected link */
 } history[HISTORY_SIZE];
 
-/* Link areas for the mouse */
-typedef struct Link_Area
-{
-    int x1, y1, x2, y2;
-    const char *link_name;
-} Link_Area;
-
 static GSList *link_area = NULL;
 static gboolean inside_link_area = FALSE;
 
-static cb_ret_t help_callback (Dlg_head * h, Widget * sender, dlg_msg_t msg, int parm, void *data);
+static cb_ret_t help_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *data);
 
-/* returns the position where text was found in the start buffer */
-/* or 0 if not found */
+/*** file scope functions ************************************************************************/
+/* --------------------------------------------------------------------------------------------- */
+
+/** returns the position where text was found in the start buffer 
+ * or 0 if not found
+ */
 static const char *
 search_string (const char *start, const char *text)
 {
@@ -143,8 +157,12 @@ search_string (const char *start, const char *text)
     return result;
 }
 
-/* Searches text in the buffer pointed by start.  Search ends */
-/* if the CHAR_NODE_END is found in the text.  Returns 0 on failure */
+/* --------------------------------------------------------------------------------------------- */
+/** Searches text in the buffer pointed by start.  Search ends
+ * if the CHAR_NODE_END is found in the text.
+ * @return NULL on failure
+ */
+
 static const char *
 search_string_node (const char *start, const char *text)
 {
@@ -165,8 +183,11 @@ search_string_node (const char *start, const char *text)
     return NULL;
 }
 
-/* Searches the_char in the buffer pointer by start and searches */
-/* it can search forward (direction = 1) or backward (direction = -1) */
+/* --------------------------------------------------------------------------------------------- */
+/** Searches the_char in the buffer pointer by start and searches
+ * it can search forward (direction = 1) or backward (direction = -1)
+ */
+
 static const char *
 search_char_node (const char *start, char the_char, int direction)
 {
@@ -179,7 +200,9 @@ search_char_node (const char *start, char the_char, int direction)
     return NULL;
 }
 
-/* Returns the new current pointer when moved lines lines */
+/* --------------------------------------------------------------------------------------------- */
+/** Returns the new current pointer when moved lines lines */
+
 static const char *
 move_forward2 (const char *c, int lines)
 {
@@ -197,6 +220,8 @@ move_forward2 (const char *c, int lines)
     }
     return currentpoint = c;
 }
+
+/* --------------------------------------------------------------------------------------------- */
 
 static const char *
 move_backward2 (const char *c, int lines)
@@ -224,6 +249,8 @@ move_backward2 (const char *c, int lines)
     return currentpoint = c;
 }
 
+/* --------------------------------------------------------------------------------------------- */
+
 static void
 move_forward (int i)
 {
@@ -231,11 +258,15 @@ move_forward (int i)
         currentpoint = move_forward2 (currentpoint, i);
 }
 
+/* --------------------------------------------------------------------------------------------- */
+
 static void
 move_backward (int i)
 {
     currentpoint = move_backward2 (currentpoint, ++i);
 }
+
+/* --------------------------------------------------------------------------------------------- */
 
 static void
 move_to_top (void)
@@ -249,6 +280,8 @@ move_to_top (void)
     selected_item = NULL;
 }
 
+/* --------------------------------------------------------------------------------------------- */
+
 static void
 move_to_bottom (void)
 {
@@ -257,6 +290,8 @@ move_to_bottom (void)
     currentpoint--;
     move_backward (1);
 }
+
+/* --------------------------------------------------------------------------------------------- */
 
 static const char *
 help_follow_link (const char *start, const char *lc_selected_item)
@@ -289,6 +324,8 @@ help_follow_link (const char *start, const char *lc_selected_item)
     return _("Help file format error\n");
 }
 
+/* --------------------------------------------------------------------------------------------- */
+
 static const char *
 select_next_link (const char *current_link)
 {
@@ -306,11 +343,15 @@ select_next_link (const char *current_link)
     return p - 1;
 }
 
+/* --------------------------------------------------------------------------------------------- */
+
 static const char *
 select_prev_link (const char *current_link)
 {
     return current_link == NULL ? NULL : search_char_node (current_link - 1, CHAR_LINK_START, -1);
 }
+
+/* --------------------------------------------------------------------------------------------- */
 
 static void
 start_link_area (int x, int y, const char *link_name)
@@ -332,6 +373,8 @@ start_link_area (int x, int y, const char *link_name)
     inside_link_area = TRUE;
 }
 
+/* --------------------------------------------------------------------------------------------- */
+
 static void
 end_link_area (int x, int y)
 {
@@ -345,6 +388,8 @@ end_link_area (int x, int y)
     }
 }
 
+/* --------------------------------------------------------------------------------------------- */
+
 static void
 clear_link_areas (void)
 {
@@ -354,8 +399,10 @@ clear_link_areas (void)
     inside_link_area = FALSE;
 }
 
+/* --------------------------------------------------------------------------------------------- */
+
 static void
-help_print_word (Dlg_head * h, GString * word, int *col, int *line, gboolean add_space)
+help_print_word (WDialog * h, GString * word, int *col, int *line, gboolean add_space)
 {
     if (*line >= help_lines)
         g_string_set_size (word, 0);
@@ -374,7 +421,7 @@ help_print_word (Dlg_head * h, GString * word, int *col, int *line, gboolean add
             g_string_set_size (word, 0);
         else
         {
-            dlg_move (h, *line + 2, *col + 2);
+            widget_move (h, *line + 2, *col + 2);
             tty_print_string (word->str);
             g_string_set_size (word, 0);
             *col += w;
@@ -396,8 +443,10 @@ help_print_word (Dlg_head * h, GString * word, int *col, int *line, gboolean add
     }
 }
 
+/* --------------------------------------------------------------------------------------------- */
+
 static void
-help_show (Dlg_head * h, const char *paint_start)
+help_show (WDialog * h, const char *paint_start)
 {
     const char *p, *n;
     int col, line, c;
@@ -450,11 +499,11 @@ help_show (Dlg_head * h, const char *paint_start)
                 break;
             case CHAR_LINK_POINTER:
                 painting = FALSE;
-                end_link_area (col - 1, line);
                 break;
             case CHAR_LINK_END:
                 painting = TRUE;
                 help_print_word (h, word, &col, &line, FALSE);
+                end_link_area (col - 1, line);
                 tty_setcolor (HELP_NORMAL_COLOR);
                 break;
             case CHAR_ALTERNATE:
@@ -464,7 +513,7 @@ help_show (Dlg_head * h, const char *paint_start)
                 acs = FALSE;
                 break;
             case CHAR_VERSION:
-                dlg_move (h, line + 2, col + 2);
+                widget_move (h, line + 2, col + 2);
                 tty_print_string (VERSION);
                 col += str_term_width1 (VERSION);
                 break;
@@ -493,7 +542,7 @@ help_show (Dlg_head * h, const char *paint_start)
                 }
                 break;
             case ' ':
-                /* word delimeter */
+                /* word delimiter */
                 if (painting)
                     help_print_word (h, word, &col, &line, TRUE);
                 break;
@@ -505,7 +554,7 @@ help_show (Dlg_head * h, const char *paint_start)
                         g_string_append (word, buff);
                     else if (col < HELP_WINDOW_WIDTH)
                     {
-                        dlg_move (h, line + 2, col + 2);
+                        widget_move (h, line + 2, col + 2);
 
                         if ((c == ' ') || (c == '.'))
                             tty_print_char (c);
@@ -513,7 +562,8 @@ help_show (Dlg_head * h, const char *paint_start)
 #ifndef HAVE_SLANG
                             tty_print_char (acs_map[c]);
 #else
-                            SLsmg_draw_object (h->y + line + 2, h->x + col + 2, c);
+                            SLsmg_draw_object (WIDGET (h)->y + line + 2, WIDGET (h)->x + col + 2,
+                                               c);
 #endif
                         col++;
                     }
@@ -545,23 +595,31 @@ help_show (Dlg_head * h, const char *paint_start)
 
     /* Position the cursor over a nice link */
     if (active_col)
-        dlg_move (h, active_line, active_col);
+        widget_move (h, active_line, active_col);
 }
+
+/* --------------------------------------------------------------------------------------------- */
 
 static int
 help_event (Gpm_Event * event, void *vp)
 {
-    Widget *w = vp;
+    Widget *w = WIDGET (vp);
     GSList *current_area;
+    Gpm_Event local;
+
+    if (!mouse_global_in_widget (event, w))
+        return MOU_UNHANDLED;
 
     if ((event->type & GPM_UP) == 0)
-        return 0;
+        return MOU_NORMAL;
+
+    local = mouse_get_local (event, w);
 
     /* The event is relative to the dialog window, adjust it: */
-    event->x -= 2;
-    event->y -= 2;
+    local.x -= 2;
+    local.y -= 2;
 
-    if (event->buttons & GPM_B_RIGHT)
+    if ((local.buttons & GPM_B_RIGHT) != 0)
     {
         currentpoint = history[history_ptr].page;
         selected_item = history[history_ptr].link;
@@ -569,25 +627,27 @@ help_event (Gpm_Event * event, void *vp)
         if (history_ptr < 0)
             history_ptr = HISTORY_SIZE - 1;
 
-        help_callback (w->owner, NULL, DLG_DRAW, 0, NULL);
-        return 0;
+        send_message (w->owner, NULL, MSG_DRAW, 0, NULL);
+        return MOU_NORMAL;
     }
 
     /* Test whether the mouse click is inside one of the link areas */
     for (current_area = link_area; current_area != NULL; current_area = g_slist_next (current_area))
     {
         Link_Area *la = (Link_Area *) current_area->data;
+
         /* Test one line link area */
-        if (event->y == la->y1 && event->x >= la->x1 && event->y == la->y2 && event->x <= la->x2)
+        if (local.y == la->y1 && local.x >= la->x1 && local.y == la->y2 && local.x <= la->x2)
             break;
+
         /* Test two line link area */
         if (la->y1 + 1 == la->y2)
         {
             /* The first line */
-            if (event->y == la->y1 && event->x >= la->x1)
+            if (local.y == la->y1 && local.x >= la->x1)
                 break;
             /* The second line */
-            if (event->y == la->y2 && event->x <= la->x2)
+            if (local.y == la->y2 && local.x <= la->x2)
                 break;
         }
         /* Mouse will not work with link areas of more than two lines */
@@ -605,24 +665,26 @@ help_event (Gpm_Event * event, void *vp)
         currentpoint = help_follow_link (currentpoint, la->link_name);
         selected_item = NULL;
     }
-    else if (event->y < 0)
+    else if (local.y < 0)
         move_backward (help_lines - 1);
-    else if (event->y >= help_lines)
+    else if (local.y >= help_lines)
         move_forward (help_lines - 1);
-    else if (event->y < help_lines / 2)
+    else if (local.y < help_lines / 2)
         move_backward (1);
     else
         move_forward (1);
 
     /* Show the new node */
-    help_callback (w->owner, NULL, DLG_DRAW, 0, NULL);
+    send_message (w->owner, NULL, MSG_DRAW, 0, NULL);
 
-    return 0;
+    return MOU_NORMAL;
 }
 
-/* show help */
+/* --------------------------------------------------------------------------------------------- */
+/** show help */
+
 static void
-help_help (Dlg_head * h)
+help_help (WDialog * h)
 {
     const char *p;
 
@@ -635,12 +697,14 @@ help_help (Dlg_head * h)
     {
         currentpoint = p + 1;   /* Skip the newline following the start of the node */
         selected_item = NULL;
-        help_callback (h, NULL, DLG_DRAW, 0, NULL);
+        send_message (h, NULL, MSG_DRAW, 0, NULL);
     }
 }
 
+/* --------------------------------------------------------------------------------------------- */
+
 static void
-help_index (Dlg_head * h)
+help_index (WDialog * h)
 {
     const char *new_item;
 
@@ -656,12 +720,14 @@ help_index (Dlg_head * h)
 
         currentpoint = new_item + 1;    /* Skip the newline following the start of the node */
         selected_item = NULL;
-        help_callback (h, NULL, DLG_DRAW, 0, NULL);
+        send_message (h, NULL, MSG_DRAW, 0, NULL);
     }
 }
 
+/* --------------------------------------------------------------------------------------------- */
+
 static void
-help_back (Dlg_head * h)
+help_back (WDialog * h)
 {
     currentpoint = history[history_ptr].page;
     selected_item = history[history_ptr].link;
@@ -669,8 +735,10 @@ help_back (Dlg_head * h)
     if (history_ptr < 0)
         history_ptr = HISTORY_SIZE - 1;
 
-    help_callback (h, NULL, DLG_DRAW, 0, NULL); /* FIXME: unneeded? */
+    send_message (h, NULL, MSG_DRAW, 0, NULL);  /* FIXME: unneeded? */
 }
+
+/* --------------------------------------------------------------------------------------------- */
 
 static void
 help_next_link (gboolean move_down)
@@ -695,6 +763,8 @@ help_next_link (gboolean move_down)
         selected_item = NULL;
 }
 
+/* --------------------------------------------------------------------------------------------- */
+
 static void
 help_prev_link (gboolean move_up)
 {
@@ -712,6 +782,8 @@ help_prev_link (gboolean move_up)
             selected_item = NULL;
     }
 }
+
+/* --------------------------------------------------------------------------------------------- */
 
 static void
 help_next_node (void)
@@ -732,6 +804,8 @@ help_next_node (void)
             }
 }
 
+/* --------------------------------------------------------------------------------------------- */
+
 static void
 help_prev_node (void)
 {
@@ -748,6 +822,8 @@ help_prev_node (void)
     currentpoint = new_item + 2;
     selected_item = NULL;
 }
+
+/* --------------------------------------------------------------------------------------------- */
 
 static void
 help_select_link (void)
@@ -780,6 +856,8 @@ help_select_link (void)
     selected_item = NULL;
 }
 
+/* --------------------------------------------------------------------------------------------- */
+
 static cb_ret_t
 help_execute_cmd (unsigned long command)
 {
@@ -787,55 +865,55 @@ help_execute_cmd (unsigned long command)
 
     switch (command)
     {
-    case CK_HelpHelp:
+    case CK_Help:
         help_help (whelp);
         break;
-    case CK_HelpIndex:
+    case CK_Index:
         help_index (whelp);
         break;
-    case CK_HelpBack:
+    case CK_Back:
         help_back (whelp);
         break;
-    case CK_HelpMoveUp:
+    case CK_Up:
         help_prev_link (TRUE);
         break;
-    case CK_HelpMoveDown:
+    case CK_Down:
         help_next_link (TRUE);
         break;
-    case CK_HelpMovePgDn:
+    case CK_PageDown:
         move_forward (help_lines - 1);
         break;
-    case CK_HelpMovePgUp:
+    case CK_PageUp:
         move_backward (help_lines - 1);
         break;
-    case CK_HelpMoveHalfPgDn:
+    case CK_HalfPageDown:
         move_forward (help_lines / 2);
         break;
-    case CK_HelpMoveHalfPgUp:
+    case CK_HalfPageUp:
         move_backward (help_lines / 2);
         break;
-    case CK_HelpMoveTop:
+    case CK_Top:
         move_to_top ();
         break;
-    case CK_HelpMoveBottom:
+    case CK_Bottom:
         move_to_bottom ();
         break;
-    case CK_HelpSelectLink:
+    case CK_Enter:
         help_select_link ();
         break;
-    case CK_HelpNextLink:
+    case CK_LinkNext:
         help_next_link (FALSE);
         break;
-    case CK_HelpPrevLink:
+    case CK_LinkPrev:
         help_prev_link (FALSE);
         break;
-    case CK_HelpNextNode:
+    case CK_NodeNext:
         help_next_node ();
         break;
-    case CK_HelpPrevNode:
+    case CK_NodePrev:
         help_prev_node ();
         break;
-    case CK_HelpQuit:
+    case CK_Quit:
         dlg_stop (whelp);
         break;
     default:
@@ -845,49 +923,68 @@ help_execute_cmd (unsigned long command)
     return ret;
 }
 
+/* --------------------------------------------------------------------------------------------- */
+
 static cb_ret_t
-help_handle_key (Dlg_head * h, int c)
+help_handle_key (WDialog * h, int c)
 {
     unsigned long command;
 
-    command = lookup_keymap_command (help_map, c);
-    if ((command == CK_Ignore_Key) || (help_execute_cmd (command) == MSG_NOT_HANDLED))
+    command = keybind_lookup_keymap_command (help_map, c);
+    if ((command == CK_IgnoreKey) || (help_execute_cmd (command) == MSG_NOT_HANDLED))
         return MSG_NOT_HANDLED;
 
-    help_callback (h, NULL, DLG_DRAW, 0, NULL);
+    send_message (h, NULL, MSG_DRAW, 0, NULL);
     return MSG_HANDLED;
 }
 
+/* --------------------------------------------------------------------------------------------- */
+
 static cb_ret_t
-help_callback (Dlg_head * h, Widget * sender, dlg_msg_t msg, int parm, void *data)
+help_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *data)
 {
-    WButtonBar *bb;
+    WDialog *h = DIALOG (w);
 
     switch (msg)
     {
-    case DLG_RESIZE:
-        help_lines = min (LINES - 4, max (2 * LINES / 3, 18));
-        dlg_set_size (h, help_lines + 4, HELP_WINDOW_WIDTH + 4);
-        bb = find_buttonbar (h);
-        widget_set_size (&bb->widget, LINES - 1, 0, 1, COLS);
-        return MSG_HANDLED;
+    case MSG_RESIZE:
+        {
+            WButtonBar *bb;
 
-    case DLG_DRAW:
-        common_dialog_repaint (h);
+            help_lines = min (LINES - 4, max (2 * LINES / 3, 18));
+            dlg_set_size (h, help_lines + 4, HELP_WINDOW_WIDTH + 4);
+            bb = find_buttonbar (h);
+            widget_set_size (WIDGET (bb), LINES - 1, 0, 1, COLS);
+            return MSG_HANDLED;
+        }
+
+    case MSG_DRAW:
+        dlg_default_repaint (h);
         help_show (h, currentpoint);
         return MSG_HANDLED;
 
-    case DLG_KEY:
+    case MSG_KEY:
         return help_handle_key (h, parm);
 
-    case DLG_ACTION:
-        /* command from buttonbar */
-        return help_execute_cmd (parm);
+    case MSG_ACTION:
+        /* shortcut */
+        if (sender == NULL)
+            return help_execute_cmd (parm);
+        /* message from buttonbar */
+        if (sender == WIDGET (find_buttonbar (h)))
+        {
+            if (data != NULL)
+                return send_message (data, NULL, MSG_ACTION, parm, NULL);
+            return help_execute_cmd (parm);
+        }
+        return MSG_NOT_HANDLED;
 
     default:
-        return default_dlg_callback (h, sender, msg, parm, data);
+        return dlg_default_callback (w, sender, msg, parm, data);
     }
 }
+
+/* --------------------------------------------------------------------------------------------- */
 
 static void
 interactive_display_finish (void)
@@ -895,7 +992,9 @@ interactive_display_finish (void)
     clear_link_areas ();
 }
 
-/* translate help file into terminal encoding */
+/* --------------------------------------------------------------------------------------------- */
+/** translate help file into terminal encoding */
+
 static void
 translate_file (char *filedata)
 {
@@ -924,87 +1023,105 @@ translate_file (char *filedata)
     }
 }
 
+/* --------------------------------------------------------------------------------------------- */
+
 static cb_ret_t
-md_callback (Widget * w, widget_msg_t msg, int parm)
+md_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *data)
 {
     switch (msg)
     {
-    case WIDGET_RESIZED:
+    case MSG_RESIZE:
         w->lines = help_lines;
         return MSG_HANDLED;
 
     default:
-        return default_proc (msg, parm);
+        return widget_default_callback (w, sender, msg, parm, data);
     }
 }
+
+/* --------------------------------------------------------------------------------------------- */
 
 static Widget *
 mousedispatch_new (int y, int x, int yl, int xl)
 {
-    Widget *w = g_new (Widget, 1);
-    init_widget (w, y, x, yl, xl, md_callback, help_event);
+    Widget *w;
+
+    w = g_new (Widget, 1);
+    widget_init (w, y, x, yl, xl, md_callback, help_event);
     return w;
 }
 
-void
-interactive_display (const char *filename, const char *node)
+/* --------------------------------------------------------------------------------------------- */
+/*** public functions ****************************************************************************/
+/* --------------------------------------------------------------------------------------------- */
+
+/* event callback */
+gboolean
+help_interactive_display (const gchar * event_group_name, const gchar * event_name,
+                          gpointer init_data, gpointer data)
 {
-    const int help_colors[DLG_COLOR_NUM] = {
+    const dlg_colors_t help_colors = {
         HELP_NORMAL_COLOR,      /* common text color */
         0,                      /* unused in help */
-        HELP_BOLD_COLOR,        /* title color */
-        0                       /* unused in help */
+        HELP_BOLD_COLOR,        /* bold text color */
+        0,                      /* unused in help */
+        HELP_TITLE_COLOR        /* title color */
     };
 
     WButtonBar *help_bar;
     Widget *md;
     char *hlpfile = NULL;
     char *filedata;
+    ev_help_t *event_data = (ev_help_t *) data;
 
-    if (filename != NULL)
-        filedata = load_file (filename);
+    (void) event_group_name;
+    (void) event_name;
+    (void) init_data;
+
+    if (event_data->filename != NULL)
+        g_file_get_contents (event_data->filename, &filedata, NULL, NULL);
     else
-        filedata = load_mc_home_file (mc_home, mc_home_alt, "mc.hlp", &hlpfile);
+        filedata = load_mc_home_file (mc_global.share_data_dir, MC_HELP, &hlpfile);
 
     if (filedata == NULL)
         message (D_ERROR, MSG_ERROR, _("Cannot open file %s\n%s"),
-                 filename ? filename : hlpfile, unix_error_string (errno));
+                 event_data->filename ? event_data->filename : hlpfile, unix_error_string (errno));
 
     g_free (hlpfile);
 
     if (filedata == NULL)
-        return;
+        return TRUE;
 
     translate_file (filedata);
 
     g_free (filedata);
 
     if (fdata == NULL)
-        return;
+        return TRUE;
 
-    if ((node == NULL) || (*node == '\0'))
-        node = "[main]";
+    if ((event_data->node == NULL) || (*event_data->node == '\0'))
+        event_data->node = "[main]";
 
-    main_node = search_string (fdata, node);
+    main_node = search_string (fdata, event_data->node);
 
     if (main_node == NULL)
     {
-        message (D_ERROR, MSG_ERROR, _("Cannot find node %s in help file"), node);
+        message (D_ERROR, MSG_ERROR, _("Cannot find node %s in help file"), event_data->node);
 
         /* Fallback to [main], return if it also cannot be found */
         main_node = search_string (fdata, "[main]");
         if (main_node == NULL)
         {
             interactive_display_finish ();
-            return;
+            return TRUE;
         }
     }
 
     help_lines = min (LINES - 4, max (2 * LINES / 3, 18));
 
     whelp =
-        create_dlg (TRUE, 0, 0, help_lines + 4, HELP_WINDOW_WIDTH + 4,
-                    help_colors, help_callback, "[Help]", _("Help"),
+        dlg_create (TRUE, 0, 0, help_lines + 4, HELP_WINDOW_WIDTH + 4,
+                    help_colors, help_callback, NULL, "[Help]", _("Help"),
                     DLG_TRYUP | DLG_CENTER | DLG_WANT_TAB);
 
     selected_item = search_string_node (main_node, STRING_LINK_START) - 1;
@@ -1018,8 +1135,8 @@ interactive_display (const char *filename, const char *node)
     }
 
     help_bar = buttonbar_new (TRUE);
-    help_bar->widget.y -= whelp->y;
-    help_bar->widget.x -= whelp->x;
+    WIDGET (help_bar)->y -= WIDGET (whelp)->y;
+    WIDGET (help_bar)->x -= WIDGET (whelp)->x;
 
     md = mousedispatch_new (1, 1, help_lines, HELP_WINDOW_WIDTH - 2);
 
@@ -1037,7 +1154,10 @@ interactive_display (const char *filename, const char *node)
     buttonbar_set_label (help_bar, 9, "", help_map, NULL);
     buttonbar_set_label (help_bar, 10, Q_ ("ButtonBar|Quit"), help_map, NULL);
 
-    run_dlg (whelp);
+    dlg_run (whelp);
     interactive_display_finish ();
-    destroy_dlg (whelp);
+    dlg_destroy (whelp);
+    return TRUE;
 }
+
+/* --------------------------------------------------------------------------------------------- */

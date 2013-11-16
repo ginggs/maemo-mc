@@ -2,27 +2,27 @@
    Skins engine.
    Interface functions
 
-   Copyright (C) 2009 The Free Software Foundation, Inc.
+   Copyright (C) 2009, 2010, 2011
+   The Free Software Foundation, Inc.
 
    Written by:
-   Slava Zanko <slavazanko@gmail.com>, 2009.
+   Slava Zanko <slavazanko@gmail.com>, 2009
+   Egmont Koblinger <egmont@gmail.com>, 2010
 
    This file is part of the Midnight Commander.
 
-   The Midnight Commander is free software; you can redistribute it
+   The Midnight Commander is free software: you can redistribute it
    and/or modify it under the terms of the GNU General Public License as
-   published by the Free Software Foundation; either version 2 of the
-   License, or (at your option) any later version.
+   published by the Free Software Foundation, either version 3 of the License,
+   or (at your option) any later version.
 
-   The Midnight Commander is distributed in the hope that it will be
-   useful, but WITHOUT ANY WARRANTY; without even the implied warranty
-   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   General Public License for more details.
+   The Midnight Commander is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-   MA 02110-1301, USA.
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <config.h>
@@ -30,7 +30,7 @@
 
 #include "internal.h"
 
-#include "src/args.h"
+#include "lib/tty/color.h"      /* tty_use_256colors(); */
 
 /*** global variables ****************************************************************************/
 
@@ -48,20 +48,13 @@ static gboolean mc_skin_is_init = FALSE;
 /*** file scope functions ************************************************************************/
 /* --------------------------------------------------------------------------------------------- */
 
-static inline void
-mc_skin_hash_destroy_key (gpointer data)
-{
-    g_free (data);
-}
-
-/* --------------------------------------------------------------------------------------------- */
-
 static void
 mc_skin_hash_destroy_value (gpointer data)
 {
     mc_skin_color_t *mc_skin_color = (mc_skin_color_t *) data;
     g_free (mc_skin_color->fgcolor);
     g_free (mc_skin_color->bgcolor);
+    g_free (mc_skin_color->attrs);
     g_free (mc_skin_color);
 }
 
@@ -73,8 +66,8 @@ mc_skin_get_default_name (void)
     char *tmp_str;
 
     /* from command line */
-    if (mc_args__skin != NULL)
-        return g_strdup (mc_args__skin);
+    if (mc_global.tty.skin != NULL)
+        return g_strdup (mc_global.tty.skin);
 
     /* from envirovement variable */
     tmp_str = getenv ("MC_SKIN");
@@ -93,8 +86,7 @@ mc_skin_reinit (void)
     mc_skin_deinit ();
     mc_skin__default.name = mc_skin_get_default_name ();
     mc_skin__default.colors = g_hash_table_new_full (g_str_hash, g_str_equal,
-                                                     mc_skin_hash_destroy_key,
-                                                     mc_skin_hash_destroy_value);
+                                                     g_free, mc_skin_hash_destroy_value);
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -105,7 +97,8 @@ mc_skin_try_to_load_default (void)
     mc_skin_reinit ();
     g_free (mc_skin__default.name);
     mc_skin__default.name = g_strdup ("default");
-    if (!mc_skin_ini_file_load (&mc_skin__default)) {
+    if (!mc_skin_ini_file_load (&mc_skin__default))
+    {
         mc_skin_reinit ();
         mc_skin_set_hardcoded_skin (&mc_skin__default);
     }
@@ -121,13 +114,14 @@ mc_skin_init (GError ** error)
 {
     gboolean is_good_init = TRUE;
 
+    mc_skin__default.have_256_colors = FALSE;
+
     mc_skin__default.name = mc_skin_get_default_name ();
 
     mc_skin__default.colors = g_hash_table_new_full (g_str_hash, g_str_equal,
-                                                     mc_skin_hash_destroy_key,
-                                                     mc_skin_hash_destroy_value);
-
-    if (!mc_skin_ini_file_load (&mc_skin__default)) {
+                                                     g_free, mc_skin_hash_destroy_value);
+    if (!mc_skin_ini_file_load (&mc_skin__default))
+    {
         *error = g_error_new (MC_ERROR, 0,
                               _("Unable to load '%s' skin.\nDefault skin has been loaded"),
                               mc_skin__default.name);
@@ -137,10 +131,24 @@ mc_skin_init (GError ** error)
     }
     mc_skin_colors_old_configure (&mc_skin__default);
 
-    if (!mc_skin_ini_file_parse (&mc_skin__default)) {
+    if (!mc_skin_ini_file_parse (&mc_skin__default))
+    {
         if (*error == NULL)
             *error = g_error_new (MC_ERROR, 0,
                                   _("Unable to parse '%s' skin.\nDefault skin has been loaded"),
+                                  mc_skin__default.name);
+
+        mc_skin_try_to_load_default ();
+        mc_skin_colors_old_configure (&mc_skin__default);
+        (void) mc_skin_ini_file_parse (&mc_skin__default);
+        is_good_init = FALSE;
+    }
+    if (is_good_init && !tty_use_256colors () && mc_skin__default.have_256_colors)
+    {
+        if (*error == NULL)
+            *error = g_error_new (MC_ERROR, 0,
+                                  _
+                                  ("Unable to use '%s' skin with 256 colors support\non non-256 colors terminal.\nDefault skin has been loaded"),
                                   mc_skin__default.name);
 
         mc_skin_try_to_load_default ();
@@ -157,7 +165,6 @@ mc_skin_init (GError ** error)
 void
 mc_skin_deinit (void)
 {
-
     g_free (mc_skin__default.name);
     mc_skin__default.name = NULL;
     g_hash_table_destroy (mc_skin__default.colors);
@@ -166,10 +173,8 @@ mc_skin_deinit (void)
     g_free (mc_skin__default.description);
     mc_skin__default.description = NULL;
 
-    if (mc_skin__default.config) {
-        mc_config_deinit (mc_skin__default.config);
-        mc_skin__default.config = NULL;
-    }
+    mc_config_deinit (mc_skin__default.config);
+    mc_skin__default.config = NULL;
 
     mc_skin_is_init = FALSE;
 }
@@ -177,12 +182,13 @@ mc_skin_deinit (void)
 /* --------------------------------------------------------------------------------------------- */
 
 gchar *
-mc_skin_get(const gchar *group, const gchar *key, const gchar *default_value)
+mc_skin_get (const gchar * group, const gchar * key, const gchar * default_value)
 {
-    if (mc_args__ugly_line_drawing) {
-	return g_strdup(default_value);
+    if (mc_global.tty.ugly_line_drawing)
+    {
+        return g_strdup (default_value);
     }
-    return mc_config_get_string(mc_skin__default.config, group, key, default_value);
+    return mc_config_get_string (mc_skin__default.config, group, key, default_value);
 }
 
 /* --------------------------------------------------------------------------------------------- */

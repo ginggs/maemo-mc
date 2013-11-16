@@ -19,7 +19,9 @@ Build requirements for GNU Midnight Commander
 - pcre (if glib < 2.14)
 - slang or ncurses
 - gettext
-- cvs
+- cvs (for gettext < 0.18 or if gettext >= 0.18 is built with --with-cvs)
+- libssh2 >= 1.2.5 is required only for sftp vfs (1.2.7 if you need ssh-agent support)
+- libaspell to support spell checking in the internal editor
 
 
 Installation instructions for GNU Midnight Commander
@@ -88,6 +90,10 @@ incomplete, use `configure --help' to get the full list):
      built-in file editor.  The built-in editor is compiled in by
      default.
 
+`--enable-aspell'
+     This option adds spell check support in the internal editor using
+     libaspell. Disabled by default.
+
 `--without-gpm-mouse'
      Use this flag to disable gpm mouse support (e.g. if you want to
      use mouse only on X terminals).
@@ -138,6 +144,12 @@ incomplete, use `configure --help' to get the full list):
      default.  Background code is known to be less stable than the rest
      of the code, so you may want to disable it at the compile time.
 
+`--with-homedir'
+     This option allow users  to place user config directories in any
+     place. By default value is 'XDG', this mean, mc will respect XDG
+     standards. If other value is specified, this will used as directory
+     name (relative to $HOME if path is relative, or as is if path is
+     absolute).
 
 VFS options:
 - - - - - -
@@ -164,6 +176,10 @@ VFS options:
      (on by default)
      Support for FISH vfs
 
+`--enable-vfs-sftp'
+     (auto)
+     Support for SFTP vfs
+
 `--enable-vfs-extfs'
      (on by default)
      Support for extfs
@@ -173,19 +189,14 @@ VFS options:
      Support for sfs
 
 `--enable-vfs-undelfs'
+     (off by default)
      Support for ext2 undelete filesystem.
      On systems that use the ext2 or ext3 file system and have the
      libext2fs library available, this option adds support for
      recovering deleted files (the undel virtual file system).
 
-`--disable-netcode'
-     This option disables support for networked virtual filesystems.
-     It's primarily used by developers to make sure that the code would
-     compile and run on operating systems that lack POSIX compatible
-     network support.  But you can use it is you know that you won't be
-     accessing remote filesystems from GNU Midnight Commander.
-
-`--with-samba'
+`--enable-vfs-smb'
+     (off by default)
      This option enables remote VFS over the SMB protocol.  A stripped
      down version of samba distributed with the sources is compiled and
      linked with the mc executable.  It is recommended that you install
@@ -206,11 +217,8 @@ ncurses):
 `--with-screen={slang|ncurses}'
      Choose the library used to manage interaction with the terminal.
      `slang' means S-Lang library already installed on the system,
-     `mcslang' means S-Lang library included with the sources of
-     GNU Midnight Commander, `ncurses' means ncurses library already
-     installed on the system.  The installed S-Lang library is used
-     by default if found, otherwise the included S-Lang library is
-     used.
+     `ncurses' means ncurses library already installed on the system.
+     The S-Lang library is used by default if found.
 
 `--with-slang-includes=[DIR]'
      Set path to SLANG includes [default=/usr/include]; make sense
@@ -219,11 +227,6 @@ ncurses):
 `--with-slang-libs=[DIR]'
      Set path to SLANG library [default=/usr/lib]; mke sense only
      if --with-screen=slang is used.
-
-`--with-termcap'
-     If the included S-Lang library is used, this option forces it to
-     use the termcap database, as opposed to the default terminfo
-     database.
 
 `--with-ncurses-includes=[DIR]'
      Set path to ncurses includes [default=/usr/include]; make

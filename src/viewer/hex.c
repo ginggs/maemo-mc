@@ -3,51 +3,53 @@
    Function for hex view
 
    Copyright (C) 1994, 1995, 1996, 1998, 1999, 2000, 2001, 2002, 2003,
-   2004, 2005, 2006, 2007, 2009 Free Software Foundation, Inc.
+   2004, 2005, 2006, 2007, 2009, 2011
+   The Free Software Foundation, Inc.
 
-   Written by: 1994, 1995, 1998 Miguel de Icaza
-   1994, 1995 Janne Kukonlehto
-   1995 Jakub Jelinek
-   1996 Joseph M. Hinkle
-   1997 Norbert Warmuth
-   1998 Pavel Machek
-   2004 Roland Illig <roland.illig@gmx.de>
-   2005 Roland Illig <roland.illig@gmx.de>
-   2009 Slava Zanko <slavazanko@google.com>
-   2009 Andrew Borodin <aborodin@vmail.ru>
-   2009 Ilia Maslakov <il.smind@gmail.com>
+   Written by:
+   Miguel de Icaza, 1994, 1995, 1998
+   Janne Kukonlehto, 1994, 1995
+   Jakub Jelinek, 1995
+   Joseph M. Hinkle, 1996
+   Norbert Warmuth, 1997
+   Pavel Machek, 1998
+   Roland Illig <roland.illig@gmx.de>, 2004, 2005
+   Slava Zanko <slavazanko@google.com>, 2009
+   Andrew Borodin <aborodin@vmail.ru>, 2009
+   Ilia Maslakov <il.smind@gmail.com>, 2009
 
    This file is part of the Midnight Commander.
 
-   The Midnight Commander is free software; you can redistribute it
+   The Midnight Commander is free software: you can redistribute it
    and/or modify it under the terms of the GNU General Public License as
-   published by the Free Software Foundation; either version 2 of the
-   License, or (at your option) any later version.
+   published by the Free Software Foundation, either version 3 of the License,
+   or (at your option) any later version.
 
-   The Midnight Commander is distributed in the hope that it will be
-   useful, but WITHOUT ANY WARRANTY; without even the implied warranty
-   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   General Public License for more details.
+   The Midnight Commander is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-   MA 02110-1301, USA.
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <config.h>
 
 #include <errno.h>
 #include <fcntl.h>
+#include <inttypes.h>           /* uintmax_t */
 
 #include "lib/global.h"
 #include "lib/tty/tty.h"
 #include "lib/skin.h"
-#include "lib/vfs/mc-vfs/vfs.h"
-
-#include "src/main.h"
-#include "src/wtools.h"
-#include "src/charsets.h"
+#include "lib/vfs/vfs.h"
+#include "lib/lock.h"           /* lock_file() and unlock_file() */
+#include "lib/util.h"
+#include "lib/widget.h"
+#ifdef HAVE_CHARSET
+#include "lib/charsets.h"
+#endif
 
 #include "internal.h"
 
@@ -72,6 +74,7 @@ static const char hex_char[] = "0123456789ABCDEF";
 /*** file scope functions ************************************************************************/
 /* --------------------------------------------------------------------------------------------- */
 
+#ifdef HAVE_CHARSET
 static int
 utf8_to_int (char *str, int *char_width, gboolean * result)
 {
@@ -85,35 +88,27 @@ utf8_to_int (char *str, int *char_width, gboolean * result)
     if (str == NULL)
     {
         *result = FALSE;
-        width = 0;
         return 0;
     }
 
     res = g_utf8_get_char_validated (str, -1);
 
     if (res < 0)
-    {
         ch = *str;
-        width = 0;
-    }
     else
     {
         ch = res;
         /* Calculate UTF-8 char width */
         next_ch = g_utf8_next_char (str);
         if (next_ch)
-        {
             width = next_ch - str;
-        }
         else
-        {
             ch = 0;
-            width = 0;
-        }
     }
     *char_width = width;
     return ch;
 }
+#endif /* HAVE_CHARSET */
 
 /* --------------------------------------------------------------------------------------------- */
 /*** public functions ****************************************************************************/
@@ -129,7 +124,7 @@ mcview_display_hex (mcview_t * view)
     const int ngroups = view->bytes_per_line / 4;
     const screen_dimen text_start = 8 + 13 * ngroups + ((width < 80) ? 0 : (ngroups - 1 + 1));
     /* 8 characters are used for the file offset, and every hex group
-     * takes 13 characters. On ``big'' screens, the groups are separated
+     * takes 13 characters. On "big" screens, the groups are separated
      * by an extra vertical line, and there is an extra space before the
      * text column.
      */
@@ -139,7 +134,9 @@ mcview_display_hex (mcview_t * view)
     int c;
     mark_t boldflag = MARK_NORMAL;
     struct hexedit_change_node *curr = view->change_list;
+#ifdef HAVE_CHARSET
     int ch = 0;
+#endif /* HAVE_CHARSET */
 
     char hex_buff[10];          /* A temporary buffer for sprintf and mvwaddstr */
     int bytes;                  /* Number of bytes already printed on the line */
@@ -159,10 +156,9 @@ mcview_display_hex (mcview_t * view)
         col = 0;
 
         /* Print the hex offset */
-        g_snprintf (hex_buff, sizeof (hex_buff), "%08" OFFSETTYPE_PRIX " ",
-                    (long unsigned int) from);
+        g_snprintf (hex_buff, sizeof (hex_buff), "%08" PRIXMAX " ", (uintmax_t) from);
         widget_move (view, top + row, left);
-        tty_setcolor (MARKED_COLOR);
+        tty_setcolor (VIEW_BOLD_COLOR);
         for (i = 0; col < width && hex_buff[i] != '\0'; i++)
         {
             tty_print_char (hex_buff[i]);
@@ -203,7 +199,7 @@ mcview_display_hex (mcview_t * view)
                     curr = corr;
                 }
             }
-#endif
+#endif /* HAVE_CHARSET */
             if (!mcview_get_byte (view, from, &c))
                 break;
 
@@ -230,10 +226,10 @@ mcview_display_hex (mcview_t * view)
 
             /* Select the color for the hex number */
             tty_setcolor (boldflag == MARK_NORMAL ? NORMAL_COLOR :
-                          boldflag == MARK_SELECTED ? MARKED_COLOR :
+                          boldflag == MARK_SELECTED ? VIEW_BOLD_COLOR :
                           boldflag == MARK_CHANGED ? VIEW_UNDERLINED_COLOR :
                           /* boldflag == MARK_CURSOR */
-                          view->hexview_in_text ? MARKED_SELECTED_COLOR : VIEW_UNDERLINED_COLOR);
+                          view->hexview_in_text ? VIEW_SELECTED_COLOR : VIEW_UNDERLINED_COLOR);
 
             /* Print the hex number */
             widget_move (view, top + row, left + col);
@@ -277,14 +273,14 @@ mcview_display_hex (mcview_t * view)
             /* Select the color for the character; this differs from the
              * hex color when boldflag == MARK_CURSOR */
             tty_setcolor (boldflag == MARK_NORMAL ? NORMAL_COLOR :
-                          boldflag == MARK_SELECTED ? MARKED_COLOR :
+                          boldflag == MARK_SELECTED ? VIEW_BOLD_COLOR :
                           boldflag == MARK_CHANGED ? VIEW_UNDERLINED_COLOR :
                           /* boldflag == MARK_CURSOR */
-                          view->hexview_in_text ? VIEW_UNDERLINED_COLOR : MARKED_SELECTED_COLOR);
+                          view->hexview_in_text ? VIEW_SELECTED_COLOR : MARKED_SELECTED_COLOR);
 
 
 #ifdef HAVE_CHARSET
-            if (utf8_display)
+            if (mc_global.utf8_display)
             {
                 if (!view->utf8)
                 {
@@ -298,7 +294,9 @@ mcview_display_hex (mcview_t * view)
             else
 #endif
             {
+#ifdef HAVE_CHARSET
                 c = convert_to_display_c (c);
+#endif
 
                 if (!is_printable (c))
                     c = '.';
@@ -313,9 +311,7 @@ mcview_display_hex (mcview_t * view)
                     tty_print_anychar (ch);
                 else
 #endif
-                {
                     tty_print_char (c);
-                }
             }
 
             /* Save the cursor position for mcview_place_cursor() */
@@ -350,9 +346,11 @@ mcview_hexedit_save_changes (mcview_t * view)
         char *text;
         struct hexedit_change_node *curr, *next;
 
-        assert (view->filename != NULL);
+#ifdef HAVE_ASSERT_H
+        assert (view->filename_vpath != NULL);
+#endif
 
-        fp = mc_open (view->filename, O_WRONLY);
+        fp = mc_open (view->filename_vpath, O_WRONLY);
         if (fp != -1)
         {
             for (curr = view->change_list; curr != NULL; curr = next)
@@ -373,7 +371,7 @@ mcview_hexedit_save_changes (mcview_t * view)
             view->change_list = NULL;
 
             if (view->locked)
-                view->locked = mcview_unlock_file (view);
+                view->locked = unlock_file (view->filename_vpath);
 
             if (mc_close (fp) == -1)
                 message (D_ERROR, _("Save file"),
@@ -420,7 +418,7 @@ mcview_hexedit_free_change_list (mcview_t * view)
     view->change_list = NULL;
 
     if (view->locked)
-        view->locked = mcview_unlock_file (view);
+        view->locked = unlock_file (view->filename_vpath);
 
     view->dirty++;
 }

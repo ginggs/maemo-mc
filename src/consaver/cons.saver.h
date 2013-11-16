@@ -1,4 +1,3 @@
-
 /** \file cons.saver.h
  *  \brief Header: general purpose Linux console screen save/restore server
  *
@@ -10,26 +9,38 @@
  *  root is even worse.
  */
 
-#ifndef MC_CONS_SAVER_H
-#define MC_CONS_SAVER_H
+#ifndef MC__CONS_SAVER_H
+#define MC__CONS_SAVER_H
 
-enum {
+/*** typedefs(not structures) and defined constants **********************************************/
+
+/*** enums ***************************************************************************************/
+
+typedef enum
+{
     CONSOLE_INIT = '1',
     CONSOLE_DONE,
     CONSOLE_SAVE,
     CONSOLE_RESTORE,
     CONSOLE_CONTENTS
-};
+} console_action_t;
+
+/*** structures declarations (and typedefs of structures)*****************************************/
+
+/*** global variables defined in .c file *********************************************************/
 
 #ifndef LINUX_CONS_SAVER_C
 /* Used only in mc, not in cons.saver */
-
-extern signed char console_flag;
-
-void show_console_contents (int starty, unsigned char begin_line, unsigned char end_line);
-void handle_console (unsigned char action);
-
 extern int cons_saver_pid;
 #endif /* !LINUX_CONS_SAVER_C */
 
-#endif
+/*** declarations of public functions ************************************************************/
+
+#ifndef LINUX_CONS_SAVER_C
+/* Used only in mc, not in cons.saver */
+void show_console_contents (int starty, unsigned char begin_line, unsigned char end_line);
+void handle_console (console_action_t action);
+#endif /* !LINUX_CONS_SAVER_C */
+
+/*** inline functions ****************************************************************************/
+#endif /* MC__CONS_SAVER_H */
