@@ -2,9 +2,8 @@
 
 /* Background support.
 
-   Copyright (C) 1996, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2007,
-   2011
-   The Free Software Foundation, Inc.
+   Copyright (C) 1996-2014
+   Free Software Foundation, Inc.
 
    Written by:
    Miguel de Icaza, 1996
@@ -43,15 +42,16 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/wait.h>           /* waitpid() */
-#include <unistd.h>
 #include <fcntl.h>
 
 #include "lib/global.h"
+
+#include "lib/unixcompat.h"
 #include "lib/tty/key.h"        /* add_select_channel(), delete_select_channel() */
 #include "lib/widget.h"         /* message() */
 #include "lib/event-types.h"
 
-#include "filemanager/fileopctx.h"      /* FileOpContext */
+#include "filemanager/fileopctx.h"      /* file_op_context_t */
 
 #include "background.h"
 
@@ -85,7 +85,7 @@ static int background_attention (int fd, void *closure);
 /* --------------------------------------------------------------------------------------------- */
 
 static void
-register_task_running (FileOpContext * ctx, pid_t pid, int fd, int to_child, char *info)
+register_task_running (file_op_context_t * ctx, pid_t pid, int fd, int to_child, char *info)
 {
     TaskList *new;
 
@@ -173,7 +173,7 @@ destroy_task_and_return_fd (pid_t pid)
 static int
 background_attention (int fd, void *closure)
 {
-    FileOpContext *ctx;
+    file_op_context_t *ctx;
     int have_ctx;
     union
     {
@@ -183,11 +183,11 @@ background_attention (int fd, void *closure)
         int (*have_ctx3) (int, char *, char *, char *);
         int (*have_ctx4) (int, char *, char *, char *, char *);
 
-        int (*non_have_ctx0) (FileOpContext *, int);
-        int (*non_have_ctx1) (FileOpContext *, int, char *);
-        int (*non_have_ctx2) (FileOpContext *, int, char *, char *);
-        int (*non_have_ctx3) (FileOpContext *, int, char *, char *, char *);
-        int (*non_have_ctx4) (FileOpContext *, int, char *, char *, char *, char *);
+        int (*non_have_ctx0) (file_op_context_t *, int);
+        int (*non_have_ctx1) (file_op_context_t *, int, char *);
+        int (*non_have_ctx2) (file_op_context_t *, int, char *, char *);
+        int (*non_have_ctx3) (file_op_context_t *, int, char *, char *, char *);
+        int (*non_have_ctx4) (file_op_context_t *, int, char *, char *, char *, char *);
 
         char *(*ret_str0) ();
         char *(*ret_str1) (char *);
@@ -198,7 +198,7 @@ background_attention (int fd, void *closure)
         void *pointer;
     } routine;
     /*    void *routine; */
-    int argc, i, result, status;
+    int argc, i, status;
     char *data[MAXCALLARGS];
     ssize_t bytes, ret;
     struct TaskList *p;
@@ -247,7 +247,7 @@ background_attention (int fd, void *closure)
 
     if (have_ctx)
     {
-        if (read (fd, ctx, sizeof (FileOpContext)) != sizeof (FileOpContext))
+        if (read (fd, ctx, sizeof (file_op_context_t)) != sizeof (file_op_context_t))
         {
             message (D_ERROR, _("Background protocol error"), _("Reading failed"));
             return 0;
@@ -289,6 +289,8 @@ background_attention (int fd, void *closure)
     /* Handle the call */
     if (type == Return_Integer)
     {
+        int result = 0;
+
         if (!have_ctx)
             switch (argc)
             {
@@ -332,7 +334,7 @@ background_attention (int fd, void *closure)
         /* Send the result code and the value for shared variables */
         ret = write (to_child_fd, &result, sizeof (int));
         if (have_ctx && to_child_fd != -1)
-            ret = write (to_child_fd, ctx, sizeof (FileOpContext));
+            ret = write (to_child_fd, ctx, sizeof (file_op_context_t));
     }
     else if (type == Return_String)
     {
@@ -396,7 +398,7 @@ background_attention (int fd, void *closure)
  */
 
 static void
-parent_call_header (void *routine, int argc, enum ReturnType type, FileOpContext * ctx)
+parent_call_header (void *routine, int argc, enum ReturnType type, file_op_context_t * ctx)
 {
     int have_ctx;
     ssize_t ret;
@@ -409,7 +411,7 @@ parent_call_header (void *routine, int argc, enum ReturnType type, FileOpContext
     ret = write (parent_fd, &have_ctx, sizeof (have_ctx));
 
     if (have_ctx)
-        ret = write (parent_fd, ctx, sizeof (FileOpContext));
+        ret = write (parent_fd, ctx, sizeof (file_op_context_t));
     (void) ret;
 }
 
@@ -420,7 +422,7 @@ parent_va_call (void *routine, gpointer data, int argc, va_list ap)
 {
     int i;
     ssize_t ret;
-    struct FileOpContext *ctx = (struct FileOpContext *) data;
+    file_op_context_t *ctx = (file_op_context_t *) data;
 
     parent_call_header (routine, argc, Return_Integer, ctx);
     for (i = 0; i < argc; i++)
@@ -436,7 +438,7 @@ parent_va_call (void *routine, gpointer data, int argc, va_list ap)
 
     ret = read (from_parent_fd, &i, sizeof (int));
     if (ctx)
-        ret = read (from_parent_fd, ctx, sizeof (FileOpContext));
+        ret = read (from_parent_fd, ctx, sizeof (file_op_context_t));
 
     (void) ret;
     return i;
@@ -511,7 +513,7 @@ unregister_task_with_pid (pid_t pid)
  * -1 on failure
  */
 int
-do_background (struct FileOpContext *ctx, char *info)
+do_background (file_op_context_t * ctx, char *info)
 {
     int comm[2];                /* control connection stream */
     int back_comm[2];           /* back connection */
@@ -547,18 +549,18 @@ do_background (struct FileOpContext *ctx, char *info)
         top_dlg = NULL;
 
         /* Make stdin/stdout/stderr point somewhere */
-        close (0);
-        close (1);
-        close (2);
+        close (STDIN_FILENO);
+        close (STDOUT_FILENO);
+        close (STDERR_FILENO);
 
         nullfd = open ("/dev/null", O_RDWR);
         if (nullfd != -1)
         {
-            while (dup2 (nullfd, 0) == -1 && errno == EINTR)
+            while (dup2 (nullfd, STDIN_FILENO) == -1 && errno == EINTR)
                 ;
-            while (dup2 (nullfd, 1) == -1 && errno == EINTR)
+            while (dup2 (nullfd, STDOUT_FILENO) == -1 && errno == EINTR)
                 ;
-            while (dup2 (nullfd, 2) == -1 && errno == EINTR)
+            while (dup2 (nullfd, STDERR_FILENO) == -1 && errno == EINTR)
                 ;
         }
 
@@ -575,7 +577,7 @@ do_background (struct FileOpContext *ctx, char *info)
 /* --------------------------------------------------------------------------------------------- */
 
 int
-parent_call (void *routine, struct FileOpContext *ctx, int argc, ...)
+parent_call (void *routine, file_op_context_t * ctx, int argc, ...)
 {
     int ret;
     va_list ap;

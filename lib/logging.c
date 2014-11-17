@@ -1,8 +1,8 @@
 /*
    Provides a log file to ease tracing the program.
 
-   Copyright (C) 2006, 2009, 2011
-   The Free Software Foundation, Inc.
+   Copyright (C) 2006-2014
+   Free Software Foundation, Inc.
 
    Written by:
    Roland Illig <roland.illig@gmx.de>, 2006
@@ -112,13 +112,14 @@ get_log_filename (void)
 static void
 mc_va_log (const char *fmt, va_list args)
 {
-    FILE *f;
     char *logfilename;
 
     logfilename = get_log_filename ();
 
     if (logfilename != NULL)
     {
+        FILE *f;
+
         f = fopen (logfilename, "a");
         if (f != NULL)
         {

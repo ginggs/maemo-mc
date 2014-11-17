@@ -2,9 +2,8 @@
    Input line filename/username/hostname/variable/command completion.
    (Let mc type for you...)
 
-   Copyright (C) 1995, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005,
-   2007, 2011, 2013
-   the Free Software Foundation, Inc.
+   Copyright (C) 1995-2014
+   Free Software Foundation, Inc.
 
    Written by:
    Jakub Jelinek, 1995
@@ -271,14 +270,11 @@ filename_completion_function (const char *text, int state, input_complete_t flag
             mc_closedir (directory);
             directory = NULL;
         }
-        g_free (dirname);
-        dirname = NULL;
+        MC_PTR_FREE (dirname);
         vfs_path_free (dirname_vpath);
         dirname_vpath = NULL;
-        g_free (filename);
-        filename = NULL;
-        g_free (users_dirname);
-        users_dirname = NULL;
+        MC_PTR_FREE (filename);
+        MC_PTR_FREE (users_dirname);
         return NULL;
     }
 
@@ -569,6 +565,7 @@ command_completion_function (const char *_text, int state, input_complete_t flag
     };
     char *p, *found;
 
+    /* cppcheck-suppress uninitvar */
     SHOW_C_CTX ("command_completion_function");
 
     if (!(flags & INPUT_COMPLETE_COMMANDS))
@@ -660,18 +657,12 @@ command_completion_function (const char *_text, int state, input_complete_t flag
             }
             found = filename_completion_function (cur_word, state - init_state, flags);
             if (!found)
-            {
-                g_free (cur_word);
-                cur_word = NULL;
-            }
+                MC_PTR_FREE (cur_word);
         }
     }
 
     if (found == NULL)
-    {
-        g_free (path);
-        path = NULL;
-    }
+        MC_PTR_FREE (path);
     else
     {
         p = strrchr (found, PATH_SEP);
@@ -735,8 +726,6 @@ completion_matches (const char *text, CompletionFunction entry_function, input_c
        lowest common denominator.  That then becomes match_list[0]. */
     if (matches)
     {
-        register size_t i = 1;
-        int low = 4096;         /* Count of max-matched characters. */
 
         /* If only one match, just use that. */
         if (matches == 1)
@@ -746,6 +735,8 @@ completion_matches (const char *text, CompletionFunction entry_function, input_c
         }
         else
         {
+            size_t i = 1;
+            int low = 4096;     /* Count of max-matched characters. */
             size_t j;
 
             qsort (match_list + 1, matches, sizeof (char *), match_compare);
@@ -795,11 +786,9 @@ completion_matches (const char *text, CompletionFunction entry_function, input_c
             match_list[0] = g_strndup (match_list[1], low);
         }
     }
-    else
-    {                           /* There were no matches. */
-        g_free (match_list);
-        match_list = NULL;
-    }
+    else                        /* There were no matches. */
+        MC_PTR_FREE (match_list);
+
     return match_list;
 }
 
@@ -846,12 +835,11 @@ try_complete_commands_prepare (try_complete_automation_state_t * state, char *te
         state->in_command_position++;
     else if (strchr (command_separator_chars, ti[0]) != NULL)
     {
-        int this_char, prev_char;
-
         state->in_command_position++;
-
         if (ti != text)
         {
+            int this_char, prev_char;
+
             /* Handle the two character tokens '>&', '<&', and '>|'.
                We are not in a command position after one of these. */
             this_char = ti[0];
@@ -937,20 +925,21 @@ try_complete_all_possible (try_complete_automation_state_t * state, char *text, 
             {
                 char *const cdpath_ref = g_strdup (getenv ("CDPATH"));
                 char *cdpath = cdpath_ref;
-                char c, *s;
+                char c;
 
-                if (cdpath == NULL)
-                    c = 0;
-                else
-                    c = ':';
+                c = (cdpath == NULL) ? '\0' : ':';
+
                 while (!matches && c == ':')
                 {
+                    char *s;
+
                     s = strchr (cdpath, ':');
+                    /* cppcheck-suppress nullPointer */
                     if (s == NULL)
-                        s = strchr (cdpath, 0);
+                        s = strchr (cdpath, '\0');
                     c = *s;
-                    *s = 0;
-                    if (*cdpath)
+                    *s = '\0';
+                    if (*cdpath != '\0')
                     {
                         state->r = mc_build_filename (cdpath, state->word, NULL);
                         SHOW_C_CTX ("try_complete:filename_subst_2");
@@ -982,12 +971,13 @@ insert_text (WInput * in, char *text, ssize_t size)
     {
         /* Expand the buffer */
         char *narea;
+        Widget *w = WIDGET (in);
 
-        narea = g_try_realloc (in->buffer, in->current_max_size + size + in->field_width);
+        narea = g_try_realloc (in->buffer, in->current_max_size + size + w->cols);
         if (narea != NULL)
         {
             in->buffer = narea;
-            in->current_max_size += size + in->field_width;
+            in->current_max_size += size + w->cols;
         }
     }
     if (strlen (in->buffer) + 1 < (size_t) in->current_max_size)
@@ -1007,7 +997,6 @@ insert_text (WInput * in, char *text, ssize_t size)
 static cb_ret_t
 query_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *data)
 {
-    static char buff[MB_LEN_MAX] = "";
     static int bl = 0;
 
     WDialog *h = DIALOG (w);
@@ -1049,7 +1038,7 @@ query_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *d
 
                 new_end = str_get_prev_char (&input->buffer[end]) - input->buffer;
 
-                for (i = 0, e = LISTBOX (h->current->data)->list;
+                for (i = 0, e = listbox_get_first_link (LISTBOX (h->current->data));
                      e != NULL; i++, e = g_list_next (e))
                 {
                     WLEntry *le = LENTRY (e->data);
@@ -1083,6 +1072,7 @@ query_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *d
             }
             else
             {
+                static char buff[MB_LEN_MAX] = "";
                 GList *e;
                 int i;
                 int need_redraw = 0;
@@ -1100,7 +1090,7 @@ query_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *d
                     return MSG_HANDLED;
                 }
 
-                for (i = 0, e = LISTBOX (h->current->data)->list;
+                for (i = 0, e = listbox_get_first_link (LISTBOX (h->current->data));
                      e != NULL; i++, e = g_list_next (e))
                 {
                     WLEntry *le = LENTRY (e->data);
@@ -1349,11 +1339,18 @@ try_complete (char *text, int *lc_start, int *lc_end, input_complete_t flags)
         matches = completion_matches (state.word, username_completion_function, state.flags);
     }
 
-    /* And finally if this word is in a command position, then
+    /* If this word is in a command position, then
        complete over possible command names, including aliases, functions,
        and command names. */
     if (matches == NULL)
         matches = try_complete_all_possible (&state, text, lc_start);
+
+    /* And finally if nothing found, try complete directory name */
+    if (matches == NULL)
+    {
+        state.in_command_position = 0;
+        matches = try_complete_all_possible (&state, text, lc_start);
+    }
 
     g_free (state.word);
 

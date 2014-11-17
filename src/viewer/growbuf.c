@@ -2,9 +2,8 @@
    Internal file viewer for the Midnight Commander
    Function for work with growing bufers
 
-   Copyright (C) 1994, 1995, 1996, 1998, 1999, 2000, 2001, 2002, 2003,
-   2004, 2005, 2006, 2007, 2009, 2011
-   The Free Software Foundation, Inc.
+   Copyright (C) 1994-2014
+   Free Software Foundation, Inc.
 
    Written by:
    Miguel de Icaza, 1994, 1995, 1998
@@ -113,8 +112,6 @@ void
 mcview_growbuf_read_until (mcview_t * view, off_t ofs)
 {
     ssize_t nread;
-    byte *p;
-    size_t bytesfree;
     gboolean short_read;
 
 #ifdef HAVE_ASSERT_H
@@ -127,6 +124,9 @@ mcview_growbuf_read_until (mcview_t * view, off_t ofs)
     short_read = FALSE;
     while (mcview_growbuf_filesize (view) < ofs || short_read)
     {
+        byte *p;
+        size_t bytesfree;
+
         if (view->growbuf_lastindex == VIEW_PAGE_SIZE)
         {
             /* Append a new block to the growing buffer */

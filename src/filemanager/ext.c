@@ -1,9 +1,8 @@
 /*
    Extension dependent execution.
 
-   Copyright (C) 1994, 1995, 1998, 1999, 2000, 2001, 2002, 2003, 2004,
-   2005, 2007, 2011, 2013
-   The Free Software Foundation, Inc.
+   Copyright (C) 1994-2014
+   Free Software Foundation, Inc.
 
    Written by:
    Jakub Jelinek, 1995
@@ -619,17 +618,16 @@ get_file_encoding_local (const vfs_path_t * filename_vpath, char *buf, int bufle
 
 static gboolean
 regex_check_type (const vfs_path_t * filename_vpath, const char *ptr, gboolean case_insense,
-                  gboolean * have_type, GError ** error)
+                  gboolean * have_type, GError ** mcerror)
 {
     gboolean found = FALSE;
 
     /* Following variables are valid if *have_type is TRUE */
     static char content_string[2048];
-#ifdef HAVE_CHARSET
-    static char encoding_id[21];        /* CSISO51INISCYRILLIC -- 20 */
-#endif
     static size_t content_shift = 0;
     static int got_data = 0;
+
+    mc_return_val_if_error (mcerror, FALSE);
 
     if (!use_file_to_check_type)
         return FALSE;
@@ -640,6 +638,7 @@ regex_check_type (const vfs_path_t * filename_vpath, const char *ptr, gboolean c
         const char *realname;   /* name used with "file" */
 
 #ifdef HAVE_CHARSET
+        static char encoding_id[21];    /* CSISO51INISCYRILLIC -- 20 */
         int got_encoding_data;
 #endif /* HAVE_CHARSET */
 
@@ -649,10 +648,8 @@ regex_check_type (const vfs_path_t * filename_vpath, const char *ptr, gboolean c
         localfile_vpath = mc_getlocalcopy (filename_vpath);
         if (localfile_vpath == NULL)
         {
-            g_propagate_error (error,
-                               g_error_new (MC_ERROR, -1,
-                                            _("Cannot fetch a local copy of %s"),
-                                            vfs_path_as_str (filename_vpath)));
+            mc_propagate_error (mcerror, -1, _("Cannot fetch a local copy of %s"),
+                                vfs_path_as_str (filename_vpath));
             return FALSE;
         }
 
@@ -718,7 +715,7 @@ regex_check_type (const vfs_path_t * filename_vpath, const char *ptr, gboolean c
 
     if (got_data == -1)
     {
-        g_propagate_error (error, g_error_new (MC_ERROR, -1, _("Pipe failed")));
+        mc_propagate_error (mcerror, -1, "%s", _("Pipe failed"));
         return FALSE;
     }
 
@@ -726,7 +723,7 @@ regex_check_type (const vfs_path_t * filename_vpath, const char *ptr, gboolean c
     {
         mc_search_t *search;
 
-        search = mc_search_new (ptr, -1);
+        search = mc_search_new (ptr, -1, DEFAULT_CHARSET);
         if (search != NULL)
         {
             search->search_type = MC_SEARCH_T_REGEX;
@@ -736,7 +733,7 @@ regex_check_type (const vfs_path_t * filename_vpath, const char *ptr, gboolean c
         }
         else
         {
-            g_propagate_error (error, g_error_new (MC_ERROR, -1, _("Regular expression error")));
+            mc_propagate_error (mcerror, -1, "%s", _("Regular expression error"));
         }
     }
 
@@ -750,8 +747,7 @@ regex_check_type (const vfs_path_t * filename_vpath, const char *ptr, gboolean c
 void
 flush_extension_file (void)
 {
-    g_free (data);
-    data = NULL;
+    MC_PTR_FREE (data);
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -831,8 +827,7 @@ regex_command_for (void *target, const vfs_path_t * filename_vpath, const char *
             if (strstr (data, "regex/") == NULL && strstr (data, "shell/") == NULL &&
                 strstr (data, "type/") == NULL)
             {
-                g_free (data);
-                data = NULL;
+                MC_PTR_FREE (data);
 
                 if (!mc_user_ext)
                 {
@@ -917,7 +912,7 @@ regex_command_for (void *target, const vfs_path_t * filename_vpath, const char *
                 if (case_insense)
                     p += 2;
 
-                search = mc_search_new (p, -1);
+                search = mc_search_new (p, -1, DEFAULT_CHARSET);
                 if (search != NULL)
                 {
                     search->search_type = MC_SEARCH_T_REGEX;
@@ -930,7 +925,8 @@ regex_command_for (void *target, const vfs_path_t * filename_vpath, const char *
             else if (strncmp (p, "directory/", 10) == 0)
             {
                 if (S_ISDIR (mystat.st_mode)
-                    && mc_search (p + 10, vfs_path_as_str (filename_vpath), MC_SEARCH_T_REGEX))
+                    && mc_search (p + 10, DEFAULT_CHARSET, vfs_path_as_str (filename_vpath),
+                                  MC_SEARCH_T_REGEX))
                     found = TRUE;
             }
             else if (strncmp (p, "shell/", 6) == 0)
@@ -960,7 +956,7 @@ regex_command_for (void *target, const vfs_path_t * filename_vpath, const char *
             }
             else if (strncmp (p, "type/", 5) == 0)
             {
-                GError *error = NULL;
+                GError *mcerror = NULL;
 
                 p += 5;
 
@@ -968,12 +964,9 @@ regex_command_for (void *target, const vfs_path_t * filename_vpath, const char *
                 if (case_insense)
                     p += 2;
 
-                found = regex_check_type (filename_vpath, p, case_insense, &have_type, &error);
-                if (error != NULL)
-                {
-                    g_error_free (error);
+                found = regex_check_type (filename_vpath, p, case_insense, &have_type, &mcerror);
+                if (mc_error_message (&mcerror))
                     error_flag = TRUE;  /* leave it if file cannot be opened */
-                }
             }
             else if (strncmp (p, "default/", 8) == 0)
                 found = TRUE;

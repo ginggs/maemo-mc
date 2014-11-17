@@ -1,9 +1,8 @@
 /*
    Widgets for the Midnight Commander
 
-   Copyright (C) 1994, 1995, 1996, 1998, 1999, 2000, 2001, 2002, 2003,
-   2004, 2005, 2006, 2007, 2009, 2010, 2011, 2012, 2013
-   The Free Software Foundation, Inc.
+   Copyright (C) 1994-2014
+   Free Software Foundation, Inc.
 
    Authors:
    Radek Doulik, 1994, 1995
@@ -290,7 +289,7 @@ char *
 history_show (GList ** history, Widget * widget, int current)
 {
     GList *z, *hlist = NULL, *hi;
-    size_t maxlen, i, count = 0;
+    size_t maxlen, count = 0;
     char *r = NULL;
     WDialog *query_dlg;
     WListbox *query_list;
@@ -304,6 +303,7 @@ history_show (GList ** history, Widget * widget, int current)
     for (z = *history; z != NULL; z = g_list_previous (z))
     {
         WLEntry *entry;
+        size_t i;
 
         i = str_term_width1 ((char *) z->data);
         maxlen = max (maxlen, i);
@@ -367,7 +367,7 @@ history_show (GList ** history, Widget * widget, int current)
 
     /* get modified history from dialog */
     z = NULL;
-    for (hi = query_list->list; hi != NULL; hi = g_list_next (hi))
+    for (hi = listbox_get_first_link (query_list); hi != NULL; hi = g_list_next (hi))
     {
         WLEntry *entry = LENTRY (hi->data);
 
@@ -382,8 +382,7 @@ history_show (GList ** history, Widget * widget, int current)
 
     dlg_destroy (query_dlg);
 
-    g_list_foreach (*history, (GFunc) g_free, NULL);
-    g_list_free (*history);
+    g_list_free_full (*history, g_free);
     *history = g_list_last (z);
 
     return r;

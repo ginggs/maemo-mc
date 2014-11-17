@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Midnight Commander\n"
 "Report-Msgid-Bugs-To: http://www.midnight-commander.org/\n"
-"POT-Creation-Date: 2013-08-02 22:06+0300\n"
-"PO-Revision-Date: 2013-07-05 08:44+0000\n"
+"POT-Creation-Date: 2014-09-04 16:51+0300\n"
+"PO-Revision-Date: 2014-09-04 10:10+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Slovak (http://www.transifex.com/projects/p/mc/language/sk/)\n"
 "Language: sk\n"
@@ -21,6 +21,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
+# "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 msgid "Warning: cannot load codepages list"
 msgstr "Upozornenie: nie je možné nahrať zoznam znakových sád"
 
@@ -147,6 +148,9 @@ msgid ""
 "Default skin has been loaded"
 msgstr ""
 
+msgid "Escape"
+msgstr ""
+
 msgid "Function key 1"
 msgstr "Funkčný klá. 1"
 
@@ -207,59 +211,56 @@ msgstr "Funkčný klá. 19"
 msgid "Function key 20"
 msgstr "Funkčný klá. 20"
 
-msgid "Backspace key"
-msgstr "Kláv. Backspace"
+msgid "Completion/M-tab"
+msgstr "Doplnenie/M-tab"
+
+msgid "BackTab/S-tab"
+msgstr ""
+
+msgid "Backspace"
+msgstr ""
+
+msgid "Up arrow"
+msgstr ""
+
+msgid "Down arrow"
+msgstr ""
+
+msgid "Left arrow"
+msgstr ""
+
+msgid "Right arrow"
+msgstr ""
+
+msgid "Insert"
+msgstr ""
+
+msgid "Delete"
+msgstr ""
+
+msgid "Home"
+msgstr ""
 
 msgid "End key"
 msgstr "Klávesa End"
 
-msgid "Up arrow key"
-msgstr "Šípka hore"
-
-msgid "Down arrow key"
-msgstr "Šípka dole"
-
-msgid "Left arrow key"
-msgstr "Šípka vľavo"
-
-msgid "Right arrow key"
-msgstr "Šípka vpravo"
-
-msgid "Home key"
-msgstr "Klávesa Home"
-
-msgid "Page Down key"
-msgstr "Kláv. Page Down"
-
-msgid "Page Up key"
-msgstr "Kláv. Page Up"
-
-msgid "Insert key"
-msgstr "Klávesa Insert"
-
-msgid "Delete key"
-msgstr "Klávesa Delete"
-
-msgid "Completion/M-tab"
-msgstr "Doplnenie/M-tab"
-
-msgid "Back Tabulation S-tab"
+msgid "Page Up"
 msgstr ""
 
-msgid "+ on keypad"
-msgstr "+ na num. kláves."
+msgid "Page Down"
+msgstr ""
 
-msgid "- on keypad"
-msgstr "- na num. kláves."
-
-msgid "Slash on keypad"
-msgstr "Lomka na kláves."
+msgid "/ on keypad"
+msgstr ""
 
 msgid "* on keypad"
 msgstr "* na num. kláves."
 
-msgid "Escape key"
-msgstr "Klávesa escape"
+msgid "- on keypad"
+msgstr "- na num. kláves."
+
+msgid "+ on keypad"
+msgstr "+ na num. kláves."
 
 msgid "Left arrow keypad"
 msgstr "Ľava šípka na kláv."
@@ -312,14 +313,14 @@ msgstr "Klávesa A1"
 msgid "C1 key"
 msgstr "Klávesa C1"
 
-msgid "Plus"
-msgstr "Plus"
+msgid "Asterisk"
+msgstr "Hviezdička"
 
 msgid "Minus"
 msgstr "Mínus"
 
-msgid "Asterisk"
-msgstr "Hviezdička"
+msgid "Plus"
+msgstr "Plus"
 
 msgid "Dot"
 msgstr "Bodka"
@@ -537,6 +538,13 @@ msgstr "Proces v pozadí:"
 msgid "Error"
 msgstr "Chyba"
 
+#, c-format
+msgid "%d: %s"
+msgstr ""
+
+msgid "&Abort"
+msgstr "p&Rerušiť"
+
 msgid "Displays the current version"
 msgstr "Zobrazí aktuálnu verziu"
 
@@ -630,7 +638,7 @@ msgid ""
 "   Editor:       editnormal, editbold, editmarked, editwhitespace,\n"
 "                 editlinestate, editbg, editframe, editframeactive\n"
 "                 editframedrag\n"
-"   Viewer:       viewbold, viewunderline, viewselected\n"
+"   Viewer:       viewnormal,viewbold, viewunderline, viewselected\n"
 "   Help:         helpnormal, helpitalic, helpbold, helplink, helpslink\n"
 msgstr ""
 
@@ -844,6 +852,59 @@ msgstr ""
 msgid "Two files are needed to compare"
 msgstr ""
 
+#, fuzzy
+msgid "Bookmarks"
+msgstr "Ď&Alšia záložka"
+
+msgid " - Sort: "
+msgstr ""
+
+msgid "ABC"
+msgstr ""
+
+msgid "FRQ"
+msgstr ""
+
+msgid " - Filter: "
+msgstr ""
+
+msgid "FOUND"
+msgstr ""
+
+msgid "USER"
+msgstr ""
+
+#, fuzzy
+msgid "&Go to"
+msgstr "&Prejsť na riadok..."
+
+#, fuzzy
+msgid "&Add"
+msgstr "&Pridať nové"
+
+msgid "&Remove"
+msgstr "&Odstrániť"
+
+msgid "Fl&ush"
+msgstr ""
+
+#, fuzzy
+msgid "&Filter"
+msgstr "&Súbor"
+
+msgid "&Sort"
+msgstr ""
+
+#, fuzzy
+msgid "Re&verse"
+msgstr "o&Brátený"
+
+msgid "Bookmark list"
+msgstr ""
+
+msgid "Bookmark detail"
+msgstr ""
+
 msgid "Choose syntax highlighting"
 msgstr ""
 
@@ -854,7 +915,17 @@ msgid "< Reload Current Syntax >"
 msgstr "< Znovu načítať aktuálnu syntax >"
 
 #, c-format
+msgid "Loading: %3d%%"
+msgstr ""
+
+msgid "Loading..."
+msgstr ""
+
+#, c-format
 msgid "Cannot open %s for reading"
+msgstr ""
+
+msgid "Load file"
 msgstr ""
 
 #, c-format
@@ -883,6 +954,14 @@ msgstr ""
 msgid "Cannot open pipe for reading: %s"
 msgstr ""
 
+#, c-format
+msgid "Searching %s: %3d%%"
+msgstr ""
+
+#, c-format
+msgid "Searching %s"
+msgstr "Hľadanie %s"
+
 msgid "File has hard-links. Detach before saving?"
 msgstr ""
 
@@ -901,8 +980,8 @@ msgstr ""
 msgid "Cannot open file for writing: %s"
 msgstr ""
 
-msgid "The file you are saving is not finished with a newline"
-msgstr "Súbor, ktorý ukladáte nie je ukončený znakom nového riadka"
+msgid "The file you are saving does not end with a newline."
+msgstr ""
 
 msgid "C&ontinue"
 msgstr "P&okračovať"
@@ -929,6 +1008,9 @@ msgid "Save As"
 msgstr ""
 
 msgid "Block is large, you may not be able to undo this action"
+msgstr ""
+
+msgid "Collect completions"
 msgstr ""
 
 msgid "&Quick save"
@@ -1450,7 +1532,7 @@ msgid ""
 "written for the Midnight Commander."
 msgstr ""
 
-msgid "Copyright (C) 1996-2013 the Free Software Foundation"
+msgid "Copyright (C) 1996-2014 the Free Software Foundation"
 msgstr ""
 
 msgid "About"
@@ -1479,6 +1561,78 @@ msgstr "ButtonBar|Zmaza"
 
 msgid "ButtonBar|PullDn"
 msgstr "ButtonBar|H.menu"
+
+msgid "Breton"
+msgstr ""
+
+msgid "Czech"
+msgstr ""
+
+msgid "Welsh"
+msgstr ""
+
+msgid "Danish"
+msgstr ""
+
+msgid "German"
+msgstr ""
+
+msgid "Greek"
+msgstr ""
+
+msgid "English"
+msgstr ""
+
+msgid "British English"
+msgstr ""
+
+msgid "Canadian English"
+msgstr ""
+
+msgid "American English"
+msgstr ""
+
+msgid "Esperanto"
+msgstr ""
+
+msgid "Spanish"
+msgstr ""
+
+msgid "Faroese"
+msgstr ""
+
+msgid "French"
+msgstr ""
+
+msgid "Italian"
+msgstr ""
+
+msgid "Dutch"
+msgstr ""
+
+msgid "Norwegian"
+msgstr ""
+
+msgid "Polish"
+msgstr ""
+
+msgid "Portuguese"
+msgstr ""
+
+msgid "Romanian"
+msgstr ""
+
+msgid "Russian"
+msgstr ""
+
+msgid "Slovak"
+msgstr ""
+
+msgid "Swedish"
+msgstr ""
+
+msgid "Ukrainian"
+msgstr ""
 
 msgid "&Add word"
 msgstr ""
@@ -1649,6 +1803,18 @@ msgstr ""
 msgid "Configure options"
 msgstr "Nastavovateľne voľby"
 
+msgid "< Default >"
+msgstr ""
+
+msgid "Skins"
+msgstr ""
+
+msgid "Skin:"
+msgstr ""
+
+msgid "Appearance"
+msgstr ""
+
 msgid "Case &insensitive"
 msgstr ""
 
@@ -1791,9 +1957,6 @@ msgstr ""
 
 msgid "Input / display codepage:"
 msgstr "Vstupná/Zobrazovacia znaková sada:"
-
-msgid "&Select"
-msgstr "&Vybrať"
 
 msgid "Directory tree"
 msgstr ""
@@ -1973,15 +2136,6 @@ msgstr ""
 msgid "Set expression for filtering filenames"
 msgstr ""
 
-msgid "&Files only"
-msgstr "&Iba súbory"
-
-msgid "&Using shell patterns"
-msgstr "po&Užiť shell vzory"
-
-msgid "&Case sensitive"
-msgstr "&Rozlišovať veľkosť"
-
 #, c-format
 msgid "Link %s to:"
 msgstr "Odkaz %s na:"
@@ -2020,12 +2174,6 @@ msgid "Create a new Directory"
 msgstr "Vytvoriť nový adresár"
 
 msgid "Enter directory name:"
-msgstr ""
-
-msgid "Select"
-msgstr ""
-
-msgid "Unselect"
 msgstr ""
 
 msgid "Extension file edit"
@@ -2107,6 +2255,9 @@ msgid ""
 "files on: (F1 for details)"
 msgstr ""
 
+msgid "Directory scanning"
+msgstr "Prehľadávanie adresára"
+
 msgid "Setup"
 msgstr ""
 
@@ -2179,8 +2330,8 @@ msgid "FileOperation|Delete"
 msgstr "FileOperation|Zmazať"
 
 #, no-c-format
-msgid "%o %f \"%s\"%m"
-msgstr "%o %f \"%s\"%m"
+msgid "%o %f%n\"%s\"%m"
+msgstr ""
 
 #, no-c-format
 msgid "%o %d %f%m"
@@ -2205,13 +2356,6 @@ msgstr "súbory/adresáre"
 msgid " with source mask:"
 msgstr " so zdrojovou maskou:"
 
-msgid "to:"
-msgstr "k:"
-
-#, c-format
-msgid "%s?"
-msgstr "%s?"
-
 msgid "Cannot make the hardlink"
 msgstr ""
 
@@ -2232,9 +2376,6 @@ msgid ""
 "Cannot create target symlink \"%s\"\n"
 "%s"
 msgstr ""
-
-msgid "&Abort"
-msgstr "p&Rerušiť"
 
 msgid "Ski&p all"
 msgstr ""
@@ -2452,13 +2593,8 @@ msgid ""
 "%s"
 msgstr ""
 
-msgid "Directory scanning"
-msgstr "Prehľadávanie adresára"
-
 #, c-format
-msgid ""
-"%s\n"
-"Directories: %zd, total size: %s"
+msgid "Directories: %zd, total size: %s"
 msgstr ""
 
 msgid "Cannot operate on \"..\"!"
@@ -2566,6 +2702,15 @@ msgstr "Zdroj"
 msgid "Target"
 msgstr "Cieľ"
 
+msgid "Deleting"
+msgstr ""
+
+msgid "&Using shell patterns"
+msgstr "po&Užiť shell vzory"
+
+msgid "to:"
+msgstr "k:"
+
 msgid "Follow &links"
 msgstr ""
 
@@ -2657,10 +2802,6 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#, c-format
-msgid "Searching %s"
-msgstr "Hľadanie %s"
-
 msgid "Searching"
 msgstr "Hľadanie"
 
@@ -2687,9 +2828,6 @@ msgstr ""
 
 msgid "&Insert"
 msgstr "v&Ložiť"
-
-msgid "&Remove"
-msgstr "&Odstrániť"
 
 msgid "Subgroup - press ENTER to see list"
 msgstr "Podskupina - stlačte ENTER, ak chcete vidieť zoznam"
@@ -3038,6 +3176,9 @@ msgstr ""
 msgid "C&onfirmation..."
 msgstr "P&Otvrdenie..."
 
+msgid "&Appearance..."
+msgstr ""
+
 msgid "&Display bits..."
 msgstr "&Zobrazené bity..."
 
@@ -3213,6 +3354,18 @@ msgid "Panelize"
 msgstr ""
 
 msgid "Unknown tag on display format:"
+msgstr ""
+
+msgid "&Files only"
+msgstr "&Iba súbory"
+
+msgid "&Case sensitive"
+msgstr "&Rozlišovať veľkosť"
+
+msgid "Select"
+msgstr ""
+
+msgid "Unselect"
 msgstr ""
 
 msgid "Do you really want to execute?"
@@ -3821,9 +3974,6 @@ msgstr ""
 msgid "sftp: Invalid host name."
 msgstr ""
 
-msgid "sftp: Invalid port value."
-msgstr ""
-
 #, c-format
 msgid "sftp: %s"
 msgstr ""
@@ -4006,7 +4156,7 @@ msgstr ""
 msgid "Empty output from child filter"
 msgstr "Prázdny výstup z filtra potomka"
 
-msgid "&Line number (decimal)"
+msgid "&Line number"
 msgstr ""
 
 msgid "Pe&rcents"
@@ -4082,9 +4232,6 @@ msgid ""
 "%s"
 msgstr ""
 
-msgid "Seeking to search result"
-msgstr "Presúva sa na pozíciu výsledku vyhľadávania"
-
 msgid "Search done"
 msgstr ""
 
@@ -4093,6 +4240,3 @@ msgstr ""
 
 msgid "Cannot fetch a local copy of /ftp://some.host/editme.txt"
 msgstr ""
-
-#~ msgid "Deleting"
-#~ msgstr "Deleting"

@@ -13,13 +13,13 @@
 # Ilia Maslakov <il.smind@gmail.com>, 2009
 # Slava Zanko <slavazanko@gmail.com>, 2009, 2011
 # NaiLi (aka jamesjames) Rootaerc <theism@mail.ru>, 2012
-# Andrew Borodin <aborodin@vmail.ru>, 2009-2013.
+# Andrew Borodin <aborodin@vmail.ru>, 2009-2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: Midnight Commander\n"
 "Report-Msgid-Bugs-To: http://www.midnight-commander.org/\n"
-"POT-Creation-Date: 2013-08-02 22:06+0300\n"
-"PO-Revision-Date: 2013-07-05 09:15+0300\n"
+"POT-Creation-Date: 2014-09-04 16:51+0300\n"
+"PO-Revision-Date: 2014-07-22 14:40+0300\n"
 "Last-Translator: Andrew Borodin <aborodin@vmail.ru>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/mc/language/"
 "ru/)\n"
@@ -165,6 +165,9 @@ msgstr ""
 "на терминале, не поддерживающем 256 цветов.\n"
 "Будет использован скин по-умолчанию"
 
+msgid "Escape"
+msgstr "Клавиша Esc      "
+
 msgid "Function key 1"
 msgstr "Функциональная 1 "
 
@@ -225,59 +228,56 @@ msgstr "Функциональная 19"
 msgid "Function key 20"
 msgstr "Функциональная 20"
 
-msgid "Backspace key"
+msgid "Completion/M-tab"
+msgstr "Завершение/M-tab "
+
+msgid "BackTab/S-tab"
+msgstr "Обратная таб./S-tab"
+
+msgid "Backspace"
 msgstr "Клавиша Backspace"
+
+msgid "Up arrow"
+msgstr "Стрелка вверх    "
+
+msgid "Down arrow"
+msgstr "Стрелка вниз     "
+
+msgid "Left arrow"
+msgstr "Стрелка влево    "
+
+msgid "Right arrow"
+msgstr "Стрелка вправо   "
+
+msgid "Insert"
+msgstr "Клавиша Insert   "
+
+msgid "Delete"
+msgstr "Клавиша Delete   "
+
+msgid "Home"
+msgstr "Клавиша Home     "
 
 msgid "End key"
 msgstr "Клавиша End      "
 
-msgid "Up arrow key"
-msgstr "Стрелка вверх    "
-
-msgid "Down arrow key"
-msgstr "Стрелка вниз     "
-
-msgid "Left arrow key"
-msgstr "Стрелка влево    "
-
-msgid "Right arrow key"
-msgstr "Стрелка вправо   "
-
-msgid "Home key"
-msgstr "Клавиша Home     "
-
-msgid "Page Down key"
-msgstr "Клавиша Page Down"
-
-msgid "Page Up key"
+msgid "Page Up"
 msgstr "Клавиша Page Up  "
 
-msgid "Insert key"
-msgstr "Клавиша Insert   "
+msgid "Page Down"
+msgstr "Клавиша Page Down"
 
-msgid "Delete key"
-msgstr "Клавиша Delete   "
-
-msgid "Completion/M-tab"
-msgstr "Завершение/M-Tab "
-
-msgid "Back Tabulation S-tab"
-msgstr "Обратная табуляция S-tab"
-
-msgid "+ on keypad"
-msgstr "+ доп.клавиатуры "
-
-msgid "- on keypad"
-msgstr "- доп.клавиатуры "
-
-msgid "Slash on keypad"
+msgid "/ on keypad"
 msgstr "/ доп.клавиатуры "
 
 msgid "* on keypad"
 msgstr "* доп.клавиатуры "
 
-msgid "Escape key"
-msgstr "Клавиша Esc      "
+msgid "- on keypad"
+msgstr "- доп.клавиатуры "
+
+msgid "+ on keypad"
+msgstr "+ доп.клавиатуры "
 
 msgid "Left arrow keypad"
 msgstr "Left доп.клавиатуры"
@@ -330,14 +330,14 @@ msgstr "Клавиша A1"
 msgid "C1 key"
 msgstr "Клавиша C1"
 
-msgid "Plus"
-msgstr "Плюс"
+msgid "Asterisk"
+msgstr "Звёздочка"
 
 msgid "Minus"
 msgstr "Минус"
 
-msgid "Asterisk"
-msgstr "Звёздочка"
+msgid "Plus"
+msgstr "Плюс"
 
 msgid "Dot"
 msgstr "Точка"
@@ -555,6 +555,13 @@ msgstr "Фоновый процесс:"
 msgid "Error"
 msgstr "Ошибка"
 
+#, c-format
+msgid "%d: %s"
+msgstr "%d: %s"
+
+msgid "&Abort"
+msgstr "&Прервать"
+
 msgid "Displays the current version"
 msgstr "Показать текущую версию"
 
@@ -649,7 +656,7 @@ msgid ""
 "   Editor:       editnormal, editbold, editmarked, editwhitespace,\n"
 "                 editlinestate, editbg, editframe, editframeactive\n"
 "                 editframedrag\n"
-"   Viewer:       viewbold, viewunderline, viewselected\n"
+"   Viewer:       viewnormal,viewbold, viewunderline, viewselected\n"
 "   Help:         helpnormal, helpitalic, helpbold, helplink, helpslink\n"
 msgstr ""
 "--colors КЛЮЧЕВОЕ_СЛОВО={ТЕКСТ},{ФОН},{АТРИБУТ}:КЛЮЧЕВОЕ_СЛОВО2=...\n"
@@ -671,7 +678,7 @@ msgstr ""
 "   Редактор:           editnormal, editbold, editmarked, editwhitespace,\n"
 "                       editlinestate, editbg, editframe, editframeactive\n"
 "                       editframedrag\n"
-"   Просмотрщик:        viewbold, viewunderline, viewselected\n"
+"   Просмотрщик:        viewnormal, viewbold, viewunderline, viewselected\n"
 "   Справка:            helpnormal, helpitalic, helpbold, helplink, "
 "helpslink\n"
 
@@ -912,6 +919,62 @@ msgstr "Неверный режим запуска программы сравн
 msgid "Two files are needed to compare"
 msgstr "Для сравнения необходимы два файла"
 
+#, fuzzy
+msgid "Bookmarks"
+msgstr "У&брать все закладки"
+
+#, fuzzy
+msgid " - Sort: "
+msgstr "Сортировка"
+
+msgid "ABC"
+msgstr ""
+
+msgid "FRQ"
+msgstr ""
+
+#, fuzzy
+msgid " - Filter: "
+msgstr "Фильтр"
+
+msgid "FOUND"
+msgstr ""
+
+msgid "USER"
+msgstr ""
+
+#, fuzzy
+msgid "&Go to"
+msgstr "Перейти к &строке..."
+
+#, fuzzy
+msgid "&Add"
+msgstr "&Добавить"
+
+msgid "&Remove"
+msgstr "&Удалить"
+
+msgid "Fl&ush"
+msgstr ""
+
+#, fuzzy
+msgid "&Filter"
+msgstr "Фильтр"
+
+#, fuzzy
+msgid "&Sort"
+msgstr "Сортировка"
+
+#, fuzzy
+msgid "Re&verse"
+msgstr "&Обратный"
+
+msgid "Bookmark list"
+msgstr ""
+
+msgid "Bookmark detail"
+msgstr ""
+
 msgid "Choose syntax highlighting"
 msgstr "Выбор цветовыделения синтаксиса"
 
@@ -922,8 +985,18 @@ msgid "< Reload Current Syntax >"
 msgstr "Перезагрузить текущее цветовыделение"
 
 #, c-format
+msgid "Loading: %3d%%"
+msgstr "Загрузка: %3d%%"
+
+msgid "Loading..."
+msgstr "Загрузка..."
+
+#, c-format
 msgid "Cannot open %s for reading"
 msgstr "Невозможно открыть файл %s для чтения"
+
+msgid "Load file"
+msgstr "Загрузка файла"
 
 #, c-format
 msgid "Error reading %s"
@@ -953,6 +1026,14 @@ msgstr "Ошибка чтения из канала: %s"
 msgid "Cannot open pipe for reading: %s"
 msgstr "Невозможно открыть канал для чтения: %s"
 
+#, c-format
+msgid "Searching %s: %3d%%"
+msgstr "Ищем %s: %3d%%"
+
+#, c-format
+msgid "Searching %s"
+msgstr "Ищем %s"
+
 msgid "File has hard-links. Detach before saving?"
 msgstr "Файл имеет жесткие ссылки. Отсоединить перед сохранением?"
 
@@ -971,7 +1052,7 @@ msgstr "Невозможно открыть канал для записи: %s"
 msgid "Cannot open file for writing: %s"
 msgstr "Невозможно открыть файл для записи: %s"
 
-msgid "The file you are saving is not finished with a newline"
+msgid "The file you are saving does not end with a newline."
 msgstr "Сохраняемый файл не имеет символа перевода строки в конце файла"
 
 msgid "C&ontinue"
@@ -1000,6 +1081,9 @@ msgstr "Сохранить как"
 
 msgid "Block is large, you may not be able to undo this action"
 msgstr "Блок слишком велик, вам может не удаться отменить эту операцию."
+
+msgid "Collect completions"
+msgstr "Поиск дополнений"
 
 msgid "&Quick save"
 msgstr "&Быстрое сохранение"
@@ -1530,8 +1614,8 @@ msgstr ""
 "Текстовый редактор с дружественным интерфейсом пользователя.\n"
 "Создан для Midnight Commander."
 
-msgid "Copyright (C) 1996-2013 the Free Software Foundation"
-msgstr "Copyright (C) 1996-2013 the Free Software Foundation"
+msgid "Copyright (C) 1996-2014 the Free Software Foundation"
+msgstr "Copyright (C) 1996-2014 the Free Software Foundation"
 
 msgid "About"
 msgstr "О программе"
@@ -1559,6 +1643,78 @@ msgstr "Удалить"
 
 msgid "ButtonBar|PullDn"
 msgstr "МенюMC"
+
+msgid "Breton"
+msgstr ""
+
+msgid "Czech"
+msgstr ""
+
+msgid "Welsh"
+msgstr ""
+
+msgid "Danish"
+msgstr ""
+
+msgid "German"
+msgstr ""
+
+msgid "Greek"
+msgstr ""
+
+msgid "English"
+msgstr ""
+
+msgid "British English"
+msgstr ""
+
+msgid "Canadian English"
+msgstr ""
+
+msgid "American English"
+msgstr ""
+
+msgid "Esperanto"
+msgstr ""
+
+msgid "Spanish"
+msgstr ""
+
+msgid "Faroese"
+msgstr ""
+
+msgid "French"
+msgstr ""
+
+msgid "Italian"
+msgstr ""
+
+msgid "Dutch"
+msgstr ""
+
+msgid "Norwegian"
+msgstr ""
+
+msgid "Polish"
+msgstr ""
+
+msgid "Portuguese"
+msgstr ""
+
+msgid "Romanian"
+msgstr ""
+
+msgid "Russian"
+msgstr ""
+
+msgid "Slovak"
+msgstr ""
+
+msgid "Swedish"
+msgstr ""
+
+msgid "Ukrainian"
+msgstr ""
 
 msgid "&Add word"
 msgstr "&Добавить"
@@ -1739,6 +1895,18 @@ msgstr "&Автосохранение настроек"
 msgid "Configure options"
 msgstr "Параметры конфигурации"
 
+msgid "< Default >"
+msgstr "< По умолчанию >"
+
+msgid "Skins"
+msgstr "Скины"
+
+msgid "Skin:"
+msgstr "Скин:"
+
+msgid "Appearance"
+msgstr "Оформление"
+
 msgid "Case &insensitive"
 msgstr "Без &учета регистра"
 
@@ -1885,9 +2053,6 @@ msgstr "Отображение символов"
 
 msgid "Input / display codepage:"
 msgstr "Кодировка ввода/вывода:"
-
-msgid "&Select"
-msgstr "Выбрать"
 
 msgid "Directory tree"
 msgstr "Дерево каталогов"
@@ -2067,15 +2232,6 @@ msgstr "Фильтр"
 msgid "Set expression for filtering filenames"
 msgstr "Задайте выражение для выбора имен файлов"
 
-msgid "&Files only"
-msgstr "Только файлы"
-
-msgid "&Using shell patterns"
-msgstr "&Метасимволы shell"
-
-msgid "&Case sensitive"
-msgstr "Учет ре&гистра"
-
 #, c-format
 msgid "Link %s to:"
 msgstr "Создать ссылку с %s на:"
@@ -2115,12 +2271,6 @@ msgstr "Создать новый каталог"
 
 msgid "Enter directory name:"
 msgstr "Введите имя каталога:"
-
-msgid "Select"
-msgstr "отметить группу"
-
-msgid "Unselect"
-msgstr "Снять отметку"
 
 msgid "Extension file edit"
 msgstr "Редактирование файла расширений"
@@ -2207,6 +2357,9 @@ msgstr ""
 "Введите имя устройства (без /dev/), на котором\n"
 "восстанавливать файлы после удаления (детали по F1):"
 
+msgid "Directory scanning"
+msgstr "Путь к каталогу"
+
 msgid "Setup"
 msgstr "Настройка"
 
@@ -2287,8 +2440,8 @@ msgid "FileOperation|Delete"
 msgstr "Удалить"
 
 #, no-c-format
-msgid "%o %f \"%s\"%m"
-msgstr "%o %f \"%s\"%m"
+msgid "%o %f%n\"%s\"%m"
+msgstr "%o %f%n\"%s\"%m"
 
 #, no-c-format
 msgid "%o %d %f%m"
@@ -2312,13 +2465,6 @@ msgstr "файлы/каталоги"
 #. TRANSLATORS: keep leading space here to split words in Copy/Move dialog
 msgid " with source mask:"
 msgstr " с исходным шаблоном:"
-
-msgid "to:"
-msgstr "в:"
-
-#, c-format
-msgid "%s?"
-msgstr "%s?"
 
 msgid "Cannot make the hardlink"
 msgstr "Невозможно создать жесткую ссылку"
@@ -2348,9 +2494,6 @@ msgid ""
 msgstr ""
 "Невозможно создать целевую симв. ссылку \"%s\"\n"
 "%s"
-
-msgid "&Abort"
-msgstr "&Прервать"
 
 msgid "Ski&p all"
 msgstr "Пропустить вс&ё"
@@ -2635,16 +2778,9 @@ msgstr ""
 "Невозможно переместить каталог \"%s\" в \"%s\"\n"
 "%s"
 
-msgid "Directory scanning"
-msgstr "Путь к каталогу"
-
 #, c-format
-msgid ""
-"%s\n"
-"Directories: %zd, total size: %s"
-msgstr ""
-"%s\n"
-"Каталоги: %zd, общий объём: %s"
+msgid "Directories: %zd, total size: %s"
+msgstr "Каталоги: %zd, общий объём: %s"
 
 msgid "Cannot operate on \"..\"!"
 msgstr "Эту операцию невозможно выполнить на \"..\"!"
@@ -2751,6 +2887,15 @@ msgstr "Источник"
 msgid "Target"
 msgstr "Приемник"
 
+msgid "Deleting"
+msgstr "Удаление"
+
+msgid "&Using shell patterns"
+msgstr "&Метасимволы shell"
+
+msgid "to:"
+msgstr "в:"
+
 msgid "Follow &links"
 msgstr "&Разыменовывать ссылки"
 
@@ -2842,10 +2987,6 @@ msgstr[0] "Завершено (пропущен %zd каталог)"
 msgstr[1] "Завершено (пропущено %zd каталога)"
 msgstr[2] "Завершено (пропущено %zd каталогов)"
 
-#, c-format
-msgid "Searching %s"
-msgstr "Ищем %s"
-
 msgid "Searching"
 msgstr "Ищем"
 
@@ -2872,9 +3013,6 @@ msgstr "Новый &элемент"
 
 msgid "&Insert"
 msgstr "В &начало"
-
-msgid "&Remove"
-msgstr "&Удалить"
 
 msgid "Subgroup - press ENTER to see list"
 msgstr "Подгруппа - для просмотра нажмите ENTER"
@@ -3227,6 +3365,9 @@ msgstr "&Настройки панелей..."
 msgid "C&onfirmation..."
 msgstr "&Подтверждение..."
 
+msgid "&Appearance..."
+msgstr "&Оформление..."
+
 msgid "&Display bits..."
 msgstr "&Биты символов..."
 
@@ -3403,6 +3544,18 @@ msgstr "Панелизация"
 
 msgid "Unknown tag on display format:"
 msgstr "Неизвестный тег в формате отображения:"
+
+msgid "&Files only"
+msgstr "Только файлы"
+
+msgid "&Case sensitive"
+msgstr "Учет ре&гистра"
+
+msgid "Select"
+msgstr "отметить группу"
+
+msgid "Unselect"
+msgstr "Снять отметку"
 
 msgid "Do you really want to execute?"
 msgstr "Вы действительно хотите выполнить это?"
@@ -4022,9 +4175,6 @@ msgstr "sftp: невозможно получить имя пользовате�
 msgid "sftp: Invalid host name."
 msgstr "sftp: неверное имя системы."
 
-msgid "sftp: Invalid port value."
-msgstr "sftp: неверный порт."
-
 #, c-format
 msgid "sftp: %s"
 msgstr "sftp: %s"
@@ -4213,8 +4363,8 @@ msgstr "Невозможно породить дочерний процесс"
 msgid "Empty output from child filter"
 msgstr "Дочерний фильтр не вернул данные"
 
-msgid "&Line number (decimal)"
-msgstr "&Номер строки (десятичный)"
+msgid "&Line number"
+msgstr "&Номер строки"
 
 msgid "Pe&rcents"
 msgstr "П&роценты"
@@ -4298,9 +4448,6 @@ msgstr ""
 "Невозможно открыть \"%s\" в режиме фильтра\n"
 "%s"
 
-msgid "Seeking to search result"
-msgstr "Переход к найденному"
-
 msgid "Search done"
 msgstr "Поиск закончен"
 
@@ -4310,5 +4457,8 @@ msgstr "Продолжить с начала?"
 msgid "Cannot fetch a local copy of /ftp://some.host/editme.txt"
 msgstr "Невозможно получить локальную копию /ftp://some.host/editme.txt"
 
-#~ msgid "Deleting"
-#~ msgstr "Удаляем"
+#~ msgid "sftp: Invalid port value."
+#~ msgstr "sftp: неверный порт."
+
+#~ msgid "Seeking to search result"
+#~ msgstr "Переход к найденному"

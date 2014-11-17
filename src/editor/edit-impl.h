@@ -72,7 +72,7 @@
 #define get_sys_error(s) (s)
 
 #define edit_error_dialog(h,s) query_dialog (h, s, D_ERROR, 1, _("&Dismiss"))
-
+#define edit_query_dialog(h,s) query_dialog (h, s, D_NORMAL, 1, _("&Dismiss"))
 #define edit_query_dialog2(h,t,a,b) query_dialog (h, t, D_NORMAL, 2, a, b)
 #define edit_query_dialog3(h,t,a,b,c) query_dialog (h, t, D_NORMAL, 3, a, b, c)
 
@@ -206,6 +206,8 @@ void edit_replace_cmd (WEdit * edit, int again);
 void edit_search_cmd (WEdit * edit, gboolean again);
 mc_search_cbret_t edit_search_cmd_callback (const void *user_data, gsize char_offset,
                                             int *current_char);
+mc_search_cbret_t edit_search_update_callback (const void *user_data, gsize char_offset);
+
 void edit_complete_word_cmd (WEdit * edit);
 void edit_get_match_keyword_cmd (WEdit * edit);
 

@@ -1,4 +1,4 @@
-.\" -*- mode: troff; coding: utf8 -*-
+.\" -*- mode: troff; coding: UTF-8 -*-
 .\" Traducido el 6 de septiembre de 1998 por
 .\"	Francisco Gabriel Aroca Tapia <fgat1@alu.um.es>
 .\"
@@ -2949,8 +2949,7 @@ por segunda vez; con la primera Midnight Commander solo emite un pitido.
 .PP
 Aplica escapes a los símbolos
 .BR ? ", " * " y " &
-(como
-.BR \\? ", " \\* ", " \\& )
+(como \fB\\?\fR, \fB\\*\fR, \fB\\&\fR )
 en los nombres de archivo para evitar su interpretación en expresiones
 regulares al realizar sustituciones en la línea de entrada.
 .\"NODE "Virtual File System"
@@ -3375,10 +3374,10 @@ menusel, menuhot, menuhotsel, menuinactive; los colores de los diálogos:
 dnormal, dfocus, dhotnormal, dhotfocus, dtitle; los colores de los diálogos
 de error: errdfocus, errdhotnormal, errdhotfocus, errdtitle; los colores
 de la ayuda: helpnormal, helpitalic, helpbold, helplink, helpslink,
-helptitle; los colores del visor: viewbold, viewunderline, viewselected;
-loc colores del editor: editnormal, editbold, editmarked, editwhitespace,
-editlinestate; los colores de los menús desplegables: pmenunormal, pmenusel,
-pmenutitle.
+helptitle; los colores del visor: viewnormal, viewbold, viewunderline,
+viewselected; loc colores del editor: editnormal, editbold, editmarked,
+editwhitespace, editlinestate; los colores de los menús desplegables:
+pmenunormal, pmenusel, pmenutitle.
 .PP
 .I header
 determina el color del encabezado de los paneles, la línea con los
@@ -3937,7 +3936,7 @@ para volcar la selección de X Window a la salida estándar.
 Por ejemplo:
 .PP
 .nf
-clipboard_pastee=xclip \-o
+clipboard_paste=xclip \-o
 .fi
 .TP
 .I autodetect_codeset
@@ -4125,7 +4124,7 @@ carencia de garantía.
 .\"NODE "AVAILABILITY"
 .SH "DISPONIBILIDAD"
 La última versión de este programa se puede encontrar en
-http://www.midnight-commander.org/downloads.
+http://ftp.midnight\-commander.org/.
 .\"NODE "SEE ALSO"
 .SH "VÉASE TAMBIÉN"
 mcedit(1), sh(1), bash(1), tcsh(1), zsh(1), ed(1), view(1),

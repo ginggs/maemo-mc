@@ -1,9 +1,8 @@
 /*
    Widgets for the Midnight Commander
 
-   Copyright (C) 1994, 1995, 1996, 1998, 1999, 2000, 2001, 2002, 2003,
-   2004, 2005, 2006, 2007, 2009, 2010, 2011, 2012, 2013
-   The Free Software Foundation, Inc.
+   Copyright (C) 1994-2014
+   Free Software Foundation, Inc.
 
    Authors:
    Radek Doulik, 1994, 1995
@@ -145,6 +144,7 @@ widget_init (Widget * w, int y, int x, int lines, int cols,
     w->y = y;
     w->cols = cols;
     w->lines = lines;
+    w->pos_flags = WPOS_KEEP_DEFAULT;
     w->callback = callback;
     w->mouse = mouse_handler;
     w->set_options = widget_default_set_options_callback;
@@ -359,6 +359,9 @@ mouse_get_local (const Gpm_Event * global, const Widget * w)
     Gpm_Event local;
 
     local.buttons = global->buttons;
+#ifdef HAVE_LIBGPM
+    local.modifiers = 0;
+#endif
     local.x = global->x - w->x;
     local.y = global->y - w->y;
     local.type = global->type;

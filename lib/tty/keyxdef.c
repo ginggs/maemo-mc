@@ -3,8 +3,8 @@
 /*
    Additional keyboard support routines.
 
-   Copyright (C) 1998, 2000, 2001, 2005, 2007, 2011
-   The Free Software Foundation, Inc.
+   Copyright (C) 1998-2014
+   Free Software Foundation, Inc.
 
    Written by:
    Gyorgy Tamasi, 1998
@@ -415,7 +415,7 @@ load_qnx_key_defines (void)
 
     if (!_qnx_keys_defined)
     {
-        int idx, str_idx;
+        int idx;
         int term_setup_ok;
 
         __setupterm (NULL, fileno (stdout), &term_setup_ok);
@@ -424,7 +424,8 @@ load_qnx_key_defines (void)
 
         for (idx = 0; idx < sizeof (xtra_key_defines) / sizeof (xtra_key_defines[0]); idx++)
         {
-            str_idx = xtra_key_defines[idx].str_idx;
+            int str_idx = xtra_key_defines[idx].str_idx;
+
             if (__QTISOFFS (str_idx))
             {
                 if (*__QTISSTR (str_idx))

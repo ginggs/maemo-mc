@@ -1,8 +1,8 @@
 /*
    Editor dialogs for high level editing commands
 
-   Copyright (C) 2009, 2011, 2012, 2013
-   The Free Software Foundation, Inc.
+   Copyright (C) 2009-2014
+   Free Software Foundation, Inc.
 
    Written by:
    Slava Zanko <slavazanko@gmail.com>, 2009
@@ -162,14 +162,21 @@ editcmd_dialog_search_show (WEdit * edit)
     edit->last_search_string = search_text;
     mc_search_free (edit->search);
 
-    edit->search = mc_search_new (edit->last_search_string, -1);
+#ifdef HAVE_CHARSET
+    edit->search = mc_search_new (edit->last_search_string, -1, cp_source);
+#else
+    edit->search = mc_search_new (edit->last_search_string, -1, NULL);
+#endif
     if (edit->search != NULL)
     {
         edit->search->search_type = edit_search_options.type;
+#ifdef HAVE_CHARSET
         edit->search->is_all_charsets = edit_search_options.all_codepages;
+#endif
         edit->search->is_case_sensitive = edit_search_options.case_sens;
         edit->search->whole_words = edit_search_options.whole_words;
         edit->search->search_fn = edit_search_cmd_callback;
+        edit->search->update_fn = edit_search_update_callback;
     }
 
     return (edit->search != NULL);
@@ -317,7 +324,7 @@ editcmd_dialog_raw_key_query (const char *heading, const char *query, gboolean c
                     NULL, NULL, heading, DLG_CENTER | DLG_TRYUP | DLG_WANT_TAB);
 
     add_widget (raw_dlg, label_new (y, 3, query));
-    add_widget (raw_dlg, input_new (y++, 3 + wq + 1, input_get_default_colors (),
+    add_widget (raw_dlg, input_new (y++, 3 + wq + 1, input_colors,
                                     w - (6 + wq + 1), "", 0, INPUT_COMPLETE_NONE));
     if (cancel)
     {
@@ -413,7 +420,6 @@ editcmd_dialog_select_definition_show (WEdit * edit, char *match_expr, int max_l
     WListbox *def_list;
     int def_dlg_h;              /* dialog height */
     int def_dlg_w;              /* dialog width */
-    char *label_def = NULL;
 
     (void) word_len;
     /* calculate the dialog metrics */
@@ -450,6 +456,8 @@ editcmd_dialog_select_definition_show (WEdit * edit, char *match_expr, int max_l
     /* fill the listbox with the completions */
     for (i = 0; i < num_lines; i++)
     {
+        char *label_def;
+
         label_def =
             g_strdup_printf ("%s -> %s:%ld", def_hash[i].short_define, def_hash[i].filename,
                              def_hash[i].line);

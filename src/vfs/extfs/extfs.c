@@ -1,9 +1,8 @@
 /*
    Virtual File System: External file system.
 
-   Copyright (C) 1995, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005,
-   2006, 2007, 2009, 2011, 2013
-   The Free Software Foundation, Inc.
+   Copyright (C) 1995-2014
+   Free Software Foundation, Inc.
 
    Written by:
    Jakub Jelinek, 1995
@@ -377,7 +376,7 @@ extfs_free_archive (struct archive *archive)
         vfs_path_t *local_name_vpath, *name_vpath;
 
         local_name_vpath = vfs_path_from_str (archive->local_name);
-        name_vpath = vfs_path_from_str (archive->local_name);
+        name_vpath = vfs_path_from_str (archive->name);
         mc_stat (local_name_vpath, &my);
         mc_ungetlocalcopy (name_vpath, local_name_vpath,
                            archive->local_stat.st_mtime != my.st_mtime);
@@ -449,7 +448,7 @@ extfs_open_archive (int fstype, const char *name, struct archive **pparc)
 
     current_archive = g_new (struct archive, 1);
     current_archive->fstype = fstype;
-    current_archive->name = (name != NULL) ? g_strdup (name) : NULL;
+    current_archive->name = g_strdup (name);
     current_archive->local_name = g_strdup (vfs_path_get_last_path_str (local_name_vpath));
 
     if (local_name_vpath != NULL)
@@ -690,6 +689,7 @@ extfs_get_path_int (const vfs_path_t * vpath, struct archive **archive, gboolean
             if (strcmp (parc->name, archive_name) == 0)
             {
                 vfs_stamp (&vfs_extfs_ops, (vfsid) parc);
+                g_free (archive_name);
                 goto return_success;
             }
         }
@@ -1595,7 +1595,7 @@ extfs_get_plugins (const char *where, gboolean silent)
 
             f = open (fullname, O_RDONLY);
 
-            if (f > 0)
+            if (f >= 0)
             {
                 size_t len, i;
                 extfs_plugin_info_t info;

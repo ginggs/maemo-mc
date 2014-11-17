@@ -1,8 +1,8 @@
 /*
    Search functions for diffviewer.
 
-   Copyright (C) 2010, 2011, 2012
-   The Free Software Foundation, Inc.
+   Copyright (C) 2010-2014
+   Free Software Foundation, Inc.
 
    Written by:
    Slava Zanko <slavazanko@gmail.com>, 2010.
@@ -143,7 +143,6 @@ static gboolean
 mcdiffview_do_search_backward (WDiff * dview)
 {
     ssize_t ind;
-    DIFFLN *p;
 
     if (dview->search.last_accessed_num_line < 0)
     {
@@ -156,6 +155,8 @@ mcdiffview_do_search_backward (WDiff * dview)
 
     for (ind = --dview->search.last_accessed_num_line; ind >= 0; ind--)
     {
+        DIFFLN *p;
+
         p = (DIFFLN *) & g_array_index (dview->a[dview->ord], DIFFLN, (size_t) ind);
         if (p->u.len == 0)
             continue;
@@ -177,7 +178,6 @@ static gboolean
 mcdiffview_do_search_forward (WDiff * dview)
 {
     size_t ind;
-    DIFFLN *p;
 
     if (dview->search.last_accessed_num_line < 0)
         dview->search.last_accessed_num_line = -1;
@@ -190,6 +190,8 @@ mcdiffview_do_search_forward (WDiff * dview)
     for (ind = (size_t)++ dview->search.last_accessed_num_line; ind < dview->a[dview->ord]->len;
          ind++)
     {
+        DIFFLN *p;
+
         p = (DIFFLN *) & g_array_index (dview->a[dview->ord], DIFFLN, ind);
         if (p->u.len == 0)
             continue;
@@ -227,7 +229,7 @@ mcdiffview_do_search (WDiff * dview)
     if (!present_result)
     {
         dview->search.last_found_line = -1;
-        error_dialog (_("Search"), _("Search string not found"));
+        query_dialog (_("Search"), _("Search string not found"), D_NORMAL, 1, _("&Dismiss"));
     }
 }
 
@@ -248,13 +250,19 @@ dview_search_cmd (WDiff * dview)
         return;
 
     mc_search_free (dview->search.handle);
-    dview->search.handle = mc_search_new (dview->search.last_string, -1);
+#ifdef HAVE_CHARSET
+    dview->search.handle = mc_search_new (dview->search.last_string, -1, cp_source);
+#else
+    dview->search.handle = mc_search_new (dview->search.last_string, -1, NULL);
+#endif
 
     if (dview->search.handle == NULL)
         return;
 
     dview->search.handle->search_type = mcdiffview_search_options.type;
+#ifdef HAVE_CHARSET
     dview->search.handle->is_all_charsets = mcdiffview_search_options.all_codepages;
+#endif
     dview->search.handle->is_case_sensitive = mcdiffview_search_options.case_sens;
     dview->search.handle->whole_words = mcdiffview_search_options.whole_words;
 

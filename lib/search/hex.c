@@ -2,8 +2,8 @@
    Search text engine.
    HEX-style pattern matching
 
-   Copyright (C) 2009, 2011
-   The Free Software Foundation, Inc.
+   Copyright (C) 2009-2014
+   Free Software Foundation, Inc.
 
    Written by:
    Slava Zanko <slavazanko@gmail.com>, 2009.
@@ -75,6 +75,7 @@ mc_search__hex_translate_to_regex (const GString * astr)
     {
         int val, ptr;
 
+        /* cppcheck-suppress invalidscanf */
         if (sscanf (tmp_str + loop, "%x%n", &val, &ptr))
         {
             if (val < -128 || val > 255)

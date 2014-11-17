@@ -1,8 +1,8 @@
 /*
    Default values for keybinding engine
 
-   Copyright (C) 2009, 2010, 2011
-   The Free Software Foundation, Inc.
+   Copyright (C) 2009-2014
+   Free Software Foundation, Inc.
 
    Written by:
    Vitja Makarov, 2005
@@ -320,8 +320,8 @@ static const global_keymap_ini_t default_help_keymap[] = {
 #ifdef USE_INTERNAL_EDIT
 static const global_keymap_ini_t default_editor_keymap[] = {
     {"Enter", "enter"},
-    {"Return", "shift-enter"},  /* useful for pasting multiline text */
-    {"Tab", "tab"},
+    {"Return", "shift-enter; ctrl-enter; ctrl-shift-enter"},    /* useful for pasting multiline text */
+    {"Tab", "tab; shift-tab; ctrl-tab; ctrl-shift-tab"},        /* ditto */
     {"BackSpace", "backspace; ctrl-h"},
     {"Delete", "delete; ctrl-d"},
     {"Left", "left"},

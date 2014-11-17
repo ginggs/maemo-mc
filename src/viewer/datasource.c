@@ -2,9 +2,8 @@
    Internal file viewer for the Midnight Commander
    Functions for datasources
 
-   Copyright (C) 1994, 1995, 1996, 1998, 1999, 2000, 2001, 2002, 2003,
-   2004, 2005, 2006, 2007, 2009, 2011
-   The Free Software Foundation, Inc.
+   Copyright (C) 1994-2014
+   Free Software Foundation, Inc.
 
    Written by:
    Miguel de Icaza, 1994, 1995, 1998
@@ -369,12 +368,10 @@ mcview_close_datasource (mcview_t * view)
     case DS_FILE:
         (void) mc_close (view->ds_file_fd);
         view->ds_file_fd = -1;
-        g_free (view->ds_file_data);
-        view->ds_file_data = NULL;
+        MC_PTR_FREE (view->ds_file_data);
         break;
     case DS_STRING:
-        g_free (view->ds_string_data);
-        view->ds_string_data = NULL;
+        MC_PTR_FREE (view->ds_string_data);
         break;
     default:
 #ifdef HAVE_ASSERT_H
@@ -465,8 +462,8 @@ void
 mcview_set_datasource_string (mcview_t * view, const char *s)
 {
     view->datasource = DS_STRING;
-    view->ds_string_data = (byte *) g_strdup (s);
     view->ds_string_len = strlen (s);
+    view->ds_string_data = (byte *) g_strndup (s, view->ds_string_len);
 }
 
 /* --------------------------------------------------------------------------------------------- */

@@ -1,9 +1,8 @@
 /*
    Editor initialisation and callback handler.
 
-   Copyright (C) 1996, 1997, 1998, 2001, 2002, 2003, 2004, 2005, 2006,
-   2007, 2011, 2012, 2013
-   The Free Software Foundation, Inc.
+   Copyright (C) 1996-2014
+   Free Software Foundation, Inc.
 
    Written by:
    Paul Sheer, 1996, 1997
@@ -145,7 +144,7 @@ edit_about (void)
         QUICK_LABEL (N_("A user friendly text editor\n"
                         "written for the Midnight Commander."), NULL),
         QUICK_SEPARATOR (FALSE),
-        QUICK_LABEL (N_("Copyright (C) 1996-2013 the Free Software Foundation"), NULL),
+        QUICK_LABEL (N_("Copyright (C) 1996-2014 the Free Software Foundation"), NULL),
         QUICK_START_BUTTONS (TRUE, TRUE),
             QUICK_BUTTON (N_("&OK"), B_ENTER, NULL, NULL),
         QUICK_END
@@ -1065,6 +1064,15 @@ edit_dialog_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, v
                     ret = edit_dialog_command_execute (h, command);
             }
 
+            /*
+             * Due to the "end of bracket" escape the editor sees input with is_idle() == false
+             * (expects more characters) and hence doesn't yet refresh the screen, but then
+             * no further characters arrive (there's only an "end of bracket" which is swallowed
+             * by tty_get_event()), so you end up with a screen that's not refreshed after pasting.
+             * So let's trigger an IDLE signal.
+             */
+            if (!is_idle ())
+                widget_want_idle (w, TRUE);
             return ret;
         }
 
@@ -1079,6 +1087,10 @@ edit_dialog_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, v
     case MSG_END:
         edit_dlg_deinit ();
         return MSG_HANDLED;
+
+    case MSG_IDLE:
+        widget_want_idle (w, FALSE);
+        return send_message (h->current->data, NULL, MSG_IDLE, 0, NULL);
 
     default:
         return dlg_default_callback (w, sender, msg, parm, data);
@@ -1146,6 +1158,10 @@ edit_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *da
             widget_move (w, y, x);
             return MSG_HANDLED;
         }
+
+    case MSG_IDLE:
+        edit_update_screen (e);
+        return MSG_HANDLED;
 
     case MSG_DESTROY:
         edit_clean (e);

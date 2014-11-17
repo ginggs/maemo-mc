@@ -1,9 +1,8 @@
 /*
    Directory hotlist -- for the Midnight Commander
 
-   Copyright (C) 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002,
-   2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013
-   The Free Software Foundation, Inc.
+   Copyright (C) 1994-2014
+   Free Software Foundation, Inc.
 
    Written by:
    Radek Doulik, 1994
@@ -242,7 +241,7 @@ update_path_name (void)
     WListbox *list = hotlist_state.moving ? l_movelist : l_hotlist;
     Widget *w = WIDGET (list);
 
-    if (list->count != 0)
+    if (!listbox_is_empty (list))
     {
         char *ctext = NULL;
         void *cdata = NULL;
@@ -350,7 +349,7 @@ hotlist_button_callback (WButton * button, int action)
             struct hotlist *moveto_group = NULL;
             int ret;
 
-            if (l_hotlist->count == 0)
+            if (listbox_is_empty (l_hotlist))
                 return 0;       /* empty group - nothing to do */
 
             listbox_get_current (l_hotlist, NULL, (void **) &item);
@@ -594,7 +593,7 @@ hotlist_listbox_callback (WListbox * list)
 {
     WDialog *dlg = WIDGET (list)->owner;
 
-    if (list->count != 0)
+    if (!listbox_is_empty (list))
     {
         void *data = NULL;
 
@@ -1160,33 +1159,28 @@ static void
 load_group (struct hotlist *grp)
 {
     gchar **profile_keys, **keys;
-    gsize len;
     char *group_section;
     struct hotlist *current = 0;
 
     group_section = find_group_section (grp);
 
-    profile_keys = keys = mc_config_get_keys (mc_main_config, group_section, &len);
+    keys = mc_config_get_keys (mc_main_config, group_section, NULL);
 
     current_group = grp;
 
-    while (*profile_keys != NULL)
-    {
+    for (profile_keys = keys; *profile_keys != NULL; profile_keys++)
         add2hotlist (mc_config_get_string (mc_main_config, group_section, *profile_keys, ""),
                      g_strdup (*profile_keys), HL_TYPE_GROUP, LISTBOX_APPEND_AT_END);
-        profile_keys++;
-    }
+
     g_free (group_section);
     g_strfreev (keys);
 
-    profile_keys = keys = mc_config_get_keys (mc_main_config, grp->directory, &len);
+    keys = mc_config_get_keys (mc_main_config, grp->directory, NULL);
 
-    while (*profile_keys != NULL)
-    {
+    for (profile_keys = keys; *profile_keys != NULL; profile_keys++)
         add2hotlist (mc_config_get_string (mc_main_config, group_section, *profile_keys, ""),
                      g_strdup (*profile_keys), HL_TYPE_ENTRY, LISTBOX_APPEND_AT_END);
-        profile_keys++;
-    }
+
     g_strfreev (keys);
 
     for (current = grp->head; current; current = current->next)
@@ -1393,8 +1387,6 @@ static void
 clean_up_hotlist_groups (const char *section)
 {
     char *grp_section;
-    gchar **profile_keys, **keys;
-    gsize len;
 
     grp_section = g_strconcat (section, ".Group", (char *) NULL);
     if (mc_config_has_group (mc_main_config, section))
@@ -1402,13 +1394,13 @@ clean_up_hotlist_groups (const char *section)
 
     if (mc_config_has_group (mc_main_config, grp_section))
     {
-        profile_keys = keys = mc_config_get_keys (mc_main_config, grp_section, &len);
+        char **profile_keys, **keys;
 
-        while (*profile_keys != NULL)
-        {
+        keys = mc_config_get_keys (mc_main_config, grp_section, NULL);
+
+        for (profile_keys = keys; *profile_keys != NULL; profile_keys++)
             clean_up_hotlist_groups (*profile_keys);
-            profile_keys++;
-        }
+
         g_strfreev (keys);
         mc_config_del_group (mc_main_config, grp_section);
     }
@@ -1474,11 +1466,13 @@ load_hotlist (void)
 
     if (remove_old_list)
     {
-        GError *error = NULL;
+        GError *mcerror = NULL;
 
         clean_up_hotlist_groups ("Hotlist");
-        if (!mc_config_save_file (mc_main_config, &error))
-            setup_save_config_show_error (mc_main_config->ini_path, &error);
+        if (!mc_config_save_file (mc_main_config, &mcerror))
+            setup_save_config_show_error (mc_main_config->ini_path, &mcerror);
+
+        mc_error_message (&mcerror);
     }
 
     stat (hotlist_file_name, &stat_buf);
@@ -1669,14 +1663,12 @@ done_hotlist (void)
         remove_group (hotlist);
         g_free (hotlist->label);
         g_free (hotlist->directory);
-        g_free (hotlist);
-        hotlist = NULL;
+        MC_PTR_FREE (hotlist);
     }
 
     hotlist_state.loaded = FALSE;
 
-    g_free (hotlist_file_name);
-    hotlist_file_name = NULL;
+    MC_PTR_FREE (hotlist_file_name);
     l_hotlist = NULL;
     current_group = NULL;
 

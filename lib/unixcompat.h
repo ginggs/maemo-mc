@@ -12,16 +12,18 @@
 #define MC_UNIXCOMPAT_H
 
 #include <sys/types.h>          /* BSD */
-#ifdef HAVE_SYS_MKDEV_H
-#include <sys/mkdev.h>          /* Solaris 9 */
-#endif
-#if defined(_AIX) && defined(HAVE_SYS_SYSMACROS_H)
-#include <sys/sysmacros.h>      /* AIX */
+
+#if MAJOR_IN_MKDEV
+#include <sys/mkdev.h>
+#elif MAJOR_IN_SYSMACROS
+#include <sys/sysmacros.h>
 #endif
 
 #if defined(_AIX)
 #include <time.h>               /* AIX for tm */
 #endif
+
+#include <unistd.h>
 
 /*** typedefs(not structures) and defined constants **********************************************/
 
@@ -38,6 +40,18 @@
 #ifndef makedev
 #warning makedev() is undefined. Device numbers will not be shown correctly.
 #define makedev(major,minor) ((((major) & 0xff) << 8) | ((minor) & 0xff))
+#endif
+
+#ifndef STDIN_FILENO
+#define STDIN_FILENO 0
+#endif
+
+#ifndef STDOUT_FILENO
+#define STDOUT_FILENO 1
+#endif
+
+#ifndef STDERR_FILENO
+#define STDERR_FILENO 2
 #endif
 
 /*** enums ***************************************************************************************/

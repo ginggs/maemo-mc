@@ -1,8 +1,8 @@
 /*
    GLIB - Library of useful routines for C programming
 
-   Copyright (C) 2009, 2011, 2013
-   The Free Software Foundation, Inc.
+   Copyright (C) 2009-2014
+   Free Software Foundation, Inc.
 
    Written by:
    Slava Zanko <slavazanko@gmail.com>, 2009, 2013.
@@ -94,5 +94,75 @@ g_strcmp0 (const char *str1, const char *str2)
     return strcmp (str1, str2);
 }
 #endif /* ! GLIB_CHECK_VERSION (2, 16, 0) */
+
+/* --------------------------------------------------------------------------------------------- */
+
+#if ! GLIB_CHECK_VERSION (2, 28, 0)
+/**
+ * g_slist_free_full:
+ * @list: a pointer to a #GSList
+ * @free_func: the function to be called to free each element's data
+ *
+ * Convenience method, which frees all the memory used by a #GSList, and
+ * calls the specified destroy function on every element's data.
+ *
+ * Since: 2.28
+ **/
+void
+g_slist_free_full (GSList * list, GDestroyNotify free_func)
+{
+    g_slist_foreach (list, (GFunc) free_func, NULL);
+    g_slist_free (list);
+}
+
+/* --------------------------------------------------------------------------------------------- */
+
+/**
+ * g_list_free_full:
+ * @list: a pointer to a #GList
+ * @free_func: the function to be called to free each element's data
+ *
+ * Convenience method, which frees all the memory used by a #GList, and
+ * calls the specified destroy function on every element's data.
+ *
+ * Since: 2.28
+ */
+void
+g_list_free_full (GList * list, GDestroyNotify free_func)
+{
+    g_list_foreach (list, (GFunc) free_func, NULL);
+    g_list_free (list);
+}
+
+#endif /* ! GLIB_CHECK_VERSION (2, 28, 0) */
+
+/* --------------------------------------------------------------------------------------------- */
+#if ! GLIB_CHECK_VERSION (2, 22, 0)
+/**
+ * Creates a new GError with the given domain and code, and a message formatted with format.
+ * @param domain error domain
+ * @param code error code
+ * @param format printf()-style format for error message
+ * @param args va_list of parameters for the message format
+ * @returns a new GError
+ */
+
+GError *
+g_error_new_valist (GQuark domain, gint code, const gchar * format, va_list args)
+{
+    char *message;
+    GError *ret_value;
+
+    va_start (ap, format);
+    message = g_strdup_vprintf (format, ap);
+    va_end (ap);
+
+    ret_value = g_error_new_literal (domain, code, message);
+    g_free (message);
+
+    return ret_value;
+}
+
+#endif /* ! GLIB_CHECK_VERSION (2, 22, 0) */
 
 /* --------------------------------------------------------------------------------------------- */

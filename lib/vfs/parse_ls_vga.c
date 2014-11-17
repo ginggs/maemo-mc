@@ -1,9 +1,8 @@
 /*
    Routines for parsing output from the 'ls' command.
 
-   Copyright (C) 1988, 1992, 1998, 1999, 2000, 2001, 2002, 2003, 2004,
-   2005, 2006, 2007, 2011
-   The Free Software Foundation, Inc.
+   Copyright (C) 1988-2014
+   Free Software Foundation, Inc.
 
    Copyright (C) 1995, 1996 Miguel de Icaza
 
@@ -213,6 +212,7 @@ is_year (char *str, struct tm *tim)
     if (strlen (str) != 4)
         return 0;
 
+    /* cppcheck-suppress invalidscanf */
     if (sscanf (str, "%ld", &year) != 1)
         return 0;
 
@@ -570,6 +570,7 @@ vfs_parse_filedate (int idx, time_t * t)
         {
             p[2] = p[5] = '-';
 
+            /* cppcheck-suppress invalidscanf */
             if (sscanf (p, "%2d-%2d-%d", &d[0], &d[1], &d[2]) == 3)
             {
                 /* Months are zero based */
@@ -755,14 +756,17 @@ vfs_parse_ls_lga (const char *p, struct stat * s, char **filename, char **linkna
         /* Corner case: there is no whitespace(s) between maj & min */
         if (!is_num (idx2) && idx2 == 2)
         {
+            /* cppcheck-suppress invalidscanf */
             if (!is_num (++idx2) || sscanf (columns[idx2], " %d,%d", &maj, &min) != 2)
                 goto error;
         }
         else
         {
+            /* cppcheck-suppress invalidscanf */
             if (!is_num (idx2) || sscanf (columns[idx2], " %d,", &maj) != 1)
                 goto error;
 
+            /* cppcheck-suppress invalidscanf */
             if (!is_num (++idx2) || sscanf (columns[idx2], " %d", &min) != 1)
                 goto error;
         }

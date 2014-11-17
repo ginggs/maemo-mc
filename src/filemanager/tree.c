@@ -6,9 +6,8 @@
    created and destroyed.  This is required for the future vfs layer,
    it will be possible to have tree views over virtual file systems.
 
-   Copyright (C) 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002,
-   2003, 2004, 2005, 2007, 2011, 2013
-   The Free Software Foundation, Inc.
+   Copyright (C) 1994-2014
+   Free Software Foundation, Inc.
 
    Written by:
    Janne Kukonlehto, 1994, 1996
@@ -172,14 +171,14 @@ static void
 save_tree (WTree * tree)
 {
     int error;
-    char *tree_name;
 
     (void) tree;
     error = tree_store_save ();
 
-
     if (error)
     {
+        char *tree_name;
+
         tree_name = mc_config_get_full_path (MC_TREESTORE_FILE);
         fprintf (stderr, _("Cannot open the %s file for writing:\n%s\n"), tree_name,
                  unix_error_string (error));
@@ -776,8 +775,8 @@ tree_copy (WTree * tree, const char *default_dest)
 
     if (dest != NULL && *dest != '\0')
     {
-        FileOpContext *ctx;
-        FileOpTotalContext *tctx;
+        file_op_context_t *ctx;
+        file_op_total_context_t *tctx;
 
         ctx = file_op_context_new (OP_COPY);
         tctx = file_op_total_context_new ();
@@ -800,8 +799,8 @@ tree_move (WTree * tree, const char *default_dest)
     char msg[BUF_MEDIUM];
     char *dest;
     struct stat buf;
-    FileOpContext *ctx;
-    FileOpTotalContext *tctx;
+    file_op_context_t *ctx;
+    file_op_total_context_t *tctx;
 
     if (tree->selected_ptr == NULL)
         return;
@@ -865,8 +864,8 @@ static void
 tree_rmdir (void *data)
 {
     WTree *tree = data;
-    FileOpContext *ctx;
-    FileOpTotalContext *tctx;
+    file_op_context_t *ctx;
+    file_op_total_context_t *tctx;
 
     if (!tree->selected_ptr)
         return;

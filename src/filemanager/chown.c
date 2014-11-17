@@ -1,9 +1,8 @@
 /*
    Chown command -- for the Midnight Commander
 
-   Copyright (C) 1994, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005,
-   2007, 2011, 2012, 2013
-   The Free Software Foundation, Inc.
+   Copyright (C) 1994-2014
+   Free Software Foundation, Inc.
 
    This file is part of the Midnight Commander.
 
@@ -332,7 +331,6 @@ chown_cmd (void)
 {
     char *fname;
     struct stat sf_stat;
-    WDialog *ch_dlg;
     uid_t new_user;
     gid_t new_group;
     char buffer[BUF_TINY];
@@ -342,6 +340,7 @@ chown_cmd (void)
     do
     {                           /* do while any files remaining */
         vfs_path_t *vpath;
+        WDialog *ch_dlg;
 
         ch_dlg = init_chown ();
         new_user = new_group = -1;

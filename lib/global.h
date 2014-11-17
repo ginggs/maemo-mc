@@ -155,6 +155,8 @@
 
 #define MC_ERROR g_quark_from_static_string (PACKAGE)
 
+#define DEFAULT_CHARSET "ASCII"
+
 /*** enums ***************************************************************************************/
 
 /* run mode and params */
@@ -291,8 +293,6 @@ typedef struct
 extern mc_global_t mc_global;
 
 /*** declarations of public functions ************************************************************/
-
-void refresh_screen (void *);
 
 /*** inline functions ****************************************************************************/
 #endif

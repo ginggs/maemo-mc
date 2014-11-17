@@ -2,8 +2,8 @@
    File highlight plugin.
    Interface functions
 
-   Copyright (C) 2009, 2011
-   The Free Software Foundation, Inc.
+   Copyright (C) 2009-2014
+   Free Software Foundation, Inc.
 
    Written by:
    Slava Zanko <slavazanko@gmail.com>, 2009.
@@ -104,8 +104,7 @@ mc_fhl_free (mc_fhl_t ** fhl)
 
     mc_fhl_clear (*fhl);
 
-    g_free (*fhl);
-    *fhl = NULL;
+    MC_PTR_FREE (*fhl);
 }
 
 /* --------------------------------------------------------------------------------------------- */

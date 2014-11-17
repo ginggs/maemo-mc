@@ -2,9 +2,8 @@
    Internal file viewer for the Midnight Commander
    Function for hex view
 
-   Copyright (C) 1994, 1995, 1996, 1998, 1999, 2000, 2001, 2002, 2003,
-   2004, 2005, 2006, 2007, 2009, 2011
-   The Free Software Foundation, Inc.
+   Copyright (C) 1994-2014
+   Free Software Foundation, Inc.
 
    Written by:
    Miguel de Icaza, 1994, 1995, 1998
@@ -14,7 +13,7 @@
    Norbert Warmuth, 1997
    Pavel Machek, 1998
    Roland Illig <roland.illig@gmx.de>, 2004, 2005
-   Slava Zanko <slavazanko@google.com>, 2009
+   Slava Zanko <slavazanko@google.com>, 2009, 2013
    Andrew Borodin <aborodin@vmail.ru>, 2009
    Ilia Maslakov <il.smind@gmail.com>, 2009
 
@@ -111,6 +110,22 @@ utf8_to_int (char *str, int *char_width, gboolean * result)
 #endif /* HAVE_CHARSET */
 
 /* --------------------------------------------------------------------------------------------- */
+/** Determine the state of the current byte.
+ *
+ * @param view viewer object
+ * @param from offset
+ * @param curr current node
+ */
+
+static mark_t
+mcview_hex_calculate_boldflag (mcview_t * view, off_t from, struct hexedit_change_node *curr)
+{
+    return (from == view->hex_cursor) ? MARK_CURSOR
+        : (curr != NULL && from == curr->offset) ? MARK_CHANGED
+        : (view->search_start <= from && from < view->search_end) ? MARK_SELECTED : MARK_NORMAL;
+}
+
+/* --------------------------------------------------------------------------------------------- */
 /*** public functions ****************************************************************************/
 /* --------------------------------------------------------------------------------------------- */
 
@@ -129,7 +144,7 @@ mcview_display_hex (mcview_t * view)
      * text column.
      */
 
-    screen_dimen row, col;
+    screen_dimen row;
     off_t from;
     int c;
     mark_t boldflag = MARK_NORMAL;
@@ -152,7 +167,9 @@ mcview_display_hex (mcview_t * view)
 
     for (row = 0; mcview_get_byte (view, from, NULL) == TRUE && row < height; row++)
     {
+        screen_dimen col = 0;
         size_t i;
+
         col = 0;
 
         /* Print the hex offset */
@@ -165,7 +182,7 @@ mcview_display_hex (mcview_t * view)
             /*              tty_print_char(hex_buff[i]); */
             col += 1;
         }
-        tty_setcolor (NORMAL_COLOR);
+        tty_setcolor (VIEW_NORMAL_COLOR);
 
         for (bytes = 0; bytes < view->bytes_per_line; bytes++, from++)
         {
@@ -173,17 +190,22 @@ mcview_display_hex (mcview_t * view)
 #ifdef HAVE_CHARSET
             if (view->utf8)
             {
-                char corr_buf[6 + 1];
-                int cnt, cw = 1;
+                int cw = 1;
                 gboolean read_res = TRUE;
+
                 ch = mcview_get_utf (view, from, &cw, &read_res);
                 if (!read_res)
                     break;
                 /* char width is greater 0 bytes */
                 if (cw != 0)
                 {
+                    int cnt;
+                    char corr_buf[UTF8_CHAR_LEN + 1];
                     struct hexedit_change_node *corr = curr;
-                    int res = g_unichar_to_utf8 (ch, (char *) corr_buf);
+                    int res;
+
+                    res = g_unichar_to_utf8 (ch, (char *) corr_buf);
+
                     for (cnt = 0; cnt < cw; cnt++)
                     {
                         if (curr != NULL && from + cnt == curr->offset)
@@ -211,11 +233,7 @@ mcview_display_hex (mcview_t * view)
             }
 
             /* Determine the state of the current byte */
-            boldflag =
-                (from == view->hex_cursor) ? MARK_CURSOR
-                : (curr != NULL && from == curr->offset) ? MARK_CHANGED
-                : (view->search_start <= from &&
-                   from < view->search_end) ? MARK_SELECTED : MARK_NORMAL;
+            boldflag = mcview_hex_calculate_boldflag (view, from, curr);
 
             /* Determine the value of the current byte */
             if (curr != NULL && from == curr->offset)
@@ -225,7 +243,7 @@ mcview_display_hex (mcview_t * view)
             }
 
             /* Select the color for the hex number */
-            tty_setcolor (boldflag == MARK_NORMAL ? NORMAL_COLOR :
+            tty_setcolor (boldflag == MARK_NORMAL ? VIEW_NORMAL_COLOR :
                           boldflag == MARK_SELECTED ? VIEW_BOLD_COLOR :
                           boldflag == MARK_CHANGED ? VIEW_UNDERLINED_COLOR :
                           /* boldflag == MARK_CURSOR */
@@ -245,7 +263,7 @@ mcview_display_hex (mcview_t * view)
             }
 
             /* Print the separator */
-            tty_setcolor (NORMAL_COLOR);
+            tty_setcolor (VIEW_NORMAL_COLOR);
             if (bytes != view->bytes_per_line - 1)
             {
                 if (col < width)
@@ -272,7 +290,7 @@ mcview_display_hex (mcview_t * view)
 
             /* Select the color for the character; this differs from the
              * hex color when boldflag == MARK_CURSOR */
-            tty_setcolor (boldflag == MARK_NORMAL ? NORMAL_COLOR :
+            tty_setcolor (boldflag == MARK_NORMAL ? VIEW_NORMAL_COLOR :
                           boldflag == MARK_SELECTED ? VIEW_BOLD_COLOR :
                           boldflag == MARK_CHANGED ? VIEW_UNDERLINED_COLOR :
                           /* boldflag == MARK_CURSOR */
@@ -324,7 +342,7 @@ mcview_display_hex (mcview_t * view)
     }
 
     /* Be polite to the other functions */
-    tty_setcolor (NORMAL_COLOR);
+    tty_setcolor (VIEW_NORMAL_COLOR);
 
     mcview_place_cursor (view);
     view->dpy_end = from;

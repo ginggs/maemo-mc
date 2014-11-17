@@ -2,9 +2,8 @@
    Virtual File System: FISH implementation for transfering files over
    shell connections.
 
-   Copyright (C) 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006,
-   2007, 2008, 2009, 2010, 2011, 2013
-   The Free Software Foundation, Inc.
+   Copyright (C) 1998-2014
+   Free Software Foundation, Inc.
 
    Written by:
    Pavel Machek, 1998
@@ -197,6 +196,7 @@ fish_decode_reply (char *s, gboolean was_garbage)
 {
     int code;
 
+    /* cppcheck-suppress invalidscanf */
     if (sscanf (s, "%d", &code) == 0)
     {
         code = 500;
@@ -331,11 +331,11 @@ fish_pipeopen (struct vfs_s_super *super, const char *path, const char *argv[])
     }
     else
     {
-        res = dup2 (fileset1[0], 0);
+        res = dup2 (fileset1[0], STDIN_FILENO);
         close (fileset1[0]);
         close (fileset1[1]);
-        res = dup2 (fileset2[1], 1);
-        close (2);
+        res = dup2 (fileset2[1], STDOUT_FILENO);
+        close (STDERR_FILENO);
         /* stderr to /dev/null */
         res = open ("/dev/null", O_WRONLY);
         close (fileset2[0]);
@@ -384,12 +384,12 @@ fish_set_env (int flags)
 static gboolean
 fish_info (struct vfs_class *me, struct vfs_s_super *super)
 {
-    char buffer[BUF_8K];
     if (fish_command (me, super, NONE, SUP->scr_info) == COMPLETE)
     {
         while (TRUE)
         {
             int res;
+            char buffer[BUF_8K];
 
             res = vfs_s_get_line_interruptible (me, buffer, sizeof (buffer), SUP->sockr);
             if ((res == 0) || (res == EINTR))
@@ -647,7 +647,7 @@ static int
 fish_dir_load (struct vfs_class *me, struct vfs_s_inode *dir, char *remote_path)
 {
     struct vfs_s_super *super = dir->super;
-    char buffer[8192];
+    char buffer[BUF_8K] = "\0";
     struct vfs_s_entry *ent = NULL;
     FILE *logfile;
     char *quoted_path;
@@ -677,8 +677,11 @@ fish_dir_load (struct vfs_class *me, struct vfs_s_inode *dir, char *remote_path)
     ent = vfs_s_generate_entry (me, NULL, dir, 0);
     while (TRUE)
     {
-        int res = vfs_s_get_line_interruptible (me, buffer, sizeof (buffer), SUP->sockr);
-        if ((!res) || (res == EINTR))
+        int res;
+
+        res = vfs_s_get_line_interruptible (me, buffer, sizeof (buffer), SUP->sockr);
+
+        if ((res == 0) || (res == EINTR))
         {
             vfs_s_free_entry (me, ent);
             me->verrno = ECONNRESET;
@@ -809,6 +812,7 @@ fish_dir_load (struct vfs_class *me, struct vfs_s_inode *dir, char *remote_path)
         case 'D':
             {
                 struct tm tim;
+                /* cppcheck-suppress invalidscanf */
                 if (sscanf (buffer + 1, "%d %d %d %d %d %d", &tim.tm_year, &tim.tm_mon,
                             &tim.tm_mday, &tim.tm_hour, &tim.tm_min, &tim.tm_sec) != 6)
                     break;
@@ -818,6 +822,7 @@ fish_dir_load (struct vfs_class *me, struct vfs_s_inode *dir, char *remote_path)
         case 'E':
             {
                 int maj, min;
+                /* cppcheck-suppress invalidscanf */
                 if (sscanf (buffer + 1, "%d,%d", &maj, &min) != 2)
                     break;
 #ifdef HAVE_STRUCT_STAT_ST_RDEV
@@ -851,7 +856,7 @@ fish_file_store (struct vfs_class *me, vfs_file_handler_t * fh, char *name, char
     gchar *shell_commands = NULL;
     struct vfs_s_super *super = FH_SUPER;
     int code;
-    off_t total;
+    off_t total = 0;
     char buffer[BUF_8K];
     struct stat s;
     int h;
@@ -918,13 +923,14 @@ fish_file_store (struct vfs_class *me, vfs_file_handler_t * fh, char *name, char
                              (uintmax_t) s.st_size);
         g_free (shell_commands);
     }
+
+    g_free (quoted_name);
+
     if (code != PRELIM)
     {
         close (h);
         ERRNOR (E_REMOTE, -1);
     }
-
-    total = 0;
 
     while (TRUE)
     {
@@ -957,7 +963,6 @@ fish_file_store (struct vfs_class *me, vfs_file_handler_t * fh, char *name, char
                            (uintmax_t) total, (uintmax_t) s.st_size);
     }
     close (h);
-    g_free (quoted_name);
 
     if (fish_get_reply (me, SUP->sockr, NULL, 0) != COMPLETE)
         ERRNOR (E_REMOTE, -1);
@@ -966,7 +971,6 @@ fish_file_store (struct vfs_class *me, vfs_file_handler_t * fh, char *name, char
   error_return:
     close (h);
     fish_get_reply (me, SUP->sockr, NULL, 0);
-    g_free (quoted_name);
     return -1;
 }
 
@@ -1485,10 +1489,7 @@ static void
 fish_fh_free_data (vfs_file_handler_t * fh)
 {
     if (fh != NULL)
-    {
-        g_free (fh->data);
-        fh->data = NULL;
-    }
+        MC_PTR_FREE (fh->data);
 }
 
 /* --------------------------------------------------------------------------------------------- */

@@ -1,9 +1,8 @@
 /*
    Editor syntax highlighting.
 
-   Copyright (C) 1996, 1997, 1998, 2001, 2002, 2003, 2004, 2005, 2006,
-   2007, 2010, 2011, 2013
-   The Free Software Foundation, Inc.
+   Copyright (C) 1996-2014
+   Free Software Foundation, Inc.
 
    Written by:
    Paul Sheer, 1998
@@ -888,8 +887,6 @@ edit_read_syntax_rules (WEdit * edit, FILE * f, char **args, int args_size)
     struct context_rule **r, *c = NULL;
     int num_words = -1, num_contexts = -1;
     int result = 0;
-    int argc;
-    int i, j;
     int alloc_contexts = MAX_CONTEXTS,
         alloc_words_per_context = MAX_WORDS_PER_CONTEXT,
         max_alloc_words_per_context = MAX_WORDS_PER_CONTEXT;
@@ -909,6 +906,7 @@ edit_read_syntax_rules (WEdit * edit, FILE * f, char **args, int args_size)
     {
         char **a;
         size_t len;
+        int argc;
 
         line++;
         l = 0;
@@ -1200,7 +1198,8 @@ edit_read_syntax_rules (WEdit * edit, FILE * f, char **args, int args_size)
 
     if (result == 0)
     {
-        char *first_chars, *p;
+        int i;
+        char *first_chars;
 
         if (num_contexts == -1)
             return line;
@@ -1209,6 +1208,9 @@ edit_read_syntax_rules (WEdit * edit, FILE * f, char **args, int args_size)
 
         for (i = 0; edit->rules[i] != NULL; i++)
         {
+            char *p;
+            int j;
+
             c = edit->rules[i];
             p = first_chars;
             *p++ = (char) 1;
@@ -1314,12 +1316,12 @@ edit_read_syntax_file (WEdit * edit, char ***pnames, const char *syntax_file,
             /* 3: auto-detect rule set from regular expressions */
             int q;
 
-            q = mc_search (args[1], editor_file, MC_SEARCH_T_REGEX);
+            q = mc_search (args[1], DEFAULT_CHARSET, editor_file, MC_SEARCH_T_REGEX);
             /* does filename match arg 1 ? */
             if (!q && args[3])
             {
                 /* does first line match arg 3 ? */
-                q = mc_search (args[3], first_line, MC_SEARCH_T_REGEX);
+                q = mc_search (args[3], DEFAULT_CHARSET, first_line, MC_SEARCH_T_REGEX);
             }
             if (q)
             {
@@ -1447,8 +1449,7 @@ edit_free_syntax_rules (WEdit * edit)
         MC_PTR_FREE (edit->rules[i]);
     }
 
-    g_slist_foreach (edit->syntax_marker, (GFunc) g_free, NULL);
-    g_slist_free (edit->syntax_marker);
+    g_slist_free_full (edit->syntax_marker, g_free);
     edit->syntax_marker = NULL;
     MC_PTR_FREE (edit->rules);
     tty_color_free_all_tmp ();

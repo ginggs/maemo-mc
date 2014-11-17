@@ -2,9 +2,8 @@
    Internal file viewer for the Midnight Commander
    Interface functions
 
-   Copyright (C) 1994, 1995, 1996, 1998, 1999, 2000, 2001, 2002, 2003,
-   2004, 2005, 2006, 2007, 2009, 2011, 2013
-   The Free Software Foundation, Inc.
+   Copyright (C) 1994-2014
+   Free Software Foundation, Inc
 
    Written by:
    Miguel de Icaza, 1994, 1995, 1998
@@ -107,7 +106,7 @@ do_mcview_event (mcview_t * view, Gpm_Event * event, int *result)
     if ((local.type & (GPM_DOWN | GPM_DRAG)) == 0)
         return FALSE;
 
-    /* Wheel events */
+    /* Wheel events. Allow them in the inactive panel */
     if ((local.buttons & GPM_B_UP) != 0 && (local.type & GPM_DOWN) != 0)
     {
         mcview_move_up (view, 2);
@@ -118,6 +117,10 @@ do_mcview_event (mcview_t * view, Gpm_Event * event, int *result)
         mcview_move_down (view, 2);
         return TRUE;
     }
+
+    /* Grab focus */
+    if (mcview_is_in_panel (view) && !view->active)
+        change_panel ();
 
     x = local.x;
     y = local.y;
@@ -208,6 +211,7 @@ mcview_new (int y, int x, int lines, int cols, gboolean is_panel)
     view->text_wrap_mode = FALSE;
     view->magic_mode = FALSE;
 
+    view->active = FALSE;
     view->dpy_frame_size = is_panel ? 1 : 0;
     view->converter = str_cnv_from_term;
 
@@ -310,7 +314,7 @@ mcview_load (mcview_t * view, const char *command, const char *file, int start_l
         retval = mcview_load_command_output (view, command);
     else if (file != NULL && file[0] != '\0')
     {
-        int fd = -1;
+        int fd;
         char tmp[BUF_MEDIUM];
         struct stat st;
 

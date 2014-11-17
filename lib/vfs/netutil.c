@@ -1,8 +1,8 @@
 /*
    Network utilities for the Midnight Commander Virtual File System.
 
-   Copyright (C) 1995, 1996, 1998, 1999, 2000, 2001, 2002, 2005, 2007, 2011
-   The Free Software Foundation, Inc.
+   Copyright (C) 1995-2014
+   Free Software Foundation, Inc.
 
    This file is part of the Midnight Commander.
 
@@ -29,6 +29,7 @@
 
 #include <stdlib.h>
 #include <signal.h>
+#include <string.h>             /* memset() */
 
 #include "lib/global.h"
 
@@ -68,8 +69,8 @@ tcp_init (void)
         return;
 
     got_sigpipe = 0;
+    memset (&sa, 0, sizeof (sa));
     sa.sa_handler = sig_pipe;
-    sa.sa_flags = 0;
     sigemptyset (&sa.sa_mask);
     sigaction (SIGPIPE, &sa, NULL);
 

@@ -8,9 +8,8 @@
    created and destroyed.  This is required for the future vfs layer,
    it will be possible to have tree views over virtual file systems.
 
-   Copyright (C) 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2007, 2009,
-   2011, 2013
-   The Free Software Foundation, Inc.
+   Copyright (C) 1999-2014
+   Free Software Foundation, Inc.
 
    Written by:
    Janne Kukonlehto, 1994, 1996
@@ -207,9 +206,7 @@ static int
 tree_store_load_from (char *name)
 {
     FILE *file;
-    char buffer[MC_MAXPATHLEN + 20], oldname[MC_MAXPATHLEN];
-    char *different;
-    int common;
+    char buffer[MC_MAXPATHLEN + 20];
     int do_load;
 
     g_return_val_if_fail (name != NULL, FALSE);
@@ -239,6 +236,8 @@ tree_store_load_from (char *name)
 
     if (do_load)
     {
+        char oldname[MC_MAXPATHLEN];
+
         ts.loaded = TRUE;
 
         /* File open -> read contents */
@@ -264,8 +263,11 @@ tree_store_load_from (char *name)
                 /* Clear-text decompression */
                 char *s = strtok (lc_name, " ");
 
-                if (s)
+                if (s != NULL)
                 {
+                    char *different;
+                    int common;
+
                     common = atoi (s);
                     different = strtok (NULL, "");
                     if (different)
@@ -344,10 +346,10 @@ tree_store_save_to (char *name)
     current = ts.tree_first;
     while (current)
     {
-        int i, common;
-
         if (vfs_file_is_local (current->name))
         {
+            int i, common;
+
             /* Clear-text compression */
             if (current->prev && (common = str_common (current->prev->name, current->name)) > 2)
             {
@@ -482,11 +484,11 @@ static void
 tree_store_notify_remove (tree_entry * entry)
 {
     hook_t *p = remove_entry_hooks;
-    tree_store_remove_fn r;
 
     while (p != NULL)
     {
-        r = (tree_store_remove_fn) p->hook_fn;
+        tree_store_remove_fn r = (tree_store_remove_fn) p->hook_fn;
+
         r (entry, p->hook_data);
         p = p->next;
     }
@@ -537,23 +539,24 @@ remove_entry (tree_entry * entry)
 static void
 process_special_dirs (GList ** special_dirs, const char *file)
 {
-    gchar **buffers, **start_buff;
+    gchar **start_buff;
     mc_config_t *cfg;
-    gsize buffers_len;
 
     cfg = mc_config_init (file, TRUE);
     if (cfg == NULL)
         return;
 
-    start_buff = buffers = mc_config_get_string_list (cfg, "Special dirs", "list", &buffers_len);
-    if (buffers != NULL)
+    start_buff = mc_config_get_string_list (cfg, "Special dirs", "list", NULL);
+    if (start_buff != NULL)
     {
-        while (*buffers != NULL)
+        gchar **buffers;
+
+        for (buffers = start_buff; *buffers != NULL; buffers++)
         {
             *special_dirs = g_list_prepend (*special_dirs, *buffers);
             *buffers = NULL;
-            buffers++;
         }
+
         g_strfreev (start_buff);
     }
     mc_config_deinit (cfg);
@@ -689,7 +692,7 @@ tree_store_remove_entry_remove_hook (tree_store_remove_fn callback)
 void
 tree_store_remove_entry (const vfs_path_t * name_vpath)
 {
-    tree_entry *current, *base, *old;
+    tree_entry *current, *base;
     size_t len;
 
     g_return_if_fail (name_vpath != NULL);
@@ -715,6 +718,7 @@ tree_store_remove_entry (const vfs_path_t * name_vpath)
     while (current != NULL && vfs_path_equal_len (current->name, base->name, len))
     {
         gboolean ok;
+        tree_entry *old;
         const char *cname;
 
         cname = vfs_path_as_str (current->name);
@@ -859,7 +863,7 @@ tree_store_start_check (const vfs_path_t * vpath)
 void
 tree_store_end_check (void)
 {
-    tree_entry *current, *old;
+    tree_entry *current;
     size_t len;
     GList *the_queue;
 
@@ -875,6 +879,7 @@ tree_store_end_check (void)
     while (current != NULL && vfs_path_equal_len (current->name, ts.check_name, len))
     {
         gboolean ok;
+        tree_entry *old;
         const char *cname;
 
         cname = vfs_path_as_str (current->name);
@@ -889,14 +894,12 @@ tree_store_end_check (void)
     }
 
     /* get the stuff in the scan order */
-    ts.add_queue_vpath = g_list_reverse (ts.add_queue_vpath);
-    the_queue = ts.add_queue_vpath;
+    the_queue = g_list_reverse (ts.add_queue_vpath);
     ts.add_queue_vpath = NULL;
     vfs_path_free (ts.check_name);
     ts.check_name = NULL;
 
-    g_list_foreach (the_queue, (GFunc) vfs_path_free, NULL);
-    g_list_free (the_queue);
+    g_list_free_full (the_queue, (GDestroyNotify) vfs_path_free);
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -905,7 +908,6 @@ tree_entry *
 tree_store_rescan (const vfs_path_t * vpath)
 {
     DIR *dirp;
-    struct dirent *dp;
     struct stat buf;
     tree_entry *entry;
 
@@ -923,6 +925,8 @@ tree_store_rescan (const vfs_path_t * vpath)
     dirp = mc_opendir (vpath);
     if (dirp)
     {
+        struct dirent *dp;
+
         for (dp = mc_readdir (dirp); dp; dp = mc_readdir (dirp))
         {
             vfs_path_t *tmp_vpath;

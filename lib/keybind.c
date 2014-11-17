@@ -1,8 +1,8 @@
 /*
    Definitions of key bindings.
 
-   Copyright (C) 2005, 2009, 2010, 2011, 2011, 2012
-   The Free Software Foundation, Inc.
+   Copyright (C) 2005-2014
+   Free Software Foundation, Inc.
 
    Written by:
    Vitja Makarov, 2005
@@ -176,6 +176,7 @@ static name_keymap_t command_names[] = {
     {"Jobs", CK_Jobs},
 #endif
     {"OptionsLayout", CK_OptionsLayout},
+    {"OptionsAppearance", CK_OptionsAppearance},
     {"Link", CK_Link},
     {"PanelListingChange", CK_PanelListingChange},
     {"PanelListing", CK_PanelListing},
@@ -456,13 +457,14 @@ keybind_lookup_actionname (unsigned long action)
 const char *
 keybind_lookup_keymap_shortcut (const global_keymap_t * keymap, unsigned long action)
 {
-    size_t i;
-
     if (keymap != NULL)
+    {
+        size_t i;
+
         for (i = 0; keymap[i].key != 0; i++)
             if (keymap[i].command == action)
                 return (keymap[i].caption[0] != '\0') ? keymap[i].caption : NULL;
-
+    }
     return NULL;
 }
 
@@ -471,12 +473,14 @@ keybind_lookup_keymap_shortcut (const global_keymap_t * keymap, unsigned long ac
 unsigned long
 keybind_lookup_keymap_command (const global_keymap_t * keymap, long key)
 {
-    size_t i;
-
     if (keymap != NULL)
+    {
+        size_t i;
+
         for (i = 0; keymap[i].key != 0; i++)
             if (keymap[i].key == key)
                 return keymap[i].command;
+    }
 
     return CK_IgnoreKey;
 }

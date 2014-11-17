@@ -1,12 +1,12 @@
 /*
    User Menu implementation
 
-   Copyright (C) 1994, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005,
-   2006, 2007, 2011, 2013
-   The Free Software Foundation, Inc.
+   Copyright (C) 1994-2014
+   Free Software Foundation, Inc.
 
    Written by:
    Slava Zanko <slavazanko@gmail.com>, 2013
+   Andrew Borodin <aborodin@vmail.ru>, 2013
 
    This file is part of the Midnight Commander.
 
@@ -80,7 +80,7 @@ static char *menu = NULL;
 static char *
 strip_ext (char *ss)
 {
-    register char *s = ss;
+    char *s = ss;
     char *e = NULL;
     while (*s)
     {
@@ -246,13 +246,14 @@ test_condition (WEdit * edit_widget, char *p, int *condition)
                 char *edit_filename;
 
                 edit_filename = edit_get_file_name (edit_widget);
-                *condition = mc_search (arg, edit_filename, search_type) ? 1 : 0;
+                *condition = mc_search (arg, DEFAULT_CHARSET, edit_filename, search_type) ? 1 : 0;
                 g_free (edit_filename);
             }
             else
 #endif
                 *condition = panel != NULL &&
-                    mc_search (arg, panel->dir.list[panel->selected].fname, search_type) ? 1 : 0;
+                    mc_search (arg, DEFAULT_CHARSET, panel->dir.list[panel->selected].fname,
+                               search_type) ? 1 : 0;
             break;
         case 'y':              /* syntax pattern */
 #ifdef USE_INTERNAL_EDIT
@@ -262,7 +263,8 @@ test_condition (WEdit * edit_widget, char *p, int *condition)
                 if (syntax_type != NULL)
                 {
                     p = extract_arg (p, arg, sizeof (arg));
-                    *condition = mc_search (arg, syntax_type, MC_SEARCH_T_NORMAL) ? 1 : 0;
+                    *condition =
+                        mc_search (arg, DEFAULT_CHARSET, syntax_type, MC_SEARCH_T_NORMAL) ? 1 : 0;
                 }
             }
 #endif
@@ -270,7 +272,8 @@ test_condition (WEdit * edit_widget, char *p, int *condition)
         case 'd':
             p = extract_arg (p, arg, sizeof (arg));
             *condition = panel != NULL
-                && mc_search (arg, vfs_path_as_str (panel->cwd_vpath), search_type) ? 1 : 0;
+                && mc_search (arg, DEFAULT_CHARSET, vfs_path_as_str (panel->cwd_vpath),
+                              search_type) ? 1 : 0;
             break;
         case 't':
             p = extract_arg (p, arg, sizeof (arg));
@@ -303,22 +306,22 @@ static void
 debug_out (char *start, char *end, int cond)
 {
     static char *msg;
-    int len;
 
     if (start == NULL && end == NULL)
     {
         /* Show output */
         if (debug_flag && msg)
         {
+            size_t len;
+
             len = strlen (msg);
-            if (len)
+            if (len != 0)
                 msg[len - 1] = 0;
             message (D_NORMAL, _("Debug"), "%s", msg);
 
         }
         debug_flag = 0;
-        g_free (msg);
-        msg = NULL;
+        MC_PTR_FREE (msg);
     }
     else
     {
@@ -357,11 +360,12 @@ test_line (WEdit * edit_widget, char *p, int *result)
 {
     int condition;
     char operator;
-    char *debug_start, *debug_end;
 
     /* Repeat till end of line */
     while (*p && *p != '\n')
     {
+        char *debug_start, *debug_end;
+
         /* support quote space .mnu */
         while ((*p == ' ' && *(p - 1) != '\\') || *p == '\t')
             p++;
@@ -469,7 +473,6 @@ execute_menu_command (WEdit * edit_widget, const char *commands, gboolean show_p
         {
             if (*commands == '}')
             {
-                char *tmp;
                 *parameter = 0;
                 parameter =
                     input_dialog (_("Parameter"), lc_prompt, MC_HISTORY_FM_MENU_EXEC_PARAM, "",
@@ -486,6 +489,8 @@ execute_menu_command (WEdit * edit_widget, const char *commands, gboolean show_p
                 }
                 if (do_quote)
                 {
+                    char *tmp;
+
                     tmp = name_quote (parameter, 0);
                     fputs (tmp, cmd_file);
                     g_free (tmp);
@@ -638,7 +643,7 @@ check_format_view (const char *p)
         {
             for (q++; *q && *q != '}'; q++)
             {
-                if (!strncmp (q, "ascii", 5))
+                if (!strncmp (q, DEFAULT_CHARSET, 5))
                 {
                     mcview_default_hex_mode = 0;
                     q += 4;
@@ -685,12 +690,13 @@ check_format_var (const char *p, char **v)
 {
     const char *q = p;
     char *var_name;
-    const char *value;
-    const char *dots = 0;
 
-    *v = 0;
+    *v = NULL;
     if (!strncmp (p, "var{", 4))
     {
+        const char *dots = NULL;
+        const char *value;
+
         for (q += 4; *q && *q != '}'; q++)
         {
             if (*q == ':')
@@ -883,7 +889,7 @@ expand_format (struct WEdit *edit_widget, char c, gboolean do_quote)
 
             block = g_string_sized_new (16);
 
-            for (i = 0; i < panel->count; i++)
+            for (i = 0; i < panel->dir.len; i++)
                 if (panel->dir.list[i].f.marked)
                 {
                     char *tmp;
@@ -921,7 +927,6 @@ user_menu_cmd (struct WEdit * edit_widget, const char *menu_file, int selected_e
     int max_cols, menu_lines, menu_limit;
     int col, i, accept_entry = 1;
     int selected, old_patterns;
-    Listbox *listbox;
     gboolean res = FALSE;
     gboolean interactive = TRUE;
 
@@ -940,8 +945,7 @@ user_menu_cmd (struct WEdit * edit_widget, const char *menu_file, int selected_e
         {
             message (D_ERROR, MSG_ERROR, _("Cannot open file %s\n%s"), menu,
                      unix_error_string (errno));
-            g_free (menu);
-            menu = NULL;
+            MC_PTR_FREE (menu);
             return FALSE;
         }
 
@@ -978,8 +982,7 @@ user_menu_cmd (struct WEdit * edit_widget, const char *menu_file, int selected_e
     if (!g_file_get_contents (menu, &data, NULL, NULL))
     {
         message (D_ERROR, MSG_ERROR, _("Cannot open file%s\n%s"), menu, unix_error_string (errno));
-        g_free (menu);
-        menu = NULL;
+        MC_PTR_FREE (menu);
         return FALSE;
     }
 
@@ -1089,6 +1092,8 @@ user_menu_cmd (struct WEdit * edit_widget, const char *menu_file, int selected_e
             selected = selected_entry;
         else
         {
+            Listbox *listbox;
+
             max_cols = min (max (max_cols, col), MAX_ENTRY_LEN);
 
             /* Create listbox */
@@ -1116,8 +1121,7 @@ user_menu_cmd (struct WEdit * edit_widget, const char *menu_file, int selected_e
     }
 
     easy_patterns = old_patterns;
-    g_free (menu);
-    menu = NULL;
+    MC_PTR_FREE (menu);
     g_free (entries);
     g_free (data);
     return res;

@@ -1,8 +1,8 @@
 /*
    lib/strutil - tests for lib/strutil/parse_integer function.
 
-   Copyright (C) 2013
-   The Free Software Foundation, Inc.
+   Copyright (C) 2013-2014
+   Free Software Foundation, Inc.
 
    Written by:
    Andrew Borodin <aborodin@vmail.ru>, 2013
@@ -132,7 +132,7 @@ START_TEST (parse_integer_test)
 
     /* then */
     fail_unless (invalid == data->invalid && actual_result == data->expected_result,
-                 "actial ( %" PRIuMAX ") not equal to\nexpected (%" PRIuMAX  ")",
+                 "actial ( %" PRIuMAX ") not equal to\nexpected (%" PRIuMAX ")",
                  actual_result, data->expected_result);
 }
 /* *INDENT-OFF* */

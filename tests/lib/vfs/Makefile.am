@@ -23,8 +23,10 @@ TESTS = \
 	relative_cd \
 	tempdir \
 	vfs_parse_ls_lga \
+	vfs_path_from_str_flags \
 	vfs_path_string_convert \
 	vfs_prefix_to_class \
+	vfs_setup_cwd \
 	vfs_split \
 	vfs_s_get_path
 
@@ -65,6 +67,9 @@ tempdir_SOURCES = \
 vfs_get_encoding_SOURCES = \
 	vfs_get_encoding.c
 
+vfs_setup_cwd_SOURCES = \
+	vfs_setup_cwd.c
+
 vfs_split_SOURCES = \
 	vfs_split.c
 
@@ -73,6 +78,9 @@ vfs_parse_ls_lga_SOURCES = \
 
 vfs_prefix_to_class_SOURCES = \
 	vfs_prefix_to_class.c
+
+vfs_path_from_str_flags_SOURCES = \
+	vfs_path_from_str_flags.c
 
 vfs_path_string_convert_SOURCES = \
 	vfs_path_string_convert.c

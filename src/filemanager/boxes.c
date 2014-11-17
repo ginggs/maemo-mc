@@ -1,9 +1,8 @@
 /*
    Some misc dialog boxes for the program.
 
-   Copyright (C) 1994, 1995, 1998, 1999, 2000, 2001, 2002, 2003, 2004,
-   2005, 2006, 2009, 2010, 2011, 2012, 2013
-   The Free Software Foundation, Inc.
+   Copyright (C) 1994-2014
+   Free Software Foundation, Inc.
 
    Written by:
    Miguel de Icaza, 1994, 1995
@@ -104,14 +103,18 @@ static int listing_user_hotkey = 'u';
 static unsigned long panel_listing_types_id, panel_user_format_id;
 static unsigned long mini_user_status_id, mini_user_format_id;
 
+static unsigned long skin_name_id;
+
 #ifdef HAVE_CHARSET
 static int new_display_codepage;
-static unsigned long disp_bits_name_id;
 #endif /* HAVE_CHARSET */
 
 #if defined(ENABLE_VFS) && defined(ENABLE_VFS_FTP)
 static unsigned long ftpfs_always_use_proxy_id, ftpfs_proxy_host_id;
 #endif /* ENABLE_VFS && ENABLE_VFS_FTP */
+
+GPtrArray *skin_names;
+gchar *current_skin_name;
 
 #ifdef ENABLE_BACKGROUND
 static WListbox *bg_list = NULL;
@@ -273,8 +276,6 @@ sel_charset_button (WButton * button, int action)
     if (new_dcp != SELECT_CHARSET_CANCEL)
     {
         const char *cpname;
-        char buf[BUF_TINY];
-        Widget *w;
 
         new_display_codepage = new_dcp;
         cpname = (new_display_codepage == SELECT_CHARSET_OTHER_8BIT) ?
@@ -282,10 +283,11 @@ sel_charset_button (WButton * button, int action)
             ((codepage_desc *) g_ptr_array_index (codepages, new_display_codepage))->name;
         if (cpname != NULL)
             mc_global.utf8_display = str_isutf8 (cpname);
-        /* avoid strange bug with label repainting */
-        g_snprintf (buf, sizeof (buf), "%-27s", cpname);
-        w = dlg_find_by_id (WIDGET (button)->owner, disp_bits_name_id);
-        label_set_text (LABEL (w), buf);
+        else
+            cpname = _("7-bit ASCII");  /* FIXME */
+
+        button_set_text (button, cpname);
+        dlg_redraw (WIDGET (button)->owner);
     }
 
     return 0;
@@ -516,21 +518,154 @@ configure_box (void)
 
 /* --------------------------------------------------------------------------------------------- */
 
+static void
+skin_apply (const gchar * skin_override)
+{
+    GError *mcerror = NULL;
+
+    mc_skin_deinit ();
+    mc_skin_init (skin_override, &mcerror);
+    mc_fhl_free (&mc_filehighlight);
+    mc_filehighlight = mc_fhl_new (TRUE);
+    dlg_set_default_colors ();
+    input_set_default_colors ();
+    if (mc_global.mc_run_mode == MC_RUN_FULL)
+        command_set_default_colors ();
+    panel_deinit ();
+    panel_init ();
+    repaint_screen ();
+
+    mc_error_message (&mcerror);
+}
+
+/* --------------------------------------------------------------------------------------------- */
+
+static const gchar *
+skin_name_to_label (const gchar * name)
+{
+    if (strcmp (name, "default") == 0)
+        return _("< Default >");
+    return name;
+}
+
+/* --------------------------------------------------------------------------------------------- */
+
+static int
+sel_skin_button (WButton * button, int action)
+{
+    int result;
+    WListbox *skin_list;
+    WDialog *skin_dlg;
+    const gchar *skin_name;
+    int lxx, lyy;
+    unsigned int i;
+    unsigned int pos = 1;
+
+    (void) action;
+
+    lxx = COLS / 2;
+    lyy = (LINES - 13) / 2;
+    skin_dlg =
+        dlg_create (TRUE, lyy, lxx, 13, 24, dialog_colors, NULL, NULL, "[Appearance]", _("Skins"),
+                    DLG_COMPACT);
+
+    skin_list = listbox_new (1, 1, 11, 22, FALSE, NULL);
+    skin_name = "default";
+    listbox_add_item (skin_list, LISTBOX_APPEND_AT_END, 0, skin_name_to_label (skin_name),
+                      (void *) skin_name);
+
+    if (strcmp (skin_name, current_skin_name) == 0)
+        listbox_select_entry (skin_list, 0);
+
+    for (i = 0; i < skin_names->len; i++)
+    {
+        skin_name = g_ptr_array_index (skin_names, i);
+        if (strcmp (skin_name, "default") != 0)
+        {
+            listbox_add_item (skin_list, LISTBOX_APPEND_AT_END, 0, skin_name_to_label (skin_name),
+                              (void *) skin_name);
+            if (strcmp (skin_name, current_skin_name) == 0)
+                listbox_select_entry (skin_list, pos);
+            pos++;
+        }
+    }
+
+    add_widget (skin_dlg, skin_list);
+
+    result = dlg_run (skin_dlg);
+    if (result == B_ENTER)
+    {
+        Widget *w;
+        gchar *skin_label;
+
+        listbox_get_current (skin_list, &skin_label, (void **) &skin_name);
+        g_free (current_skin_name);
+        current_skin_name = g_strdup (skin_name);
+        skin_apply (skin_name);
+
+        w = dlg_find_by_id (WIDGET (button)->owner, skin_name_id);
+        button_set_text (BUTTON (w), str_fit_to_term (skin_label, 20, J_LEFT_FIT));
+    }
+    dlg_destroy (skin_dlg);
+
+    return 0;
+}
+
+/* --------------------------------------------------------------------------------------------- */
+
+void
+appearance_box (void)
+{
+    current_skin_name = g_strdup (mc_skin__default.name);
+    skin_names = mc_skin_list ();
+
+    {
+        quick_widget_t quick_widgets[] = {
+            /* *INDENT-OFF* */
+            QUICK_START_COLUMNS,
+                QUICK_LABEL (N_("Skin:"), NULL),
+            QUICK_NEXT_COLUMN,
+                QUICK_BUTTON (str_fit_to_term (skin_name_to_label (current_skin_name), 20, J_LEFT_FIT),
+                              B_USER, sel_skin_button, &skin_name_id),
+            QUICK_STOP_COLUMNS,
+            QUICK_BUTTONS_OK_CANCEL,
+            QUICK_END
+            /* *INDENT-ON* */
+        };
+
+        quick_dialog_t qdlg = {
+            -1, -1, 54,
+            N_("Appearance"), "[Appearance]",
+            quick_widgets, dlg_default_callback, NULL
+        };
+
+        if (quick_dialog (&qdlg) == B_ENTER)
+            mc_config_set_string (mc_main_config, CONFIG_APP_SECTION, "skin", current_skin_name);
+        else
+            skin_apply (NULL);
+    }
+
+    g_free (current_skin_name);
+    g_ptr_array_foreach (skin_names, (GFunc) g_free, NULL);
+    g_ptr_array_free (skin_names, TRUE);
+}
+
+/* --------------------------------------------------------------------------------------------- */
+
 void
 panel_options_box (void)
 {
-    const char *qsearch_options[] = {
-        N_("Case &insensitive"),
-        N_("Cas&e sensitive"),
-        N_("Use panel sort mo&de")
-    };
-
     int simple_swap;
 
     simple_swap = mc_config_get_bool (mc_main_config, CONFIG_PANELS_SECTION,
                                       "simple_swap", FALSE) ? 1 : 0;
-
     {
+        const char *qsearch_options[] = {
+            N_("Case &insensitive"),
+            N_("Cas&e sensitive"),
+            N_("Use panel sort mo&de")
+        };
+
         quick_widget_t quick_widgets[] = {
             /* *INDENT-OFF* */
             QUICK_START_COLUMNS,
@@ -630,8 +765,8 @@ panel_listing_box (WPanel * panel, char **userp, char **minip, int *use_msformat
 
     {
         int mini_user_status;
-        char *panel_user_format;
-        char *mini_user_format;
+        char *panel_user_format = NULL;
+        char *mini_user_format = NULL;
         const char *cp;
 
         /* Controls whether the array strings have been translated */
@@ -703,17 +838,17 @@ panel_listing_box (WPanel * panel, char **userp, char **minip, int *use_msformat
 /* --------------------------------------------------------------------------------------------- */
 
 const panel_field_t *
-sort_box (panel_sort_info_t * info)
+sort_box (dir_sort_options_t * op, const panel_field_t * sort_field)
 {
     const char **sort_orders_names;
     gsize sort_names_num, i;
     int sort_idx = 0;
-    const panel_field_t *result = info->sort_field;
+    const panel_field_t *result = NULL;
 
     sort_orders_names = panel_get_sortable_fields (&sort_names_num);
 
     for (i = 0; i < sort_names_num; i++)
-        if (strcmp (sort_orders_names[i], _(info->sort_field->title_hotkey)) == 0)
+        if (strcmp (sort_orders_names[i], _(sort_field->title_hotkey)) == 0)
         {
             sort_idx = i;
             break;
@@ -725,9 +860,9 @@ sort_box (panel_sort_info_t * info)
             QUICK_START_COLUMNS,
                 QUICK_RADIO (sort_names_num, sort_orders_names, &sort_idx, NULL),
             QUICK_NEXT_COLUMN,
-                QUICK_CHECKBOX (N_("Executable &first"), &info->exec_first, NULL),
-                QUICK_CHECKBOX (N_("Cas&e sensitive"), &info->case_sensitive, NULL),
-                QUICK_CHECKBOX (N_("&Reverse"), &info->reverse, NULL),
+                QUICK_CHECKBOX (N_("Executable &first"), &op->exec_first, NULL),
+                QUICK_CHECKBOX (N_("Cas&e sensitive"), &op->case_sensitive, NULL),
+                QUICK_CHECKBOX (N_("&Reverse"), &op->reverse, NULL),
             QUICK_STOP_COLUMNS,
             QUICK_BUTTONS_OK_CANCEL,
             QUICK_END
@@ -744,7 +879,7 @@ sort_box (panel_sort_info_t * info)
             result = panel_get_field_by_title_hotkey (sort_orders_names[sort_idx]);
 
         if (result == NULL)
-            result = info->sort_field;
+            result = sort_field;
     }
 
     g_strfreev ((gchar **) sort_orders_names);
@@ -760,13 +895,13 @@ confirm_box (void)
     quick_widget_t quick_widgets[] = {
         /* *INDENT-OFF* */
         /* TRANSLATORS: no need to translate 'Confirmation', it's just a context prefix */
-        QUICK_CHECKBOX (N_("Confirmation|&Delete"), &confirm_delete, NULL),
-        QUICK_CHECKBOX (N_("Confirmation|O&verwrite"), &confirm_overwrite, NULL),
-        QUICK_CHECKBOX (N_("Confirmation|&Execute"), &confirm_execute, NULL),
-        QUICK_CHECKBOX (N_("Confirmation|E&xit"), &confirm_exit, NULL),
-        QUICK_CHECKBOX (N_("Confirmation|Di&rectory hotlist delete"),
+        QUICK_CHECKBOX (Q_("Confirmation|&Delete"), &confirm_delete, NULL),
+        QUICK_CHECKBOX (Q_("Confirmation|O&verwrite"), &confirm_overwrite, NULL),
+        QUICK_CHECKBOX (Q_("Confirmation|&Execute"), &confirm_execute, NULL),
+        QUICK_CHECKBOX (Q_("Confirmation|E&xit"), &confirm_exit, NULL),
+        QUICK_CHECKBOX (Q_("Confirmation|Di&rectory hotlist delete"),
                         &confirm_directory_hotlist_delete, NULL),
-        QUICK_CHECKBOX (N_("Confirmation|&History cleanup"),
+        QUICK_CHECKBOX (Q_("Confirmation|&History cleanup"),
                         &mc_global.widget.confirm_history_cleanup, NULL),
         QUICK_BUTTONS_OK_CANCEL,
         QUICK_END
@@ -844,10 +979,10 @@ display_bits_box (void)
 {
     const char *cpname;
 
+    new_display_codepage = mc_global.display_codepage;
+
     cpname = (new_display_codepage < 0) ? _("Other 8 bit")
         : ((codepage_desc *) g_ptr_array_index (codepages, new_display_codepage))->name;
-
-    new_display_codepage = mc_global.display_codepage;
 
     {
         int new_meta;
@@ -857,11 +992,7 @@ display_bits_box (void)
             QUICK_START_COLUMNS,
                 QUICK_LABEL (N_("Input / display codepage:"), NULL),
             QUICK_NEXT_COLUMN,
-            QUICK_STOP_COLUMNS,
-            QUICK_START_COLUMNS,
-                QUICK_LABEL (cpname, &disp_bits_name_id),
-            QUICK_NEXT_COLUMN,
-                QUICK_BUTTON (N_("&Select"), B_USER, sel_charset_button, NULL),
+                QUICK_BUTTON (cpname, B_USER, sel_charset_button, NULL),
             QUICK_STOP_COLUMNS,
             QUICK_SEPARATOR (TRUE),
                 QUICK_CHECKBOX (N_("F&ull 8 bits input"), &new_meta, NULL),
@@ -1013,6 +1144,7 @@ configure_vfs (void)
 
         if (quick_dialog (&qdlg) != B_CANCEL)
         {
+            /* cppcheck-suppress uninitvar */
             vfs_timeout = atoi (ret_timeout);
             g_free (ret_timeout);
 
@@ -1020,9 +1152,12 @@ configure_vfs (void)
                 vfs_timeout = 10;
 #ifdef ENABLE_VFS_FTP
             g_free (ftpfs_anonymous_passwd);
+            /* cppcheck-suppress uninitvar */
             ftpfs_anonymous_passwd = ret_passwd;
             g_free (ftpfs_proxy_host);
+            /* cppcheck-suppress uninitvar */
             ftpfs_proxy_host = ret_ftp_proxy;
+            /* cppcheck-suppress uninitvar */
             ftpfs_directory_timeout = atoi (ret_directory_timeout);
             g_free (ret_directory_timeout);
 #endif

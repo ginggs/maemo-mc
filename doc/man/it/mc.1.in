@@ -1,4 +1,4 @@
-.\" -*- mode: troff; coding: utf8 -*-
+.\" -*- mode: troff; coding: UTF-8 -*-
 .\" Tradotto dal 15 agosto 2002 da
 .\"     Marco Ciampa <ciampix@libero.it>
 .\" Chi vuole contribuire aggiunga il nome qui sotto.
@@ -2958,6 +2958,7 @@ sono: helpnormal, helpitalic, helpbold, helplink, helpslink.
 Il colore del visualizzatore è: viewunderline.
 Colori speciali di evidenziazione: executable, directory, link, device, 
 special, core.
+I colori dell'viewer sono: viewnormal, viewbold, viewunderline, viewselected.
 I colori dell'editor sono: editnormal, editbold, editmarked.
 .PP
 .I input 
@@ -3242,7 +3243,7 @@ per i dettagli sulla licenza e sulla mancanza di garanzie.
 .\"NODE "AVAILABILITY"
 .SH "REPERIBILITA'"
 L'ultima versione di questo programma si trova su
-ftp://ftp.gnu.org/gnu/mc/.
+http://ftp.midnight\-commander.org/.
 .\"NODE "SEE ALSO"
 .SH "VEDERE ANCHE"
 ed(1), gpm(1), terminfo(1), view(1), sh(1), bash(1),

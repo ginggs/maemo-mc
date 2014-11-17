@@ -1,6 +1,6 @@
 /*
-   Copyright (C) 2007, 2010, 2011, 2012, 2013
-   The Free Software Foundation, Inc.
+   Copyright (C) 2007-2014
+   Free Software Foundation, Inc.
 
    Written by:
    Daniel Borca <dborca@yahoo.com>, 2007
@@ -49,7 +49,7 @@
 #endif
 #include "lib/event.h"          /* mc_event_raise() */
 
-#include "src/filemanager/cmd.h"        /* do_edit_at_line(), view_other_cmd() */
+#include "src/filemanager/cmd.h"        /* edit_file_at_line(), view_other_cmd() */
 #include "src/filemanager/panel.h"
 #include "src/filemanager/layout.h"     /* Needed for get_current_index and get_other_panel */
 
@@ -70,9 +70,11 @@
 #define g_array_foreach(a, TP, cbf) \
 do { \
     size_t g_array_foreach_i;\
-    TP *g_array_foreach_var = NULL; \
+    \
     for (g_array_foreach_i = 0; g_array_foreach_i < a->len; g_array_foreach_i++) \
     { \
+        TP *g_array_foreach_var; \
+        \
         g_array_foreach_var = &g_array_index (a, TP, g_array_foreach_i); \
         (*cbf) (g_array_foreach_var); \
     } \
@@ -1109,8 +1111,8 @@ lcsubstr (const char *s, int m, const char *t, int n, GArray * ret, int min)
         }
     }
 
-    free (Lcurr);
-    free (Lprev);
+    g_free (Lcurr);
+    g_free (Lprev);
     return z;
 }
 
@@ -1419,8 +1421,7 @@ cvt_mget (const char *src, size_t srcsize, char *dst, int dstsize, int skip, int
                 utf_ch = dview_get_utf ((char *) src, &w, &res);
                 if (w > 1)
                     skip += w - 1;
-                if (!g_unichar_isprint (utf_ch))
-                    utf_ch = '.';
+                (void) utf_ch;
             }
             else
             {
@@ -1521,8 +1522,7 @@ cvt_mgeta (const char *src, size_t srcsize, char *dst, int dstsize, int skip, in
                 utf_ch = dview_get_utf ((char *) src, &w, &res);
                 if (w > 1)
                     skip += w - 1;
-                if (!g_unichar_isprint (utf_ch))
-                    utf_ch = '.';
+                (void) utf_ch;
             }
             else
             {
@@ -1799,12 +1799,12 @@ redo_diff (WDiff * dview)
         if (dview->hdiff != NULL)
         {
             size_t i;
-            const DIFFLN *p;
-            const DIFFLN *q;
 
             for (i = 0; i < dview->a[DIFF_LEFT]->len; i++)
             {
                 GArray *h = NULL;
+                const DIFFLN *p;
+                const DIFFLN *q;
 
                 p = &g_array_index (dview->a[DIFF_LEFT], DIFFLN, i);
                 q = &g_array_index (dview->a[DIFF_RIGHT], DIFFLN, i);
@@ -1858,8 +1858,7 @@ destroy_hdiff (WDiff * dview)
 
     mc_search_free (dview->search.handle);
     dview->search.handle = NULL;
-    g_free (dview->search.last_string);
-    dview->search.last_string = NULL;
+    MC_PTR_FREE (dview->search.last_string);
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -2830,18 +2829,18 @@ dview_update (WDiff * dview)
             if (xwidth < width1 - 1)
             {
                 tty_gotoyx (1, xwidth);
-                tty_print_alt_char (mc_tty_frm[MC_TTY_FRM_DTOPMIDDLE], FALSE);
+                tty_print_alt_char (ACS_TTEE, FALSE);
                 tty_gotoyx (height, xwidth);
-                tty_print_alt_char (mc_tty_frm[MC_TTY_FRM_DBOTTOMMIDDLE], FALSE);
-                tty_draw_vline (2, xwidth, mc_tty_frm[MC_TTY_FRM_VERT], height - 2);
+                tty_print_alt_char (ACS_BTEE, FALSE);
+                tty_draw_vline (2, xwidth, ACS_VLINE, height - 2);
             }
             if (xwidth < width2 - 1)
             {
                 tty_gotoyx (1, width1 + xwidth);
-                tty_print_alt_char (mc_tty_frm[MC_TTY_FRM_DTOPMIDDLE], FALSE);
+                tty_print_alt_char (ACS_TTEE, FALSE);
                 tty_gotoyx (height, width1 + xwidth);
-                tty_print_alt_char (mc_tty_frm[MC_TTY_FRM_DBOTTOMMIDDLE], FALSE);
-                tty_draw_vline (2, width1 + xwidth, mc_tty_frm[MC_TTY_FRM_VERT], height - 2);
+                tty_print_alt_char (ACS_BTEE, FALSE);
+                tty_draw_vline (2, width1 + xwidth, ACS_VLINE, height - 2);
             }
         }
         dview->new_frame = 0;
@@ -2883,7 +2882,7 @@ dview_edit (WDiff * dview, diff_place_t ord)
         vfs_path_t *tmp_vpath;
 
         tmp_vpath = vfs_path_from_str (dview->file[ord]);
-        do_edit_at_line (tmp_vpath, use_internal_edit, linenum);
+        edit_file_at_line (tmp_vpath, use_internal_edit != 0, linenum);
         vfs_path_free (tmp_vpath);
     }
     h->modal = h_modal;
@@ -2921,10 +2920,10 @@ dview_goto_cmd (WDiff * dview, diff_place_t ord)
 
             if (newline > 0)
             {
-                const DIFFLN *p;
-
                 for (; i < dview->a[ord]->len; i++)
                 {
+                    const DIFFLN *p;
+
                     p = &g_array_index (dview->a[ord], DIFFLN, i);
                     if (p->line == newline)
                         break;

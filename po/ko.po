@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Midnight Commander\n"
 "Report-Msgid-Bugs-To: http://www.midnight-commander.org/\n"
-"POT-Creation-Date: 2013-08-02 22:06+0300\n"
-"PO-Revision-Date: 2013-07-05 08:44+0000\n"
+"POT-Creation-Date: 2014-09-04 16:51+0300\n"
+"PO-Revision-Date: 2014-09-04 10:10+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/projects/p/mc/language/ko/)\n"
 "Language: ko\n"
@@ -18,6 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+# "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 msgid "Warning: cannot load codepages list"
 msgstr ""
 
@@ -140,6 +141,9 @@ msgid ""
 "Default skin has been loaded"
 msgstr ""
 
+msgid "Escape"
+msgstr ""
+
 msgid "Function key 1"
 msgstr "F1"
 
@@ -200,59 +204,56 @@ msgstr "F19"
 msgid "Function key 20"
 msgstr "F20"
 
-msgid "Backspace key"
-msgstr "백스페이스키"
+msgid "Completion/M-tab"
+msgstr "완료/M-tab"
+
+msgid "BackTab/S-tab"
+msgstr ""
+
+msgid "Backspace"
+msgstr ""
+
+msgid "Up arrow"
+msgstr ""
+
+msgid "Down arrow"
+msgstr ""
+
+msgid "Left arrow"
+msgstr ""
+
+msgid "Right arrow"
+msgstr ""
+
+msgid "Insert"
+msgstr ""
+
+msgid "Delete"
+msgstr ""
+
+msgid "Home"
+msgstr ""
 
 msgid "End key"
 msgstr "엔드키"
 
-msgid "Up arrow key"
-msgstr "위 방향키"
-
-msgid "Down arrow key"
-msgstr "아래 방향키"
-
-msgid "Left arrow key"
-msgstr "왼쪽 방향키"
-
-msgid "Right arrow key"
-msgstr "오른쪽 방향키"
-
-msgid "Home key"
-msgstr "홈키"
-
-msgid "Page Down key"
-msgstr "페이지다운키"
-
-msgid "Page Up key"
-msgstr "페이지업키"
-
-msgid "Insert key"
-msgstr "인써트키"
-
-msgid "Delete key"
-msgstr "딜리트키"
-
-msgid "Completion/M-tab"
-msgstr "완료/M-tab"
-
-msgid "Back Tabulation S-tab"
+msgid "Page Up"
 msgstr ""
 
-msgid "+ on keypad"
-msgstr "키패드 +"
+msgid "Page Down"
+msgstr ""
 
-msgid "- on keypad"
-msgstr "키패드 -"
-
-msgid "Slash on keypad"
-msgstr "키패드 /"
+msgid "/ on keypad"
+msgstr ""
 
 msgid "* on keypad"
 msgstr "키패드 *"
 
-msgid "Escape key"
-msgstr "ESC키"
+msgid "- on keypad"
+msgstr "키패드 -"
+
+msgid "+ on keypad"
+msgstr "키패드 +"
 
 msgid "Left arrow keypad"
 msgstr "키패드 왼쪽 방향키"
@@ -305,14 +306,14 @@ msgstr ""
 msgid "C1 key"
 msgstr ""
 
-msgid "Plus"
-msgstr "플러스"
+msgid "Asterisk"
+msgstr "아스테릭키"
 
 msgid "Minus"
 msgstr "마이너스"
 
-msgid "Asterisk"
-msgstr "아스테릭키"
+msgid "Plus"
+msgstr "플러스"
 
 msgid "Dot"
 msgstr "점키"
@@ -530,6 +531,13 @@ msgstr "배경 프로세스:"
 msgid "Error"
 msgstr "에러"
 
+#, c-format
+msgid "%d: %s"
+msgstr ""
+
+msgid "&Abort"
+msgstr "중단(&A)"
+
 msgid "Displays the current version"
 msgstr "현재 버전 출력"
 
@@ -623,7 +631,7 @@ msgid ""
 "   Editor:       editnormal, editbold, editmarked, editwhitespace,\n"
 "                 editlinestate, editbg, editframe, editframeactive\n"
 "                 editframedrag\n"
-"   Viewer:       viewbold, viewunderline, viewselected\n"
+"   Viewer:       viewnormal,viewbold, viewunderline, viewselected\n"
 "   Help:         helpnormal, helpitalic, helpbold, helplink, helpslink\n"
 msgstr ""
 
@@ -837,6 +845,60 @@ msgstr ""
 msgid "Two files are needed to compare"
 msgstr ""
 
+#, fuzzy
+msgid "Bookmarks"
+msgstr "다음  북마크(&N)"
+
+msgid " - Sort: "
+msgstr ""
+
+msgid "ABC"
+msgstr ""
+
+msgid "FRQ"
+msgstr ""
+
+msgid " - Filter: "
+msgstr ""
+
+msgid "FOUND"
+msgstr ""
+
+msgid "USER"
+msgstr ""
+
+#, fuzzy
+msgid "&Go to"
+msgstr "줄찾기(&G)..."
+
+#, fuzzy
+msgid "&Add"
+msgstr "새명령 더하기(&A)"
+
+msgid "&Remove"
+msgstr "제거(&R)"
+
+msgid "Fl&ush"
+msgstr ""
+
+#, fuzzy
+msgid "&Filter"
+msgstr "파일(&F)"
+
+#, fuzzy
+msgid "&Sort"
+msgstr "정렬(&S)..."
+
+#, fuzzy
+msgid "Re&verse"
+msgstr "반대로(&R)"
+
+msgid "Bookmark list"
+msgstr ""
+
+msgid "Bookmark detail"
+msgstr ""
+
 msgid "Choose syntax highlighting"
 msgstr ""
 
@@ -847,7 +909,17 @@ msgid "< Reload Current Syntax >"
 msgstr "<현재 구문 새로 고침>"
 
 #, c-format
+msgid "Loading: %3d%%"
+msgstr ""
+
+msgid "Loading..."
+msgstr ""
+
+#, c-format
 msgid "Cannot open %s for reading"
+msgstr ""
+
+msgid "Load file"
 msgstr ""
 
 #, c-format
@@ -876,6 +948,14 @@ msgstr ""
 msgid "Cannot open pipe for reading: %s"
 msgstr ""
 
+#, c-format
+msgid "Searching %s: %3d%%"
+msgstr ""
+
+#, c-format
+msgid "Searching %s"
+msgstr "%s 찾는 중"
+
 msgid "File has hard-links. Detach before saving?"
 msgstr ""
 
@@ -894,8 +974,8 @@ msgstr ""
 msgid "Cannot open file for writing: %s"
 msgstr ""
 
-msgid "The file you are saving is not finished with a newline"
-msgstr "줄 바꿈과 완료되지 않은 파일을 저장 중 입니다."
+msgid "The file you are saving does not end with a newline."
+msgstr ""
 
 msgid "C&ontinue"
 msgstr "계속(&O)"
@@ -922,6 +1002,9 @@ msgid "Save As"
 msgstr ""
 
 msgid "Block is large, you may not be able to undo this action"
+msgstr ""
+
+msgid "Collect completions"
 msgstr ""
 
 msgid "&Quick save"
@@ -1443,7 +1526,7 @@ msgid ""
 "written for the Midnight Commander."
 msgstr ""
 
-msgid "Copyright (C) 1996-2013 the Free Software Foundation"
+msgid "Copyright (C) 1996-2014 the Free Software Foundation"
 msgstr ""
 
 msgid "About"
@@ -1472,6 +1555,78 @@ msgstr "ButtonBar|삭제"
 
 msgid "ButtonBar|PullDn"
 msgstr "ButtonBar|풀다운"
+
+msgid "Breton"
+msgstr ""
+
+msgid "Czech"
+msgstr ""
+
+msgid "Welsh"
+msgstr ""
+
+msgid "Danish"
+msgstr ""
+
+msgid "German"
+msgstr ""
+
+msgid "Greek"
+msgstr ""
+
+msgid "English"
+msgstr ""
+
+msgid "British English"
+msgstr ""
+
+msgid "Canadian English"
+msgstr ""
+
+msgid "American English"
+msgstr ""
+
+msgid "Esperanto"
+msgstr ""
+
+msgid "Spanish"
+msgstr ""
+
+msgid "Faroese"
+msgstr ""
+
+msgid "French"
+msgstr ""
+
+msgid "Italian"
+msgstr ""
+
+msgid "Dutch"
+msgstr ""
+
+msgid "Norwegian"
+msgstr ""
+
+msgid "Polish"
+msgstr ""
+
+msgid "Portuguese"
+msgstr ""
+
+msgid "Romanian"
+msgstr ""
+
+msgid "Russian"
+msgstr ""
+
+msgid "Slovak"
+msgstr ""
+
+msgid "Swedish"
+msgstr ""
+
+msgid "Ukrainian"
+msgstr ""
 
 msgid "&Add word"
 msgstr ""
@@ -1642,6 +1797,18 @@ msgstr ""
 msgid "Configure options"
 msgstr "환경설정 선택항목"
 
+msgid "< Default >"
+msgstr ""
+
+msgid "Skins"
+msgstr ""
+
+msgid "Skin:"
+msgstr ""
+
+msgid "Appearance"
+msgstr ""
+
 msgid "Case &insensitive"
 msgstr ""
 
@@ -1784,9 +1951,6 @@ msgstr ""
 
 msgid "Input / display codepage:"
 msgstr "입/출력 코드페이지:"
-
-msgid "&Select"
-msgstr "선택(&S)"
 
 msgid "Directory tree"
 msgstr ""
@@ -1966,15 +2130,6 @@ msgstr ""
 msgid "Set expression for filtering filenames"
 msgstr ""
 
-msgid "&Files only"
-msgstr "크기로만(&F)"
-
-msgid "&Using shell patterns"
-msgstr "명령해석기 패턴 사용(&U)"
-
-msgid "&Case sensitive"
-msgstr "대소문자 구분(&C)"
-
 #, c-format
 msgid "Link %s to:"
 msgstr "링크 %s 로:"
@@ -2013,12 +2168,6 @@ msgid "Create a new Directory"
 msgstr "새로운 디렉터리를 만들기"
 
 msgid "Enter directory name:"
-msgstr ""
-
-msgid "Select"
-msgstr ""
-
-msgid "Unselect"
 msgstr ""
 
 msgid "Extension file edit"
@@ -2100,6 +2249,9 @@ msgid ""
 "files on: (F1 for details)"
 msgstr ""
 
+msgid "Directory scanning"
+msgstr "디렉터리 경로"
+
 msgid "Setup"
 msgstr ""
 
@@ -2172,8 +2324,8 @@ msgid "FileOperation|Delete"
 msgstr "FileOperation|삭제"
 
 #, no-c-format
-msgid "%o %f \"%s\"%m"
-msgstr "%o %f \"%s\"%m"
+msgid "%o %f%n\"%s\"%m"
+msgstr ""
 
 #, no-c-format
 msgid "%o %d %f%m"
@@ -2198,13 +2350,6 @@ msgstr "파일/디렉터리"
 msgid " with source mask:"
 msgstr "소스 마스크:"
 
-msgid "to:"
-msgstr "대상:"
-
-#, c-format
-msgid "%s?"
-msgstr "%s?"
-
 msgid "Cannot make the hardlink"
 msgstr ""
 
@@ -2225,9 +2370,6 @@ msgid ""
 "Cannot create target symlink \"%s\"\n"
 "%s"
 msgstr ""
-
-msgid "&Abort"
-msgstr "중단(&A)"
 
 msgid "Ski&p all"
 msgstr ""
@@ -2445,13 +2587,8 @@ msgid ""
 "%s"
 msgstr ""
 
-msgid "Directory scanning"
-msgstr "디렉터리 경로"
-
 #, c-format
-msgid ""
-"%s\n"
-"Directories: %zd, total size: %s"
+msgid "Directories: %zd, total size: %s"
 msgstr ""
 
 msgid "Cannot operate on \"..\"!"
@@ -2559,6 +2696,15 @@ msgstr "원본"
 msgid "Target"
 msgstr "대상"
 
+msgid "Deleting"
+msgstr ""
+
+msgid "&Using shell patterns"
+msgstr "명령해석기 패턴 사용(&U)"
+
+msgid "to:"
+msgstr "대상:"
+
 msgid "Follow &links"
 msgstr ""
 
@@ -2648,10 +2794,6 @@ msgid "Finished (ignored %zd directory)"
 msgid_plural "Finished (ignored %zd directories)"
 msgstr[0] ""
 
-#, c-format
-msgid "Searching %s"
-msgstr "%s 찾는 중"
-
 msgid "Searching"
 msgstr "찾는 중"
 
@@ -2678,9 +2820,6 @@ msgstr ""
 
 msgid "&Insert"
 msgstr "삽입(&I)"
-
-msgid "&Remove"
-msgstr "제거(&R)"
 
 msgid "Subgroup - press ENTER to see list"
 msgstr "하위집단 - 보려면 엔터키를 누르십시오"
@@ -3027,6 +3166,9 @@ msgstr ""
 msgid "C&onfirmation..."
 msgstr "확인(&O)..."
 
+msgid "&Appearance..."
+msgstr ""
+
 msgid "&Display bits..."
 msgstr "출력 비트(&D)..."
 
@@ -3196,6 +3338,18 @@ msgid "Panelize"
 msgstr ""
 
 msgid "Unknown tag on display format:"
+msgstr ""
+
+msgid "&Files only"
+msgstr "크기로만(&F)"
+
+msgid "&Case sensitive"
+msgstr "대소문자 구분(&C)"
+
+msgid "Select"
+msgstr ""
+
+msgid "Unselect"
 msgstr ""
 
 msgid "Do you really want to execute?"
@@ -3801,9 +3955,6 @@ msgstr ""
 msgid "sftp: Invalid host name."
 msgstr ""
 
-msgid "sftp: Invalid port value."
-msgstr ""
-
 #, c-format
 msgid "sftp: %s"
 msgstr ""
@@ -3984,8 +4135,8 @@ msgstr ""
 msgid "Empty output from child filter"
 msgstr "이 하위필터는 내보내기 충분"
 
-msgid "&Line number (decimal)"
-msgstr "줄 번호 (10 진수)(&L)"
+msgid "&Line number"
+msgstr ""
 
 msgid "Pe&rcents"
 msgstr "퍼센트(&R)"
@@ -4060,9 +4211,6 @@ msgid ""
 "%s"
 msgstr ""
 
-msgid "Seeking to search result"
-msgstr "검색 결과 추구"
-
 msgid "Search done"
 msgstr "검색결과 없음"
 
@@ -4071,6 +4219,3 @@ msgstr ""
 
 msgid "Cannot fetch a local copy of /ftp://some.host/editme.txt"
 msgstr ""
-
-#~ msgid "Deleting"
-#~ msgstr "지우기"

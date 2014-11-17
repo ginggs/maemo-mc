@@ -1,8 +1,8 @@
 /*
    Execution routines for GNU Midnight Commander
 
-   Copyright (C) 2003, 2004, 2005, 2007, 2011, 2013
-   The Free Software Foundation, Inc.
+   Copyright (C) 2003-2014
+   Free Software Foundation, Inc.
 
    Written by:
    Slava Zanko <slavazanko@gmail.com>, 2013
@@ -88,6 +88,7 @@ edition_post_exec (void)
     tty_raw_mode ();
     channels_up ();
     enable_mouse ();
+    enable_bracketed_paste ();
     if (mc_global.tty.alternate_plus_minus)
         application_keypad_mode ();
 }
@@ -107,6 +108,7 @@ edition_pre_exec (void)
 
     channels_down ();
     disable_mouse ();
+    disable_bracketed_paste ();
 
     tty_reset_shell_mode ();
     tty_keypad (FALSE);
@@ -152,6 +154,7 @@ do_suspend_cmd (void)
     {
         struct sigaction sigtstp_action;
 
+        memset (&sigtstp_action, 0, sizeof (sigtstp_action));
         /* Make sure that the SIGTSTP below will suspend us directly,
            without calling ncurses' SIGTSTP handler; we *don't* want
            ncurses to redraw the screen immediately after the SIGCONT */
@@ -263,9 +266,13 @@ execute_get_external_cmd_opts_from_config (const char *command, const vfs_path_t
     if (filename_vpath == NULL)
         return g_strdup ("");
 
+    parameter = g_shell_quote (vfs_path_get_last_path_str (filename_vpath));
+
+    if (start_line <= 0)
+        return parameter;
+
     str_from_config = execute_get_opts_from_cfg (command, "%filename");
 
-    parameter = g_shell_quote (vfs_path_get_last_path_str (filename_vpath));
     return_str = str_replace_all (str_from_config, "%filename", parameter);
     g_free (parameter);
     g_free (str_from_config);
@@ -448,13 +455,13 @@ toggle_panels (void)
 {
 #ifdef ENABLE_SUBSHELL
     vfs_path_t *new_dir_vpath = NULL;
-    vfs_path_t **new_dir_p;
 #endif /* ENABLE_SUBSHELL */
 
     SIG_ATOMIC_VOLATILE_T was_sigwinch = 0;
 
     channels_down ();
     disable_mouse ();
+    disable_bracketed_paste ();
     if (clear_before_exec)
         clr_scr ();
     if (mc_global.tty.alternate_plus_minus)
@@ -476,6 +483,8 @@ toggle_panels (void)
 #ifdef ENABLE_SUBSHELL
     if (mc_global.tty.use_subshell)
     {
+        vfs_path_t **new_dir_p;
+
         new_dir_p = vfs_current_is_local ()? &new_dir_vpath : NULL;
         invoke_subshell (NULL, VISIBLY, new_dir_p);
     }
@@ -518,6 +527,7 @@ toggle_panels (void)
     }
 
     enable_mouse ();
+    enable_bracketed_paste ();
     channels_up ();
     if (mc_global.tty.alternate_plus_minus)
         application_keypad_mode ();
@@ -609,6 +619,7 @@ execute_with_vfs_arg (const char *command, const vfs_path_t * filename_vpath)
  * @param command editor/viewer to run
  * @param filename_vpath path for edit/view
  * @param start_line cursor will be placed at the 'start_line' position after opening file
+ *        if start_line is 0 or negative, no start line will be passed to editor/viewer
  */
 
 void
