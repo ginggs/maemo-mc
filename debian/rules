@@ -25,3 +25,5 @@ install/mc::
 	find debian/mc/opt/mc -type f -exec sed -i 's/\/scratchbox\/tools\//\/usr\//g' {} \;
 	find debian/mc/opt/mc -type f -exec sed -i 's/\/scratchbox\/devkits\//\/usr\//g' {} \;
 
+get-orig-source:
+	uscan --no-conf --download-current-version --repack --compression gz
