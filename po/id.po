@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Midnight Commander\n"
 "Report-Msgid-Bugs-To: http://www.midnight-commander.org/\n"
-"POT-Creation-Date: 2013-08-02 22:06+0300\n"
-"PO-Revision-Date: 2013-07-05 08:44+0000\n"
+"POT-Creation-Date: 2014-09-04 16:51+0300\n"
+"PO-Revision-Date: 2014-09-04 10:10+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Indonesian (http://www.transifex.com/projects/p/mc/language/"
 "id/)\n"
@@ -19,6 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+# "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 msgid "Warning: cannot load codepages list"
 msgstr "Peringatan: tak bisa memuat daftar codepage"
 
@@ -144,6 +145,9 @@ msgid ""
 "Default skin has been loaded"
 msgstr ""
 
+msgid "Escape"
+msgstr ""
+
 msgid "Function key 1"
 msgstr "Tombol fungsi 1"
 
@@ -204,59 +208,56 @@ msgstr "Tombol fungsi 19"
 msgid "Function key 20"
 msgstr "Tombol fungsi 20"
 
-msgid "Backspace key"
-msgstr "Tombol backspace"
+msgid "Completion/M-tab"
+msgstr ""
+
+msgid "BackTab/S-tab"
+msgstr ""
+
+msgid "Backspace"
+msgstr ""
+
+msgid "Up arrow"
+msgstr ""
+
+msgid "Down arrow"
+msgstr ""
+
+msgid "Left arrow"
+msgstr ""
+
+msgid "Right arrow"
+msgstr ""
+
+msgid "Insert"
+msgstr ""
+
+msgid "Delete"
+msgstr ""
+
+msgid "Home"
+msgstr ""
 
 msgid "End key"
 msgstr "Tombol end"
 
-msgid "Up arrow key"
-msgstr "Tombol panah atas"
-
-msgid "Down arrow key"
-msgstr "Tombol panah bawah"
-
-msgid "Left arrow key"
-msgstr "Tombol panah kiri"
-
-msgid "Right arrow key"
-msgstr "Tombol panah kanan"
-
-msgid "Home key"
-msgstr "Tombol home"
-
-msgid "Page Down key"
-msgstr "Tombol Page Down"
-
-msgid "Page Up key"
-msgstr "Tombol Page Up"
-
-msgid "Insert key"
-msgstr "Tombol insert"
-
-msgid "Delete key"
-msgstr "Tombol delete"
-
-msgid "Completion/M-tab"
+msgid "Page Up"
 msgstr ""
 
-msgid "Back Tabulation S-tab"
+msgid "Page Down"
 msgstr ""
 
-msgid "+ on keypad"
-msgstr "+ pada keypad"
-
-msgid "- on keypad"
-msgstr "- pada keypad"
-
-msgid "Slash on keypad"
-msgstr "Garis miring pada keypad"
+msgid "/ on keypad"
+msgstr ""
 
 msgid "* on keypad"
 msgstr "* pada keypad"
 
-msgid "Escape key"
-msgstr "Tombol escape"
+msgid "- on keypad"
+msgstr "- pada keypad"
+
+msgid "+ on keypad"
+msgstr "+ pada keypad"
 
 msgid "Left arrow keypad"
 msgstr "Panah kiri keypad"
@@ -309,14 +310,14 @@ msgstr "Tombol A1"
 msgid "C1 key"
 msgstr "Tombol C1"
 
-msgid "Plus"
-msgstr "Plus"
+msgid "Asterisk"
+msgstr "Asterisk"
 
 msgid "Minus"
 msgstr "Minus"
 
-msgid "Asterisk"
-msgstr "Asterisk"
+msgid "Plus"
+msgstr "Plus"
 
 msgid "Dot"
 msgstr "Dot"
@@ -534,6 +535,13 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
+#, c-format
+msgid "%d: %s"
+msgstr ""
+
+msgid "&Abort"
+msgstr ""
+
 msgid "Displays the current version"
 msgstr ""
 
@@ -627,7 +635,7 @@ msgid ""
 "   Editor:       editnormal, editbold, editmarked, editwhitespace,\n"
 "                 editlinestate, editbg, editframe, editframeactive\n"
 "                 editframedrag\n"
-"   Viewer:       viewbold, viewunderline, viewselected\n"
+"   Viewer:       viewnormal,viewbold, viewunderline, viewselected\n"
 "   Help:         helpnormal, helpitalic, helpbold, helplink, helpslink\n"
 msgstr ""
 
@@ -841,6 +849,54 @@ msgstr ""
 msgid "Two files are needed to compare"
 msgstr ""
 
+msgid "Bookmarks"
+msgstr ""
+
+msgid " - Sort: "
+msgstr ""
+
+msgid "ABC"
+msgstr ""
+
+msgid "FRQ"
+msgstr ""
+
+msgid " - Filter: "
+msgstr ""
+
+msgid "FOUND"
+msgstr ""
+
+msgid "USER"
+msgstr ""
+
+msgid "&Go to"
+msgstr ""
+
+msgid "&Add"
+msgstr ""
+
+msgid "&Remove"
+msgstr ""
+
+msgid "Fl&ush"
+msgstr ""
+
+msgid "&Filter"
+msgstr ""
+
+msgid "&Sort"
+msgstr ""
+
+msgid "Re&verse"
+msgstr ""
+
+msgid "Bookmark list"
+msgstr ""
+
+msgid "Bookmark detail"
+msgstr ""
+
 msgid "Choose syntax highlighting"
 msgstr ""
 
@@ -851,7 +907,17 @@ msgid "< Reload Current Syntax >"
 msgstr ""
 
 #, c-format
+msgid "Loading: %3d%%"
+msgstr ""
+
+msgid "Loading..."
+msgstr ""
+
+#, c-format
 msgid "Cannot open %s for reading"
+msgstr ""
+
+msgid "Load file"
 msgstr ""
 
 #, c-format
@@ -880,6 +946,14 @@ msgstr ""
 msgid "Cannot open pipe for reading: %s"
 msgstr ""
 
+#, c-format
+msgid "Searching %s: %3d%%"
+msgstr ""
+
+#, c-format
+msgid "Searching %s"
+msgstr ""
+
 msgid "File has hard-links. Detach before saving?"
 msgstr ""
 
@@ -898,7 +972,7 @@ msgstr ""
 msgid "Cannot open file for writing: %s"
 msgstr ""
 
-msgid "The file you are saving is not finished with a newline"
+msgid "The file you are saving does not end with a newline."
 msgstr ""
 
 msgid "C&ontinue"
@@ -926,6 +1000,9 @@ msgid "Save As"
 msgstr ""
 
 msgid "Block is large, you may not be able to undo this action"
+msgstr ""
+
+msgid "Collect completions"
 msgstr ""
 
 msgid "&Quick save"
@@ -1447,7 +1524,7 @@ msgid ""
 "written for the Midnight Commander."
 msgstr ""
 
-msgid "Copyright (C) 1996-2013 the Free Software Foundation"
+msgid "Copyright (C) 1996-2014 the Free Software Foundation"
 msgstr ""
 
 msgid "About"
@@ -1475,6 +1552,78 @@ msgid "ButtonBar|Delete"
 msgstr ""
 
 msgid "ButtonBar|PullDn"
+msgstr ""
+
+msgid "Breton"
+msgstr ""
+
+msgid "Czech"
+msgstr ""
+
+msgid "Welsh"
+msgstr ""
+
+msgid "Danish"
+msgstr ""
+
+msgid "German"
+msgstr ""
+
+msgid "Greek"
+msgstr ""
+
+msgid "English"
+msgstr ""
+
+msgid "British English"
+msgstr ""
+
+msgid "Canadian English"
+msgstr ""
+
+msgid "American English"
+msgstr ""
+
+msgid "Esperanto"
+msgstr ""
+
+msgid "Spanish"
+msgstr ""
+
+msgid "Faroese"
+msgstr ""
+
+msgid "French"
+msgstr ""
+
+msgid "Italian"
+msgstr ""
+
+msgid "Dutch"
+msgstr ""
+
+msgid "Norwegian"
+msgstr ""
+
+msgid "Polish"
+msgstr ""
+
+msgid "Portuguese"
+msgstr ""
+
+msgid "Romanian"
+msgstr ""
+
+msgid "Russian"
+msgstr ""
+
+msgid "Slovak"
+msgstr ""
+
+msgid "Swedish"
+msgstr ""
+
+msgid "Ukrainian"
 msgstr ""
 
 msgid "&Add word"
@@ -1646,6 +1795,18 @@ msgstr ""
 msgid "Configure options"
 msgstr ""
 
+msgid "< Default >"
+msgstr ""
+
+msgid "Skins"
+msgstr ""
+
+msgid "Skin:"
+msgstr ""
+
+msgid "Appearance"
+msgstr ""
+
 msgid "Case &insensitive"
 msgstr ""
 
@@ -1787,9 +1948,6 @@ msgid "Display bits"
 msgstr ""
 
 msgid "Input / display codepage:"
-msgstr ""
-
-msgid "&Select"
 msgstr ""
 
 msgid "Directory tree"
@@ -1970,15 +2128,6 @@ msgstr ""
 msgid "Set expression for filtering filenames"
 msgstr ""
 
-msgid "&Files only"
-msgstr ""
-
-msgid "&Using shell patterns"
-msgstr ""
-
-msgid "&Case sensitive"
-msgstr ""
-
 #, c-format
 msgid "Link %s to:"
 msgstr ""
@@ -2017,12 +2166,6 @@ msgid "Create a new Directory"
 msgstr ""
 
 msgid "Enter directory name:"
-msgstr ""
-
-msgid "Select"
-msgstr ""
-
-msgid "Unselect"
 msgstr ""
 
 msgid "Extension file edit"
@@ -2104,6 +2247,9 @@ msgid ""
 "files on: (F1 for details)"
 msgstr ""
 
+msgid "Directory scanning"
+msgstr ""
+
 msgid "Setup"
 msgstr ""
 
@@ -2176,7 +2322,7 @@ msgid "FileOperation|Delete"
 msgstr ""
 
 #, no-c-format
-msgid "%o %f \"%s\"%m"
+msgid "%o %f%n\"%s\"%m"
 msgstr ""
 
 #, no-c-format
@@ -2202,13 +2348,6 @@ msgstr ""
 msgid " with source mask:"
 msgstr ""
 
-msgid "to:"
-msgstr ""
-
-#, c-format
-msgid "%s?"
-msgstr ""
-
 msgid "Cannot make the hardlink"
 msgstr ""
 
@@ -2228,9 +2367,6 @@ msgstr ""
 msgid ""
 "Cannot create target symlink \"%s\"\n"
 "%s"
-msgstr ""
-
-msgid "&Abort"
 msgstr ""
 
 msgid "Ski&p all"
@@ -2449,13 +2585,8 @@ msgid ""
 "%s"
 msgstr ""
 
-msgid "Directory scanning"
-msgstr ""
-
 #, c-format
-msgid ""
-"%s\n"
-"Directories: %zd, total size: %s"
+msgid "Directories: %zd, total size: %s"
 msgstr ""
 
 msgid "Cannot operate on \"..\"!"
@@ -2563,6 +2694,15 @@ msgstr ""
 msgid "Target"
 msgstr ""
 
+msgid "Deleting"
+msgstr ""
+
+msgid "&Using shell patterns"
+msgstr ""
+
+msgid "to:"
+msgstr ""
+
 msgid "Follow &links"
 msgstr ""
 
@@ -2652,10 +2792,6 @@ msgid "Finished (ignored %zd directory)"
 msgid_plural "Finished (ignored %zd directories)"
 msgstr[0] ""
 
-#, c-format
-msgid "Searching %s"
-msgstr ""
-
 msgid "Searching"
 msgstr ""
 
@@ -2681,9 +2817,6 @@ msgid "New &entry"
 msgstr ""
 
 msgid "&Insert"
-msgstr ""
-
-msgid "&Remove"
 msgstr ""
 
 msgid "Subgroup - press ENTER to see list"
@@ -3031,6 +3164,9 @@ msgstr ""
 msgid "C&onfirmation..."
 msgstr ""
 
+msgid "&Appearance..."
+msgstr ""
+
 msgid "&Display bits..."
 msgstr ""
 
@@ -3200,6 +3336,18 @@ msgid "Panelize"
 msgstr ""
 
 msgid "Unknown tag on display format:"
+msgstr ""
+
+msgid "&Files only"
+msgstr ""
+
+msgid "&Case sensitive"
+msgstr ""
+
+msgid "Select"
+msgstr ""
+
+msgid "Unselect"
 msgstr ""
 
 msgid "Do you really want to execute?"
@@ -3769,9 +3917,6 @@ msgstr ""
 msgid "sftp: Invalid host name."
 msgstr ""
 
-msgid "sftp: Invalid port value."
-msgstr ""
-
 #, c-format
 msgid "sftp: %s"
 msgstr ""
@@ -3950,7 +4095,7 @@ msgstr ""
 msgid "Empty output from child filter"
 msgstr ""
 
-msgid "&Line number (decimal)"
+msgid "&Line number"
 msgstr ""
 
 msgid "Pe&rcents"
@@ -4024,9 +4169,6 @@ msgstr ""
 msgid ""
 "Cannot open \"%s\" in parse mode\n"
 "%s"
-msgstr ""
-
-msgid "Seeking to search result"
 msgstr ""
 
 msgid "Search done"

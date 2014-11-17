@@ -1,9 +1,8 @@
 /*
    Setup loading/saving.
 
-   Copyright (C) 1994, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005,
-   2006, 2007, 2009, 2010, 2011, 2013
-   The Free Software Foundation, Inc.
+   Copyright (C) 1994-2014
+   Free Software Foundation, Inc.
 
    This file is part of the Midnight Commander.
 
@@ -42,8 +41,6 @@
 #include "lib/timefmt.h"
 #include "lib/util.h"
 #include "lib/widget.h"
-
-#include "lib/vfs/vfs.h"
 
 #ifdef ENABLE_VFS_FTP
 #include "src/vfs/ftpfs/ftpfs.h"
@@ -103,7 +100,7 @@ int confirm_overwrite = 1;
 /* Asks for confirmation before executing a program by pressing enter */
 int confirm_execute = 0;
 /* Asks for confirmation before leaving the program */
-int confirm_exit = 1;
+int confirm_exit = 0;
 
 /* If true, at startup the user-menu is invoked */
 int auto_menu = 0;
@@ -146,7 +143,8 @@ panels_options_t panels_options = {
     .filetype_mode = TRUE,
     .permission_mode = FALSE,
     .qsearch_mode = QSEARCH_PANEL_CASE,
-    .torben_fj_mode = FALSE
+    .torben_fj_mode = FALSE,
+    .select_flags = SELECT_MATCH_CASE | SELECT_SHELL_PATTERNS
 };
 
 int easy_patterns = 1;
@@ -172,7 +170,7 @@ int verbose = 1;
 
 /*
  * Whether the Midnight Commander tries to provide more
- * information about copy/move sizes and bytes transfered
+ * information about copy/move sizes and bytes transferred
  * at the expense of some speed
  */
 int file_op_compute_totals = 1;
@@ -349,6 +347,7 @@ static const struct
     { "editor_edit_confirm_save", &edit_confirm_save },
     { "editor_syntax_highlighting", &option_syntax_highlighting },
     { "editor_persistent_selections", &option_persistent_selections },
+    { "editor_drop_selection_on_copy", &option_drop_selection_on_copy },
     { "editor_cursor_beyond_eol", &option_cursor_beyond_eol },
     { "editor_cursor_after_inserted_block", &option_cursor_after_inserted_block },
     { "editor_visible_tabs", &visible_tabs },
@@ -364,7 +363,6 @@ static const struct
     { "mcview_remember_file_position", &mcview_remember_file_position },
     { "auto_fill_mkdir_name", &auto_fill_mkdir_name },
     { "copymove_persistent_attr", &setup_copymove_persistent_attr },
-    { "select_flags", &select_flags },
     { NULL, NULL }
 };
 
@@ -377,6 +375,7 @@ static const struct
 #ifdef USE_INTERNAL_EDIT
     { "editor_backup_extension", &option_backup_ext, "~" },
     { "editor_filesize_threshold", &option_filesize_threshold, "64M" },
+    { "editor_stop_format_chars", &option_stop_format_chars, "-+*\\,.;:&>" },
 #endif
     { "mcview_eof", &mcview_show_eof, "" },
     {  NULL, NULL, NULL }
@@ -510,49 +509,43 @@ setup__move_panels_config_into_separate_file (const char *profile)
 {
     mc_config_t *tmp_cfg;
     char **groups, **curr_grp;
-    const char *need_grp;
 
     if (!exist_file (profile))
         return;
 
     tmp_cfg = mc_config_init (profile, FALSE);
-    if (!tmp_cfg)
+    if (tmp_cfg == NULL)
         return;
 
-    curr_grp = groups = mc_config_get_groups (tmp_cfg, NULL);
-    if (!groups)
+    groups = mc_config_get_groups (tmp_cfg, NULL);
+    if (*groups == NULL)
     {
+        g_strfreev (groups);
         mc_config_deinit (tmp_cfg);
         return;
     }
 
-    while (*curr_grp)
-    {
+    for (curr_grp = groups; *curr_grp != NULL; curr_grp++)
         if (setup__is_cfg_group_must_panel_config (*curr_grp) == NULL)
             mc_config_del_group (tmp_cfg, *curr_grp);
-        curr_grp++;
-    }
 
     mc_config_save_to_file (tmp_cfg, panels_profile_name, NULL);
     mc_config_deinit (tmp_cfg);
 
     tmp_cfg = mc_config_init (profile, FALSE);
-    if (!tmp_cfg)
+    if (tmp_cfg == NULL)
     {
         g_strfreev (groups);
         return;
     }
 
-    curr_grp = groups;
-
-    while (*curr_grp)
+    for (curr_grp = groups; *curr_grp != NULL; curr_grp++)
     {
+        const char *need_grp;
+
         need_grp = setup__is_cfg_group_must_panel_config (*curr_grp);
         if (need_grp != NULL)
-        {
             mc_config_del_group (tmp_cfg, need_grp);
-        }
-        curr_grp++;
     }
     g_strfreev (groups);
 
@@ -624,18 +617,16 @@ load_keys_from_section (const char *terminal, mc_config_t * cfg)
 {
     char *section_name;
     gchar **profile_keys, **keys;
-    gchar **values, **curr_values;
     char *valcopy, *value;
     long key_code;
-    gsize len, values_len;
 
     if (terminal == NULL)
         return;
 
     section_name = g_strconcat ("terminal:", terminal, (char *) NULL);
-    profile_keys = keys = mc_config_get_keys (cfg, section_name, &len);
+    keys = mc_config_get_keys (cfg, section_name, NULL);
 
-    while (*profile_keys != NULL)
+    for (profile_keys = keys; *profile_keys != NULL; profile_keys++)
     {
         /* copy=other causes all keys from [terminal:other] to be loaded. */
         if (g_ascii_strcasecmp (*profile_keys, "copy") == 0)
@@ -643,26 +634,27 @@ load_keys_from_section (const char *terminal, mc_config_t * cfg)
             valcopy = mc_config_get_string (cfg, section_name, *profile_keys, "");
             load_keys_from_section (valcopy, cfg);
             g_free (valcopy);
-            profile_keys++;
             continue;
         }
 
-        curr_values = values =
-            mc_config_get_string_list (cfg, section_name, *profile_keys, &values_len);
-
         key_code = lookup_key (*profile_keys, NULL);
-
         if (key_code != 0)
         {
-            if (curr_values != NULL)
+            gchar **values;
+
+            values = mc_config_get_string_list (cfg, section_name, *profile_keys, NULL);
+            if (values != NULL)
             {
-                while (*curr_values != NULL)
+                gchar **curr_values;
+
+                for (curr_values = values; *curr_values != NULL; curr_values++)
                 {
                     valcopy = convert_controls (*curr_values);
                     define_sequence (key_code, valcopy, MCKEY_NOACTION);
                     g_free (valcopy);
-                    curr_values++;
                 }
+
+                g_strfreev (values);
             }
             else
             {
@@ -673,9 +665,6 @@ load_keys_from_section (const char *terminal, mc_config_t * cfg)
                 g_free (value);
             }
         }
-
-        profile_keys++;
-        g_strfreev (values);
     }
     g_strfreev (keys);
     g_free (section_name);
@@ -687,35 +676,32 @@ static void
 load_keymap_from_section (const char *section_name, GArray * keymap, mc_config_t * cfg)
 {
     gchar **profile_keys, **keys;
-    gsize len;
 
     if (section_name == NULL)
         return;
 
-    profile_keys = keys = mc_config_get_keys (cfg, section_name, &len);
+    keys = mc_config_get_keys (cfg, section_name, NULL);
 
-    while (*profile_keys != NULL)
+    for (profile_keys = keys; *profile_keys != NULL; profile_keys++)
     {
-        gchar **values, **curr_values;
+        gchar **values;
 
-        curr_values = values = mc_config_get_string_list (cfg, section_name, *profile_keys, &len);
-
-        if (curr_values != NULL)
+        values = mc_config_get_string_list (cfg, section_name, *profile_keys, NULL);
+        if (values != NULL)
         {
             int action;
 
             action = keybind_lookup_action (*profile_keys);
             if (action > 0)
-                while (*curr_values != NULL)
-                {
+            {
+                gchar **curr_values;
+
+                for (curr_values = values; *curr_values != NULL; curr_values++)
                     keybind_cmd_bind (keymap, *curr_values, action);
-                    curr_values++;
-                }
+            }
 
             g_strfreev (values);
         }
-
-        profile_keys++;
     }
 
     g_strfreev (keys);
@@ -920,10 +906,11 @@ load_setup (void)
 {
     const char *profile;
     size_t i;
-    char *buffer;
     const char *kt;
 
 #ifdef HAVE_CHARSET
+    char *buffer;
+
     load_codepages_list ();
 #endif /* HAVE_CHARSET */
 
@@ -988,18 +975,6 @@ load_setup (void)
     /* At least one of the panels is a listing panel */
     if (startup_left_mode != view_listing && startup_right_mode != view_listing)
         startup_left_mode = view_listing;
-
-    {
-        vfs_path_t *vpath;
-
-        buffer = mc_config_get_string (mc_panels_config, "Dirs", "other_dir", ".");
-        vpath = vfs_path_from_str (buffer);
-        if (vfs_file_is_local (vpath))
-            saved_other_dir = buffer;
-        else
-            g_free (buffer);
-        vfs_path_free (vpath);
-    }
 
     boot_current_is_left = mc_config_get_bool (mc_panels_config, "Dirs", "current_is_left", TRUE);
 
@@ -1191,13 +1166,13 @@ save_config (void)
 /* --------------------------------------------------------------------------------------------- */
 
 void
-setup_save_config_show_error (const char *filename, GError ** error)
+setup_save_config_show_error (const char *filename, GError ** mcerror)
 {
-    if (error != NULL && *error != NULL)
+    if (mcerror != NULL && *mcerror != NULL)
     {
-        message (D_ERROR, MSG_ERROR, _("Cannot save file %s:\n%s"), filename, (*error)->message);
-        g_error_free (*error);
-        *error = NULL;
+        message (D_ERROR, MSG_ERROR, _("Cannot save file %s:\n%s"), filename, (*mcerror)->message);
+        g_error_free (*mcerror);
+        *mcerror = NULL;
     }
 }
 
@@ -1385,9 +1360,9 @@ panel_load_setup (WPanel * panel, const char *section)
 
     /* Load sort order */
     buffer = mc_config_get_string (mc_panels_config, section, "sort_order", "name");
-    panel->sort_info.sort_field = panel_get_field_by_id (buffer);
-    if (panel->sort_info.sort_field == NULL)
-        panel->sort_info.sort_field = panel_get_field_by_id ("name");
+    panel->sort_field = panel_get_field_by_id (buffer);
+    if (panel->sort_field == NULL)
+        panel->sort_field = panel_get_field_by_id ("name");
 
     g_free (buffer);
 
@@ -1421,7 +1396,7 @@ panel_load_setup (WPanel * panel, const char *section)
 /* --------------------------------------------------------------------------------------------- */
 
 void
-panel_save_setup (struct WPanel *panel, const char *section)
+panel_save_setup (WPanel * panel, const char *section)
 {
     char buffer[BUF_TINY];
     size_t i;
@@ -1431,7 +1406,7 @@ panel_save_setup (struct WPanel *panel, const char *section)
                        panel->sort_info.case_sensitive);
     mc_config_set_int (mc_panels_config, section, "exec_first", panel->sort_info.exec_first);
 
-    mc_config_set_string (mc_panels_config, section, "sort_order", panel->sort_info.sort_field->id);
+    mc_config_set_string (mc_panels_config, section, "sort_order", panel->sort_field->id);
 
     for (i = 0; list_types[i].key != NULL; i++)
         if (list_types[i].list_type == panel->list_type)
@@ -1478,6 +1453,10 @@ panels_load_options (void)
             panels_options.qsearch_mode = QSEARCH_PANEL_CASE;
         else
             panels_options.qsearch_mode = (qsearch_mode_t) qmode;
+
+        panels_options.select_flags =
+            mc_config_get_int (mc_main_config, CONFIG_PANELS_SECTION, "select_flags",
+                               (int) panels_options.select_flags);
     }
 }
 
@@ -1497,6 +1476,8 @@ panels_save_options (void)
 
     mc_config_set_int (mc_main_config, CONFIG_PANELS_SECTION,
                        "quick_search_mode", (int) panels_options.qsearch_mode);
+    mc_config_set_int (mc_main_config, CONFIG_PANELS_SECTION,
+                       "select_flags", (int) panels_options.select_flags);
 }
 
 /* --------------------------------------------------------------------------------------------- */

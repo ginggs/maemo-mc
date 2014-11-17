@@ -1,9 +1,8 @@
 /*
    Widgets for the Midnight Commander
 
-   Copyright (C) 1994, 1995, 1996, 1998, 1999, 2000, 2001, 2002, 2003,
-   2004, 2005, 2006, 2007, 2009, 2010, 2011, 2013
-   The Free Software Foundation, Inc.
+   Copyright (C) 1994-2014
+   Free Software Foundation, Inc.
 
    Authors:
    Radek Doulik, 1994, 1995
@@ -40,6 +39,7 @@
 #include "lib/tty/tty.h"
 #include "lib/tty/color.h"
 #include "lib/skin.h"
+#include "lib/util.h"
 #include "lib/widget.h"
 
 /*** global variables ****************************************************************************/
@@ -121,8 +121,7 @@ groupbox_new (int y, int x, int height, int width, const char *title)
 void
 groupbox_set_title (WGroupbox * g, const char *title)
 {
-    g_free (g->title);
-    g->title = NULL;
+    MC_PTR_FREE (g->title);
 
     /* Strip existing spaces, add one space before and after the title */
     if (title != NULL && *title != '\0')

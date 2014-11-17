@@ -1,9 +1,8 @@
 /*
    Widgets for the Midnight Commander
 
-   Copyright (C) 1994, 1995, 1996, 1998, 1999, 2000, 2001, 2002, 2003,
-   2004, 2005, 2006, 2007, 2009, 2010, 2011, 2013
-   The Free Software Foundation, Inc.
+   Copyright (C) 1994-2014
+   Free Software Foundation, Inc.
 
    Authors:
    Radek Doulik, 1994, 1995
@@ -35,6 +34,7 @@
 
 #include <config.h>
 
+#include <stdarg.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -186,6 +186,21 @@ label_set_text (WLabel * label, const char *text)
 
     if (newcols < w->cols)
         w->cols = newcols;
+}
+
+/* --------------------------------------------------------------------------------------------- */
+
+void
+label_set_textv (WLabel * label, const char *format, ...)
+{
+    va_list args;
+    char buf[BUF_1K];           /* FIXME: is it enough? */
+
+    va_start (args, format);
+    g_vsnprintf (buf, sizeof (buf), format, args);
+    va_end (args);
+
+    label_set_text (label, buf);
 }
 
 /* --------------------------------------------------------------------------------------------- */

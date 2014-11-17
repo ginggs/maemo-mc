@@ -2,9 +2,8 @@
    Internal file viewer for the Midnight Commander
    Function for whow info on display
 
-   Copyright (C) 1994, 1995, 1996, 1998, 1999, 2000, 2001, 2002, 2003,
-   2004, 2005, 2006, 2007, 2009, 2011, 2013
-   The Free Software Foundation, Inc.
+   Copyright (C) 1994-2014
+   Free Software Foundation, Inc.
 
    Written by:
    Miguel de Icaza, 1994, 1995, 1998
@@ -127,6 +126,26 @@ mcview_set_buttonbar (mcview_t * view)
 /* --------------------------------------------------------------------------------------------- */
 
 static void
+mcview_display_percent (mcview_t * view, off_t p)
+{
+    int percent;
+
+    percent = mcview_calc_percent (view, p);
+    if (percent >= 0)
+    {
+        const screen_dimen top = view->status_area.top;
+        const screen_dimen right = view->status_area.left + view->status_area.width;
+
+        widget_move (view, top, right - 4);
+        tty_printf ("%3d%%", percent);
+        /* avoid cursor wrapping in NCurses-base MC */
+        widget_move (view, top, right - 1);
+    }
+}
+
+/* --------------------------------------------------------------------------------------------- */
+
+static void
 mcview_display_status (mcview_t * view)
 {
     const screen_dimen top = view->status_area.top;
@@ -148,13 +167,13 @@ mcview_display_status (mcview_t * view)
 
     if (width > 40)
     {
-        char buffer[BUF_TRUNC_LEN + 1];
-
         widget_move (view, top, width - 32);
         if (view->hex_mode)
             tty_printf ("0x%08" PRIxMAX, (uintmax_t) view->hex_cursor);
         else
         {
+            char buffer[BUF_TRUNC_LEN + 1];
+
             size_trunc_len (buffer, BUF_TRUNC_LEN, mcview_get_filesize (view), 0,
                             panels_options.kilobyte_si);
             tty_printf ("%9" PRIuMAX "/%s%s %s", (uintmax_t) view->dpy_end,
@@ -172,7 +191,7 @@ mcview_display_status (mcview_t * view)
     else
         tty_print_string (str_fit_to_term (file_label, width - 5, J_LEFT_FIT));
     if (width > 26)
-        mcview_percent (view, view->hex_mode ? view->hex_cursor : view->dpy_end);
+        mcview_display_percent (view, view->hex_mode ? view->hex_cursor : view->dpy_end);
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -345,7 +364,7 @@ mcview_display_clean (mcview_t * view)
 {
     Widget *w = WIDGET (view);
 
-    tty_setcolor (NORMAL_COLOR);
+    tty_setcolor (VIEW_NORMAL_COLOR);
     widget_erase (w);
     if (view->dpy_frame_size != 0)
         tty_draw_box (w->y, w->x, w->lines, w->cols, FALSE);
@@ -391,37 +410,7 @@ mcview_display_ruler (mcview_t * view)
             }
         }
     }
-    tty_setcolor (NORMAL_COLOR);
-}
-
-/* --------------------------------------------------------------------------------------------- */
-
-void
-mcview_percent (mcview_t * view, off_t p)
-{
-    const screen_dimen top = view->status_area.top;
-    const screen_dimen right = view->status_area.left + view->status_area.width;
-    const screen_dimen height = view->status_area.height;
-    int percent;
-    off_t filesize;
-
-    if (height < 1 || right < 4)
-        return;
-    if (mcview_may_still_grow (view))
-        return;
-    filesize = mcview_get_filesize (view);
-
-    if (filesize == 0 || view->dpy_end == filesize)
-        percent = 100;
-    else if (p > (INT_MAX / 100))
-        percent = p / (filesize / 100);
-    else
-        percent = p * 100 / filesize;
-
-    widget_move (view, top, right - 4);
-    tty_printf ("%3d%%", percent);
-    /* avoid cursor wrapping in NCurses-base MC */
-    widget_move (view, top, right - 1);
+    tty_setcolor (VIEW_NORMAL_COLOR);
 }
 
 /* --------------------------------------------------------------------------------------------- */

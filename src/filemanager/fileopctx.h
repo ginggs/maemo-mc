@@ -5,12 +5,6 @@
  *  \author Miguel de Icaza <miguel@nuclecu.unam.mx>
  */
 
-/* File operation contexts for the Midnight Commander
- *
- * Copyright (C) 1998 Free Software Foundation, Inc.
- *
- */
-
 #ifndef MC__FILEOPCTX_H
 #define MC__FILEOPCTX_H
 
@@ -52,14 +46,15 @@ typedef enum
     RECURSIVE_ABORT = 4
 } FileCopyMode;
 
+/* ATTENTION: avoid overlapping with B_* values (lib/widget/dialog.h) */
 typedef enum
 {
-    FILE_CONT = 0,
-    FILE_RETRY = 1,
-    FILE_SKIP = 2,
-    FILE_ABORT = 3,
-    FILE_SKIPALL = 4,
-    FILE_SUSPEND = 5
+    FILE_CONT = 10,
+    FILE_RETRY,
+    FILE_SKIP,
+    FILE_ABORT,
+    FILE_SKIPALL,
+    FILE_SUSPEND
 } FileProgressStatus;
 
 /* First argument passed to real functions */
@@ -76,7 +71,7 @@ struct mc_search_struct;
 /* This structure describes a context for file operations.  It is used to update
  * the progress windows and pass around options.
  */
-typedef struct FileOpContext
+typedef struct
 {
     /* Operation type (copy, move, delete) */
     FileOperation operation;
@@ -166,11 +161,12 @@ typedef struct FileOpContext
 
     /* User interface data goes here */
     void *ui;
-} FileOpContext;
+} file_op_context_t;
 
 typedef struct
 {
     size_t progress_count;
+    size_t prev_progress_count; /* Used in OP_MOVE between copy and remove directories */
     uintmax_t progress_bytes;
     uintmax_t copied_bytes;
     size_t bps;
@@ -179,7 +175,7 @@ typedef struct
     double eta_secs;
 
     gboolean ask_overwrite;
-} FileOpTotalContext;
+} file_op_total_context_t;
 
 /*** global variables defined in .c file *********************************************************/
 
@@ -187,14 +183,14 @@ extern const char *op_names[3];
 
 /*** declarations of public functions ************************************************************/
 
-FileOpContext *file_op_context_new (FileOperation op);
-void file_op_context_destroy (FileOpContext * ctx);
+file_op_context_t *file_op_context_new (FileOperation op);
+void file_op_context_destroy (file_op_context_t * ctx);
 
-FileOpTotalContext *file_op_total_context_new (void);
-void file_op_total_context_destroy (FileOpTotalContext * tctx);
+file_op_total_context_t *file_op_total_context_new (void);
+void file_op_total_context_destroy (file_op_total_context_t * tctx);
 
 /* The following functions are implemented separately by each port */
-FileProgressStatus file_progress_real_query_replace (FileOpContext * ctx,
+FileProgressStatus file_progress_real_query_replace (file_op_context_t * ctx,
                                                      enum OperationMode mode,
                                                      const char *destname,
                                                      struct stat *_s_stat, struct stat *_d_stat);

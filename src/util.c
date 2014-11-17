@@ -1,8 +1,8 @@
 /*
    Various non-library utilities
 
-   Copyright (C) 2003, 2004, 2005, 2006, 2007, 2011, 2013
-   The Free Software Foundation, Inc.
+   Copyright (C) 2003-2014
+   Free Software Foundation, Inc.
 
    Written by:
    Adam Byrtek, 2003
@@ -54,8 +54,8 @@ check_for_default (const vfs_path_t * default_file_vpath, const vfs_path_t * fil
 {
     if (!exist_file (vfs_path_as_str (file_vpath)))
     {
-        FileOpContext *ctx;
-        FileOpTotalContext *tctx;
+        file_op_context_t *ctx;
+        file_op_total_context_t *tctx;
 
         if (!exist_file (vfs_path_as_str (default_file_vpath)))
             return FALSE;

@@ -1,8 +1,8 @@
 /*
    Virtual File System: GNU Tar file system.
 
-   Copyright (C) 2000, 2001, 2002, 2003, 2004, 2005, 2007, 2011, 2013
-   The Free Software Foundation, Inc.
+   Copyright (C) 2000-2014
+   Free Software Foundation, Inc.
 
    Written by:
    Jan Hudec, 2000
@@ -36,7 +36,6 @@
 #include <fcntl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <unistd.h>
 
 #include "lib/global.h"
 #include "lib/unixcompat.h"
@@ -205,11 +204,9 @@ cpio_free_archive (struct vfs_class *me, struct vfs_s_super *super)
     if (arch->fd != -1)
         mc_close (arch->fd);
     arch->fd = -1;
-    g_slist_foreach (arch->deferred, (GFunc) g_free, NULL);
-    g_slist_free (arch->deferred);
+    g_slist_free_full (arch->deferred, g_free);
     arch->deferred = NULL;
-    g_free (super->data);
-    super->data = NULL;
+    MC_PTR_FREE (super->data);
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -252,8 +249,7 @@ cpio_open_cpio_file (struct vfs_class *me, struct vfs_s_super *super, const vfs_
         {
             message (D_ERROR, MSG_ERROR, _("Cannot open cpio archive\n%s"), s);
             g_free (s);
-            g_free (super->name);
-            super->name = NULL;
+            MC_PTR_FREE (super->name);
             return -1;
         }
         g_free (s);
@@ -380,12 +376,15 @@ cpio_create_entry (struct vfs_class *me, struct vfs_s_super *super, struct stat 
     case S_IFCHR:
     case S_IFBLK:
 #ifdef S_IFSOCK
+        /* cppcheck-suppress syntaxError */
     case S_IFSOCK:
 #endif
 #ifdef S_IFIFO
+        /* cppcheck-suppress syntaxError */
     case S_IFIFO:
 #endif
 #ifdef S_IFNAM
+        /* cppcheck-suppress syntaxError */
     case S_IFNAM:
 #endif
         if ((st->st_size != 0) && (st->st_rdev == 0x0001))
@@ -737,6 +736,8 @@ cpio_open_archive (struct vfs_s_super *super, const vfs_path_t * vpath,
         ssize_t status;
 
         status = cpio_read_head (vpath_element->class, super);
+        if (status < 0)
+            return (-1);
 
         switch (status)
         {
@@ -784,7 +785,8 @@ cpio_super_same (const vfs_path_element_t * vpath_element, struct vfs_s_super *p
         return 0;
 
     /* Has the cached archive been changed on the disk? */
-    if (((cpio_super_data_t *) parc->data)->st.st_mtime < archive_stat->st_mtime)
+    if (parc->data != NULL
+        && ((cpio_super_data_t *) parc->data)->st.st_mtime < archive_stat->st_mtime)
     {
         /* Yes, reload! */
         (*vfs_cpiofs_ops.free) ((vfsid) parc);

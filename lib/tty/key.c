@@ -1,9 +1,8 @@
 /*
    Keyboard support routines.
 
-   Copyright (C) 1994, 1995, 1998, 1999, 2000, 2001, 2002, 2003, 2004,
-   2005, 2006, 2007, 2009, 2010, 2011, 2013
-   The Free Software Foundation, Inc.
+   Copyright (C) 1994-2014
+   Free Software Foundation, Inc.
 
    Written by:
    Miguel de Icaza, 1994, 1995
@@ -12,6 +11,7 @@
    Norbert Warmuth, 1997
    Denys Vlasenko <vda.linux@googlemail.com>, 2013
    Slava Zanko <slavazanko@gmail.com>, 2013
+   Egmont Koblinger <egmont@gmail.com>, 2013
 
    This file is part of the Midnight Commander.
 
@@ -92,11 +92,14 @@ int old_esc_mode = 0;
 int old_esc_mode_timeout = 1000000;     /* settable via env */
 int use_8th_bit_as_meta = 0;
 
+gboolean bracketed_pasting_in_progress = FALSE;
+
 /* This table is a mapping between names and the constants we use
  * We use this to allow users to define alternate definitions for
  * certain keys that may be missing from the terminal database
  */
 const key_code_name_t key_name_conv_tab[] = {
+    {ESC_CHAR, "escape", N_("Escape"), "Esc"},
     /* KEY_F(0) is not here, since we are mapping it to f10, so there is no reason
        to define f0 as well. Also, it makes Learn keys a bunch of problems :( */
     {KEY_F (1), "f1", N_("Function key 1"), "F1"},
@@ -119,26 +122,25 @@ const key_code_name_t key_name_conv_tab[] = {
     {KEY_F (18), "f18", N_("Function key 18"), "F18"},
     {KEY_F (19), "f19", N_("Function key 19"), "F19"},
     {KEY_F (20), "f20", N_("Function key 20"), "F20"},
-    {KEY_BACKSPACE, "backspace", N_("Backspace key"), "Backspace"},
-    {KEY_END, "end", N_("End key"), "End"},
-    {KEY_UP, "up", N_("Up arrow key"), "Up"},
-    {KEY_DOWN, "down", N_("Down arrow key"), "Down"},
-    {KEY_LEFT, "left", N_("Left arrow key"), "Left"},
-    {KEY_RIGHT, "right", N_("Right arrow key"), "Right"},
-    {KEY_HOME, "home", N_("Home key"), "Home"},
-    {KEY_NPAGE, "pgdn", N_("Page Down key"), "PgDn"},
-    {KEY_PPAGE, "pgup", N_("Page Up key"), "PgUp"},
-    {KEY_IC, "insert", N_("Insert key"), "Ins"},
-    {KEY_DC, "delete", N_("Delete key"), "Del"},
     {ALT ('\t'), "complete", N_("Completion/M-tab"), "Meta-Tab"},
-    {KEY_BTAB, "backtab", N_("Back Tabulation S-tab"), "Shift-Tab"},
-    {KEY_KP_ADD, "kpplus", N_("+ on keypad"), "+"},
-    {KEY_KP_SUBTRACT, "kpminus", N_("- on keypad"), "-"},
-    {(int) '/', "kpslash", N_("Slash on keypad"), "/"},
+    {KEY_BTAB, "backtab", N_("BackTab/S-tab"), "Shift-Tab"},
+    {KEY_BACKSPACE, "backspace", N_("Backspace"), "Backspace"},
+    {KEY_UP, "up", N_("Up arrow"), "Up"},
+    {KEY_DOWN, "down", N_("Down arrow"), "Down"},
+    {KEY_LEFT, "left", N_("Left arrow"), "Left"},
+    {KEY_RIGHT, "right", N_("Right arrow"), "Right"},
+    {KEY_IC, "insert", N_("Insert"), "Ins"},
+    {KEY_DC, "delete", N_("Delete"), "Del"},
+    {KEY_HOME, "home", N_("Home"), "Home"},
+    {KEY_END, "end", N_("End key"), "End"},
+    {KEY_PPAGE, "pgup", N_("Page Up"), "PgUp"},
+    {KEY_NPAGE, "pgdn", N_("Page Down"), "PgDn"},
+    {(int) '/', "kpslash", N_("/ on keypad"), "/"},
     {KEY_KP_MULTIPLY, "kpasterisk", N_("* on keypad"), "*"},
+    {KEY_KP_SUBTRACT, "kpminus", N_("- on keypad"), "-"},
+    {KEY_KP_ADD, "kpplus", N_("+ on keypad"), "+"},
 
     /* From here on, these won't be shown in Learn keys (no space) */
-    {ESC_CHAR, "escape", N_("Escape key"), "Esc"},
     {KEY_LEFT, "kpleft", N_("Left arrow keypad"), "Left"},
     {KEY_RIGHT, "kpright", N_("Right arrow keypad"), "Right"},
     {KEY_UP, "kpup", N_("Up arrow keypad"), "Up"},
@@ -158,13 +160,13 @@ const key_code_name_t key_name_conv_tab[] = {
     {KEY_C1, "c1", N_("C1 key"), "C1"},
 
     /* Alternative label */
-    {ESC_CHAR, "esc", N_("Escape key"), "Esc"},
-    {KEY_BACKSPACE, "bs", N_("Backspace key"), "Bakspace"},
-    {KEY_IC, "ins", N_("Insert key"), "Ins"},
-    {KEY_DC, "del", N_("Delete key"), "Del"},
-    {(int) '+', "plus", N_("Plus"), "+"},
-    {(int) '-', "minus", N_("Minus"), "-"},
+    {ESC_CHAR, "esc", N_("Escape"), "Esc"},
+    {KEY_BACKSPACE, "bs", N_("Backspace"), "Bakspace"},
+    {KEY_IC, "ins", N_("Insert"), "Ins"},
+    {KEY_DC, "del", N_("Delete"), "Del"},
     {(int) '*', "asterisk", N_("Asterisk"), "*"},
+    {(int) '-', "minus", N_("Minus"), "-"},
+    {(int) '+', "plus", N_("Plus"), "+"},
     {(int) '.', "dot", N_("Dot"), "."},
     {(int) '<', "lt", N_("Less than"), "<"},
     {(int) '>', "gt", N_("Great than"), ">"},
@@ -275,6 +277,8 @@ typedef int (*ph_pqc_f) (unsigned short, PhCursorInfo_t *);
 static key_define_t mc_default_keys[] = {
     {ESC_CHAR, ESC_STR, MCKEY_ESCAPE},
     {ESC_CHAR, ESC_STR ESC_STR, MCKEY_NOACTION},
+    {MCKEY_BRACKETED_PASTING_START, ESC_STR "[200~", MCKEY_NOACTION},
+    {MCKEY_BRACKETED_PASTING_END, ESC_STR "[201~", MCKEY_NOACTION},
     {0, NULL, MCKEY_NOACTION},
 };
 
@@ -326,6 +330,7 @@ static key_define_t xterm_key_defines[] = {
     {KEY_M_SHIFT | KEY_M_CTRL | KEY_DOWN, ESC_STR "[1;6B", MCKEY_NOACTION},
     {KEY_M_SHIFT | KEY_M_CTRL | KEY_RIGHT, ESC_STR "[1;6C", MCKEY_NOACTION},
     {KEY_M_SHIFT | KEY_M_CTRL | KEY_LEFT, ESC_STR "[1;6D", MCKEY_NOACTION},
+    {KEY_M_SHIFT | '\t', ESC_STR "[Z", MCKEY_NOACTION},
 
     /* putty */
     {KEY_M_SHIFT | KEY_M_CTRL | KEY_UP, ESC_STR "[[1;6A", MCKEY_NOACTION},
@@ -600,17 +605,16 @@ try_channels (int set_timeout)
 {
     struct timeval time_out;
     static fd_set select_set;
-    struct timeval *timeptr;
-    int v;
-    int maxfdp;
 
     while (1)
     {
+        struct timeval *timeptr = NULL;
+        int maxfdp, v;
+
         FD_ZERO (&select_set);
         FD_SET (input_fd, &select_set); /* Add stdin */
         maxfdp = max (add_selects (&select_set), input_fd);
 
-        timeptr = NULL;
         if (set_timeout)
         {
             time_out.tv_sec = 0;
@@ -861,7 +865,7 @@ get_modifier (void)
 {
     int result = 0;
 #ifdef __QNXNTO__
-    int mod_status, shift_ext_status;
+    int mod_status;
     static int in_photon = 0;
     static int ph_ig = 0;
     PhCursorInfo_t cursor_info;
@@ -916,6 +920,8 @@ get_modifier (void)
        console or xterm */
     if (in_photon == -1)
     {
+        int shift_ext_status;
+
         if (devctl (fileno (stdin), DCMD_CHR_LINESTATUS, &mod_status, sizeof (int), NULL) == -1)
             return 0;
         shift_ext_status = mod_status & 0xffffff00UL;
@@ -1008,18 +1014,11 @@ correct_key_code (int code)
     if (c == KEY_SCANCEL)
         c = '\t';
 
-    /* Convert Shift+Tab and Ctrl+Tab to Back Tab
-     * only if modifiers directly from X11
-     */
-#ifdef HAVE_TEXTMODE_X11_SUPPORT
-    if (x11_window != 0)
-#endif /* HAVE_TEXTMODE_X11_SUPPORT */
+    /* Convert Back Tab to Shift+Tab */
+    if (c == KEY_BTAB)
     {
-        if ((c == '\t') && (mod & (KEY_M_SHIFT | KEY_M_CTRL)))
-        {
-            c = KEY_BTAB;
-            mod = 0;
-        }
+        c = '\t';
+        mod = KEY_M_SHIFT;
     }
 
     /* F0 is the same as F10 for out purposes */
@@ -1472,10 +1471,10 @@ lookup_key (const char *name, char **label)
         return 0;
 
     name = g_strstrip (g_strdup (name));
-    p = lc_keys = g_strsplit_set (name, "-+ ", -1);
+    lc_keys = g_strsplit_set (name, "-+ ", -1);
     g_free ((char *) name);
 
-    while ((p != NULL) && (*p != NULL))
+    for (p = lc_keys; p != NULL && *p != NULL; p++)
     {
         if ((*p)[0] != '\0')
         {
@@ -1496,8 +1495,6 @@ lookup_key (const char *name, char **label)
                 break;
             }
         }
-
-        p++;
     }
 
     g_strfreev (lc_keys);
@@ -1505,7 +1502,6 @@ lookup_key (const char *name, char **label)
     /* output */
     if (k <= 0)
         return 0;
-
 
     if (label != NULL)
     {
@@ -1581,9 +1577,6 @@ lookup_key_by_code (const int keycode)
     /* modifier */
     unsigned int mod = keycode & KEY_M_MASK;
 
-    int use_meta = -1;
-    int use_ctrl = -1;
-    int use_shift = -1;
     int key_idx = -1;
 
     GString *s;
@@ -1597,8 +1590,7 @@ lookup_key_by_code (const int keycode)
         {
             if (lookup_keycode (KEY_M_ALT, &idx))
             {
-                use_meta = idx;
-                g_string_append (s, key_conv_tab_sorted[use_meta]->name);
+                g_string_append (s, key_conv_tab_sorted[idx]->name);
                 g_string_append_c (s, '-');
             }
         }
@@ -1610,8 +1602,7 @@ lookup_key_by_code (const int keycode)
 
             if (lookup_keycode (KEY_M_CTRL, &idx))
             {
-                use_ctrl = idx;
-                g_string_append (s, key_conv_tab_sorted[use_ctrl]->name);
+                g_string_append (s, key_conv_tab_sorted[idx]->name);
                 g_string_append_c (s, '-');
             }
         }
@@ -1619,12 +1610,11 @@ lookup_key_by_code (const int keycode)
         {
             if (lookup_keycode (KEY_M_ALT, &idx))
             {
-                use_shift = idx;
                 if (k < 127)
                     g_string_append_c (s, (gchar) g_ascii_toupper ((gchar) k));
                 else
                 {
-                    g_string_append (s, key_conv_tab_sorted[use_shift]->name);
+                    g_string_append (s, key_conv_tab_sorted[idx]->name);
                     g_string_append_c (s, '-');
                     g_string_append (s, key_conv_tab_sorted[key_idx]->name);
                 }
@@ -1955,7 +1945,7 @@ int
 tty_get_event (struct Gpm_Event *event, gboolean redo_event, gboolean block)
 {
     int c;
-    static int flag = 0;        /* Return value from select */
+    int flag = 0;               /* Return value from select */
 #ifdef HAVE_LIBGPM
     static struct Gpm_Event ev; /* Mouse event */
 #endif
@@ -2145,7 +2135,17 @@ tty_get_event (struct Gpm_Event *event, gboolean redo_event, gboolean block)
     {
         /* Mouse event */
         xmouse_get_event (event, c == MCKEY_EXTENDED_MOUSE);
-        return (event->type != 0) ? EV_MOUSE : EV_NONE;
+        c = (event->type != 0) ? EV_MOUSE : EV_NONE;
+    }
+    else if (c == MCKEY_BRACKETED_PASTING_START)
+    {
+        bracketed_pasting_in_progress = TRUE;
+        c = EV_NONE;
+    }
+    else if (c == MCKEY_BRACKETED_PASTING_END)
+    {
+        bracketed_pasting_in_progress = FALSE;
+        c = EV_NONE;
     }
 
     return c;
@@ -2247,6 +2247,25 @@ application_keypad_mode (void)
         fputs (ESC_STR "=", stdout);
         fflush (stdout);
     }
+}
+
+/* --------------------------------------------------------------------------------------------- */
+
+void
+enable_bracketed_paste (void)
+{
+    printf (ESC_STR "[?2004h");
+    fflush (stdout);
+}
+
+/* --------------------------------------------------------------------------------------------- */
+
+void
+disable_bracketed_paste (void)
+{
+    printf (ESC_STR "[?2004l");
+    fflush (stdout);
+    bracketed_pasting_in_progress = FALSE;
 }
 
 /* --------------------------------------------------------------------------------------------- */

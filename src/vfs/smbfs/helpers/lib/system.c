@@ -5,8 +5,8 @@
 
    Copyright (C) Andrew Tridgell 1992-1998
 
-   Copyright (C) 2011
-   The Free Software Foundation, Inc.
+   Copyright (C) 2011-2014
+   Free Software Foundation, Inc.
 
    This file is part of the Midnight Commander.
 
@@ -103,6 +103,7 @@ sys_select (int maxfd, fd_set * fds, struct timeval *tval)
 #else /* !NO_SELECT */
 int
 sys_select (int maxfd, fd_set * fds, struct timeval *tval)
+/* cppcheck-suppress syntaxError */
 {
 #ifdef USE_POLL
     struct pollfd pfd[256];

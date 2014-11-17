@@ -1,8 +1,8 @@
 /*
    Common strings utilities
 
-   Copyright (C) 2007, 2011, 2013
-   The Free Software Foundation, Inc.
+   Copyright (C) 2007-2014
+   Free Software Foundation, Inc.
 
    Written by:
    Rostislav Benes, 2007
@@ -134,16 +134,16 @@ _str_convert (GIConv coder, const char *string, int size, GString * buffer)
     while (left != 0)
     {
         gchar *tmp_buff;
-        GError *error = NULL;
+        GError *mcerror = NULL;
 
         tmp_buff = g_convert_with_iconv ((const gchar *) string,
-                                         left, coder, &bytes_read, &bytes_written, &error);
-        if (error != NULL)
+                                         left, coder, &bytes_read, &bytes_written, &mcerror);
+        if (mcerror != NULL)
         {
-            int code = error->code;
+            int code = mcerror->code;
 
-            g_error_free (error);
-            error = NULL;
+            g_error_free (mcerror);
+            mcerror = NULL;
 
             switch (code)
             {
@@ -234,9 +234,9 @@ str_nconvert (GIConv coder, const char *string, int size, GString * buffer)
 }
 
 gchar *
-str_conv_gerror_message (GError * error, const char *def_msg)
+str_conv_gerror_message (GError * mcerror, const char *def_msg)
 {
-    return used_class.conv_gerror_message (error, def_msg);
+    return used_class.conv_gerror_message (mcerror, def_msg);
 }
 
 estr_t
@@ -370,7 +370,7 @@ str_init_strings (const char *termenc)
         if (str_cnv_not_convert == INVALID_CONV)
         {
             g_free (codeset);
-            codeset = g_strdup ("ASCII");
+            codeset = g_strdup (DEFAULT_CHARSET);
             str_cnv_not_convert = g_iconv_open (codeset, codeset);
         }
     }
@@ -760,7 +760,6 @@ str_msg_term_size (const char *text, int *lines, int *columns)
     char *p, *tmp;
     char *q;
     char c = '\0';
-    int width;
 
     *lines = 1;
     *columns = 0;
@@ -770,6 +769,8 @@ str_msg_term_size (const char *text, int *lines, int *columns)
 
     while (TRUE)
     {
+        int width;
+
         q = strchr (p, '\n');
         if (q != NULL)
         {

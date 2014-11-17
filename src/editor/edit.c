@@ -1,9 +1,8 @@
 /*
    Editor low level data handling and cursor fundamentals.
 
-   Copyright (C) 1996, 1997, 1998, 2001, 2002, 2003, 2004, 2005, 2006,
-   2007, 2008, 2009, 2010, 2011, 2012, 2013
-   The Free Software Foundation, Inc.
+   Copyright (C) 1996-2014
+   Free Software Foundation, Inc.
 
    Written by:
    Paul Sheer 1996, 1997
@@ -142,6 +141,35 @@ static const off_t option_filesize_default_threshold = 64 * 1024 * 1024;        
 /* --------------------------------------------------------------------------------------------- */
 /*** file scope functions ************************************************************************/
 /* --------------------------------------------------------------------------------------------- */
+
+static int
+edit_load_status_update_cb (status_msg_t * sm)
+{
+    simple_status_msg_t *ssm = SIMPLE_STATUS_MSG (sm);
+    edit_buffer_read_file_status_msg_t *rsm = (edit_buffer_read_file_status_msg_t *) sm;
+    Widget *wd = WIDGET (sm->dlg);
+
+    if (verbose)
+        label_set_textv (ssm->label, _("Loading: %3d%%"),
+                         edit_buffer_calc_percent (rsm->buf, rsm->loaded));
+    else
+        label_set_text (ssm->label, _("Loading..."));
+
+    if (rsm->first)
+    {
+        int wd_width;
+        Widget *lw = WIDGET (ssm->label);
+
+        wd_width = max (wd->cols, lw->cols + 6);
+        widget_set_size (wd, wd->y, wd->x, wd->lines, wd_width);
+        widget_set_size (lw, lw->y, wd->x + (wd->cols - lw->cols) / 2, lw->lines, lw->cols);
+        rsm->first = FALSE;
+    }
+
+    return status_msg_common_update (sm);
+}
+
+/* --------------------------------------------------------------------------------------------- */
 /**
  * Load file OR text into buffers.  Set cursor to the beginning of file.
  *
@@ -153,6 +181,8 @@ edit_load_file_fast (edit_buffer_t * buf, const vfs_path_t * filename_vpath)
 {
     int file;
     gboolean ret;
+    edit_buffer_read_file_status_msg_t rsm;
+    gboolean aborted;
 
     file = mc_open (filename_vpath, O_RDONLY | O_BINARY);
     if (file < 0)
@@ -166,10 +196,18 @@ edit_load_file_fast (edit_buffer_t * buf, const vfs_path_t * filename_vpath)
         return FALSE;
     }
 
-    ret = (edit_buffer_read_file (buf, file, buf->size) == buf->size);
-    if (ret)
-        buf->lines = edit_buffer_count_lines (buf, 0, buf->size);
-    else
+    rsm.first = TRUE;
+    rsm.buf = buf;
+    rsm.loaded = 0;
+
+    status_msg_init (STATUS_MSG (&rsm), _("Load file"), 1.0, simple_status_msg_init_cb,
+                     edit_load_status_update_cb, NULL);
+
+    ret = (edit_buffer_read_file (buf, file, buf->size, &rsm, &aborted) == buf->size);
+
+    status_msg_deinit (STATUS_MSG (&rsm));
+
+    if (!ret && !aborted)
     {
         gchar *errmsg;
 
@@ -188,7 +226,7 @@ edit_load_file_fast (edit_buffer_t * buf, const vfs_path_t * filename_vpath)
 static int
 edit_find_filter (const vfs_path_t * filename_vpath)
 {
-    size_t i, l, e;
+    size_t i, l;
 
     if (filename_vpath == NULL)
         return -1;
@@ -196,6 +234,8 @@ edit_find_filter (const vfs_path_t * filename_vpath)
     l = strlen (vfs_path_as_str (filename_vpath));
     for (i = 0; i < G_N_ELEMENTS (all_filters); i++)
     {
+        size_t e;
+
         e = strlen (all_filters[i].extension);
         if (l > e)
             if (!strcmp (all_filters[i].extension, vfs_path_as_str (filename_vpath) + l - e))
@@ -317,10 +357,9 @@ check_file_access (WEdit * edit, const vfs_path_t * filename_vpath, struct stat 
         errmsg = g_strdup_printf (_("File \"%s\" is too large.\nOpen it anyway?"),
                                   vfs_path_as_str (filename_vpath));
         act = edit_query_dialog2 (_("Warning"), errmsg, _("&Yes"), _("&No"));
-        g_free (errmsg);
-        errmsg = NULL;
+        MC_PTR_FREE (errmsg);
 
-        if (act == 1)
+        if (act != 0)
             ret = FALSE;
     }
 
@@ -1338,7 +1377,6 @@ static void
 edit_auto_indent (WEdit * edit)
 {
     off_t p;
-    char c;
 
     p = edit->buffer.curs1;
     /* use the previous line as a template */
@@ -1346,6 +1384,8 @@ edit_auto_indent (WEdit * edit)
     /* copy the leading whitespace of the line */
     while (TRUE)
     {                           /* no range check - the line _is_ \n-terminated */
+        char c;
+
         c = edit_buffer_get_byte (&edit->buffer, p++);
         if (c != ' ' && c != '\t')
             break;
@@ -1421,7 +1461,6 @@ static void
 check_and_wrap_line (WEdit * edit)
 {
     off_t curs;
-    int c;
 
     if (!option_typewriter_wrap)
         return;
@@ -1431,6 +1470,8 @@ check_and_wrap_line (WEdit * edit)
     curs = edit->buffer.curs1;
     while (TRUE)
     {
+        int c;
+
         curs--;
         c = edit_buffer_get_byte (&edit->buffer, curs);
         if (c == '\n' || curs <= 0)
@@ -1463,7 +1504,7 @@ static off_t
 edit_get_bracket (WEdit * edit, gboolean in_screen, unsigned long furthest_bracket_search)
 {
     const char *const b = "{}{[][()(", *p;
-    int i = 1, a, inc = -1, c, d, n = 0;
+    int i = 1, inc = -1, c, d, n = 0;
     unsigned long j = 0;
     off_t q;
 
@@ -1483,6 +1524,8 @@ edit_get_bracket (WEdit * edit, gboolean in_screen, unsigned long furthest_brack
         inc = 1;
     for (q = edit->buffer.curs1 + inc;; q += inc)
     {
+        int a;
+
         /* out of buffer? */
         if (q >= edit->buffer.size || q < 0)
             break;
@@ -3299,7 +3342,7 @@ edit_execute_cmd (WEdit * edit, unsigned long command, int char_for_insertion)
 #ifdef HAVE_CHARSET
         if (char_for_insertion > 255 && !mc_global.utf8_display)
         {
-            unsigned char str[6 + 1];
+            unsigned char str[UTF8_CHAR_LEN + 1];
             size_t i = 0;
             int res;
 
@@ -3313,7 +3356,7 @@ edit_execute_cmd (WEdit * edit, unsigned long command, int char_for_insertion)
             {
                 str[res] = '\0';
             }
-            while (str[i] != 0 && i <= 6)
+            while (i <= UTF8_CHAR_LEN && str[i] != '\0')
             {
                 char_for_insertion = str[i];
                 edit_insert (edit, char_for_insertion);
@@ -3457,14 +3500,14 @@ edit_execute_cmd (WEdit * edit, unsigned long command, int char_for_insertion)
         if (option_auto_para_formatting)
         {
             edit_double_newline (edit);
-            if (option_return_does_auto_indent)
+            if (option_return_does_auto_indent && !bracketed_pasting_in_progress)
                 edit_auto_indent (edit);
             format_paragraph (edit, FALSE);
         }
         else
         {
             edit_insert (edit, '\n');
-            if (option_return_does_auto_indent)
+            if (option_return_does_auto_indent && !bracketed_pasting_in_progress)
                 edit_auto_indent (edit);
         }
         break;

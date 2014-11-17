@@ -2,8 +2,8 @@
    Interface to the terminal controlling library.
    Slang wrapper.
 
-   Copyright (C) 2005, 2006, 2007, 2009, 2010, 2011
-   The Free Software Foundation, Inc.
+   Copyright (C) 2005-2014
+   Free Software Foundation, Inc.
 
    Written by:
    Andrew Borodin <aborodin@vmail.ru>, 2009
@@ -60,10 +60,6 @@
 extern int reset_hp_softkeys;
 
 /*** file scope macro definitions ****************************************************************/
-
-#ifndef SA_RESTART
-#define SA_RESTART 0
-#endif
 
 #ifndef SLTT_MAX_SCREEN_COLS
 #define SLTT_MAX_SCREEN_COLS 512
@@ -172,12 +168,13 @@ static void
 slang_reset_softkeys (void)
 {
     int key;
-    char *send;
     static const char display[] = "                ";
     char tmp[BUF_SMALL];
 
     for (key = 1; key < 9; key++)
     {
+        char *send;
+
         g_snprintf (tmp, sizeof (tmp), "k%d", key);
         send = (char *) SLtt_tgetstr (tmp);
         if (send != NULL)
@@ -347,6 +344,7 @@ tty_shutdown (void)
     char *op_cap;
 
     disable_mouse ();
+    disable_bracketed_paste ();
     tty_reset_shell_mode ();
     tty_noraw_mode ();
     tty_keypad (FALSE);
@@ -649,6 +647,12 @@ tty_print_alt_char (int c, gboolean single)
     case ACS_RTEE:
         DRAW (c, mc_tty_frm[single ? MC_TTY_FRM_RIGHTMIDDLE : MC_TTY_FRM_DRIGHTMIDDLE]);
         break;
+    case ACS_TTEE:
+        DRAW (c, mc_tty_frm[single ? MC_TTY_FRM_TOPMIDDLE : MC_TTY_FRM_DTOPMIDDLE]);
+        break;
+    case ACS_BTEE:
+        DRAW (c, mc_tty_frm[single ? MC_TTY_FRM_BOTTOMMIDDLE : MC_TTY_FRM_DBOTTOMMIDDLE]);
+        break;
     case ACS_ULCORNER:
         DRAW (c, mc_tty_frm[single ? MC_TTY_FRM_LEFTTOP : MC_TTY_FRM_DLEFTTOP]);
         break;
@@ -675,11 +679,12 @@ tty_print_alt_char (int c, gboolean single)
 void
 tty_print_anychar (int c)
 {
-    char str[6 + 1];
-
     if (c > 255)
     {
-        int res = g_unichar_to_utf8 (c, str);
+        char str[UTF8_CHAR_LEN + 1];
+        int res;
+
+        res = g_unichar_to_utf8 (c, str);
         if (res == 0)
         {
             str[0] = '.';

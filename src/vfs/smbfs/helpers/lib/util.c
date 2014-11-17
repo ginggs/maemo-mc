@@ -5,8 +5,8 @@
 
    Copyright (C) Andrew Tridgell 1992-1998
 
-   Copyright (C) 2011
-   The Free Software Foundation, Inc.
+   Copyright (C) 2011-2014
+   Free Software Foundation, Inc.
 
    This file is part of the Midnight Commander.
 
@@ -1829,6 +1829,7 @@ get_myname (char *my_name, struct in_addr * ip)
     struct hostent *hp;
     pstring hostname;
 
+    /* cppcheck-suppress uninitvar */
     *hostname = 0;
 
     /* get my host name */

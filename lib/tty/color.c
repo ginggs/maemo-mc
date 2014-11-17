@@ -2,9 +2,8 @@
    Color setup.
    Interface functions.
 
-   Copyright (C) 1994, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005,
-   2007, 2008, 2009, 2010, 2011
-   The Free Software Foundation, Inc.
+   Copyright (C) 1994-2014
+   Free Software Foundation, Inc.
 
    Written by:
    Andrew Borodin <aborodin@vmail.ru>, 2009
@@ -236,9 +235,9 @@ tty_color_set_defaults (const char *fgcolor, const char *bgcolor, const char *at
     g_free (tty_color_defaults__bg);
     g_free (tty_color_defaults__attrs);
 
-    tty_color_defaults__fg = (fgcolor != NULL) ? g_strdup (fgcolor) : NULL;
-    tty_color_defaults__bg = (bgcolor != NULL) ? g_strdup (bgcolor) : NULL;
-    tty_color_defaults__attrs = (attrs != NULL) ? g_strdup (attrs) : NULL;
+    tty_color_defaults__fg = g_strdup (fgcolor);
+    tty_color_defaults__bg = g_strdup (bgcolor);
+    tty_color_defaults__attrs = g_strdup (attrs);
 }
 
 /* --------------------------------------------------------------------------------------------- */

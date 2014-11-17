@@ -1,9 +1,8 @@
 /*
    Main program for the Midnight Commander
 
-   Copyright (C) 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002,
-   2003, 2004, 2005, 2006, 2007, 2009, 2011
-   The Free Software Foundation, Inc.
+   Copyright (C) 1994-2014
+   Free Software Foundation, Inc.
 
    Written by:
    Miguel de Icaza, 1994, 1995, 1996, 1997
@@ -163,7 +162,7 @@ sigchld_handler_no_subshell (int sig)
 #ifdef __linux__
     int pid, status;
 
-    if (!mc_global.tty.console_flag != '\0')
+    if (mc_global.tty.console_flag == '\0')
         return;
 
     /* COMMENT: if it were true that after the call to handle_console(..INIT)
@@ -177,7 +176,6 @@ sigchld_handler_no_subshell (int sig)
 
     if (pid == cons_saver_pid)
     {
-
         if (WIFSTOPPED (status))
         {
             /* Someone has stopped cons.saver - restart it */
@@ -203,6 +201,7 @@ init_sigchld (void)
 {
     struct sigaction sigchld_action;
 
+    memset (&sigchld_action, 0, sizeof (sigchld_action));
     sigchld_action.sa_handler =
 #ifdef ENABLE_SUBSHELL
         mc_global.tty.use_subshell ? sigchld_handler :
@@ -213,8 +212,6 @@ init_sigchld (void)
 
 #ifdef SA_RESTART
     sigchld_action.sa_flags = SA_RESTART;
-#else
-    sigchld_action.sa_flags = 0;
 #endif /* !SA_RESTART */
 
     if (sigaction (SIGCHLD, &sigchld_action, NULL) == -1)
@@ -236,7 +233,7 @@ init_sigchld (void)
 int
 main (int argc, char *argv[])
 {
-    GError *error = NULL;
+    GError *mcerror = NULL;
     gboolean config_migrated = FALSE;
     char *config_migrate_msg;
     int exit_code = EXIT_FAILURE;
@@ -251,11 +248,11 @@ main (int argc, char *argv[])
     /* do this before args parsing */
     str_init_strings (NULL);
 
-    if (!mc_args_parse (&argc, &argv, "mc", &error))
+    if (!mc_args_parse (&argc, &argv, "mc", &mcerror))
     {
       startup_exit_falure:
-        fprintf (stderr, _("Failed to run:\n%s\n"), error->message);
-        g_error_free (error);
+        fprintf (stderr, _("Failed to run:\n%s\n"), mcerror->message);
+        g_error_free (mcerror);
         g_free (mc_global.tty.shell);
       startup_exit_ok:
         str_uninit_strings ();
@@ -267,8 +264,8 @@ main (int argc, char *argv[])
 
     if (!g_path_is_absolute (mc_config_get_home_dir ()))
     {
-        error = g_error_new (MC_ERROR, 0, "%s: %s", _("Home directory path is not absolute"),
-                             mc_config_get_home_dir ());
+        mc_propagate_error (&mcerror, 0, "%s: %s", _("Home directory path is not absolute"),
+                            mc_config_get_home_dir ());
         mc_event_deinit (NULL);
         goto startup_exit_falure;
     }
@@ -279,13 +276,12 @@ main (int argc, char *argv[])
         goto startup_exit_ok;
     }
 
-    if (!events_init (&error))
+    if (!events_init (&mcerror))
         goto startup_exit_falure;
 
-    mc_config_init_config_paths (&error);
-    if (error == NULL)
-        config_migrated = mc_config_migrate_from_old_place (&error, &config_migrate_msg);
-    if (error != NULL)
+    mc_config_init_config_paths (&mcerror);
+    config_migrated = mc_config_migrate_from_old_place (&mcerror, &config_migrate_msg);
+    if (mcerror != NULL)
     {
         mc_event_deinit (NULL);
         goto startup_exit_falure;
@@ -293,15 +289,36 @@ main (int argc, char *argv[])
 
     vfs_init ();
     vfs_plugins_init ();
+
+    load_setup ();
+
+    /* Must be done after load_setup because depends on mc_global.vfs.cd_symlinks */
     vfs_setup_work_dir ();
+
+    /* Resolve the other_dir panel option. Must be done after vfs_setup_work_dir */
+    {
+        char *buffer;
+        vfs_path_t *vpath;
+
+        buffer = mc_config_get_string (mc_panels_config, "Dirs", "other_dir", ".");
+        vpath = vfs_path_from_str (buffer);
+        if (vfs_file_is_local (vpath))
+            saved_other_dir = buffer;
+        else
+            g_free (buffer);
+        vfs_path_free (vpath);
+    }
 
     /* Set up temporary directory after VFS initialization */
     mc_tmpdir ();
 
-    /* do this after vfs initialization due to mc_setctl() call in mc_setup_by_args() */
-    if (!mc_setup_by_args (argc, argv, &error))
+    /* do this after vfs initialization and vfs working directory setup
+       due to mc_setctl() and mcedit_arg_vpath_new() calls in mc_setup_by_args() */
+    if (!mc_setup_by_args (argc, argv, &mcerror))
     {
         vfs_shut ();
+        done_setup ();
+        g_free (saved_other_dir);
         mc_event_deinit (NULL);
         goto startup_exit_falure;
     }
@@ -339,8 +356,6 @@ main (int argc, char *argv[])
     /* FIXME: Should be removed and LINES and COLS computed on subshell */
     tty_init (!mc_args__nomouse, mc_global.tty.xterm_flag);
 
-    load_setup ();
-
     /* start check mc_global.display_codepage and mc_global.source_codepage */
     check_codeset ();
 
@@ -353,15 +368,13 @@ main (int argc, char *argv[])
 
     tty_init_colors (mc_global.tty.disable_colors, mc_args__force_colors);
 
-    mc_skin_init (&error);
-    if (error != NULL)
-    {
-        message (D_ERROR, _("Warning"), "%s", error->message);
-        g_error_free (error);
-        error = NULL;
-    }
-
+    mc_skin_init (NULL, &mcerror);
     dlg_set_default_colors ();
+    input_set_default_colors ();
+    if (mc_global.mc_run_mode == MC_RUN_FULL)
+        command_set_default_colors ();
+
+    mc_error_message (&mcerror);
 
 #ifdef ENABLE_SUBSHELL
     /* Done here to ensure that the subshell doesn't  */
@@ -380,6 +393,10 @@ main (int argc, char *argv[])
     /* Done after subshell initialization to allow select and paste text by mouse
        w/o Shift button in subshell in the native console */
     init_mouse ();
+
+    /* Done after do_enter_ca_mode (tty_init) because in VTE bracketed mode is
+       separate for the normal and alternate screens */
+    enable_bracketed_paste ();
 
     /* subshell_prompt is NULL here */
     mc_prompt = (geteuid () == 0) ? "# " : "$ ";
@@ -449,9 +466,10 @@ main (int argc, char *argv[])
     if (macros_list != NULL)
     {
         guint i;
-        macros_t *macros;
         for (i = 0; i < macros_list->len; i++)
         {
+            macros_t *macros;
+
             macros = &g_array_index (macros_list, struct macros_t, i);
             if (macros != NULL && macros->macro != NULL)
                 (void) g_array_free (macros->macro, FALSE);
@@ -464,20 +482,18 @@ main (int argc, char *argv[])
     if (mc_global.mc_run_mode != MC_RUN_EDITOR)
         g_free (mc_run_param0);
     else
-    {
-        g_list_foreach ((GList *) mc_run_param0, (GFunc) mcedit_arg_free, NULL);
-        g_list_free ((GList *) mc_run_param0);
-    }
+        g_list_free_full ((GList *) mc_run_param0, (GDestroyNotify) mcedit_arg_free);
+
     g_free (mc_run_param1);
     g_free (saved_other_dir);
 
     mc_config_deinit_config_paths ();
 
-    (void) mc_event_deinit (&error);
-    if (error != NULL)
+    (void) mc_event_deinit (&mcerror);
+    if (mcerror != NULL)
     {
-        fprintf (stderr, _("\nFailed while close:\n%s\n"), error->message);
-        g_error_free (error);
+        fprintf (stderr, _("\nFailed while close:\n%s\n"), mcerror->message);
+        g_error_free (mcerror);
         exit_code = EXIT_FAILURE;
     }
 

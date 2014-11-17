@@ -1,8 +1,8 @@
 /*
    Directory cache support
 
-   Copyright (C) 1998, 2011, 2013
-   The Free Software Foundation, Inc.
+   Copyright (C) 1998-2014
+   Free Software Foundation, Inc.
 
    Written by:
    Pavel Machek <pavel@ucw.cz>, 1998
@@ -245,7 +245,6 @@ vfs_s_find_entry_linear (struct vfs_class *me, struct vfs_s_inode *root,
 {
     struct vfs_s_entry *ent = NULL;
     char *const path = g_strdup (a_path);
-    struct vfs_s_entry *retval = NULL;
     GList *iter;
 
     if (root->super->root != root)
@@ -262,11 +261,11 @@ vfs_s_find_entry_linear (struct vfs_class *me, struct vfs_s_inode *root,
         dirname = g_path_get_dirname (path);
         name = g_path_get_basename (path);
         ino = vfs_s_find_inode (me, root->super, dirname, follow, flags | FL_DIR);
-        retval = vfs_s_find_entry_tree (me, ino, name, follow, flags);
+        ent = vfs_s_find_entry_tree (me, ino, name, follow, flags);
         g_free (dirname);
         g_free (name);
         g_free (path);
-        return retval;
+        return ent;
     }
 
     iter = g_list_find_custom (root->subdir, path, (GCompareFunc) vfs_s_entry_compare);
@@ -657,6 +656,9 @@ vfs_s_close (void *fh)
     int res = 0;
     struct vfs_class *me = FH_SUPER->me;
 
+    if (me == NULL)
+        return (-1);
+
     FH_SUPER->fd_usage--;
     if (!FH_SUPER->fd_usage)
         vfs_stamp_create (me, FH_SUPER);
@@ -961,8 +963,7 @@ vfs_s_free_entry (struct vfs_class *me, struct vfs_s_entry *ent)
     if (ent->dir != NULL)
         ent->dir->subdir = g_list_remove (ent->dir->subdir, ent);
 
-    g_free (ent->name);
-    /* ent->name = NULL; */
+    MC_PTR_FREE (ent->name);
 
     if (ent->ino != NULL)
     {
@@ -1238,7 +1239,6 @@ vfs_s_open (const vfs_path_t * vpath, int flags, mode_t mode)
         char *dirname, *name;
         struct vfs_s_entry *ent;
         struct vfs_s_inode *dir;
-        int tmp_handle;
 
         /* If the filesystem is read-only, disable file creation */
         if (!(flags & O_CREAT) || !(path_element->class->write))
@@ -1258,6 +1258,7 @@ vfs_s_open (const vfs_path_t * vpath, int flags, mode_t mode)
         vfs_s_insert_entry (path_element->class, dir, ent);
         if ((VFSDATA (path_element)->flags & VFS_S_USETMP) != 0)
         {
+            int tmp_handle;
             vfs_path_t *tmp_vpath;
 
             tmp_handle = vfs_mkstemps (&tmp_vpath, path_element->class->name, name);
@@ -1403,8 +1404,7 @@ vfs_s_retrieve_file (struct vfs_class *me, struct vfs_s_inode *ino)
     close (handle);
     unlink (ino->localname);
   error_4:
-    g_free (ino->localname);
-    ino->localname = NULL;
+    MC_PTR_FREE (ino->localname);
     g_free (fh.data);
     return -1;
 }
@@ -1547,34 +1547,43 @@ vfs_s_get_line (struct vfs_class *me, int sock, char *buf, int buf_len, char ter
 int
 vfs_s_get_line_interruptible (struct vfs_class *me, char *buffer, int size, int fd)
 {
-    int n;
     int i;
+    int res = 0;
 
     (void) me;
 
     tty_enable_interrupt_key ();
+
     for (i = 0; i < size - 1; i++)
     {
-        n = read (fd, buffer + i, 1);
-        tty_disable_interrupt_key ();
+        ssize_t n;
+
+        n = read (fd, &buffer[i], 1);
         if (n == -1 && errno == EINTR)
         {
-            buffer[i] = 0;
-            return EINTR;
+            buffer[i] = '\0';
+            res = EINTR;
+            goto ret;
         }
         if (n == 0)
         {
-            buffer[i] = 0;
-            return 0;
+            buffer[i] = '\0';
+            goto ret;
         }
         if (buffer[i] == '\n')
         {
-            buffer[i] = 0;
-            return 1;
+            buffer[i] = '\0';
+            res = 1;
+            goto ret;
         }
     }
-    buffer[size - 1] = 0;
-    return 0;
+
+    buffer[size - 1] = '\0';
+
+  ret:
+    tty_disable_interrupt_key ();
+
+    return res;
 }
 #endif /* ENABLE_VFS_NET */
 

@@ -1,9 +1,8 @@
 /*
    Single File fileSystem
 
-   Copyright 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007,
-   2011, 2013
-   The Free Software Foundation, Inc.
+   Copyright 1998-2014
+   Free Software Foundation, Inc.
 
    Written by:
    Slava Zanko <slavazanko@gmail.com>, 2013
@@ -129,7 +128,7 @@ sfs_vfmake (const vfs_path_t * vpath, vfs_path_t * cache_vpath)
     char pad[10240];
     char *s_iter, *t = pad;
     int was_percent = 0;
-    vfs_path_t *pname, *s;      /* name of parent archive */
+    vfs_path_t *pname;          /* name of parent archive */
     char *pqname;               /* name of parent archive, quoted */
     const vfs_path_element_t *path_element;
 
@@ -150,6 +149,8 @@ sfs_vfmake (const vfs_path_t * vpath, vfs_path_t * cache_vpath)
     /*    if ((sfs_flags[w] & F_2) || (!inpath) || (!*inpath)); else return -1; */
     if ((sfs_flags[w] & F_NOLOCALCOPY) == 0)
     {
+        vfs_path_t *s;
+
         s = mc_getlocalcopy (pname);
         if (s == NULL)
         {
@@ -504,9 +505,8 @@ sfs_done (struct vfs_class *me)
 
     for (i = 0; i < sfs_no; i++)
     {
-        g_free (sfs_prefix[i]);
-        g_free (sfs_command[i]);
-        sfs_prefix[i] = sfs_command[i] = NULL;
+        MC_PTR_FREE (sfs_prefix[i]);
+        MC_PTR_FREE (sfs_command[i]);
     }
     sfs_no = 0;
 }

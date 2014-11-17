@@ -1,9 +1,8 @@
 /*
    Various utilities - Unix variants
 
-   Copyright (C) 1994, 1995, 1996, 1998, 1999, 2000, 2001, 2002, 2003,
-   2004, 2005, 2007, 2011, 2012, 2013
-   The Free Software Foundation, Inc.
+   Copyright (C) 1994-2014
+   Free Software Foundation, Inc.
 
    Written by:
    Miguel de Icaza, 1994, 1995, 1996
@@ -58,11 +57,12 @@
 #ifdef HAVE_GET_PROCESS_STATS
 #include <sys/procstats.h>
 #endif
-#include <unistd.h>
 #include <pwd.h>
 #include <grp.h>
 
 #include "lib/global.h"
+
+#include "lib/unixcompat.h"
 #include "lib/vfs/vfs.h"        /* VFS_ENCODING_PREFIX */
 #include "lib/strutil.h"        /* str_move() */
 #include "lib/util.h"
@@ -180,9 +180,9 @@ my_system__save_sigaction_handlers (my_system_sigactions_t * sigactions)
 {
     struct sigaction ignore;
 
+    memset (&ignore, 0, sizeof (ignore));
     ignore.sa_handler = SIG_IGN;
     sigemptyset (&ignore.sa_mask);
-    ignore.sa_flags = 0;
 
     sigaction (SIGINT, &ignore, &sigactions->intr);
     sigaction (SIGQUIT, &ignore, &sigactions->quit);
@@ -240,7 +240,6 @@ char *
 get_owner (int uid)
 {
     struct passwd *pwd;
-    static char ibuf[10];
     char *name;
     static int uid_last;
 
@@ -256,6 +255,8 @@ get_owner (int uid)
     }
     else
     {
+        static char ibuf[10];
+
         g_snprintf (ibuf, sizeof (ibuf), "%d", uid);
         return ibuf;
     }
@@ -267,7 +268,6 @@ char *
 get_group (int gid)
 {
     struct group *grp;
-    static char gbuf[10];
     char *name;
     static int gid_last;
 
@@ -283,6 +283,8 @@ get_group (int gid)
     }
     else
     {
+        static char gbuf[10];
+
         g_snprintf (gbuf, sizeof (gbuf), "%d", gid);
         return gbuf;
     }
@@ -463,7 +465,6 @@ tilde_expand (const char *directory)
 {
     struct passwd *passwd;
     const char *p, *q;
-    char *name;
 
     if (*directory != '~')
         return g_strdup (directory);
@@ -485,6 +486,8 @@ tilde_expand (const char *directory)
         }
         else
         {
+            char *name;
+
             name = g_strndup (p, q - p);
             passwd = getpwnam (name);
             q++;
@@ -513,8 +516,8 @@ open_error_pipe (void)
     {
         message (D_NORMAL, _("Warning"), _("Pipe failed"));
     }
-    old_error = dup (2);
-    if (old_error < 0 || close (2) || dup (error_pipe[1]) != 2)
+    old_error = dup (STDERR_FILENO);
+    if (old_error < 0 || close (STDERR_FILENO) != 0 || dup (error_pipe[1]) != STDERR_FILENO)
     {
         message (D_NORMAL, _("Warning"), _("Dup failed"));
 
@@ -574,7 +577,7 @@ close_error_pipe (int error, const char *text)
         title = _("Warning");
     if (old_error >= 0)
     {
-        if (dup2 (old_error, 2) == -1)
+        if (dup2 (old_error, STDERR_FILENO) == -1)
         {
             if (error < 0)
                 error = D_ERROR;
@@ -624,7 +627,6 @@ void
 custom_canonicalize_pathname (char *path, CANON_PATH_FLAGS flags)
 {
     char *p, *s;
-    size_t len;
     char *lpath = path;         /* path without leading UNC part */
     const size_t url_delim_len = strlen (VFS_PATH_URL_DELIMITER);
 
@@ -672,6 +674,8 @@ custom_canonicalize_pathname (char *path, CANON_PATH_FLAGS flags)
 
     if (flags & CANON_PATH_REMSLASHDOTS)
     {
+        size_t len;
+
         /* Remove trailing slashes */
         p = lpath + strlen (lpath) - 1;
         while (p > lpath && *p == PATH_SEP)
@@ -844,7 +848,7 @@ custom_canonicalize_pathname (char *path, CANON_PATH_FLAGS flags)
                     while (p >= lpath && *p != PATH_SEP)
                         p--;
 
-                    if (p != NULL)
+                    if (p >= lpath)
                         continue;
                 }
 #endif /* HAVE_CHARSET */
@@ -856,7 +860,6 @@ custom_canonicalize_pathname (char *path, CANON_PATH_FLAGS flags)
                     else
                         s[-1] = '\0';
                 }
-                break;
             }
 
             break;

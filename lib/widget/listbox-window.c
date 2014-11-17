@@ -1,9 +1,8 @@
 /*
    Widget based utility functions.
 
-   Copyright (C) 1994, 1995, 1998, 1999, 2000, 2001, 2002, 2003, 2004,
-   2005, 2006, 2007, 2008, 2009, 2010, 2011, 2013
-   The Free Software Foundation, Inc.
+   Copyright (C) 1994-2014
+   Free Software Foundation, Inc.
 
    Authors:
    Miguel de Icaza, 1994, 1995, 1996
@@ -60,24 +59,19 @@ Listbox *
 create_listbox_window_centered (int center_y, int center_x, int lines, int cols,
                                 const char *title, const char *help)
 {
-    const dlg_colors_t listbox_colors = {
-        PMENU_ENTRY_COLOR,
-        PMENU_SELECTED_COLOR,
-        PMENU_ENTRY_COLOR,
-        PMENU_SELECTED_COLOR,
-        PMENU_TITLE_COLOR
-    };
-
     const int space = 4;
 
-    int xpos, ypos, len;
+    int xpos = 0, ypos = 0;
     Listbox *listbox;
+    dlg_flags_t dlg_flags = DLG_TRYUP;
 
     /* Adjust sizes */
     lines = min (lines, LINES - 6);
 
     if (title != NULL)
     {
+        int len;
+
         len = str_term_width1 (title) + 4;
         cols = max (cols, len);
     }
@@ -86,34 +80,33 @@ create_listbox_window_centered (int center_y, int center_x, int lines, int cols,
 
     /* adjust position */
     if ((center_y < 0) || (center_x < 0))
-    {
-        ypos = LINES / 2;
-        xpos = COLS / 2;
-    }
+        dlg_flags |= DLG_CENTER;
     else
     {
+        /* Actually, this this is not used in MC. */
+
         ypos = center_y;
         xpos = center_x;
+
+        ypos -= lines / 2;
+        xpos -= cols / 2;
+
+        if (ypos + lines >= LINES)
+            ypos = LINES - lines - space;
+        if (ypos < 0)
+            ypos = 0;
+
+        if (xpos + cols >= COLS)
+            xpos = COLS - cols - space;
+        if (xpos < 0)
+            xpos = 0;
     }
-
-    ypos -= lines / 2;
-    xpos -= cols / 2;
-
-    if (ypos + lines >= LINES)
-        ypos = LINES - lines - space;
-    if (ypos < 0)
-        ypos = 0;
-
-    if (xpos + cols >= COLS)
-        xpos = COLS - cols - space;
-    if (xpos < 0)
-        xpos = 0;
 
     listbox = g_new (Listbox, 1);
 
     listbox->dlg =
         dlg_create (TRUE, ypos, xpos, lines + space, cols + space,
-                    listbox_colors, NULL, NULL, help, title, DLG_TRYUP);
+                    listbox_colors, NULL, NULL, help, title, dlg_flags);
 
     listbox->list = listbox_new (2, 2, lines, cols, FALSE, NULL);
     add_widget (listbox->dlg, listbox->list);

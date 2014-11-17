@@ -1,9 +1,8 @@
 /*
    Configure module for the Midnight Commander
 
-   Copyright (C) 1994, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006,
-   2007, 2009, 2011
-   The Free Software Foundation, Inc.
+   Copyright (C) 1994-2014
+   Free Software Foundation, Inc.
 
    This file is part of the Midnight Commander.
 
@@ -42,20 +41,18 @@
 gchar **
 mc_config_get_groups (const mc_config_t * mc_config, gsize * len)
 {
-    gchar **ret;
+    gchar **ret = NULL;
 
-    if (!mc_config)
+    if (mc_config != NULL)
+        ret = g_key_file_get_groups (mc_config->handle, len);
+
+    if (ret == NULL)
     {
         ret = g_try_malloc0 (sizeof (gchar **));
         if (len != NULL)
             *len = 0;
-        return ret;
     }
-    ret = g_key_file_get_groups (mc_config->handle, len);
-    if (ret == NULL)
-    {
-        ret = g_try_malloc0 (sizeof (gchar **));
-    }
+
     return ret;
 }
 
@@ -64,20 +61,18 @@ mc_config_get_groups (const mc_config_t * mc_config, gsize * len)
 gchar **
 mc_config_get_keys (const mc_config_t * mc_config, const gchar * group, gsize * len)
 {
-    gchar **ret;
+    gchar **ret = NULL;
 
-    if (!mc_config || !group)
+    if (mc_config != NULL && group != NULL)
+        ret = g_key_file_get_keys (mc_config->handle, group, len, NULL);
+
+    if (ret == NULL)
     {
         ret = g_try_malloc0 (sizeof (gchar **));
         if (len != NULL)
             *len = 0;
-        return ret;
     }
-    ret = g_key_file_get_keys (mc_config->handle, group, len, NULL);
-    if (ret == NULL)
-    {
-        ret = g_try_malloc0 (sizeof (gchar **));
-    }
+
     return ret;
 }
 

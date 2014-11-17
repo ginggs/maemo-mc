@@ -2,8 +2,8 @@
    Skins engine.
    Work with colors - backward compatibility
 
-   Copyright (C) 2009, 2010, 2011, 2012
-   The Free Software Foundation, Inc.
+   Copyright (C) 2009-2014
+   Free Software Foundation, Inc.
 
    Written by:
    Slava Zanko <slavazanko@gmail.com>, 2009
@@ -96,6 +96,7 @@ static const mc_skin_colors_old_t old_colors[] = {
     {"reverse", "core", "reverse"},
     {"selected", "core", "selected"},
     {"statusbar", "statusbar", "_default_"},
+    {"viewnormal", "viewer", "_default_"},
     {"viewbold", "viewer", "viewbold"},
     {"viewselected", "viewer", "viewselected"},
     {"viewunderline", "viewer", "viewunderline"}
@@ -148,11 +149,11 @@ mc_skin_colors_old_configure_one (mc_skin_t * mc_skin, const char *the_color_str
     if (the_color_string == NULL)
         return;
 
-    orig_colors = colors = g_strsplit (the_color_string, ":", -1);
-    if (colors == NULL)
+    orig_colors = g_strsplit (the_color_string, ":", -1);
+    if (orig_colors == NULL)
         return;
 
-    for (; *colors != NULL; colors++)
+    for (colors = orig_colors; *colors != NULL; colors++)
     {
         gchar **key_val;
         const gchar *skin_group, *skin_key;

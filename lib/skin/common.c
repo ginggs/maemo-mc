@@ -2,8 +2,8 @@
    Skins engine.
    Interface functions
 
-   Copyright (C) 2009, 2010, 2011
-   The Free Software Foundation, Inc.
+   Copyright (C) 2009-2014
+   Free Software Foundation, Inc.
 
    Written by:
    Slava Zanko <slavazanko@gmail.com>, 2009
@@ -29,6 +29,7 @@
 #include <stdlib.h>
 
 #include "internal.h"
+#include "lib/util.h"
 
 #include "lib/tty/color.h"      /* tty_use_256colors(); */
 
@@ -110,22 +111,24 @@ mc_skin_try_to_load_default (void)
 /* --------------------------------------------------------------------------------------------- */
 
 gboolean
-mc_skin_init (GError ** error)
+mc_skin_init (const gchar * skin_override, GError ** mcerror)
 {
     gboolean is_good_init = TRUE;
 
+    mc_return_val_if_error (mcerror, FALSE);
+
     mc_skin__default.have_256_colors = FALSE;
 
-    mc_skin__default.name = mc_skin_get_default_name ();
+    mc_skin__default.name =
+        skin_override != NULL ? g_strdup (skin_override) : mc_skin_get_default_name ();
 
     mc_skin__default.colors = g_hash_table_new_full (g_str_hash, g_str_equal,
                                                      g_free, mc_skin_hash_destroy_value);
     if (!mc_skin_ini_file_load (&mc_skin__default))
     {
-        *error = g_error_new (MC_ERROR, 0,
-                              _("Unable to load '%s' skin.\nDefault skin has been loaded"),
-                              mc_skin__default.name);
-
+        mc_propagate_error (mcerror, 0,
+                            _("Unable to load '%s' skin.\nDefault skin has been loaded"),
+                            mc_skin__default.name);
         mc_skin_try_to_load_default ();
         is_good_init = FALSE;
     }
@@ -133,10 +136,9 @@ mc_skin_init (GError ** error)
 
     if (!mc_skin_ini_file_parse (&mc_skin__default))
     {
-        if (*error == NULL)
-            *error = g_error_new (MC_ERROR, 0,
-                                  _("Unable to parse '%s' skin.\nDefault skin has been loaded"),
-                                  mc_skin__default.name);
+        mc_propagate_error (mcerror, 0,
+                            _("Unable to parse '%s' skin.\nDefault skin has been loaded"),
+                            mc_skin__default.name);
 
         mc_skin_try_to_load_default ();
         mc_skin_colors_old_configure (&mc_skin__default);
@@ -145,12 +147,10 @@ mc_skin_init (GError ** error)
     }
     if (is_good_init && !tty_use_256colors () && mc_skin__default.have_256_colors)
     {
-        if (*error == NULL)
-            *error = g_error_new (MC_ERROR, 0,
-                                  _
-                                  ("Unable to use '%s' skin with 256 colors support\non non-256 colors terminal.\nDefault skin has been loaded"),
-                                  mc_skin__default.name);
-
+        mc_propagate_error (mcerror, 0,
+                            _
+                            ("Unable to use '%s' skin with 256 colors support\non non-256 colors terminal.\nDefault skin has been loaded"),
+                            mc_skin__default.name);
         mc_skin_try_to_load_default ();
         mc_skin_colors_old_configure (&mc_skin__default);
         (void) mc_skin_ini_file_parse (&mc_skin__default);
@@ -165,13 +165,14 @@ mc_skin_init (GError ** error)
 void
 mc_skin_deinit (void)
 {
-    g_free (mc_skin__default.name);
-    mc_skin__default.name = NULL;
+    tty_color_free_all_tmp ();
+    tty_color_free_all_non_tmp ();
+
+    MC_PTR_FREE (mc_skin__default.name);
     g_hash_table_destroy (mc_skin__default.colors);
     mc_skin__default.colors = NULL;
 
-    g_free (mc_skin__default.description);
-    mc_skin__default.description = NULL;
+    MC_PTR_FREE (mc_skin__default.description);
 
     mc_config_deinit (mc_skin__default.config);
     mc_skin__default.config = NULL;

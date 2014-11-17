@@ -1,9 +1,8 @@
 /*
    Find file command for the Midnight Commander
 
-   Copyright (C) 1995, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005,
-   2006, 2007, 2011, 2013
-   The Free Software Foundation, Inc.
+   Copyright (C) 1995-2014
+   Free Software Foundation, Inc.
 
    Written  by:
    Miguel de Icaza, 1995
@@ -38,6 +37,7 @@
 #include <string.h>
 #include <fcntl.h>
 #include <sys/stat.h>
+#include <sys/time.h>
 
 #include "lib/global.h"
 
@@ -55,7 +55,7 @@
 #include "src/history.h"        /* MC_HISTORY_SHARED_SEARCH */
 
 #include "dir.h"
-#include "cmd.h"                /* view_file_at_line */
+#include "cmd.h"                /* view_file_at_line() */
 #include "midnight.h"           /* current_panel */
 #include "boxes.h"
 #include "panelize.h"
@@ -65,6 +65,9 @@
 /*** global variables ****************************************************************************/
 
 /*** file scope macro definitions ****************************************************************/
+
+#define MAX_REFRESH_INTERVAL (G_USEC_PER_SEC / 20)      /* 50 ms */
+#define MIN_REFRESH_FILE_SIZE (256 * 1024)      /* 256 KB */
 
 /*** file scope type declarations ****************************************************************/
 
@@ -148,6 +151,8 @@ static char *content_pattern = NULL;    /* pattern to search inside files; if
 static unsigned long matches;   /* Number of matches */
 static gboolean is_start = FALSE;       /* Status of the start/stop toggle button */
 static char *old_dir = NULL;
+
+static struct timeval last_refresh;
 
 /* Where did we stop */
 static gboolean resuming;
@@ -260,10 +265,7 @@ parse_ignore_dirs (const char *ignore_dirs)
         if (find_ignore_dirs[w][0] != '\0')
             w++;
         else
-        {
-            g_free (find_ignore_dirs[w]);
-            find_ignore_dirs[w] = NULL;
-        }
+            MC_PTR_FREE (find_ignore_dirs[w]);
     }
 
     if (find_ignore_dirs[0] == NULL)
@@ -310,10 +312,7 @@ find_load_options (void)
     options.ignore_dirs = mc_config_get_string (mc_main_config, "FindFile", "ignore_dirs", "");
 
     if (options.ignore_dirs[0] == '\0')
-    {
-        g_free (options.ignore_dirs);
-        options.ignore_dirs = NULL;
-    }
+        MC_PTR_FREE (options.ignore_dirs);
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -390,7 +389,7 @@ find_check_regexp (const char *r)
     mc_search_t *search;
     gboolean regexp_ok = FALSE;
 
-    search = mc_search_new (r, -1);
+    search = mc_search_new (r, -1, NULL);
 
     if (search != NULL)
     {
@@ -610,7 +609,7 @@ find_parameters (char **start_dir, ssize_t * start_dir_len,
 
     add_widget (find_dlg, label_new (y1++, x1, _("Start at:")));
     in_start =
-        input_new (y1, x1, input_get_default_colors (), cols - b0 - 7, in_start_dir, "start",
+        input_new (y1, x1, input_colors, cols - b0 - 7, in_start_dir, "start",
                    INPUT_COMPLETE_CD | INPUT_COMPLETE_FILENAMES);
     add_widget (find_dlg, in_start);
 
@@ -621,7 +620,7 @@ find_parameters (char **start_dir, ssize_t * start_dir_len,
     add_widget (find_dlg, ignore_dirs_cbox);
 
     in_ignore =
-        input_new (y1++, x1, input_get_default_colors (), cols - 6,
+        input_new (y1++, x1, input_colors, cols - 6,
                    options.ignore_dirs != NULL ? options.ignore_dirs : "", "ignoredirs",
                    INPUT_COMPLETE_CD | INPUT_COMPLETE_FILENAMES);
     widget_disable (WIDGET (in_ignore), !options.ignore_dirs_enable);
@@ -634,7 +633,7 @@ find_parameters (char **start_dir, ssize_t * start_dir_len,
     /* Start 1st column */
     add_widget (find_dlg, label_new (y1++, x1, file_name_label));
     in_name =
-        input_new (y1++, x1, input_get_default_colors (), cw, INPUT_LAST_TEXT, "name",
+        input_new (y1++, x1, input_colors, cw, INPUT_LAST_TEXT, "name",
                    INPUT_COMPLETE_FILENAMES | INPUT_COMPLETE_CD);
     add_widget (find_dlg, in_name);
 
@@ -642,7 +641,7 @@ find_parameters (char **start_dir, ssize_t * start_dir_len,
     content_label = label_new (y2++, x2, content_content_label);
     add_widget (find_dlg, content_label);
     in_with =
-        input_new (y2++, x2, input_get_default_colors (), cw, INPUT_LAST_TEXT,
+        input_new (y2++, x2, input_colors, cw, INPUT_LAST_TEXT,
                    MC_HISTORY_SHARED_SEARCH, INPUT_COMPLETE_NONE);
     in_with->label = content_label;
     widget_disable (WIDGET (in_with), disable);
@@ -929,62 +928,6 @@ find_add_match (const char *dir, const char *file)
 }
 
 /* --------------------------------------------------------------------------------------------- */
-/**
- * get_line_at:
- *
- * Returns malloced null-terminated line from file file_fd.
- * Input is buffered in buf_size long buffer.
- * Current pos in buf is stored in pos.
- * n_read - number of read chars.
- * has_newline - is there newline ?
- */
-
-static char *
-get_line_at (int file_fd, char *buf, int buf_size, int *pos, int *n_read, gboolean * has_newline)
-{
-    char *buffer = NULL;
-    int buffer_size = 0;
-    char ch = 0;
-    int i = 0;
-
-    while (TRUE)
-    {
-        if (*pos >= *n_read)
-        {
-            *pos = 0;
-            *n_read = mc_read (file_fd, buf, buf_size);
-            if (*n_read <= 0)
-                break;
-        }
-
-        ch = buf[(*pos)++];
-        if (ch == '\0')
-        {
-            /* skip possible leading zero(s) */
-            if (i == 0)
-                continue;
-            break;
-        }
-
-        if (i >= buffer_size - 1)
-            buffer = g_realloc (buffer, buffer_size += 80);
-
-        /* Strip newline */
-        if (ch == '\n')
-            break;
-
-        buffer[i++] = ch;
-    }
-
-    *has_newline = (ch != '\0');
-
-    if (buffer != NULL)
-        buffer[i] = '\0';
-
-    return buffer;
-}
-
-/* --------------------------------------------------------------------------------------------- */
 
 static FindProgressStatus
 check_find_events (WDialog * h)
@@ -1028,10 +971,14 @@ static gboolean
 search_content (WDialog * h, const char *directory, const char *filename)
 {
     struct stat s;
-    char buffer[BUF_4K];
+    char buffer[BUF_4K];        /* raw input buffer */
     int file_fd;
     gboolean ret_val = FALSE;
     vfs_path_t *vpath;
+    struct timeval tv;
+    time_t seconds;
+    suseconds_t useconds;
+    gboolean status_updated = FALSE;
 
     vpath = vfs_path_build_filename (directory, filename, (char *) NULL);
 
@@ -1047,10 +994,29 @@ search_content (WDialog * h, const char *directory, const char *filename)
     if (file_fd == -1)
         return FALSE;
 
-    g_snprintf (buffer, sizeof (buffer), _("Grepping in %s"), filename);
-    status_update (str_trunc (buffer, WIDGET (h)->cols - 8));
+    /* get time elapsed from last refresh */
+    if (gettimeofday (&tv, NULL) == -1)
+    {
+        tv.tv_sec = 0;
+        tv.tv_usec = 0;
+        last_refresh = tv;
+    }
+    seconds = tv.tv_sec - last_refresh.tv_sec;
+    useconds = tv.tv_usec - last_refresh.tv_usec;
+    if (useconds < 0)
+    {
+        seconds--;
+        useconds += G_USEC_PER_SEC;
+    }
 
-    mc_refresh ();
+    if (s.st_size >= MIN_REFRESH_FILE_SIZE || seconds > 0 || useconds > MAX_REFRESH_INTERVAL)
+    {
+        g_snprintf (buffer, sizeof (buffer), _("Grepping in %s"), filename);
+        status_update (str_trunc (buffer, WIDGET (h)->cols - 8));
+        mc_refresh ();
+        last_refresh = tv;
+        status_updated = TRUE;
+    }
 
     tty_enable_interrupt_key ();
     tty_got_interrupt ();
@@ -1059,11 +1025,11 @@ search_content (WDialog * h, const char *directory, const char *filename)
         int line = 1;
         int pos = 0;
         int n_read = 0;
-        gboolean has_newline;
-        char *p = NULL;
         gboolean found = FALSE;
         gsize found_len;
         char result[BUF_MEDIUM];
+        char *strbuf = NULL;    /* buffer for fetched string */
+        int strbuf_size = 0;
 
         if (resuming)
         {
@@ -1072,25 +1038,81 @@ search_content (WDialog * h, const char *directory, const char *filename)
             line = last_line;
             pos = last_pos;
         }
-        while (!ret_val
-               && (p = get_line_at (file_fd, buffer, sizeof (buffer),
-                                    &pos, &n_read, &has_newline)) != NULL)
+
+        while (!ret_val)
         {
-            if (!found          /* Search in binary line once */
-                && mc_search_run (search_content_handle,
-                                  (const void *) p, 0, strlen (p), &found_len))
+            char ch = '\0';
+            int i = 0;
+
+            /* read to buffer and get line from there */
+            while (TRUE)
             {
+                if (pos >= n_read)
+                {
+                    pos = 0;
+                    n_read = mc_read (file_fd, buffer, sizeof (buffer));
+                    if (n_read <= 0)
+                        break;
+                }
+
+                ch = buffer[pos++];
+                if (ch == '\0')
+                {
+                    /* skip possible leading zero(s) */
+                    if (i == 0)
+                        continue;
+                    break;
+                }
+
+                if (i >= strbuf_size - 1)
+                {
+                    strbuf_size += 128;
+                    strbuf = g_realloc (strbuf, strbuf_size);
+                }
+
+                /* Strip newline */
+                if (ch == '\n')
+                    break;
+
+                strbuf[i++] = ch;
+            }
+
+            if (i == 0)
+            {
+                if (ch == '\0')
+                    break;
+
+                /* if (ch == '\n'): do not search in empty strings */
+                goto skip_search;
+            }
+
+            strbuf[i] = '\0';
+
+            if (!found          /* Search in binary line once */
+                && mc_search_run (search_content_handle, (const void *) strbuf, 0, i, &found_len))
+            {
+                if (!status_updated)
+                {
+                    /* if we add results for a file, we have to ensure that
+                       name of this file is shown in status bar */
+                    g_snprintf (result, sizeof (result), _("Grepping in %s"), filename);
+                    status_update (str_trunc (result, WIDGET (h)->cols - 8));
+                    mc_refresh ();
+                    last_refresh = tv;
+                    status_updated = TRUE;
+                }
+
                 g_snprintf (result, sizeof (result), "%d:%s", line, filename);
                 find_add_match (directory, result);
                 found = TRUE;
             }
-            g_free (p);
 
             if (found && options.content_first_hit)
                 break;
 
-            if (has_newline)
+            if (ch == '\n')
             {
+              skip_search:
                 found = FALSE;
                 line++;
             }
@@ -1116,7 +1138,10 @@ search_content (WDialog * h, const char *directory, const char *filename)
                 }
             }
         }
+
+        g_free (strbuf);
     }
+
     tty_disable_interrupt_key ();
     mc_close (file_fd);
     return ret_val;
@@ -1187,19 +1212,18 @@ find_ignore_dir_search (const char *dir)
 static void
 find_rotate_dash (const WDialog * h, gboolean show)
 {
-    static const char rotating_dash[4] = "|/-\\";
     static size_t pos = 0;
+    static const char rotating_dash[4] = "|/-\\";
+    const Widget *w = WIDGET (h);
 
-    if (verbose)
-    {
-        const Widget *w = WIDGET (h);
+    if (!verbose)
+        return;
 
-        tty_setcolor (h->color[DLG_COLOR_NORMAL]);
-        widget_move (h, w->lines - 7, w->cols - 4);
-        tty_print_char (show ? rotating_dash[pos] : ' ');
-        pos = (pos + 1) % sizeof (rotating_dash);
-        mc_refresh ();
-    }
+    tty_setcolor (h->color[DLG_COLOR_NORMAL]);
+    widget_move (h, w->lines - 7, w->cols - 4);
+    tty_print_char (show ? rotating_dash[pos] : ' ');
+    pos = (pos + 1) % sizeof (rotating_dash);
+    mc_refresh ();
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -1211,7 +1235,6 @@ do_search (WDialog * h)
     static DIR *dirp = NULL;
     static char *directory = NULL;
     struct stat tmp_stat;
-    static int subdirs_left = 0;
     gsize bytes_found;
     unsigned short count;
 
@@ -1222,8 +1245,7 @@ do_search (WDialog * h)
             mc_closedir (dirp);
             dirp = NULL;
         }
-        g_free (directory);
-        directory = NULL;
+        MC_PTR_FREE (directory);
         dp = NULL;
         return 1;
     }
@@ -1289,13 +1311,6 @@ do_search (WDialog * h)
                     g_snprintf (buffer, sizeof (buffer), _("Searching %s"), directory);
                     status_update (str_trunc (directory, WIDGET (h)->cols - 8));
                 }
-                /* mc_stat should not be called after mc_opendir
-                   because vfs_s_opendir modifies the st_nlink
-                 */
-                if (mc_stat (tmp_vpath, &tmp_stat) == 0)
-                    subdirs_left = tmp_stat.st_nlink - 2;
-                else
-                    subdirs_left = 0;
 
                 dirp = mc_opendir (tmp_vpath);
                 vfs_path_free (tmp_vpath);
@@ -1319,7 +1334,7 @@ do_search (WDialog * h)
         {
             gboolean search_ok;
 
-            if ((subdirs_left != 0) && options.find_recurs && (directory != NULL))
+            if (options.find_recurs && (directory != NULL))
             {                   /* Can directory be NULL ? */
                 /* handle relative ignore dirs here */
                 if (options.ignore_dirs_enable && find_ignore_dir_search (dp->d_name))
@@ -1331,10 +1346,7 @@ do_search (WDialog * h)
                     tmp_vpath = vfs_path_build_filename (directory, dp->d_name, (char *) NULL);
 
                     if (mc_lstat (tmp_vpath, &tmp_stat) == 0 && S_ISDIR (tmp_stat.st_mode))
-                    {
                         push_directory (tmp_vpath);
-                        subdirs_left--;
-                    }
                     else
                         vfs_path_free (tmp_vpath);
                 }
@@ -1367,8 +1379,7 @@ do_search (WDialog * h)
 static void
 init_find_vars (void)
 {
-    g_free (old_dir);
-    old_dir = NULL;
+    MC_PTR_FREE (old_dir);
     matches = 0;
     ignore_count = 0;
 
@@ -1402,9 +1413,9 @@ find_do_view_edit (gboolean unparsed_view, gboolean edit, char *dir, char *file)
 
     fullname_vpath = vfs_path_build_filename (dir, filename, (char *) NULL);
     if (edit)
-        do_edit_at_line (fullname_vpath, use_internal_edit, line);
+        edit_file_at_line (fullname_vpath, use_internal_edit != 0, line);
     else
-        view_file_at_line (fullname_vpath, unparsed_view ? 1 : 0, use_internal_view, line);
+        view_file_at_line (fullname_vpath, unparsed_view, use_internal_view != 0, line);
     vfs_path_free (fullname_vpath);
     g_free (fullname);
 }
@@ -1625,19 +1636,23 @@ run_process (void)
 {
     int ret;
 
-    search_content_handle = mc_search_new (content_pattern, -1);
+    search_content_handle = mc_search_new (content_pattern, -1, NULL);
     if (search_content_handle)
     {
         search_content_handle->search_type =
             options.content_regexp ? MC_SEARCH_T_REGEX : MC_SEARCH_T_NORMAL;
         search_content_handle->is_case_sensitive = options.content_case_sens;
         search_content_handle->whole_words = options.content_whole_words;
+#ifdef HAVE_CHARSET
         search_content_handle->is_all_charsets = options.content_all_charsets;
+#endif
     }
-    search_file_handle = mc_search_new (find_pattern, -1);
+    search_file_handle = mc_search_new (find_pattern, -1, NULL);
     search_file_handle->search_type = options.file_pattern ? MC_SEARCH_T_GLOB : MC_SEARCH_T_REGEX;
     search_file_handle->is_case_sensitive = options.file_case_sens;
+#ifdef HAVE_CHARSET
     search_file_handle->is_all_charsets = options.file_all_charsets;
+#endif
     search_file_handle->is_entire_line = options.file_pattern;
 
     resuming = FALSE;
@@ -1698,18 +1713,17 @@ do_find (const char *start_dir, ssize_t start_dir_len, const char *ignore_dirs,
 
     if (return_value == B_PANELIZE && *filename)
     {
-        int status, link_to_dir, stale_link;
-        int next_free = 0;
+        int link_to_dir, stale_link;
         int i;
         struct stat st;
         GList *entry;
         dir_list *list = &current_panel->dir;
         char *name = NULL;
 
-        if (set_zero_dir (list))
-            next_free++;
+        dir_list_init (list);
 
-        for (i = 0, entry = find_list->list; entry != NULL; i++, entry = g_list_next (entry))
+        for (i = 0, entry = listbox_get_first_link (find_list); entry != NULL;
+             i++, entry = g_list_next (entry))
         {
             const char *lc_filename = NULL;
             WLEntry *le = LENTRY (entry->data);
@@ -1734,46 +1748,45 @@ do_find (const char *start_dir, ssize_t start_dir_len, const char *ignore_dirs,
                     p++;
             }
 
-            status = handle_path (list, p, &st, next_free, &link_to_dir, &stale_link);
-            if (status == 0)
+            if (!handle_path (p, &st, &link_to_dir, &stale_link))
             {
                 g_free (name);
                 continue;
             }
-            if (status == -1)
+            /* Need to grow the *list? */
+            if (list->len == list->size && !dir_list_grow (list, DIR_LIST_RESIZE_STEP))
             {
                 g_free (name);
                 break;
             }
 
             /* don't add files more than once to the panel */
-            if (content_pattern != NULL && next_free > 0
-                && strcmp (list->list[next_free - 1].fname, p) == 0)
+            if (content_pattern != NULL && list->len != 0
+                && strcmp (list->list[list->len - 1].fname, p) == 0)
             {
                 g_free (name);
                 continue;
             }
 
-            if (next_free == 0) /* first turn i.e clean old list */
+            if (list->len == 0) /* first turn i.e clean old list */
                 panel_clean_dir (current_panel);
-            list->list[next_free].fnamelen = strlen (p);
-            list->list[next_free].fname = g_strndup (p, list->list[next_free].fnamelen);
-            list->list[next_free].f.marked = 0;
-            list->list[next_free].f.link_to_dir = link_to_dir;
-            list->list[next_free].f.stale_link = stale_link;
-            list->list[next_free].f.dir_size_computed = 0;
-            list->list[next_free].st = st;
-            list->list[next_free].sort_key = NULL;
-            list->list[next_free].second_sort_key = NULL;
-            next_free++;
+            list->list[list->len].fnamelen = strlen (p);
+            list->list[list->len].fname = g_strndup (p, list->list[list->len].fnamelen);
+            list->list[list->len].f.marked = 0;
+            list->list[list->len].f.link_to_dir = link_to_dir;
+            list->list[list->len].f.stale_link = stale_link;
+            list->list[list->len].f.dir_size_computed = 0;
+            list->list[list->len].st = st;
+            list->list[list->len].sort_key = NULL;
+            list->list[list->len].second_sort_key = NULL;
+            list->len++;
             g_free (name);
-            if ((next_free & 15) == 0)
+            if ((list->len & 15) == 0)
                 rotate_dash (TRUE);
         }
 
-        if (next_free)
+        if (list->len != 0)
         {
-            current_panel->count = next_free;
             current_panel->is_panelized = TRUE;
 
             /* absolute path */
@@ -1792,8 +1805,7 @@ do_find (const char *start_dir, ssize_t start_dir_len, const char *ignore_dirs,
     g_free (content_pattern);
     kill_gui ();
     do_search (NULL);           /* force do_search to release resources */
-    g_free (old_dir);
-    old_dir = NULL;
+    MC_PTR_FREE (old_dir);
     rotate_dash (FALSE);
 
     return return_value;
@@ -1809,12 +1821,16 @@ find_file (void)
     char *start_dir = NULL, *pattern = NULL, *content = NULL, *ignore_dirs = NULL;
     ssize_t start_dir_len;
     char *filename = NULL, *dirname = NULL;
-    int v;
 
     while (find_parameters (&start_dir, &start_dir_len, &ignore_dirs, &pattern, &content))
     {
+        int v;
+
         if (pattern[0] == '\0')
             break;              /* nothing search */
+
+        last_refresh.tv_sec = 0;
+        last_refresh.tv_usec = 0;
 
         dirname = filename = NULL;
         is_start = FALSE;

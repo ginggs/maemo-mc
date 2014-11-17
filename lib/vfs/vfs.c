@@ -1,9 +1,8 @@
 /*
    Virtual File System switch code
 
-   Copyright (C) 1995, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005,
-   2007, 2011, 2013
-   The Free Software Foundation, Inc.
+   Copyright (C) 1995-2014
+   Free Software Foundation, Inc.
 
    Written by: 1995 Miguel de Icaza
    Jakub Jelinek, 1995
@@ -33,7 +32,7 @@
  * \author Jakub Jelinek
  * \author Pavel Machek
  * \date 1995, 1998
- * \warning funtions like extfs_lstat() have right to destroy any
+ * \warning functions like extfs_lstat() have right to destroy any
  * strings you pass to them. This is acutally ok as you g_strdup what
  * you are passing to them, anyway; still, beware.
  *
@@ -44,6 +43,7 @@
 #include <config.h>
 
 #include <errno.h>
+#include <stdlib.h>
 
 #include "lib/global.h"
 #include "lib/strutil.h"
@@ -113,7 +113,6 @@ _vfs_translate_path (const char *path, int size, GIConv defcnv, GString * buffer
     estr_t state = ESTR_SUCCESS;
 #ifdef HAVE_CHARSET
     const char *semi;
-    const char *slash;
 
     if (size == 0)
         return ESTR_SUCCESS;
@@ -125,6 +124,7 @@ _vfs_translate_path (const char *path, int size, GIConv defcnv, GString * buffer
     if (semi != NULL && (semi == path || *(semi - 1) == PATH_SEP))
     {
         char encoding[16];
+        const char *slash;
         GIConv coder = INVALID_CONV;
         int ms;
 
@@ -336,17 +336,13 @@ vfs_strip_suffix_from_filename (const char *filename)
 
 /* --------------------------------------------------------------------------------------------- */
 
-char *
+const char *
 vfs_translate_path (const char *path)
 {
     estr_t state;
 
     g_string_set_size (vfs_str_buffer, 0);
     state = _vfs_translate_path (path, -1, str_cnv_from_term, vfs_str_buffer);
-    /*
-       strict version
-       return (state == 0) ? vfs_str_buffer->data : NULL;
-     */
     return (state != ESTR_FAILURE) ? vfs_str_buffer->str : NULL;
 }
 
@@ -355,10 +351,10 @@ vfs_translate_path (const char *path)
 char *
 vfs_translate_path_n (const char *path)
 {
-    char *result;
+    const char *result;
 
     result = vfs_translate_path (path);
-    return (result != NULL) ? g_strdup (result) : NULL;
+    return g_strdup (result);
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -533,24 +529,37 @@ vfs_print_message (const char *msg, ...)
 void
 vfs_setup_cwd (void)
 {
+    char *current_dir;
+    vfs_path_t *tmp_vpath;
     const vfs_path_element_t *path_element;
 
     if (vfs_get_raw_current_dir () == NULL)
     {
-        char *tmp;
+        current_dir = g_get_current_dir ();
+        vfs_set_raw_current_dir (vfs_path_from_str (current_dir));
+        g_free (current_dir);
 
-        tmp = g_get_current_dir ();
-        vfs_set_raw_current_dir (vfs_path_from_str (tmp));
-        g_free (tmp);
+        current_dir = getenv ("PWD");
+        tmp_vpath = vfs_path_from_str (current_dir);
+
+        if (tmp_vpath != NULL)
+        {
+            struct stat my_stat, my_stat2;
+
+            if (mc_global.vfs.cd_symlinks
+                && mc_stat (tmp_vpath, &my_stat) == 0
+                && mc_stat (vfs_get_raw_current_dir (), &my_stat2) == 0
+                && my_stat.st_ino == my_stat2.st_ino && my_stat.st_dev == my_stat2.st_dev)
+                vfs_set_raw_current_dir (tmp_vpath);
+            else
+                vfs_path_free (tmp_vpath);
+        }
     }
 
     path_element = vfs_path_get_by_index (vfs_get_raw_current_dir (), -1);
 
     if ((path_element->class->flags & VFSF_LOCAL) != 0)
     {
-        char *current_dir;
-        vfs_path_t *tmp_vpath;
-
         current_dir = g_get_current_dir ();
         tmp_vpath = vfs_path_from_str (current_dir);
         g_free (current_dir);

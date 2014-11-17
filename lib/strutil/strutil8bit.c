@@ -1,8 +1,8 @@
 /*
    8bit strings utilities
 
-   Copyright (C) 2007, 2011, 2013
-   The Free Software Foundation, Inc.
+   Copyright (C) 2007-2014
+   Free Software Foundation, Inc.
 
    Written by:
    Rostislav Benes, 2007
@@ -198,7 +198,7 @@ str_8bit_length2 (const char *text, int size)
 }
 
 static gchar *
-str_8bit_conv_gerror_message (GError * error, const char *def_msg)
+str_8bit_conv_gerror_message (GError * mcerror, const char *def_msg)
 {
     GIConv conv;
     gchar *ret;
@@ -214,7 +214,7 @@ str_8bit_conv_gerror_message (GError * error, const char *def_msg)
 
         buf = g_string_new ("");
 
-        if (str_convert (conv, error->message, buf) != ESTR_FAILURE)
+        if (str_convert (conv, mcerror->message, buf) != ESTR_FAILURE)
             ret = g_string_free (buf, FALSE);
         else
         {
@@ -338,6 +338,8 @@ str_8bit_fit_to_term (const char *text, int width, align_crt_t just_mode)
     }
 
   finally:
+    if (actual >= result + sizeof (result))
+        actual = result + sizeof (result) - 1;
     actual[0] = '\0';
     return result;
 }
@@ -348,7 +350,6 @@ str_8bit_term_trim (const char *text, int width)
     static char result[BUF_MEDIUM];
     size_t remain;
     char *actual;
-    size_t pos = 0;
     size_t length;
 
     length = strlen (text);
@@ -357,9 +358,12 @@ str_8bit_term_trim (const char *text, int width)
 
     if (width > 0)
     {
+        size_t pos;
+
         if (width >= (int) length)
         {
-            for (; pos < length && remain > 1; pos++, actual++, remain--)
+
+            for (pos = 0; pos < length && remain > 1; pos++, actual++, remain--)
                 actual[0] = char_isprint (text[pos]) ? text[pos] : '.';
         }
         else if (width <= 3)
@@ -373,8 +377,7 @@ str_8bit_term_trim (const char *text, int width)
             actual += 3;
             remain -= 3;
 
-            pos += length - width + 3;
-            for (; pos < length && remain > 1; pos++, actual++, remain--)
+            for (pos = length - width + 3; pos < length && remain > 1; pos++, actual++, remain--)
                 actual[0] = char_isprint (text[pos]) ? text[pos] : '.';
         }
     }
@@ -408,7 +411,6 @@ str_8bit_term_substring (const char *text, int start, int width)
     static char result[BUF_MEDIUM];
     size_t remain;
     char *actual;
-    size_t pos = 0;
     size_t length;
 
     actual = result;
@@ -417,8 +419,10 @@ str_8bit_term_substring (const char *text, int start, int width)
 
     if (start < (int) length)
     {
-        pos += start;
-        for (; pos < length && width > 0 && remain > 1; pos++, width--, actual++, remain--)
+        size_t pos;
+
+        for (pos = start; pos < length && width > 0 && remain > 1;
+             pos++, width--, actual++, remain--)
             actual[0] = char_isprint (text[pos]) ? text[pos] : '.';
     }
 
@@ -518,7 +522,6 @@ str_8bit_search_first (const char *text, const char *search, int case_sen)
     char *fold_text;
     char *fold_search;
     const char *match;
-    size_t offset;
 
     fold_text = (case_sen) ? (char *) text : str_8bit_strdown (text);
     fold_search = (case_sen) ? (char *) search : str_8bit_strdown (search);
@@ -526,6 +529,8 @@ str_8bit_search_first (const char *text, const char *search, int case_sen)
     match = g_strstr_len (fold_text, -1, fold_search);
     if (match != NULL)
     {
+        size_t offset;
+
         offset = match - fold_text;
         match = text + offset;
     }
@@ -545,7 +550,6 @@ str_8bit_search_last (const char *text, const char *search, int case_sen)
     char *fold_text;
     char *fold_search;
     const char *match;
-    size_t offset;
 
     fold_text = (case_sen) ? (char *) text : str_8bit_strdown (text);
     fold_search = (case_sen) ? (char *) search : str_8bit_strdown (search);
@@ -553,6 +557,8 @@ str_8bit_search_last (const char *text, const char *search, int case_sen)
     match = g_strrstr_len (fold_text, -1, fold_search);
     if (match != NULL)
     {
+        size_t offset;
+
         offset = match - fold_text;
         match = text + offset;
     }

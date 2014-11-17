@@ -2,9 +2,8 @@
    Internal file viewer for the Midnight Commander
    Function for work with coordinate cache (ccache)
 
-   Copyright (C) 1994, 1995, 1996, 1998, 1999, 2000, 2001, 2002, 2003,
-   2004, 2005, 2006, 2007, 2009, 2011
-   the Free Software Foundation, Inc.
+   Copyright (C) 1994-2014
+   Free Software Foundation, Inc.
 
    Written by:
    Miguel de Icaza, 1994, 1995, 1998
@@ -50,7 +49,7 @@
 
 #include <config.h>
 
-#include <string.h>             /* for g_memmove() */
+#include <string.h>             /* memmove() */
 #ifdef MC_ENABLE_DEBUGGING_CODE
 #include <inttypes.h>           /* uintmax_t */
 #endif
@@ -93,8 +92,8 @@ mcview_ccache_add_entry (coord_cache_t * cache, size_t pos, const coord_cache_en
 
     /* insert new entry */
     if (pos != cache->size)
-        g_memmove (cache->cache[pos + 1], cache->cache[pos],
-                   (cache->size - pos) * sizeof (coord_cache_entry_t *));
+        memmove (cache->cache[pos + 1], cache->cache[pos],
+                 (cache->size - pos) * sizeof (coord_cache_entry_t *));
     cache->cache[pos] = g_memdup (entry, sizeof (coord_cache_entry_t));
     cache->size++;
 }

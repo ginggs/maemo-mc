@@ -2,8 +2,8 @@
    File highlight plugin.
    Reading and parse rules from ini-files
 
-   Copyright (C) 2009, 2011
-   The Free Software Foundation, Inc.
+   Copyright (C) 2009-2014
+   Free Software Foundation, Inc.
 
    Written by:
    Slava Zanko <slavazanko@gmail.com>, 2009.
@@ -115,7 +115,7 @@ mc_fhl_parse_get_regexp (mc_fhl_t * fhl, const gchar * group_name)
 
     mc_filter = g_new0 (mc_fhl_filter_t, 1);
     mc_filter->type = MC_FLHGH_T_FREGEXP;
-    mc_filter->search_condition = mc_search_new (regexp, -1);
+    mc_filter->search_condition = mc_search_new (regexp, -1, DEFAULT_CHARSET);
     mc_filter->search_condition->is_case_sensitive = TRUE;
     mc_filter->search_condition->search_type = MC_SEARCH_T_REGEX;
 
@@ -132,12 +132,9 @@ mc_fhl_parse_get_extensions (mc_fhl_t * fhl, const gchar * group_name)
 {
     mc_fhl_filter_t *mc_filter;
     gchar **exts, **exts_orig;
-    gsize exts_size;
     GString *buf;
 
-    exts_orig = exts =
-        mc_config_get_string_list (fhl->config, group_name, "extensions", &exts_size);
-
+    exts_orig = mc_config_get_string_list (fhl->config, group_name, "extensions", NULL);
     if (exts_orig == NULL || exts_orig[0] == NULL)
     {
         g_strfreev (exts_orig);
@@ -145,6 +142,7 @@ mc_fhl_parse_get_extensions (mc_fhl_t * fhl, const gchar * group_name)
     }
 
     buf = g_string_sized_new (64);
+
     for (exts = exts_orig; *exts != NULL; exts++)
     {
         char *esc_ext;
@@ -162,7 +160,7 @@ mc_fhl_parse_get_extensions (mc_fhl_t * fhl, const gchar * group_name)
 
     mc_filter = g_new0 (mc_fhl_filter_t, 1);
     mc_filter->type = MC_FLHGH_T_FREGEXP;
-    mc_filter->search_condition = mc_search_new (buf->str, buf->len);
+    mc_filter->search_condition = mc_search_new (buf->str, buf->len, DEFAULT_CHARSET);
     mc_filter->search_condition->is_case_sensitive =
         mc_config_get_bool (fhl->config, group_name, "extensions_case", TRUE);
     mc_filter->search_condition->search_type = MC_SEARCH_T_REGEX;
@@ -225,18 +223,16 @@ gboolean
 mc_fhl_parse_ini_file (mc_fhl_t * fhl)
 {
     gchar **group_names, **orig_group_names;
+    gboolean ok;
 
     mc_fhl_array_free (fhl);
     fhl->filters = g_ptr_array_new ();
 
-    orig_group_names = group_names = mc_config_get_groups (fhl->config, NULL);
+    orig_group_names = mc_config_get_groups (fhl->config, NULL);
+    ok = (*orig_group_names != NULL);
 
-    if (group_names == NULL)
-        return FALSE;
-
-    while (*group_names)
+    for (group_names = orig_group_names; *group_names != NULL; group_names++)
     {
-
         if (mc_config_has_param (fhl->config, *group_names, "type"))
         {
             /* parse filetype filter */
@@ -252,11 +248,11 @@ mc_fhl_parse_ini_file (mc_fhl_t * fhl)
             /* parse extensions filter */
             mc_fhl_parse_get_extensions (fhl, *group_names);
         }
-        group_names++;
     }
 
     g_strfreev (orig_group_names);
-    return TRUE;
+
+    return ok;
 }
 
 /* --------------------------------------------------------------------------------------------- */

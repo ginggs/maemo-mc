@@ -24,6 +24,10 @@
 
 #define MC_PTR_FREE(ptr) do { g_free (ptr); (ptr) = NULL; } while (0)
 
+#define mc_return_if_error(mcerror) do { if (mcerror != NULL && *mcerror != NULL) return; } while (0)
+#define mc_return_val_if_error(mcerror, mcvalue) do { if (mcerror != NULL && *mcerror != NULL) return mcvalue; } while (0)
+
+
 /*** enums ***************************************************************************************/
 
 /* Pathname canonicalization */
@@ -69,7 +73,7 @@ typedef struct
         unsigned int stale_link:1;      /* If this is a symlink and points to Charon's land */
         unsigned int dir_size_computed:1;       /* Size of directory was computed with dirsizes_cmd */
     } f;
-} file_entry;
+} file_entry_t;
 
 /*** global variables defined in .c file *********************************************************/
 
@@ -199,6 +203,9 @@ char *guess_message_value (void);
 
 char *mc_build_filename (const char *first_element, ...);
 char *mc_build_filenamev (const char *first_element, va_list args);
+
+void mc_propagate_error (GError ** dest, int code, const char *format, ...);
+void mc_replace_error (GError ** dest, int code, const char *format, ...);
 
 /*** inline functions **************************************************/
 

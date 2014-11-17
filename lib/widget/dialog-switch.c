@@ -3,8 +3,8 @@
 
    Original idea and code: Oleg "Olegarch" Konovalov <olegarch@linuxinside.com>
 
-   Copyright (c) 2009, 2010, 2011, 2013
-   The Free Software Foundation
+   Copyright (C) 2009-2014
+   Free Software Foundation, Inc.
 
    Written by:
    Daniel Borca <dborca@yahoo.com>, 2007

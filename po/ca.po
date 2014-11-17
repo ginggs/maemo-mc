@@ -5,14 +5,14 @@
 # Translators:
 # Daniel <danicases@gmail.com>, 2011
 # Daniel <danicases@gmail.com>, 2012
-# Libre El Chaval <el.libre@gmail.com>, 2011
+# el_libre como el chaval <el.libre@gmail.com>, 2011
 # Slava Zanko <slavazanko@gmail.com>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Midnight Commander\n"
 "Report-Msgid-Bugs-To: http://www.midnight-commander.org/\n"
-"POT-Creation-Date: 2013-08-02 22:06+0300\n"
-"PO-Revision-Date: 2013-07-05 08:44+0000\n"
+"POT-Creation-Date: 2014-09-04 16:51+0300\n"
+"PO-Revision-Date: 2014-09-04 10:10+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/projects/p/mc/language/"
 "ca/)\n"
@@ -22,6 +22,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+# "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 msgid "Warning: cannot load codepages list"
 msgstr ""
 
@@ -143,6 +144,9 @@ msgid ""
 "Default skin has been loaded"
 msgstr ""
 
+msgid "Escape"
+msgstr ""
+
 msgid "Function key 1"
 msgstr "Tecla de funció 1"
 
@@ -203,59 +207,56 @@ msgstr "Tecla de funció 19"
 msgid "Function key 20"
 msgstr "Tecla de funció 20"
 
-msgid "Backspace key"
-msgstr "Tecla de retrocés"
+msgid "Completion/M-tab"
+msgstr "Completa/M-tab"
+
+msgid "BackTab/S-tab"
+msgstr ""
+
+msgid "Backspace"
+msgstr ""
+
+msgid "Up arrow"
+msgstr ""
+
+msgid "Down arrow"
+msgstr ""
+
+msgid "Left arrow"
+msgstr ""
+
+msgid "Right arrow"
+msgstr ""
+
+msgid "Insert"
+msgstr ""
+
+msgid "Delete"
+msgstr ""
+
+msgid "Home"
+msgstr ""
 
 msgid "End key"
 msgstr "Posició final"
 
-msgid "Up arrow key"
-msgstr "Cursor amunt"
-
-msgid "Down arrow key"
-msgstr "Cursor avall"
-
-msgid "Left arrow key"
-msgstr "Cursor esquerra"
-
-msgid "Right arrow key"
-msgstr "Cursor dreta"
-
-msgid "Home key"
-msgstr "Posició inicial"
-
-msgid "Page Down key"
-msgstr "Avança pàgina"
-
-msgid "Page Up key"
-msgstr "Retrocedeix pàgina"
-
-msgid "Insert key"
-msgstr "Tecla d'inserció"
-
-msgid "Delete key"
-msgstr "Tecla de supressió"
-
-msgid "Completion/M-tab"
-msgstr "Completa/M-tab"
-
-msgid "Back Tabulation S-tab"
+msgid "Page Up"
 msgstr ""
 
-msgid "+ on keypad"
-msgstr "+ teclat numèric"
+msgid "Page Down"
+msgstr ""
 
-msgid "- on keypad"
-msgstr "- teclat numèric"
-
-msgid "Slash on keypad"
-msgstr "Barra teclat numèric"
+msgid "/ on keypad"
+msgstr ""
 
 msgid "* on keypad"
 msgstr "* teclat numèric"
 
-msgid "Escape key"
-msgstr "Tecla Escape"
+msgid "- on keypad"
+msgstr "- teclat numèric"
+
+msgid "+ on keypad"
+msgstr "+ teclat numèric"
 
 msgid "Left arrow keypad"
 msgstr "Cursor esquerra teclat numèric"
@@ -308,14 +309,14 @@ msgstr "Tecla A1"
 msgid "C1 key"
 msgstr "Tecla C1"
 
-msgid "Plus"
-msgstr "Més"
+msgid "Asterisk"
+msgstr "Asterisc"
 
 msgid "Minus"
 msgstr "Menys"
 
-msgid "Asterisk"
-msgstr "Asterisc"
+msgid "Plus"
+msgstr "Més"
 
 msgid "Dot"
 msgstr "Punt"
@@ -533,6 +534,13 @@ msgstr "Procés de fons:"
 msgid "Error"
 msgstr "S'ha produït un error"
 
+#, c-format
+msgid "%d: %s"
+msgstr ""
+
+msgid "&Abort"
+msgstr "a&Vorta"
+
 msgid "Displays the current version"
 msgstr "Mostra la versió actual"
 
@@ -626,7 +634,7 @@ msgid ""
 "   Editor:       editnormal, editbold, editmarked, editwhitespace,\n"
 "                 editlinestate, editbg, editframe, editframeactive\n"
 "                 editframedrag\n"
-"   Viewer:       viewbold, viewunderline, viewselected\n"
+"   Viewer:       viewnormal,viewbold, viewunderline, viewselected\n"
 "   Help:         helpnormal, helpitalic, helpbold, helplink, helpslink\n"
 msgstr ""
 
@@ -840,6 +848,62 @@ msgstr ""
 msgid "Two files are needed to compare"
 msgstr ""
 
+#, fuzzy
+msgid "Bookmarks"
+msgstr "Favorit &Següent"
+
+#, fuzzy
+msgid " - Sort: "
+msgstr "Ordena"
+
+msgid "ABC"
+msgstr ""
+
+msgid "FRQ"
+msgstr ""
+
+#, fuzzy
+msgid " - Filter: "
+msgstr "Filtre"
+
+msgid "FOUND"
+msgstr ""
+
+msgid "USER"
+msgstr ""
+
+#, fuzzy
+msgid "&Go to"
+msgstr "Vés a la &línia..."
+
+#, fuzzy
+msgid "&Add"
+msgstr "Afegeix un &nou"
+
+msgid "&Remove"
+msgstr "&Suprimeix"
+
+msgid "Fl&ush"
+msgstr ""
+
+#, fuzzy
+msgid "&Filter"
+msgstr "Filtre"
+
+#, fuzzy
+msgid "&Sort"
+msgstr "Ordena"
+
+#, fuzzy
+msgid "Re&verse"
+msgstr "in&Verteix"
+
+msgid "Bookmark list"
+msgstr ""
+
+msgid "Bookmark detail"
+msgstr ""
+
 msgid "Choose syntax highlighting"
 msgstr ""
 
@@ -850,7 +914,17 @@ msgid "< Reload Current Syntax >"
 msgstr ""
 
 #, c-format
+msgid "Loading: %3d%%"
+msgstr ""
+
+msgid "Loading..."
+msgstr ""
+
+#, c-format
 msgid "Cannot open %s for reading"
+msgstr ""
+
+msgid "Load file"
 msgstr ""
 
 #, c-format
@@ -879,6 +953,14 @@ msgstr ""
 msgid "Cannot open pipe for reading: %s"
 msgstr ""
 
+#, c-format
+msgid "Searching %s: %3d%%"
+msgstr ""
+
+#, c-format
+msgid "Searching %s"
+msgstr "S'està cercant a %s"
+
 msgid "File has hard-links. Detach before saving?"
 msgstr ""
 
@@ -897,7 +979,7 @@ msgstr ""
 msgid "Cannot open file for writing: %s"
 msgstr ""
 
-msgid "The file you are saving is not finished with a newline"
+msgid "The file you are saving does not end with a newline."
 msgstr ""
 
 msgid "C&ontinue"
@@ -925,6 +1007,9 @@ msgid "Save As"
 msgstr "Anomena i desa"
 
 msgid "Block is large, you may not be able to undo this action"
+msgstr ""
+
+msgid "Collect completions"
 msgstr ""
 
 msgid "&Quick save"
@@ -1446,7 +1531,7 @@ msgid ""
 "written for the Midnight Commander."
 msgstr ""
 
-msgid "Copyright (C) 1996-2013 the Free Software Foundation"
+msgid "Copyright (C) 1996-2014 the Free Software Foundation"
 msgstr ""
 
 msgid "About"
@@ -1474,6 +1559,78 @@ msgid "ButtonBar|Delete"
 msgstr ""
 
 msgid "ButtonBar|PullDn"
+msgstr ""
+
+msgid "Breton"
+msgstr ""
+
+msgid "Czech"
+msgstr ""
+
+msgid "Welsh"
+msgstr ""
+
+msgid "Danish"
+msgstr ""
+
+msgid "German"
+msgstr ""
+
+msgid "Greek"
+msgstr ""
+
+msgid "English"
+msgstr ""
+
+msgid "British English"
+msgstr ""
+
+msgid "Canadian English"
+msgstr ""
+
+msgid "American English"
+msgstr ""
+
+msgid "Esperanto"
+msgstr ""
+
+msgid "Spanish"
+msgstr ""
+
+msgid "Faroese"
+msgstr ""
+
+msgid "French"
+msgstr ""
+
+msgid "Italian"
+msgstr ""
+
+msgid "Dutch"
+msgstr ""
+
+msgid "Norwegian"
+msgstr ""
+
+msgid "Polish"
+msgstr ""
+
+msgid "Portuguese"
+msgstr ""
+
+msgid "Romanian"
+msgstr ""
+
+msgid "Russian"
+msgstr ""
+
+msgid "Slovak"
+msgstr ""
+
+msgid "Swedish"
+msgstr ""
+
+msgid "Ukrainian"
 msgstr ""
 
 msgid "&Add word"
@@ -1647,6 +1804,18 @@ msgstr ""
 msgid "Configure options"
 msgstr "Opcions de configuració"
 
+msgid "< Default >"
+msgstr ""
+
+msgid "Skins"
+msgstr ""
+
+msgid "Skin:"
+msgstr ""
+
+msgid "Appearance"
+msgstr ""
+
 msgid "Case &insensitive"
 msgstr ""
 
@@ -1789,9 +1958,6 @@ msgstr ""
 
 msgid "Input / display codepage:"
 msgstr "Pàgina de codis d'entrada / visualització:"
-
-msgid "&Select"
-msgstr "&Seleccioneu"
 
 msgid "Directory tree"
 msgstr "Arbre de directoris"
@@ -1971,15 +2137,6 @@ msgstr "Filtre"
 msgid "Set expression for filtering filenames"
 msgstr ""
 
-msgid "&Files only"
-msgstr "Només &fitxers"
-
-msgid "&Using shell patterns"
-msgstr "amb patrons d'&Intèrpret"
-
-msgid "&Case sensitive"
-msgstr "Diferencia majús&cules"
-
 #, c-format
 msgid "Link %s to:"
 msgstr "Enllaça %s a:"
@@ -2019,12 +2176,6 @@ msgstr "Crea un directori nou"
 
 msgid "Enter directory name:"
 msgstr ""
-
-msgid "Select"
-msgstr "Selecciona"
-
-msgid "Unselect"
-msgstr "No seleccionis"
 
 msgid "Extension file edit"
 msgstr "Edita el fitxer d'extensions"
@@ -2105,6 +2256,9 @@ msgid ""
 "files on: (F1 for details)"
 msgstr ""
 
+msgid "Directory scanning"
+msgstr ""
+
 msgid "Setup"
 msgstr "Configuració"
 
@@ -2177,8 +2331,8 @@ msgid "FileOperation|Delete"
 msgstr ""
 
 #, no-c-format
-msgid "%o %f \"%s\"%m"
-msgstr "%o %f \"%s\"%m"
+msgid "%o %f%n\"%s\"%m"
+msgstr ""
 
 #, no-c-format
 msgid "%o %d %f%m"
@@ -2203,13 +2357,6 @@ msgstr "fitxers/directoris"
 msgid " with source mask:"
 msgstr " amb màscara font:"
 
-msgid "to:"
-msgstr "cap a:"
-
-#, c-format
-msgid "%s?"
-msgstr ""
-
 msgid "Cannot make the hardlink"
 msgstr ""
 
@@ -2230,9 +2377,6 @@ msgid ""
 "Cannot create target symlink \"%s\"\n"
 "%s"
 msgstr ""
-
-msgid "&Abort"
-msgstr "a&Vorta"
 
 msgid "Ski&p all"
 msgstr ""
@@ -2454,13 +2598,8 @@ msgid ""
 "%s"
 msgstr ""
 
-msgid "Directory scanning"
-msgstr ""
-
 #, c-format
-msgid ""
-"%s\n"
-"Directories: %zd, total size: %s"
+msgid "Directories: %zd, total size: %s"
 msgstr ""
 
 msgid "Cannot operate on \"..\"!"
@@ -2568,6 +2707,15 @@ msgstr "Font/Origen"
 msgid "Target"
 msgstr "Objectiu/Destí"
 
+msgid "Deleting"
+msgstr ""
+
+msgid "&Using shell patterns"
+msgstr "amb patrons d'&Intèrpret"
+
+msgid "to:"
+msgstr "cap a:"
+
 msgid "Follow &links"
 msgstr "Segueix els enl&laços"
 
@@ -2658,10 +2806,6 @@ msgid_plural "Finished (ignored %zd directories)"
 msgstr[0] ""
 msgstr[1] ""
 
-#, c-format
-msgid "Searching %s"
-msgstr "S'està cercant a %s"
-
 msgid "Searching"
 msgstr "Cercant"
 
@@ -2688,9 +2832,6 @@ msgstr "Entrada &nova"
 
 msgid "&Insert"
 msgstr "&Insereix"
-
-msgid "&Remove"
-msgstr "&Suprimeix"
 
 msgid "Subgroup - press ENTER to see list"
 msgstr "Subgrup - premeu RETORN per veure la llista"
@@ -3038,6 +3179,9 @@ msgstr ""
 msgid "C&onfirmation..."
 msgstr ""
 
+msgid "&Appearance..."
+msgstr ""
+
 msgid "&Display bits..."
 msgstr "&Bits de visualització..."
 
@@ -3211,6 +3355,18 @@ msgstr ""
 
 msgid "Unknown tag on display format:"
 msgstr ""
+
+msgid "&Files only"
+msgstr "Només &fitxers"
+
+msgid "&Case sensitive"
+msgstr "Diferencia majús&cules"
+
+msgid "Select"
+msgstr "Selecciona"
+
+msgid "Unselect"
+msgstr "No seleccionis"
 
 msgid "Do you really want to execute?"
 msgstr ""
@@ -3818,9 +3974,6 @@ msgstr ""
 msgid "sftp: Invalid host name."
 msgstr ""
 
-msgid "sftp: Invalid port value."
-msgstr ""
-
 #, c-format
 msgid "sftp: %s"
 msgstr ""
@@ -4004,7 +4157,7 @@ msgstr ""
 msgid "Empty output from child filter"
 msgstr ""
 
-msgid "&Line number (decimal)"
+msgid "&Line number"
 msgstr ""
 
 msgid "Pe&rcents"
@@ -4084,9 +4237,6 @@ msgid ""
 "%s"
 msgstr ""
 
-msgid "Seeking to search result"
-msgstr ""
-
 msgid "Search done"
 msgstr ""
 
@@ -4095,6 +4245,3 @@ msgstr ""
 
 msgid "Cannot fetch a local copy of /ftp://some.host/editme.txt"
 msgstr ""
-
-#~ msgid "Deleting"
-#~ msgstr "Suprimint"

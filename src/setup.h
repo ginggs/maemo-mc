@@ -10,6 +10,7 @@
 #include "lib/global.h"         /* GError */
 
 #include "filemanager/layout.h" /* panel_view_mode_t */
+#include "filemanager/panel.h"  /* WPanel */
 
 /*** typedefs(not structures) and defined constants **********************************************/
 
@@ -52,9 +53,8 @@ typedef struct
     gboolean permission_mode;   /* If TRUE, we use permission hilighting */
     qsearch_mode_t qsearch_mode;        /* Quick search mode */
     gboolean torben_fj_mode;    /* If TRUE, use some usability hacks by Torben */
+    panel_select_flags_t select_flags;  /* Select/unselect file flags */
 } panels_options_t;
-
-struct WPanel;
 
 typedef struct macro_action_t
 {
@@ -85,7 +85,6 @@ extern int clear_before_exec;
 extern int auto_menu;
 extern int drop_menus;
 extern int verbose;
-extern int select_flags;
 extern int setup_copymove_persistent_attr;
 extern int classic_progressbar;
 extern int easy_patterns;
@@ -142,7 +141,7 @@ void load_setup (void);
 gboolean save_setup (gboolean save_options, gboolean save_panel_options);
 void done_setup (void);
 void save_config (void);
-void setup_save_config_show_error (const char *filename, GError ** error);
+void setup_save_config_show_error (const char *filename, GError ** mcerror);
 
 void save_layout (void);
 
@@ -154,8 +153,8 @@ char *load_anon_passwd (void);
 void load_keymap_defs (gboolean load_from_file);
 void free_keymap_defs (void);
 
-void panel_load_setup (struct WPanel *panel, const char *section);
-void panel_save_setup (struct WPanel *panel, const char *section);
+void panel_load_setup (WPanel * panel, const char *section);
+void panel_save_setup (WPanel * panel, const char *section);
 
 void panels_load_options (void);
 void panels_save_options (void);

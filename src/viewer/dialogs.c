@@ -2,9 +2,8 @@
    Internal file viewer for the Midnight Commander
    Function for paint dialogs
 
-   Copyright (C) 1994, 1995, 1996, 1998, 1999, 2000, 2001, 2002, 2003,
-   2004, 2005, 2006, 2007, 2009, 2011
-   The Free Software Foundation, Inc.
+   Copyright (C) 1994-2014
+   Free Software Foundation, Inc.
 
    Written by:
    Miguel de Icaza, 1994, 1995, 1998
@@ -142,12 +141,18 @@ mcview_dialog_search (mcview_t * view)
     mcview_nroff_seq_free (&view->search_nroff_seq);
     mc_search_free (view->search);
 
-    view->search = mc_search_new (view->last_search_string, -1);
+#ifdef HAVE_CHARSET
+    view->search = mc_search_new (view->last_search_string, -1, cp_source);
+#else
+    view->search = mc_search_new (view->last_search_string, -1, NULL);
+#endif
     view->search_nroff_seq = mcview_nroff_seq_new (view);
     if (view->search != NULL)
     {
         view->search->search_type = mcview_search_options.type;
+#ifdef HAVE_CHARSET
         view->search->is_all_charsets = mcview_search_options.all_codepages;
+#endif
         view->search->is_case_sensitive = mcview_search_options.case_sens;
         view->search->whole_words = mcview_search_options.whole_words;
         view->search->search_fn = mcview_search_cmd_callback;
@@ -171,7 +176,7 @@ mcview_dialog_goto (mcview_t * view, off_t * offset)
     } mcview_goto_type_t;
 
     const char *mc_view_goto_str[] = {
-        N_("&Line number (decimal)"),
+        N_("&Line number"),
         N_("Pe&rcents"),
         N_("&Decimal offset"),
         N_("He&xadecimal offset")
@@ -233,6 +238,9 @@ mcview_dialog_goto (mcview_t * view, off_t * offset)
             switch (current_goto_type)
             {
             case MC_VIEW_GOTO_LINENUM:
+                /* Line number entered by user is 1-based. */
+                if (addr > 0)
+                    addr--;
                 mcview_coord_to_offset (view, offset, addr, 0);
                 *offset = mcview_bol (view, *offset, 0);
                 break;
