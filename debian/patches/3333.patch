@@ -1,0 +1,21 @@
+Description: Fix FTBFS with old glib (<2.22.0)
+ This patch fixes an error in g_error_new_valist() in lib/glibcompat.c.
+ Tested by by running 'mcdiff' with no arguments, which causes
+ mc_propagate_error() to be called from src/args.c, which in turn calls
+ g_error_new_valist() from lib/util.c.
+Bug: https://www.midnight-commander.org/ticket/3333
+Author: Graham Inggs <graham@nerve.org.za>
+Last-Update: 2014-11-16
+--- a/lib/glibcompat.c
++++ b/lib/glibcompat.c
+@@ -153,9 +153,7 @@
+     char *message;
+     GError *ret_value;
+ 
+-    va_start (ap, format);
+-    message = g_strdup_vprintf (format, ap);
+-    va_end (ap);
++    message = g_strdup_vprintf (format, args);
+ 
+     ret_value = g_error_new_literal (domain, code, message);
+     g_free (message);
