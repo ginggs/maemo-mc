@@ -1,0 +1,20 @@
+Last-Update: 2014-12-13
+Forwarded: http://www.midnight-commander.org/ticket/3379
+Bug-MC: https://www.midnight-commander.org/ticket/3379
+Bug-Debian: http://bugs.debian.org/772306
+Author: Dmitry Smirnov <onlyjob@member.fsf.org>
+Description: fix bashism.
+
+--- a/src/vfs/extfs/helpers/gitfs+
++++ b/src/vfs/extfs/helpers/gitfs+
+@@ -22,9 +22,9 @@
+ }
+ 
+ gitfs_copyout()
+ {
+-    echo -e "$2" > "$4"
++    printf "$2\n" > "$4"
+     b=`echo "$prefix"| wc -c`
+     b=`expr "$b" + 1`
+     # remove prefix from file name
+     echo "`dirname "$3"`/`basename "$3" | tail -c+"$b"`" >> "$4"

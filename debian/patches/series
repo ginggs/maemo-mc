@@ -1,1 +1,24 @@
+## BACKPORTED:
+2966.patch
+3297.patch
+
+## FORWARDED:
+2987.patch
+3379.patch
+
+## DEBIAN FIXES AND ENHANCEMENTS:
+dummy-zip-password.patch
+uzip_528239.patch
+alt_editor.patch
+use_sensible-editor.patch
+pot.patch
+
+## OVERRIDE DEFAULTS:
+disable_internal_editor.patch
+mcedit_auto_indent.patch
+mcedit_group_undo.patch
+ext_run-mailcap.patch
+ext_use_default_editor.patch
+
+## MAEMO FIXES AND ENHANCEMENTS:
 3333.patch

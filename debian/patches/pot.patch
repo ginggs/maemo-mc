@@ -1,0 +1,18 @@
+Last-Update: 2014-12-13
+Forwarded: not-needed
+Author: Dmitry Smirnov <onlyjob@member.fsf.org>
+Description: remove invalid reference to fix re-build of translations
+
+--- a/po/POTFILES.in
++++ b/po/POTFILES.in
+@@ -24,9 +24,9 @@
+ src/background.c
+ src/diffviewer/internal.h
+ src/diffviewer/search.c
+ src/diffviewer/ydiff.c
+-src/editor/bookmark_list.c
++#src/editor/bookmark_list.c
+ src/editor/choosesyntax.c
+ src/editor/edit.c
+ src/editor/editcmd.c
+ src/editor/editcmd_dialogs.c
