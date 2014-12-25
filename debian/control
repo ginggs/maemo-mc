@@ -8,8 +8,27 @@ Standards-Version: 3.7.3
 
 Package: mc
 Architecture: any
-Depends: file, ${misc:Depends}, ${shlibs:Depends}
-Suggests: arj, bash, bzip2, links | w3m | lynx, mime-support, perl, unzip, zip
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Recommends: mime-support, perl, unzip
+Suggests: arj
+         ,bash
+         ,bzip2
+         ,catdvi | texlive-binaries
+         ,dbview
+         ,djvulibre-bin
+         ,file
+         ,genisoimage
+         ,gv
+         ,imagemagick
+         ,links | w3m | lynx
+         ,odt2txt
+         ,poppler-utils
+         ,python
+         ,python-boto
+         ,python-tz
+         ,xpdf | pdf-viewer
+         ,zip
+Provides: mcedit
 Conflicts: mc-common, suidmanager (<< 0.52)
 Replaces: manpages-pl (<= 20030210), mc-common
 Description: midnight commander - a powerful file manager
