@@ -1,7 +1,3 @@
-/opt/mc/bin/mc /usr/bin/mc
-/opt/mc/bin/mcdiff /usr/bin/mcdiff
-/opt/mc/bin/mcview /usr/bin/mcview
-/opt/mc/bin/mcedit /usr/bin/mcedit
 /opt/mc/etc/mc /etc/mc
 /opt/mc/libexec/mc/mc.sh /etc/profile.d/mc.sh
 /opt/mc/libexec/mc/mc.csh /etc/profile.d/mc.csh

@@ -1,2 +1,6 @@
 debian/mc.desktop usr/share/applications/hildon
 debian/mc.png usr/share/icons/hicolor/64x64/apps
+debian/wrappers/mc usr/bin
+debian/wrappers/mcdiff usr/bin
+debian/wrappers/mcedit usr/bin
+debian/wrappers/mcview usr/bin

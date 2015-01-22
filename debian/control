@@ -15,6 +15,7 @@ Suggests: arj
          ,bzip2
          ,catdvi | texlive-binaries
          ,dbview
+         ,diffutils-gnu
          ,djvulibre-bin
          ,file
          ,genisoimage
