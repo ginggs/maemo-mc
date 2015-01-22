@@ -7,7 +7,7 @@ DEB_CONFIGURE_USER_FLAGS = \
 	--prefix=/opt/mc \
 	--sysconfdir=/opt/mc/etc \
 	--libexecdir=/opt/mc/libexec \
-	--enable-silent-rules \
+	--disable-silent-rules \
 	--disable-dependency-tracking \
 	--disable-doxygen-doc \
 	--with-x --without-gpm-mouse \
