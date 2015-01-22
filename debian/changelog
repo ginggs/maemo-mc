@@ -1,8 +1,16 @@
-mc (1:4.8.13-0maemo1) UNRELEASED; urgency=medium
+mc (1:4.8.13-0maemo1) fremantle; urgency=medium
 
   * New upstream release.
+  * Drop patches included upstream.
+  * Fix FTBFS with glib <2.22.0 (upstream ticket #3333).
+  * Merge changes from mc 3:4.8.13-3 in Debian:
+    - d/patches/*
+    - d/control: Depends, Recommends, Suggests and Provides
+  * Update d/control: enable verbose build output.
+  * Use wrappers to add /usr/bin/gnu to PATH in order to use
+    diff from diffutils-gnu package - Thanks joerg_rw.
 
- -- Graham Inggs <graham@nerve.org.za>  Mon, 17 Nov 2014 08:19:46 +0200
+ -- Graham Inggs <graham@nerve.org.za>  Thu, 22 Jan 2015 22:21:02 +0200
 
 mc (1:4.8.10-0maemo5) fremantle; urgency=low
 
