@@ -7,8 +7,7 @@ Description: fix bashism.
 
 --- a/src/vfs/extfs/helpers/gitfs+
 +++ b/src/vfs/extfs/helpers/gitfs+
-@@ -22,9 +22,9 @@
- }
+@@ -23,7 +23,7 @@
  
  gitfs_copyout()
  {
@@ -17,4 +16,3 @@ Description: fix bashism.
      b=`echo "$prefix"| wc -c`
      b=`expr "$b" + 1`
      # remove prefix from file name
-     echo "`dirname "$3"`/`basename "$3" | tail -c+"$b"`" >> "$4"

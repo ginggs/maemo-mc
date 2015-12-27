@@ -8,8 +8,7 @@ Description: Use sensible-editor to edit files
 
 --- a/lib/global.h
 +++ b/lib/global.h
-@@ -130,9 +130,9 @@
- #define PATH_SEP_STR "/"
+@@ -132,7 +132,7 @@
  #define PATH_ENV_SEP ':'
  #define TMPDIR_DEFAULT "/tmp"
  #define SCRIPT_SUFFIX ""
@@ -18,4 +17,3 @@ Description: Use sensible-editor to edit files
  #define OS_SORT_CASE_SENSITIVE_DEFAULT 1
  #define UTF8_CHAR_LEN 6
  
- /* Used to distinguish between a normal MC termination and */

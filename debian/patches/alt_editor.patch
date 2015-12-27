@@ -14,8 +14,7 @@ Description: Detect that mc was launched from alternatives symlink
 
 --- a/src/args.c
 +++ b/src/args.c
-@@ -729,9 +729,9 @@
- 
+@@ -727,7 +727,7 @@
      base = x_basename (argv[0]);
      tmp = (argc > 0) ? argv[1] : NULL;
  
@@ -24,4 +23,3 @@ Description: Detect that mc was launched from alternatives symlink
      {
          /* mce* or vi is link to mc */
  
-         mc_run_param0 = parse_mcedit_arguments (argc - 1, &argv[1]);

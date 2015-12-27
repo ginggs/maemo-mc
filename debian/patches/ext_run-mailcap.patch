@@ -10,8 +10,7 @@ Description: Use mailcap viewer instead of various hardcoded viewers
 
 --- a/misc/ext.d/doc.sh.in
 +++ b/misc/ext.d/doc.sh.in
-@@ -161,9 +161,9 @@
-         fmclient -f "${MC_EXT_FILENAME}"
+@@ -162,7 +162,7 @@
          ;;
      dvi)
          if [ -n "$DISPLAY" ]; then
@@ -20,11 +19,9 @@ Description: Use mailcap viewer instead of various hardcoded viewers
          else
              dvisvga "${MC_EXT_FILENAME}" || \
                  dvi2tty "${MC_EXT_FILENAME}" | ${PAGER:-more}
-         fi
 --- a/misc/ext.d/image.sh
 +++ b/misc/ext.d/image.sh
-@@ -41,10 +41,8 @@
-         (inkscape "${MC_EXT_FILENAME}" &)
+@@ -42,8 +42,6 @@
          ;;
      *)
          if [ -n "$DISPLAY" ]; then
@@ -33,11 +30,9 @@ Description: Use mailcap viewer instead of various hardcoded viewers
              (see "${MC_EXT_FILENAME}" &)
          else
              (zgv "${MC_EXT_FILENAME}" &)
-         fi
 --- a/misc/ext.d/video.sh
 +++ b/misc/ext.d/video.sh
-@@ -22,10 +22,10 @@
- do_open_action() {
+@@ -23,8 +23,8 @@
      filetype=$1
  
      case "${filetype}" in
@@ -48,4 +43,3 @@ Description: Use mailcap viewer instead of various hardcoded viewers
          ;;
      *)
          if [ -n "$DISPLAY" ]; then
-             (mplayer "${MC_EXT_FILENAME}" >/dev/null 2>&1 &)

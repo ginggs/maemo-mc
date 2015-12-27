@@ -5,8 +5,7 @@ Description: Use default editor instead of vi
 
 --- a/misc/mc.ext.in
 +++ b/misc/mc.ext.in
-@@ -294,9 +294,9 @@
- regex/i/\.(s|asm)$
+@@ -295,7 +295,7 @@
  	Include=editor
  
  include/editor
@@ -15,4 +14,3 @@ Description: Use default editor instead of vi
  
  # .so libraries
  regex/\.(so|so\.[0-9\.]*)$
- 	View=%view{ascii} @EXTHELPERSDIR@/misc.sh view so
