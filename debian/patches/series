@@ -16,3 +16,4 @@ ext_run-mailcap.patch
 ext_use_default_editor.patch
 
 ## MAEMO FIXES AND ENHANCEMENTS:
+2244.patch

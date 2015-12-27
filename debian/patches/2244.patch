@@ -1,0 +1,55 @@
+Description: Fix infinite loop when stdin fd got deleted
+ Under slang, mc check getch() for error condition but not under ncurses yet.
+Bug: https://www.midnight-commander.org/ticket/2244
+Author: Andreas Mohr <and@gmx.li>
+Last-Update: 2015-12-25
+--- a/lib/tty/tty-ncurses.c
++++ b/lib/tty/tty-ncurses.c
+@@ -31,6 +31,7 @@
+ 
+ #include <config.h>
+ 
++#include <errno.h>
+ #include <stdlib.h>
+ #include <stdarg.h>
+ #include <signal.h>
+@@ -83,6 +84,9 @@
+ /* We use our own cursor coordibates to support partially visible widgets */
+ static int mc_curs_row, mc_curs_col;
+ 
++/* Controls error condition in tty_lowlevel_getch */
++static gboolean no_ncurses_delay;
++
+ /*** file scope functions ************************************************************************/
+ /* --------------------------------------------------------------------------------------------- */
+ 
+@@ -326,6 +330,7 @@
+ void
+ tty_nodelay (gboolean set)
+ {
++    no_ncurses_delay = set;
+     nodelay (stdscr, (bool) set);
+ }
+ 
+@@ -342,7 +347,20 @@
+ int
+ tty_lowlevel_getch (void)
+ {
+-    return getch ();
++    int c;
++    while ((c = getch()) == ERR)
++    {
++        /* in no-delay mode getch() returns ERR if no input waiting */
++        if (no_ncurses_delay && errno == 0)
++            return -1;
++        if (errno == EINTR)
++            continue;
++        fprintf (stderr,
++                 "ncurses getch() returned ERR\n"
++                 "Assuming EOF on stdin and exiting\n");
++       exit (EXIT_FAILURE);
++    }
++    return c;
+ }
+ 
+ /* --------------------------------------------------------------------------------------------- */

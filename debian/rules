@@ -13,7 +13,7 @@ DEB_CONFIGURE_USER_FLAGS = \
 	--with-x --without-gpm-mouse \
 	--with-search-engine=glib \
 	--with-subshell \
-	--with-screen=slang
+	--with-screen=ncurses
 
 install/mc::
 	rm -rf debian/mc/opt/mc/share/man

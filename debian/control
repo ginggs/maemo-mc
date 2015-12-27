@@ -3,7 +3,7 @@ Section: user/utilities
 Priority: optional
 Maintainer: Graham Inggs <graham@nerve.org.za>
 XSBC-Original-Maintainer: Andrew Zabolotny <zap@homelink.ru>
-Build-Depends: debhelper (>= 5), gettext, libglib2.0-dev, libslang2-dev
+Build-Depends: debhelper (>= 5), gettext, libglib2.0-dev, libncurses5-dev, libncursesw5-dev
 Standards-Version: 3.7.3
 
 Package: mc
